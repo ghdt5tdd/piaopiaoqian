@@ -1,0 +1,8 @@
+<!--pages/notice/notice.wxml-->
+<view class='notice-block'>
+  <view class='notice-bar' wx:for="{{noticeBar}}" bindtap='{{item.to}}'>
+    <image class='notice-bar-img' src='{{item.img}}'></image>
+    <view class='notice-bar-name' >{{item.name}}</view>
+    <image class='notice-bar-next' src='../../images/next.png'></image>
+  </view>
+</view>

@@ -1,0 +1,319 @@
+/**app.wxss**/
+
+page {
+  background: #f3f4f5;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+
+.fixed-bottom {
+  position: fixed;
+  line-height: 80rpx;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+  font-size: 30rpx;
+  background: #ff5102;
+  color: #fff;
+}
+
+.button-bottom {
+  line-height: 80rpx;
+  height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  background: #fd8436;
+  color: #fff;
+  margin: 40rpx 20rpx;
+  border-radius: 10rpx;
+}
+
+.popup-shadow {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.popup-bottom {
+  line-height: 80rpx;
+  height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  background: #bbb;
+  color: #fff;
+}
+
+.popup-bottom-opt {
+  float: left;
+  width: 50%;
+}
+
+.gray {
+  color: #999;
+}
+
+.orange {
+  color: #fd8436;
+}
+
+.bg-orange {
+  color: #fff;
+  background: #fd8436;
+}
+
+.clearfix:after {
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0;
+}
+
+.mt-10 {
+  margin-top: 20rpx;
+}
+
+input {
+  min-height: 0;
+}
+
+/**日历插件**/
+
+.canlendarBgView {
+  background: #fff;
+  position: fixed;
+  width: 80%;
+  top: 50%;
+  left: 10%;
+  margin-top: -308rpx;
+  z-index: 1001;
+}
+
+.canlendarTopView {
+  display: flex;
+  justify-content: center;
+  padding: 20rpx;
+  font-size: 28rpx;
+}
+
+.centerView {
+  padding: 0 80rpx;
+}
+
+.weekBgView, .dateBgView {
+  overflow: hidden;
+  font-size: 28rpx;
+}
+
+.weekView {
+  float: left;
+  width: 14.2857%;
+  text-align: center;
+}
+
+.dateEmptyView, .dateView {
+  float: left;
+  width: 14.2857%;
+  text-align: center;
+  height: 60rpx;
+  padding: 20rpx 0;
+}
+
+.datesView {
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.dateSelectView {
+  background: #e52019;
+  color: #fff;
+}
+
+/**搜索条件**/
+
+.query {
+  position: relative;
+  background: #fff;
+  padding: 0 20rpx;
+  overflow: hidden;
+}
+
+.query-condition, .query-date {
+  overflow: hidden;
+}
+
+.query-condition-items {
+  float: left;
+  width: calc(50% - 22rpx);
+  border-right: 1px solid #e7e7e7;
+  padding-right: 20rpx;
+  color: #999;
+  margin: 10rpx 0;
+}
+
+.query-condition-items:nth-child(even) {
+  border: none;
+  padding-left: 20rpx;
+  padding-right: 0;
+}
+
+.query-date-items {
+  float: left;
+  color: #999;
+  line-height: 78rpx;
+  padding-right: 20rpx;
+  margin: 10rpx 0;
+}
+
+.query-date-items.active {
+  padding-right: 60rpx;
+}
+
+.query-condition-items input, .query-date-items .query-date-val {
+  font-size: 36rpx;
+  line-height: 78rpx;
+  height: 78rpx;
+}
+
+.query-condition-items.active, .query-date-items.active {
+  position: relative;
+}
+
+.query-conditions-name, .query-date-name {
+  font-size: 26rpx;
+  line-height: 30rpx;
+}
+
+.query-condition-items.active input, .query-date-items.active .query-date-val {
+  font-size: 32rpx;
+  line-height: 42rpx;
+  height: 42rpx;
+  margin-top: 6rpx;
+  min-height: 0;
+}
+
+.search-clear {
+  position: absolute;
+  width: 36rpx;
+  height: 36rpx;
+  right: 20rpx;
+  bottom: 8rpx;
+  z-index: 9;
+}
+
+.query-condition-items:nth-child(even)  .search-clear {
+  right: 0;
+}
+
+.query-filter, .query-search {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  bottom: 30rpx;
+  right: 80rpx;
+}
+
+.query-search {
+  right: 20rpx;
+}
+
+/**订单状态**/
+
+.order-status {
+  border-bottom: 2rpx solid #e7e7e7;
+  background: #fff;
+  margin-top: 20rpx;
+  height: 84rpx;
+  width: 100%;
+}
+
+.order-status-items {
+  display: inline-block;
+  padding: 0 6rpx;
+  margin: 0 20rpx;
+  line-height: 80rpx;
+  border-bottom: 2px solid transparent;
+  font-size: 32rpx;
+}
+
+.order-status-items.on {
+  border-bottom: 2px solid #fd914c;
+  color: #fd914c;
+}
+
+.ul-5 .order-status-items {
+  width: 20%;
+  text-align: center;
+  padding: 0;
+  margin: 0
+}
+
+.ul-4 .order-status-items {
+  width: calc(25% - 40rpx);
+  text-align: center;
+  padding: 0;
+}
+
+.ul-3 .order-status-items {
+  width: calc(33.33333% - 40rpx);
+  text-align: center;
+  padding: 0;
+}
+
+.ul-2 .order-status-items {
+  width: calc(50% - 40rpx);
+  text-align: center;
+  padding: 0;
+}
+
+/**订单主体**/
+
+.order-table-items {
+  background: #fff;
+  padding: 0 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.order-table-items:last-child {
+  margin-bottom: 0;
+}
+
+.order-table-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 32rpx;
+  line-height: 80rpx;
+}
+
+.order-table-time {
+  font-size: 28rpx;
+}
+
+.order-table-bar {
+  border-top: 1px solid #e7e7e7;
+  overflow: hidden;
+  line-height: 60rpx;
+  position: relative;
+  font-size: 30rpx;
+  padding: 20rpx 0;
+}
+
+.order-bar-content {
+  overflow: hidden;
+  margin-right: -20rpx;
+}

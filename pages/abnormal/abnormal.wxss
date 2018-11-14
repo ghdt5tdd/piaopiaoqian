@@ -1,0 +1,12 @@
+/* pages/abnormal/abnormal.wxss */
+@import '../appoint/appoint.wxss';
+.order-table-row{
+  padding: 20rpx 0;
+  border-top: 1px solid #e7e7e7;
+}
+.order-row-bar {
+  display: flex;
+  width: 100%;
+  font-size: 30rpx;
+  line-height: 50rpx;
+}

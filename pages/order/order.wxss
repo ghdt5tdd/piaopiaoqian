@@ -1,0 +1,94 @@
+/* pages/order/order.wxss */
+
+.order-bar-info {
+  float: left;
+  margin-right: 20rpx;
+  display: flex;
+}
+
+.order-bar-info:last-child {
+  width: calc(100% - 200rpx);
+}
+
+.order-bar-info:last-child  .order-bar-name {
+  width: calc(100% - 90rpx);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.order-bar-label {
+  color: #999;
+}
+
+.order-bar-label, .order-bar-name {
+  float: left;
+}
+
+.order-bar-opt {
+  position: absolute;
+  color: #fd914c;
+  right: 0;
+  bottom: 20rpx;
+}
+
+.popup-filter {
+  position: fixed;
+  background: #fff;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 80%;
+  z-index: 999;
+}
+
+.popup-head {
+  background: #f6f5f4;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  padding: 10rpx 20rpx;
+}
+
+.popup-filter-content {
+  height: calc(100% - 160rpx);
+}
+
+.popup-filter-bar {
+  display: flex;
+  padding: 10rpx 20rpx;
+  line-height: 60rpx;
+  border-bottom: 1px solid #e7e7e7;
+  font-size: 32rpx;
+}
+
+.popup-filter-label {
+  width: 150rpx;
+}
+
+.popup-filter-info {
+  margin-left: 20rpx;
+  width: calc(100% - 170rpx);
+}
+
+.popup-filter-info input {
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.popup-foot {
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: #fd914c;
+  color: #fff;
+  font-size: 34rpx;
+}
+
+.popup-foot view {
+  float: left;
+  width: 50%;
+}
+
+.popup-foot .popup-foot-reset {
+  background: #bbb;
+}

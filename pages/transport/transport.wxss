@@ -1,0 +1,18 @@
+/* pages/transport/transport.wxss */
+@import '../appoint/appoint.wxss';
+
+.order-table-opt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-opt-node {
+  font-size: 30rpx;
+  display: flex;
+  color: #fd914c;
+}
+
+.order-opt-node view {
+  margin-left: 20rpx;
+}

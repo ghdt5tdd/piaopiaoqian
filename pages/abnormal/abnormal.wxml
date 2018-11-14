@@ -1,0 +1,39 @@
+<!--pages/abnormal/abnormal.wxml-->
+<view class='order-status {{ul}}'>
+  <block wx:for="{{orderStatus}}">
+    <view class="order-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+      {{item.name}}
+    </view>
+  </block>
+</view>
+<scroll-view scroll-y="true" style="height:calc(100%- 186rpx);position:fixed;top:106rpx;bottom:80rpx">
+  <view class='order-table'>
+    <block wx:for="{{abnormalItems}}">
+      <view class="order-table-items">
+        <view class='order-table-head'>
+          <view class='order-table-name'>{{item.name}}的异常上报</view>
+          <view class='order-table-time'>{{item.time}}</view>
+        </view>
+        <view class='order-table-content'>
+          <view class='order-table-row'>
+            <view wx:for="{{item.row}}" class='order-row-bar'>
+               <view class='order-bar-label'>{{item.label}}：</view>
+               <view class='order-bar-name'>{{item.name}}</view>
+            </view>
+          </view>
+
+          <image class='order-table-to' bindtap='toInfo' src='../../images/next.png'></image>
+
+        </view>
+
+        <view class='order-table-opt'>
+          <view class='order-opt-status orange'>{{item.status}}</view>
+
+        </view>
+
+      </view>
+    </block>
+  </view>
+
+</scroll-view>
+<view class='fixed-bottom' bindtap='toReport'>上报</view>

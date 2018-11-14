@@ -1,0 +1,42 @@
+<!--index.wxml-->
+<view class="my-head">
+  <image class='my-head-bg' src='../../images/bg.jpg' mode="widthFix"></image>
+  <view class="userinfo">
+    <button class='userinfo-default' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">获取头像昵称</button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <view class="userinfo-nickname">昵称:{{userInfo.nickName}}</view>
+      <view class="userinfo-nickid">账号:{{nickId}}</view>
+    </block>
+  </view>
+</view>
+
+<view class='my-tabs'>
+  <view class='my-tabs-status {{ul}}'>
+    <block wx:for="{{orderStatus}}">
+      <view class="tabs-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+        {{item.name}}
+      </view>
+    </block>
+  </view>
+  <view class='my-tabs-content' wx:if="{{selectStatus == 0}}">
+    <view class='my-tabs-items' wx:for="{{toTabs}}">
+      <view class='my-tabs-num'>{{item.num}}</view>
+      <view class='my-tabs-name'>{{item.name}}</view>
+    </view>
+  </view>
+  <view class='my-tabs-content' wx:else>
+    <view class='my-tabs-items' wx:for="{{fromTabs}}">
+      <view class='my-tabs-num'>{{item.num}}</view>
+      <view class='my-tabs-name'>{{item.name}}</view>
+    </view>
+  </view>
+</view>
+
+<view class='my-list' wx:for="{{myList}}">
+  <view class='my-bar' wx:for="{{item.bar}}" bindtap='{{item.to}}'>
+     <image src='{{item.img}}' class='my-bar-img'></image>
+     <view class='my-bar-label'>{{item.label}}</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+</view>

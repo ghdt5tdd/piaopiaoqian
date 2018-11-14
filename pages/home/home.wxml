@@ -1,0 +1,57 @@
+<view class='top-bar'>
+  <view class='top-bar-info'>
+    <view class='vip-avatar'>
+      <image src='{{vipAvatar}}'></image>
+      <image class='vip-icon' src='{{vipLevel}}'></image>
+    </view>
+    <view class='vip-name'>{{vipName}}
+      <text>({{vipSpec}})</text>,您好</view>
+  </view>
+  <view class='top-bar-opt'>
+    <image class='top-opt-scan' src='{{optScan}}'></image>
+    <image bindtap='showList' data-param="1"  class='top-opt-func' src='{{optFunc}}'></image>
+  </view>
+  <view class='top-list' hidden='{{hideList}}'>
+    <block wx:for="{{listItems}}">
+      <view class="top-list-items" bindtap='{{item.to}}'>
+        <image src="{{item.image}}"></image>
+        <view>{{item.name}}</view>
+      </view>
+    </block>
+  </view>
+</view>
+
+
+<view class='banner'>
+  <image src='{{banner}}' mode="widthFix"></image>
+</view>
+
+
+<view class='news'>
+  <view class='newstit'>
+    <image src='../../images/new-tit.png'></image>
+  </view>
+
+  <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" vertical="{{vertical}}" circular="{{circular}}" class='newswiper'>
+    <block wx:for="{{newsUrls}}">
+      <swiper-item>
+        <view>
+          <view class='newswiper-info' wx:for="{{item.info}}">
+            <text>[{{item.style}}]</text>{{item.name}}</view>
+        </view>
+      </swiper-item>
+    </block>
+
+  </swiper>
+
+</view>
+
+
+<view class='module-list'>
+  <block wx:for="{{moduleItems}}">
+    <view class="module-items" bindtap='{{item.to}}'>
+      <image src="{{item.image}}"></image>
+      <view>{{item.name}}</view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,78 @@
+<!--pages/warn/warn.wxml-->
+<view class='order-status {{ul}}'>
+  <block wx:for="{{orderStatus}}">
+    <view class="order-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+      {{item.name}}
+    </view>
+  </block>
+</view>
+
+<scroll-view scroll-y="true" style="height:calc(100%- 106rpx);position:fixed;top:106rpx;bottom:0">
+
+  <view class='order-table' wx:if="{{selectStatus == 0}}">
+    <block wx:for="{{orderTable}}">
+      <view class="order-table-items">
+        <view class='order-table-head'>
+          <view class='order-table-id'>预警单号：{{item.id}}</view>
+          <view class='order-table-time'>{{item.time}}</view>
+        </view>
+        <view class='order-table-content'>
+
+          <view class='order-table-line'>
+            <view class='order-line-route'>
+              <view class='order-route-point'>{{item.start}}</view>
+              <image mode="widthFix" src="../../images/arrow.png"></image>
+              <view class='order-route-point'>{{item.end}}</view>
+            </view>
+            <view class='order-line-cargo'>
+              <view class='order-cargo-receive'>
+                <image src="../../images/person.png"></image>
+                <view>{{item.receive}}收</view>
+              </view>
+              <view class='order-cargo-num'>
+                <image src="../../images/cargo.png"></image>
+                <view>{{item.num}}件</view>
+              </view>
+            </view>
+          </view>
+
+          <image class='order-table-to' bindtap='toInfo' src='../../images/next.png'></image>
+
+        </view>
+
+        <view class='order-table-opt'>
+          <view class='order-opt-date'>超期时间：{{item.date}}天</view>
+        </view>
+
+      </view>
+    </block>
+
+  </view>
+
+  <view class='order-table' wx:else>
+    <block wx:for="{{orderTablebar}}">
+      <view class="order-table-items">
+        <view class='order-table-head'>
+          <view class='order-table-id'>预警单号：{{item.id}}</view>
+          <view class='order-table-time'>{{item.time}}</view>
+        </view>
+        <view class='order-table-content'>
+          <view class='order-table-bar' wx:for="{{item.bar}}">
+            <view class='order-bar-content'>
+              <view class='order-bar-info' wx:for="{{item.info}}">
+                <view class='order-bar-label' wx:if="{{item.label != ''}}">{{item.label}}：</view>
+                <view class='order-bar-name'>{{item.name}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class='order-table-opt'>
+          <view class='order-opt-date'>超期时间：{{item.date}}天</view>
+        </view>
+      </view>
+    </block>
+
+  </view>
+
+
+</scroll-view>

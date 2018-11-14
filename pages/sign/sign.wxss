@@ -1,0 +1,114 @@
+/* pages/sign/sign.wxss */
+@import '../appoint/appoint.wxss';
+
+.order-table-opt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup-sign, .popup-comment {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 999;
+  background: #f3f4f5;
+}
+
+.popup-sign-head {
+  background: #eee;
+  text-align: center;
+  font-size: 32rpx;
+  padding-bottom: 30rpx;
+}
+
+.popup-sign-head image {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  margin-top: -70rpx;
+  margin-bottom: 10rpx;
+}
+
+.popup-sign-content {
+  height: calc(100% - 282rpx);
+}
+
+.popup-comment{
+  background: #fff
+}
+
+.popup-comment-content {
+  overflow: hidden;
+  height: calc(100% - 80rpx)
+}
+
+.comment-info {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  border-top: 1px solid #e7e7e7;
+  padding: 20rpx;
+}
+
+.comment-star {
+  display: flex;
+  margin: 0 20rpx 0 40rpx;
+}
+
+.comment-star-pic image {
+  width: 40rpx;
+  height: 40rpx;
+  padding-right: 10rpx;
+}
+
+.comment-text {
+  margin:0 20rpx 20rpx;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  height: 200rpx;
+  border-top:1px solid #e7e7e7;
+  width: calc(100% - 40rpx);
+  padding: 20rpx 0
+}
+
+.comment-gallery {
+  overflow: hidden;
+  margin-bottom: 40rpx
+}
+
+.comment-gallery-info {
+  float: left;
+}
+
+.comment-gallery-info .img, .comment-gallery-upload {
+  float: left;
+  position: relative;
+  border: 1px dashed #e7e7e7;
+  width: 140rpx;
+  height: 140rpx;
+  margin-left: 20rpx;
+}
+
+.comment-gallery-info image {
+  width: 140rpx;
+  height: 140rpx;
+}
+
+.comment-gallery-info .delete-btn {
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  font-size: 30rpx;
+}
+
+.comment-gallery-upload {
+  font-size: 30rpx;
+  color: #999;
+  text-align: center;
+}
+
+.comment-gallery-upload image {
+  width: 140rpx;
+  height: 140rpx;
+}

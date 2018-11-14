@@ -1,0 +1,67 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/order/order",
+    "pages/node/node",
+    "pages/location/location",
+    "pages/appoint/appoint",
+    "pages/place/place",
+    "pages/handover/handover",
+    "pages/sign/sign",
+    "pages/abnormal/abnormal",
+    "pages/abnormalinfo/abnormalinfo",
+    "pages/report/report",
+    "pages/mapLocation/mapLocation",
+    "pages/mapLocation/searchMapLocation/searchMapLocation",
+    "pages/transport/transport",
+    "pages/transportdetail/transportdetail",
+    "pages/goodsdetail/goodsdetail",
+    "pages/point/point",
+    "pages/warn/warn",
+    "pages/index/index",
+    "pages/personal/personal",
+    "pages/phonebook/phonebook",
+    "pages/phonebookAdd/phonebookAdd",
+    "pages/notice/notice",
+    "pages/noticeTransport/noticeTransport",
+    "pages/form/form"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "票票签",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#b7b7b7",
+    "selectedColor": "#fd914c",
+    "borderStyle": "#f5f5f5",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "images/bottom1.png",
+        "selectedIconPath": "images/bottom1-on.png",
+        "text": "业务管理"
+      },
+      {
+        "pagePath": "pages/phonebook/phonebook",
+        "iconPath": "images/bottom2.png",
+        "selectedIconPath": "images/bottom2-on.png",
+        "text": "通讯录"
+      },
+      {
+        "pagePath": "pages/notice/notice",
+        "iconPath": "images/bottom3.png",
+        "selectedIconPath": "images/bottom3-on.png",
+        "text": "消息通知"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/bottom4.png",
+        "selectedIconPath": "images/bottom4-on.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

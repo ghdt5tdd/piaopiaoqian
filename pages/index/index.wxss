@@ -1,0 +1,125 @@
+/**index.wxss**/
+
+.my-head {
+  position: relative;
+}
+
+.my-head-bg {
+  width: 100%;
+}
+
+.my-head .userinfo {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.userinfo-default, .userinfo-avatar {
+  width: 150rpx;
+  height: 150rpx;
+  margin: 40rpx auto;
+  border-radius: 50%;
+}
+
+.userinfo-default {
+  background: #ccc;
+  font-size: 28rpx;
+  padding: 30rpx 20rpx;
+  line-height: 40rpx;
+}
+
+.userinfo-nickname {
+  color: #333;
+  position: absolute;
+  font-size: 30rpx;
+  left: 40rpx;
+  bottom: 30rpx;
+}
+
+.userinfo-nickid {
+  color: #333;
+  position: absolute;
+  font-size: 30rpx;
+  right: 40rpx;
+  bottom: 30rpx;
+}
+
+.my-tabs {
+  background: #fff;
+  padding: 0 20rpx;
+  margin-top: 20rpx;
+  overflow: hidden;
+}
+
+.my-tabs-status {
+  border-bottom: 2rpx solid #e7e7e7;
+  padding: 30rpx 0;
+  line-height: 40rpx;
+  font-size: 32rpx;
+  display: flex;
+}
+
+.tabs-status-items {
+  border-left: 10rpx solid transparent;
+  line-height: 40rpx;
+  padding-left: 20rpx;
+  margin-right: 30rpx;
+}
+
+.tabs-status-items.on {
+  border-left: 10rpx solid #e52019;
+  color: #e52019;
+}
+
+.my-tabs-content {
+  overflow: hidden;
+  padding: 40rpx 20rpx;
+}
+
+.my-tabs-items {
+  float: left;
+  width: 25%;
+  text-align: center;
+  font-size: 30rpx;
+}
+
+.my-tabs-num {
+  font-size: 36rpx;
+  color: #e52019;
+}
+
+.my-list {
+  margin-top: 20rpx;
+  background: #fff;
+}
+
+.my-bar {
+  display: flex;
+  border-top: 1px solid #e7e7e7;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  padding: 20rpx 70rpx 20rpx 100rpx;
+  background: #fff;
+  position: relative;
+}
+
+.my-bar-img {
+  position: absolute;
+  width: 60rpx;
+  height: 60rpx;
+  top: 20rpx;
+  left: 20rpx;
+}
+
+.my-bar-next {
+  position: absolute;
+  width: 30rpx;
+  height: 30rpx;
+  right: 20rpx;
+  top: 35rpx;
+}

@@ -1,0 +1,267 @@
+/* pages/transportdetail/transportdetail.wxss */
+@import '../appoint/appoint.wxss';
+
+.transport .order-table-head {
+  padding: 0 20rpx;
+  background: #fff;
+}
+
+.transport .order-table-line {
+  background: #fff;
+  padding: 60rpx 0 40rpx;
+}
+
+.transport .order-line-route {
+  margin: 0;
+  justify-content: center;
+}
+
+.order-route-time {
+  font-size: 28rpx;
+  color: #999;
+  line-height: 60rpx;
+  height: 60rpx;
+}
+
+.order-address {
+  background: #fff;
+  margin-top: 20rpx;
+  padding: 0 20rpx;
+}
+
+.order-address-item {
+  padding: 20rpx 0 20rpx 80rpx;
+  border-bottom: 1px solid #e7e7e7;
+  font-size: 30rpx;
+  position: relative;
+  line-height: 50rpx;
+}
+
+.order-address-item:last-child {
+  border: none;
+}
+
+.order-address-item image {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -30rpx;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.order-address-name text {
+  margin-right: 20rpx;
+}
+
+.order-block {
+  margin-top: 20rpx;
+  background: #fff;
+}
+
+.order-bar {
+  line-height: 40rpx;
+  border-bottom: 1px solid #e7e7e7;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx;
+}
+
+/* 异常上报 */
+
+.order-table-row {
+  padding: 20rpx 0;
+  border-top: 1px solid #e7e7e7;
+}
+
+.order-row-bar {
+  display: flex;
+  width: 100%;
+  font-size: 30rpx;
+  line-height: 50rpx;
+}
+
+/* 评价 */
+
+.comment-order {
+  background: #fff;
+  overflow: hidden;
+}
+
+.comment-head {
+  display: flex;
+  padding: 20rpx 20rpx 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-people {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  line-height: 60rpx;
+}
+
+.comment-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.comment-people~ .comment-info {
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+}
+
+.comment-time {
+  font-size: 30rpx;
+  color: #999;
+  line-height: 60rpx;
+  margin: 0 20rpx;
+}
+
+.comment-status {
+  overflow: hidden;
+  width: 176rpx;
+  margin-right: 20rpx;
+}
+
+.comment-status.star-4 {
+  width: 141rpx;
+}
+
+.comment-status.star-3 {
+  width: 106rpx;
+}
+
+.comment-status.star-2 {
+  width: 71rpx;
+}
+
+.comment-status.star-1 {
+  width: 36rpx;
+}
+
+.comment-status image {
+  width: 176rpx;
+  height: 30rpx;
+  overflow: hidden;
+}
+
+.comment-words {
+  margin: 0 20rpx 20rpx;
+  font-size: 32rpx;
+  line-height: 40rpx;
+  border-top: 1px solid #e7e7e7;
+  width: calc(100% - 40rpx);
+  padding: 20rpx 0;
+}
+
+.comment-gallery {
+  overflow: hidden;
+  margin-bottom: 40rpx;
+}
+
+.comment-gallery-info .img, .comment-gallery-upload {
+  float: left;
+  position: relative;
+  border: 1px dashed #e7e7e7;
+  width: 140rpx;
+  height: 140rpx;
+  margin-left: 20rpx;
+}
+
+.comment-gallery-info image {
+  width: 140rpx;
+  height: 140rpx;
+}
+
+/* 电子回单 */
+
+.stub {
+  background: #fff;
+}
+
+.stub-head {
+  border-bottom: 1px solid #e7e7e7;
+  display: flex;
+  align-items: center;
+}
+
+.stub-code {
+  width: 50%;
+  border-right: 1px solid #e7e7e7;
+  text-align: center;
+  font-size: 32rpx;
+  color: #999;
+  padding: 30rpx 0 20rpx;
+  line-height: 40rpx;
+}
+
+.stub-code image {
+  width: 80%;
+  margin-bottom: 20rpx;
+}
+
+.stub-spec {
+  padding: 20rpx;
+  font-size: 32rpx;
+  line-height: 60rpx
+}
+
+.stub-content {
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.stub-content .order-address-item {
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.order-address-label {
+  width: 60rpx;
+  text-align: center;
+}
+
+.stub-content .order-address-info {
+  width: calc(100% - 100rpx);
+  border-left: 1px solid #e7e7e7;
+  padding: 20rpx;
+}
+
+.stub-content .order-address-info.half {
+  padding: 0;
+  width: calc(100% - 60rpx);
+  display: flex;
+}
+
+.order-address-info.half .order-address-cargo {
+  padding: 20rpx;
+  width: cal(50% - 20rpx - 1px);
+  border-right: 1px solid #e7e7e7;
+  overflow: hidden;
+}
+
+.order-address-info.half .order-address-cargo:nth-child(even) {
+  border: none;
+}
+
+.stub-block .order-bar {
+  justify-content: flex-start;
+}
+
+.stub-block.half .order-bar {
+  width: calc(50% - 40rpx - 1px);
+  border-right: 1px solid #e7e7e7;
+  float: left;
+}
+
+.stub-block.half .order-bar:nth-child(even) {
+  border-right: none;
+}

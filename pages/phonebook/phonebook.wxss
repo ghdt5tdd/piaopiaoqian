@@ -1,0 +1,177 @@
+/* pages/phonebook/phonebook.wxss */
+
+.a-z {
+  width: 35rpx;
+  position: fixed;
+  top: 112rpx;
+  text-align: center;
+  right: 5rpx;
+  color: #333;
+  font-size: 28rpx;
+  z-index: 99;
+}
+
+.book-item-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 110rpx;
+  background-color: #fff;
+}
+
+.book-item {
+  background: #fff;
+  width: 100%;
+  font-size: 36rpx;
+  line-height: 100rpx;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform: translateX(200rpx);
+  transform: translateX(200rpx);
+  margin-left: -200rpx;
+  padding-left: 5%;
+}
+
+.book-item-A-Z {
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  padding-left: 5%;
+  background-color: #eee;
+  margin-top: -1rpx;
+}
+
+.touch-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #ccc;
+  width: 100%;
+  overflow: hidden;
+}
+
+.book-opt {
+  background-color: #e52019;
+  width: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  -webkit-transform: translateX(200rpx);
+  transform: translateX(200rpx);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.edit, .del {
+  width: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.edit {
+  background: #b3b3b3;
+}
+
+.touch-move-active .book-item, .touch-move-active .book-opt {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.top-box {
+  top: 0;
+  position: fixed;
+  width: 100%;
+  background: #eee;
+  height: 110rpx;
+  font-size: 30rpx;
+  border-bottom: 1rpx solid #ddd;
+  display: flex;
+  z-index: 8
+}
+
+.search-box {
+  width: calc(100% - 110rpx);
+  display: flex;
+  height: 70rpx;
+  border-radius: 20rpx;
+  background: #fff;
+  margin: 20rpx 0 0 20rpx;
+  position: relative
+}
+
+.search-box image {
+  width: 40rpx;
+  height: 40rpx;
+  margin: 15rpx 20rpx;
+}
+
+.search-input {
+  height: 70rpx;
+  line-height: 70rpx;
+  width: calc(100% - 90rpx);
+}
+
+.search-clear{
+  position: absolute;
+  right: 0;
+  top:0;
+}
+
+.book-add {
+  width: 60rpx;
+  height: 60rpx;
+  margin: 25rpx 20rpx;
+}
+
+.popup-book{
+  position: fixed;
+  background: #fff;
+  bottom:0;
+  left:0;
+  right: 0;
+  height: 380rpx;
+  z-index: 999;
+  padding: 0 20rpx
+}
+
+.popup-book-logo{
+  width: 106rpx;
+  height: 106rpx;
+  margin: -50rpx 10rpx 0
+}
+
+.popup-book-info{
+   padding: 20rpx 0;
+   border-bottom: 1px solid #e7e7e7;
+   font-size: 34rpx;
+   line-height: 46rpx;
+   position: relative
+}
+
+.popup-book-contact text{
+  font-size: 30rpx;
+  margin-right: 10rpx
+}
+
+.popup-book-dial{
+  position: absolute;
+  right: 20rpx;
+  top:23rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.popup-book-spec{
+   padding: 20rpx 0;
+   font-size: 30rpx;
+   line-height: 46rpx
+}
+
+.popup-book-spec > view{
+  display: flex
+}
+
+
+

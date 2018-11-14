@@ -1,0 +1,7 @@
+/* pages/warn/warn.wxss */
+@import '../appoint/appoint.wxss';
+@import '../order/order.wxss';
+
+.order-bar-info:last-child {
+  width: calc(100% - 20rpx);
+}

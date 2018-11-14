@@ -1,0 +1,138 @@
+/* pages/appoint/appoint.wxss */
+
+.order-table-content {
+  position: relative;
+}
+
+.order-table-to {
+  position: absolute;
+  width: 30rpx;
+  height: 30rpx;
+  right: 0;
+  top: 50%;
+  margin-top: -20rpx;
+}
+
+.order-table-line {
+  border-top: 1px solid #e7e7e7;
+  padding: 30rpx 0;
+}
+
+.order-line-route {
+  display: flex;
+  font-size: 38rpx;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.order-line-route image {
+  width: 100rpx;
+  margin: 0 10rpx;
+}
+
+.order-line-cargo {
+  display: flex;
+  font-size: 30rpx;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-cargo-receive, .order-cargo-num {
+  display: flex;
+  align-items: center;
+}
+
+.order-cargo-receive {
+  width: calc(100% - 180rpx);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.order-cargo-receive view {
+  width: calc(100% - 42rpx);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.order-line-cargo image, .order-bar-cargo image {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}
+
+.order-bar-cargo {
+  font-size: 30rpx;
+  overflow: hidden;
+}
+
+.order-bar-dispatch, .order-bar-receive, .order-bar-num {
+  float: left;
+  display: flex;
+  align-items: center;
+  min-width: 50%;
+  margin-bottom: 10rpx
+}
+
+.order-bar-dispatch text, .order-bar-receive text, .order-bar-num text{
+  margin-right: 10rpx
+}
+
+
+.order-table-opt {
+  border-top: 1px solid #e7e7e7;
+  padding: 20rpx 0;
+  text-align: right;
+  position: relative;
+}
+
+.order-opt-item {
+  display: inline-block;
+  line-height: 60rpx;
+  width: 140rpx;
+  font-size: 30rpx;
+  text-align: center;
+  border: 1px solid #cfcfcf;
+  border-radius: 31rpx;
+  margin-left: 20rpx;
+}
+
+.order-opt-item.active {
+  border: 1px solid #ff5102;
+  color: #ff5102;
+}
+
+.order-opt-item.on {
+  border: 1px solid #ff5102;
+  background: #ff5102;
+  color: #fff;
+}
+
+.order-opt-code {
+  position: absolute;
+  height: 70rpx;
+  width: 70rpx;
+  right: 0;
+  top: 25rpx;
+}
+
+.order-opt-status {
+  font-size: 32rpx;
+  text-align: left;
+  line-height: 40rpx;
+}
+
+.order-opt-tip {
+  font-size: 28rpx;
+  text-align: left;
+  color: #999;
+  line-height: 30rpx;
+}
+
+.order-opt-date {
+  font-size: 32rpx;
+  text-align: left;
+  line-height: 40rpx;
+  color: #fd7c29;
+}

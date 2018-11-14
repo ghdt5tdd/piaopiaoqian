@@ -1,0 +1,15 @@
+<!--pages/goodsdetail/goodsdetail.wxml-->
+<view class='goodsTable'>
+  <view class="table">
+    <view class="tr">
+      <view class='th' wx:for="{{tableTh}}">
+        {{item.title}}
+      </view>
+    </view>
+    <view class="tr" wx:for="{{tableTr}}">
+      <view class='td' wx:for="{{item.td}}">
+        {{item.name}}
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,2 @@
+/* pages/point/point.wxss */
+@import '../node/node.wxss';

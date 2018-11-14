@@ -1,0 +1,103 @@
+<!--pages/report/report.wxml-->
+<view class='abnormal-block'>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">异常类型</text>
+    <view class="abnormal-bar-info">
+      <picker name="abnormalType" bindchange="bindTypeChange" data-value="{{abnormalType[indexType]}}" range="{{abnormalType}}">
+        <view class="picker">
+          {{abnormalType[indexType]}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">发生环节</text>
+    <view class="abnormal-bar-info">
+      <picker name="abnormalNode" bindchange="bindNodeChange" data-value="{{abnormalNode[indexNode]}}" range="{{abnormalNode}}">
+        <view class="picker">
+          {{abnormalNode[indexNode]}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">发生时间</text>
+    <view class="abnormal-bar-info" bindtap='showDate'>
+      {{abnormalDate}}
+    </view>
+  </view>
+
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">联系人</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{abnormalName}}' type='text' value=''></input>
+    </view>
+  </view>
+
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">联系方式</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{abnormalTel}}' type='number' value=''></input>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+
+
+<view class='abnormal-text'>
+  <textarea placeholder='{{comment}}'></textarea>
+  <view class="abnormal-location {{locationtype == 1 ?'active':''}}">
+    <image src='../../images/scene-add.png'></image>
+    <text bindtap="location">{{location}}</text>
+  </view>
+</view>
+
+<view class='abnormal-gallery'>
+  <view class='abnormal-gallery-head'>现场图片</view>
+  <view class='abnormal-gallery-info'>
+    <view class='abnormal-gallery-content'>
+      <view class="abnormal-gallery-img" wx:for="{{imgs}}" wx:for-item="item" wx:key="*this">
+        <image src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
+        <icon class="delete-btn" type="clear" data-index="{{index}}" catchtap="deleteImg" />
+      </view>
+    </view>
+    <view class='abnormal-gallery-upload' bindtap="changePic">
+      <image src='../../images/picture1.png' mode="widthFix"></image>
+    </view>
+
+  </view>
+
+</view>
+
+
+<view class='button-bottom'>确认</view>
+
+<view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
+
+<view class="canlendarBgView" wx:if="{{showDate}}">
+  <view class="canlendarView">
+    <view class="canlendarTopView">
+      <view class="leftBgView" bindtap="handleCalendar" data-handle="prev">
+        <view class="leftView">《</view>
+      </view>
+      <view class="centerView">{{cur_year || "--"}} 年 {{cur_month || "--"}} 月</view>
+      <view class="rightBgView" bindtap="handleCalendar" data-handle="next">
+        <view class="rightView">》</view>
+      </view>
+    </view>
+    <view class="weekBgView">
+      <view class="weekView" wx:for="{{weeks_ch}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
+    </view>
+    <view class="dateBgView">
+      <view wx:if="{{hasEmptyGrid}}" class="dateEmptyView" wx:for="{{empytGrids}}" wx:key="{{index}}" data-idx="{{index}}"> </view>
+      <view class="dateView" wx:for="{{days}}" wx:key="{{index}}" data-idx="{{index}}" bindtap="dateSelectAction">
+        <view class="datesView {{index == todayIndex ? 'dateSelectView' : ''}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>

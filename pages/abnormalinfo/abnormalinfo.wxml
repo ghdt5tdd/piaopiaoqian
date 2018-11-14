@@ -1,0 +1,43 @@
+<!--pages/abnormalinfo/abnormalinfo.wxml-->
+<view class='order-table mt-10'>
+  <block wx:for="{{abnormalItems}}">
+    <view class="order-table-items">
+      <view class='order-table-head'>
+        <view class='order-table-name'>{{item.name}}的异常上报</view>
+        <view class='order-table-time orange'>{{item.status}}</view>
+      </view>
+      <view class='order-table-content'>
+        <view class='order-table-row'>
+          <view wx:for="{{item.row}}" class='order-row-bar'>
+            <view class='order-bar-label'>{{item.label}}：</view>
+            <view class='order-bar-name'>{{item.name}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view class='abnormal-gallery'>
+  <view class='abnormal-gallery-head'>现场图片</view>
+  <view class='abnormal-gallery-info'>
+    <view class="abnormal-gallery-img" wx:for="{{abnormalImgs}}" wx:for-item="item" wx:key="*this">
+      <image src="{{item.pic}}" data-index="{{index}}" mode="widthFix"></image>
+    </view>
+  </view>
+  <view class='abnormal-gallery-spec'>联系人：
+    <text>{{bookName}}</text>
+    <text>{{bookTel}}</text>
+    <image bindtap='bookTel' src='../../images/Tel.png'></image>
+  </view>
+</view>
+
+<view class='abnormal-record'>
+  <block wx:for="{{abnormalRecord}}">
+    <view class="abnormal-record-items">
+      <view class='abnormal-record-name'>{{item.name}}</view>
+      <view class='abnormal-record-info'>{{item.info}}</view>
+      <view class='abnormal-record-time'>{{item.time}}</view>
+    </view>
+  </block>
+</view>

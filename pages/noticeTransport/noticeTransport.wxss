@@ -1,0 +1,40 @@
+/* pages/noticeTransport/noticeTransport.wxss */
+
+.notice-item {
+  background: #fff;
+  border-bottom: 1px solid #e7e7e7;
+  padding-bottom: 30rpx;
+}
+
+.notice-item:last-child {
+  border: none;
+}
+
+.notice-item-head {
+  display: flex;
+  position: relative;
+  font-size: 34rpx;
+  align-items: center;
+  padding: 20rpx;
+}
+
+.notice-item-head image {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+}
+
+.notice-item-time {
+  position: absolute;
+  font-size: 28rpx;
+  line-break: 40rpx;
+  top: 30rpx;
+  right: 20rpx;
+  color: #999;
+}
+
+.notice-item-info {
+  font-size: 30rpx;
+  line-height: 46rpx;
+  padding: 0 20rpx;
+}

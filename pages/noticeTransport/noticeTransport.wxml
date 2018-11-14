@@ -1,0 +1,24 @@
+<!--pages/noticeTransport/noticeTransport.wxml-->
+<view class='order-status {{ul}}'>
+  <block wx:for="{{orderStatus}}">
+    <view class="order-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+      {{item.name}}
+    </view>
+  </block>
+</view>
+
+<scroll-view scroll-y="true" style="height:calc(100%- 106rpx);position:fixed;top:106rpx;bottom:0">
+
+  <view class='notice-item' wx:for="{{noticeItem}}">
+    <view class='notice-item-head'>
+      <image src="{{item.img}}"></image>
+      <view class='notice-item-title'>{{item.title}}</view>
+      <view class='notice-item-time'>{{item.time}}</view>
+    </view>
+    <view class='notice-item-info'>{{item.info}}</view>
+
+  </view>
+
+
+
+</scroll-view>

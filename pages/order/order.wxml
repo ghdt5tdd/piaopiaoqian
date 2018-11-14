@@ -1,0 +1,133 @@
+<!--pages/order/order.wxml-->
+<view class='query'>
+  <view class='query-condition'>
+    <block wx:for="{{queryItems}}">
+      <view class="query-condition-items  {{item.status?'active':''}}">
+        <view hidden="{{!item.status}}" class='query-conditions-name'>{{item.name}}</view>
+        <input placeholder="{{item.name}}" bindinput='bindInput' value='{{item.val}}' data-index="{{index}}" />
+        <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-index="{{index}}"></image>
+      </view>
+    </block>
+  </view>
+  <view class='query-date'>
+    <block wx:for="{{queryDate}}">
+      <view class="query-date-items  {{item.status?'active':''}}">
+        <view hidden="{{!item.status}}" class='query-date-name'>{{item.name}}</view>
+        <view class='query-date-val' bindtap='showDate' data-index="{{index}}">{{item.val}}</view>
+        <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='DateClear' data-index="{{index}}"></image>
+      </view>
+      <view class="query-date-items" wx:if="{{0 == index}}">至</view>
+    </block>
+  </view>
+  <image class='query-filter' bindtap='showFilter' src='../../images/filter.png'></image>
+  <image class='query-search' src='../../images/search-big.png'></image>
+
+</view>
+
+
+<scroll-view class="order-status" scroll-x="true" >
+  <view style='width:{{orderWidth}}'>
+    <block wx:for="{{orderStatus}}">
+      <view class="order-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+        {{item.name}}
+      </view>
+    </block>
+  </view>
+</scroll-view>
+
+
+
+<scroll-view scroll-y="true" style="height:calc(100%- 302rpx);position:fixed;top:302rpx;bottom:0">
+<view class='order-table'>
+  <block wx:for="{{orderTable}}">
+    <view class="order-table-items">
+      <view class='order-table-head'>
+        <view class='order-table-id'>订单号：{{item.id}}</view>
+        <view class='order-table-time'>{{item.time}}</view>
+      </view>
+      <view class='order-table-content'>
+        <view class='order-table-bar' wx:for="{{item.bar}}">
+          <view class='order-bar-content'>
+            <view class='order-bar-info' wx:for="{{item.info}}">
+              <view class='order-bar-label' wx:if="{{item.label != ''}}">{{item.label}}：</view>
+              <view class='order-bar-name'>{{item.name}}</view>
+            </view>
+          </view>
+          <view class='order-bar-opt' bindtap='toNode'>{{item.opt}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+</view>
+
+</scroll-view>
+
+
+<view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
+
+<view class="canlendarBgView" wx:if="{{showDate}}">
+  <view class="canlendarView">
+    <view class="canlendarTopView">
+      <view class="leftBgView" bindtap="handleCalendar" data-handle="prev">
+        <view class="leftView">《</view>
+      </view>
+      <view class="centerView">{{cur_year || "--"}} 年 {{cur_month || "--"}} 月</view>
+      <view class="rightBgView" bindtap="handleCalendar" data-handle="next">
+        <view class="rightView">》</view>
+      </view>
+    </view>
+    <view class="weekBgView">
+      <view class="weekView" wx:for="{{weeks_ch}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
+    </view>
+    <view class="dateBgView">
+      <view wx:if="{{hasEmptyGrid}}" class="dateEmptyView" wx:for="{{empytGrids}}" wx:key="{{index}}" data-idx="{{index}}"> </view>
+      <view class="dateView" wx:for="{{days}}" wx:key="{{index}}" data-idx="{{index}}" bindtap="dateSelectAction">
+        <view class="datesView {{index == todayIndex ? 'dateSelectView' : ''}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<view class='popup-filter' hidden='{{hideFilter}}'>
+  <view class='popup-head'>筛选</view>
+  <view class='popup-filter-content'>
+    <block wx:for="{{filter}}">
+      <view class='popup-filter-bar'>
+        <view class='popup-filter-label'>
+          {{item.label}}
+        </view>
+        <view class='popup-filter-info' wx:if="{{item.style == 1}}">
+          <input placeholder='{{item.name}}' value='{{item.val}}'></input>
+        </view>
+        <picker class='popup-filter-info' wx:if="{{item.style == 2}}" bindchange="bindPickerChange" value="{{Index}}" range="{{orderStatus}}" range-key="name">
+          <view wx:if="{{Index ==''}}" class='gray'>{{item.name}}</view>
+          <view class="picker">
+            {{orderStatus[Index].name}}
+          </view>
+        </picker>
+
+
+      </view>
+    </block>
+
+
+    <block wx:for="{{filterDate}}">
+      <view class="popup-filter-bar">
+        <view class='popup-filter-label'>
+          {{item.label}}
+        </view>
+        <view class='popup-filter-info' bindtap='showDate' data-index="{{index}}">{{item.name}}</view>
+      </view>
+    </block>
+
+
+
+  </view>
+  <view class='popup-foot'>
+    <view class='popup-foot-reset' bindtap='filterReset'>重置</view>
+    <view bindtap='filterSure'>完成</view>
+  </view>
+
+</view>
