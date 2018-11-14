@@ -1,0 +1,79 @@
+/* pages/newslist/newslist.wxss */
+
+.newslist {
+  margin-top: 20rpx;
+}
+
+.newslist-item {
+  background: #fff;
+  border-bottom: 1px solid #e7e7e7;
+  padding: 20rpx 20rpx;
+  position: relative;
+}
+
+.newslist-head {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: #e52019;
+}
+
+.newslist-head image {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.newslist-time {
+  font-size: 28rpx;
+  color: #999;
+  line-height: 40rpx;
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+}
+
+.newslist-content {
+  position: relative;
+  padding-right: 140rpx;
+  margin-top: 20rpx;
+  height: 120rpx;
+}
+
+.newslist-name {
+  height: 70rpx;
+  line-height: 35rpx;
+  font-size: 32rpx;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.newslist-pic {
+  position: absolute;
+  width: 120rpx;
+  height: 120rpx;
+  right: 0;
+  top: 0;
+}
+
+.newslist-opt {
+  display: flex;
+  align-items: center;
+  margin-top: 10rpx;
+}
+
+.newslist-opt-item {
+  margin-right: 40rpx;
+  font-size: 28rpx;
+  color: #999;
+  display: flex;
+  align-items: center
+}
+
+.newslist-opt-item image {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}

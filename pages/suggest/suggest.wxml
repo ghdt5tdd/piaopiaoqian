@@ -1,0 +1,5 @@
+<!--pages/suggest/suggest.wxml-->
+<view class='suggest'>
+  <textarea class='suggest-content' placeholder='{{suggest}}'></textarea>
+  <view class='button-bottom'>提交</view>
+</view>

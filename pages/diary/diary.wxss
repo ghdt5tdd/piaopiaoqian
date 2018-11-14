@@ -1,0 +1,2 @@
+/* pages/diary/diary.wxss */
+@import '../notice/notice.wxss';

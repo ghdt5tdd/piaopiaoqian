@@ -1,0 +1,22 @@
+<!--pages/bind/bind.wxml-->
+<form bindsubmit="formSubmit" report-submit="true">
+  <image class='bind-img' src='{{logo}}' mode="widthFix" bindtap='toCompany'></image>
+  <view class='bind-title' bindtap='toCompany'>{{title}}</view>
+
+  <view class='bind-content'>
+    <view class="bind-item">
+      <image class='bind-icon' src='../../images/bind1.png'></image>
+      <input type="text" name="name" placeholder="{{name}}" focus="{{focus}}" />
+    </view>
+    <view class="bind-item">
+      <image class='bind-icon' src='../../images/bind2.png'></image>
+      <input type="text" name="password" placeholder="{{password}}" focus="{{focus}}" />
+    </view>
+  </view>
+  <view class='bind-page'>
+    <view bindtap='toPassword'>忘记密码</view>
+    <view bindtap='toRegister'>注册账号</view>
+  </view>
+  
+  <button class='button-bottom' formType="submit">绑定</button>
+</form>

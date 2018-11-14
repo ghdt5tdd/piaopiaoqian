@@ -100,7 +100,6 @@
   display: flex;
   border-top: 1px solid #e7e7e7;
   justify-content: space-between;
-  align-items: center;
   line-height: 60rpx;
   font-size: 32rpx;
   padding: 20rpx 70rpx 20rpx 100rpx;
@@ -122,4 +121,9 @@
   height: 30rpx;
   right: 20rpx;
   top: 35rpx;
+}
+
+.my-bar-input{
+  width: calc(100% - 160rpx);
+  text-align: right
 }

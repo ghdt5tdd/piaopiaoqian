@@ -1,2 +1,9 @@
 <!--pages/personal/personal.wxml-->
-<text>pages/personal/personal.wxml</text>
+<view class='my-list' wx:for="{{myList}}">
+  <view class='my-bar' wx:for="{{item.bar}}" bindtap='{{item.to}}'>
+     <image src='{{item.img}}' class='my-bar-img'></image>
+     <view class='my-bar-label'>{{item.label}}</view>
+     <view class='my-bar-input'>{{item.name}}</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+</view>

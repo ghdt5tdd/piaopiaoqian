@@ -1,0 +1,5 @@
+/* pages/code/code.wxss */
+@import '../index/index.wxss';
+.my-bar{
+  padding: 20rpx;
+}

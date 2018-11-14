@@ -1,5 +1,4 @@
 // pages/home/home.js
-const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
@@ -31,18 +30,22 @@ Page({
         info: [{
           style: "通知",
           name: "APP将于10月25日9：00至11：00进行更新",
+          to: "toNews"
         }, {
           style: "新闻",
           name: "德力西电气全新官网，服务品质再度升级",
+          to: "toNews"
         }]
       }, {
         index: 1,
         info: [{
           style: "新闻",
           name: "人事自助服务终端‘德家小AI惊艳面世’",
+          to: "toNews"
         }, {
           style: "公告",
           name: "vivo手机GPS持续上传设置方法",
+          to: "toNews"
         }]
       }, {
         index: 2,
@@ -110,6 +113,19 @@ Page({
     });
   },
 
+  //跳转到新闻列表页面
+  toNewslist: function(e) {
+    wx.navigateTo({
+      url: '../newslist/newslist'
+    })
+  },
+
+  //跳转到新闻详情页面
+  toNews: function(e) {
+    wx.navigateTo({
+      url: '../news/news'
+    })
+  },
 
   //跳转到订单查询页面
   toOrder: function(e) {
@@ -164,7 +180,7 @@ Page({
 
 
   //跳转到统计报表页面
-  toForm: function (e) {
+  toForm: function(e) {
     wx.navigateTo({
       url: '../form/form'
     })
@@ -176,9 +192,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    ajax.getApi('app/member/getShopNewsList', {page: 0, pageSize: 10}, (err, res) => { 
-      console.log(res)
-    })
+
   },
 
   /**

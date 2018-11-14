@@ -1,2 +1,16 @@
 <!--pages/phonebookAdd/phonebookAdd.wxml-->
-<text>pages/phonebookAdd/phonebookAdd.wxml</text>
+<view class='my-list'>
+  <view class='my-bar' wx:for="{{phoneItems}}">
+    <image src='{{item.img}}' class='my-bar-img'></image>
+    <view class='my-bar-label'>{{item.label}}</view>
+    <view class='my-bar-avatar' wx:if="{{index == 0}}" bindtap="changePic">
+      <image src='{{src}}'></image>
+    </view>
+    <view wx:else class='my-bar-input'>
+      <input placeholder='{{item.name}}'></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+</view>
+
+<view class='button-bottom'>确认</view>

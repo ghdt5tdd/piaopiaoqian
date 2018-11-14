@@ -1,0 +1,8 @@
+<!--pages/diary/diary.wxml-->
+<view class='notice-block'>
+  <view class='notice-bar' wx:for="{{diaryBar}}" bindtap='{{item.to}}'>
+    <view>{{index+1}}</view>
+    <view class='notice-bar-time'>{{item.time}}</view>
+    <view class='notice-bar-name'>{{item.name}}</view>
+  </view>
+</view>

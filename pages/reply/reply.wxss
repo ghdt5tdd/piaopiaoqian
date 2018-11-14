@@ -1,0 +1,12 @@
+/* pages/reply/reply.wxss */
+@import '../news/news.wxss';
+
+.news-reply .news-comment-info {
+  border-bottom: 1px solid #e7e7e7;
+  margin: 0;
+  padding: 20rpx 0;
+}
+
+.news-reply .news-comment-item:last-child .news-comment-info {
+  border: none;
+}

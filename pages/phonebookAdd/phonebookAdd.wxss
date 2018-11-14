@@ -1,1 +1,21 @@
 /* pages/phonebookAdd/phonebookAdd.wxss */
+@import '../index/index.wxss';
+
+.my-bar:first-child {
+  align-items: center;
+}
+
+.my-bar:first-child .my-bar-img,.my-bar:first-child .my-bar-next{
+   margin-top: 10rpx;
+}
+
+.my-bar-avatar {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.my-bar-avatar image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}

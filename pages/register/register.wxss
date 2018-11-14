@@ -1,0 +1,2 @@
+/* pages/register/register.wxss */
+@import '../bind/bind.wxss';

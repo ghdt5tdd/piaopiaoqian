@@ -1,0 +1,20 @@
+<!--pages/reply/reply.wxml-->
+<view class='news-reply'>
+  <view class='news-reply-head'>
+    <view class='news-comment-item'>
+      <image class='news-comment-avatar' src='{{Avatar}}'></image>
+      <view class='news-comment-name'>{{Name}}</view>
+      <view class='news-comment-time'>{{Time}}</view>
+      <view class='news-comment-info'>{{Info}}</view>
+    </view>
+  </view>
+  <view class='news-comment-num'>全部回复({{Sum}})</view>
+  <view>
+    <view class='news-comment-item' wx:for="{{newsReply}}">
+      <image class='news-comment-avatar' src='{{item.avatar}}'></image>
+      <view class='news-comment-name'>{{item.name}}</view>
+      <view class='news-comment-time'>{{item.time}}</view>
+      <view class='news-comment-info'>{{item.info}}</view>
+    </view>
+  </view>
+</view>

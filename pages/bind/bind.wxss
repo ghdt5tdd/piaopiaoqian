@@ -1,0 +1,73 @@
+/* pages/bind/bind.wxss */
+
+page {
+  background: #fff;
+  height: 100vh;
+  text-align: center;
+}
+
+.bind-img {
+  width: 140rpx;
+  margin: 120rpx 0 40rpx;
+}
+
+.bind-title {
+  font-size: 34rpx;
+  margin-bottom: 60rpx;
+}
+
+.bind-content {
+  margin-top: 20rpx;
+}
+
+.bind-item {
+  margin: 0 20rpx 30rpx;
+  padding: 0 20rpx;
+  border: 1px solid #e7e7e7;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.bind-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.bind-item input {
+  line-height: 80rpx;
+  height: 80rpx;
+  text-align: left;
+  width: 100%;
+}
+
+.codeBtn {
+  position: absolute;
+  right: 0rpx;
+  top: 0;
+  color: #fff;
+  background: #e52019;
+  width: 30%;
+  font-size: 26rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border: none;
+  border-radius: 0;
+  z-index: 66;
+}
+
+.codeBtn.on {
+  background: #eee;
+  border-left: 1px solid #e7e7e7;
+}
+
+.bind-page {
+  display: flex;
+  justify-content: space-between;
+  font-size: 30rpx;
+  color: #999;
+  padding: 0 20rpx;
+}

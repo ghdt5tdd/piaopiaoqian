@@ -28,7 +28,7 @@
 
 
 <view class='news'>
-  <view class='newstit'>
+  <view class='newstit' bindtap='toNewslist'>
     <image src='../../images/new-tit.png'></image>
   </view>
 
@@ -36,7 +36,7 @@
     <block wx:for="{{newsUrls}}">
       <swiper-item>
         <view>
-          <view class='newswiper-info' wx:for="{{item.info}}">
+          <view class='newswiper-info' wx:for="{{item.info}}" bindtap='{{item.to}}'>
             <text>[{{item.style}}]</text>{{item.name}}</view>
         </view>
       </swiper-item>

@@ -1,0 +1,24 @@
+<!--pages/newslist/newslist.wxml-->
+<view class='newslist'>
+  <view class='newslist-item' wx:for="{{newsItems}}">
+    <view class='newslist-head'>
+      <image src='{{item.avatar}}'></image>
+      <view>{{item.style}}</view>
+    </view>
+    <view class='newslist-time'>{{item.time}}</view>
+    <view class='newslist-content'>
+      <view class='newslist-name' bindtap='{{item.to}}'>{{item.name}}</view>
+      <view class='newslist-opt'>
+        <view class='newslist-opt-item'>
+          <image src='../../images/collect.png'></image>
+          <text>{{item.collect}}</text>
+        </view>
+        <view class='newslist-opt-item'>
+          <image src='../../images/comment.png'></image>
+          <text>{{item.comment}}</text>
+        </view>
+      </view>
+      <image class='newslist-pic' src='{{item.pic}}'></image>
+    </view>
+  </view>
+</view>

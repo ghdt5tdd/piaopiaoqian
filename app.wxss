@@ -69,8 +69,13 @@ page {
 }
 
 .bg-orange {
-  color: #fff;
-  background: #fd8436;
+  color: #fff !important;
+  background: #fd8436 !important;
+}
+
+.bg-blue {
+  color: #fff !important;
+  background: #1296db !important;
 }
 
 .clearfix:after {
@@ -87,6 +92,10 @@ page {
 
 input {
   min-height: 0;
+}
+
+button::after {
+  border: none;
 }
 
 /**日历插件**/
@@ -260,7 +269,7 @@ input {
   width: 20%;
   text-align: center;
   padding: 0;
-  margin: 0
+  margin: 0;
 }
 
 .ul-4 .order-status-items {

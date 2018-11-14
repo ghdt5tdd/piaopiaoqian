@@ -1,0 +1,7 @@
+<!--pages/code/code.wxml-->
+<view class='my-list'>
+  <view class='my-bar' wx:for="{{codeItems}}">
+     <view class='my-bar-label'>{{item.label}}</view>
+     <view class='my-bar-input'>{{item.name}}</view>
+  </view>
+</view>

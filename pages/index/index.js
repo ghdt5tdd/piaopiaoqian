@@ -54,7 +54,7 @@ Page({
       }, {
         img: "../../images/my2.png",
         label: "账户日记",
-        to: "",
+        to: "toDiary",
       }, ]
     }, {
       bar: [{
@@ -68,11 +68,11 @@ Page({
       }, {
         img: "../../images/my5.png",
         label: "手机硬件码",
-        to: "",
+        to: "toCode",
       }, {
         img: "../../images/my6.png",
         label: "建议反馈",
-        to: "",
+        to: "toSuggest",
       }, ]
     }]
   },
@@ -94,8 +94,27 @@ Page({
   },
 
 
+  //跳转到账户日记页面
+  toDiary: function(e) {
+    wx.navigateTo({
+      url: '../diary/diary'
+    })
+  },
 
 
+  //跳转到手机硬件码页面
+  toCode: function(e) {
+    wx.navigateTo({
+      url: '../code/code'
+    })
+  },
+
+  //跳转到建议反馈页面
+  toSuggest: function(e) {
+    wx.navigateTo({
+      url: '../suggest/suggest'
+    })
+  },
 
 
   //事件处理函数

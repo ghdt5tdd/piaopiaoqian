@@ -1,0 +1,93 @@
+/* pages/company/company.wxss */
+
+.compant-head {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  font-size: 30rpx;
+  position: relative;
+}
+
+.compant-head icon {
+  position: absolute;
+  top: 50%;
+  left: 140rpx;
+  margin-top: -8px
+}
+
+.input-city {
+  width: 100rpx;
+}
+
+.search-input {
+  width: calc(100% - 200rpx);
+  background: #ebebf3;
+  padding: 10rpx 20rpx 10rpx 70rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  border-radius: 30rpx;
+}
+
+.company-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  margin: 20rpx;
+}
+
+.company-head {
+  position: relative;
+  padding-left: 140rpx;
+  font-size: 34rpx;
+}
+
+.company-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120rpx;
+  height: 120rpx;
+  border: 1px solid #e7e7e7;
+}
+
+.company-spec {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}
+
+.company-bar {
+  display: flex;
+  font-size: 30rpx;
+  margin-top: 20rpx;
+}
+
+.company-bar image {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.company-opt {
+  display: flex;
+  margin-top: 20rpx;
+}
+
+.company-opt-item {
+  width: 33.33333%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+}
+
+.company-opt-item image {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 10rpx;
+}

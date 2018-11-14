@@ -24,3 +24,7 @@
   right: 20rpx;
   top: 35rpx;
 }
+
+.notice-bar-time{
+  margin: 0 20rpx;
+}

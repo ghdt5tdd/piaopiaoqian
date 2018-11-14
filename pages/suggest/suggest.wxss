@@ -1,0 +1,19 @@
+/* pages/suggest/suggest.wxss */
+
+.suggest {
+  height: calc(100vh - 20rpx);
+  background: #fff;
+  margin-top: 20rpx;
+  overflow: hidden
+}
+
+.suggest-content {
+  margin: 20rpx 20rpx 80rpx;
+  border: 1px solid #e7e7e7;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  height: 400rpx;
+  width: calc(100% - 80rpx);
+}
