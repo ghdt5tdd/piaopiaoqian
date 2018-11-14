@@ -6,7 +6,7 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
+    var a
 
     const openId = wx.getStorageSync('openId') || ''
     const sessionKey = wx.getStorageSync('sessionKey') || ''
