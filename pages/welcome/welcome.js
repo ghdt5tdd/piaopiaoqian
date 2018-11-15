@@ -1,7 +1,7 @@
 // pages/welcome/welcome.js
 //获取应用实例
 const app = getApp()
-
+const ajax = require('../../utils/ajax.js')
 Page({
   data: {
     motto: '开启快运之旅',
@@ -31,6 +31,7 @@ Page({
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
+        lang: 'zh_CN',
         success: res => {
           app.globalData.userInfo = res.userInfo
           this.setData({
@@ -64,6 +65,22 @@ Page({
 
   toBind: function(e) {
     if (this.data.hasUserInfo == true) {
+      wx.redirectTo({
+        url: '../bind/bind',
+      })
+      ajax.getApi('mini/program/createMember', {
+        ...app.globalData.userInfo,
+        openId: app.globalData.openId,
+        app_area: app.globalData.platformAppArea,
+        referrer_member_id: app.globalData.piaopiaoQianMemberId
+      }, (err, rest) => {
+        if (!rest.success) {
+          wx.showToast({
+            title: '创建用户失败',
+            mask: true
+          })
+        }
+      })
       //第一次微信账号登录跳转到绑定德力西账号页面，
       // wx.redirectTo({
       //   url: '../bind/bind',
@@ -73,11 +90,6 @@ Page({
       //   url: '../home/home',
       // })    
       //到票票签首页,不知道怎么写留给你 
-
-      wx.redirectTo({
-        url: '../bind/bind',
-      })
-
     } else {
       wx.showToast({
         title: '请先点击账号登录',

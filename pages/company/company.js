@@ -12,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    page: 0, 
+    pageSize : 10,
     begin: "城市",
     companyItems: [{
       logo: "../../images/company1.jpg",
@@ -27,20 +29,36 @@ Page({
       tel: "0577-65092470",
       by: "浙江、江苏、上海配送",
       location: "浙江省温州市瑞安市锦湖街道万隆化工",
-
-    }]
+    }, {
+      logo: "../../images/company1.jpg",
+      name: "德力西电气有限公司",
+      spec: "德力西电气有限公司是成立于2007年的大型的合资企业，座落于“中国电器之都”———浙江省乐清市柳市镇，累计投资额近20亿元人民币，占地达240, 000平方米，拥有员工10, 000余人，是中国低压电器行业具有一定规模的合资企业。",
+      tel: "0577-61778888",
+      by: "浙江、江苏、上海配送",
+      location: "浙江省乐清市柳市镇德力西高科技工业园",
+    }, {
+      logo: "../../images/company2.jpg",
+      name: "万隆化工有限公司",
+      spec: "万隆化工有限公司创建于1984年，是我国历史悠久，生产规模庞大的荧光颜料生产企业。公司通过了ISO9001质量体系认证和ISO14001环境体系认证，荣获多项国家专利，是国家级高新技术企业",
+      tel: "0577-65092470",
+      by: "浙江、江苏、上海配送",
+      location: "浙江省温州市瑞安市锦湖街道万隆化工",
+    }, ]
   },
 
+  lower: function (e) {
+    console.log(e)
+  },
 
   /*城市选择事件 */
-  BeginCity: function () {
+  BeginCity: function() {
     wx.navigateTo({
       url: '../city/city?cityType=begin',
     })
   },
 
   //拨打电话
-  bookTel: function (e) {
+  bookTel: function(e) {
     var tel = e.currentTarget.dataset.tel
     wx.makePhoneCall({
       phoneNumber: tel
@@ -48,14 +66,14 @@ Page({
   },
 
   //导航
-  navigation: function (e) {
-
+  navigation: function(e) {
+    console.log(e)
     //地址解析(地址转坐标)     
     demo.geocoder({
-      address : e.currentTarget.dataset.location,
+      address: e.currentTarget.dataset.location,
 
-      success: function (res) {
-
+      success: function(res) {
+        console.log(res)
         var latitude = res.result.location.lat
         var longitude = res.result.location.lng
         var addressOn = e.currentTarget.dataset.location
@@ -63,15 +81,15 @@ Page({
         wx.openLocation({
           latitude: latitude,
           longitude: longitude,
-          address:addressOn,
+          address: addressOn,
           scale: 28
         })
 
       },
-      fail: function (res) {
+      fail: function(res) {
         // console.log(res);
       },
-      complete: function (res) {
+      complete: function(res) {
         // console.log(res);
       }
     });
@@ -82,7 +100,7 @@ Page({
   },
 
   //选择企业
-  toBind: function (e) {
+  toBind: function(e) {
     var logo = e.currentTarget.dataset.logo
     var title = e.currentTarget.dataset.name
     wx.navigateBack({ //返回
@@ -101,21 +119,21 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
     if (app.globalData.trainBeginCity == undefined) {
       this.setData({
@@ -131,35 +149,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

@@ -37,7 +37,7 @@
 
 
 
-<scroll-view scroll-y="true" style="height:calc(100%- 302rpx);position:fixed;top:302rpx;bottom:0">
+<scroll-view scroll-y="true" style="height:calc(100% - 302rpx);position:fixed;top:302rpx;bottom:0">
 <view class='order-table'>
   <block wx:for="{{orderTable}}">
     <view class="order-table-items">

@@ -5,6 +5,7 @@
    <icon type="search" size="16" />
 </view>
 
+<scroll-view scroll-y="true" style="height:calc(100% - 100rpx);position:fixed;top:100rpx;bottom:0" bindscrolltolower="lower">
 <view class='company-list'>
   <view class='company-item' wx:for="{{companyItems}}">
     <view class='company-head'>
@@ -42,3 +43,4 @@
     </view>
   </view>
 </view>
+</scroll-view>

@@ -6,14 +6,18 @@
   align-items: center;
   padding: 20rpx;
   font-size: 30rpx;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left:0;
+  right: 0;
+  z-index: 66
 }
 
 .compant-head icon {
   position: absolute;
   top: 50%;
   left: 140rpx;
-  margin-top: -8px
+  margin-top: -8px;
 }
 
 .input-city {
@@ -27,6 +31,7 @@
   line-height: 40rpx;
   font-size: 28rpx;
   border-radius: 30rpx;
+  height: 40rpx;
 }
 
 .company-item {

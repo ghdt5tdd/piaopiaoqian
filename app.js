@@ -12,7 +12,7 @@ App({
 
     if(openId === '') {
       // 登录
-      const app_area = this.globalData.appArea
+      const app_area = this.globalData.platformAppArea
       const secret = this.globalData.appSecret
       wx.login({
         success: res => {
@@ -42,11 +42,11 @@ App({
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
+            lang: 'zh_CN',
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
 
-              console.log(res.userInfo)
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -59,7 +59,9 @@ App({
     })
   },
   globalData: {
-    appArea: 'wlhn',
+    platformAppArea: 'wlhn',
+    piaopiaoQianAppArea: 'def2dbc9fddf415e8b96dc167ccea5dc',
+    piaopiaoQianMemberId: 'ba154b8a17d94b298e3fb6feb3593a39',
     openId: '',
     sessionKey: '',
     unionId: '',
