@@ -14,6 +14,23 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+function handleImgUrl (obj, imgKey) {
+  if(obj instanceof Array) {
+    obj.forEach(v => {
+      if (v[imgKey] !== undefined) {
+        v[imgKey] = 'https://sping-cloud-fall.oss-cn-shanghai.aliyuncs.com/wlhn/' + v[imgKey]
+      }
+    })
+  }else if (obj instanceof Object) {
+    if (obj[imgKey] !== undefined) {
+      obj[imgKey] = 'https://sping-cloud-fall.oss-cn-shanghai.aliyuncs.com/wlhn/' + v[imgKey]
+    }
+  }else {
+    
+  }
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  handleImgUrl
 }

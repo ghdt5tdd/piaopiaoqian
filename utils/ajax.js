@@ -1,3 +1,4 @@
+const util = require('util.js')
 const _config = {
   //serverUrl: 'https://fall.wlhn.com/fallapp-main-wlhn/'
   serverUrl: 'https://fall.wlhn.com/fallapp-child-dlxapp-userlla/'

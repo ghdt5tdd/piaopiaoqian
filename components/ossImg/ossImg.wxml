@@ -1,4 +1,2 @@
 <!--components/ossImg.wxml-->
-<view class="wrapper">
-  <img src="{{tSrc}}"></img>
-</view>
+  <image src="{{tSrc}}"></image>

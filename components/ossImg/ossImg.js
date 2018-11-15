@@ -6,7 +6,7 @@ Component({
   properties: {
     oSrc:{
       type: String,
-      value: 'default value',
+      value: '',
     }
   },
 
@@ -22,7 +22,7 @@ Component({
    */
   methods: {
     tSrc : function () {
-      return '' + oSrc
+      return 'https://sping-cloud-fall.oss-cn-shanghai.aliyuncs.com/wlhn/' + oSrc
     }
   }
 })

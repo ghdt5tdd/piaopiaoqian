@@ -1,7 +1,9 @@
 // pages/company/company.js
 const app = getApp()
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
 // 引入SDK核心类
-var QQMapWX = require('../qqmap/qqmap-wx-jssdk.js');
+var QQMapWX = require('../qqmap/qqmap-wx-jssdk.js')
 var demo = new QQMapWX({
   key: 'I5GBZ-ZQULP-6MTD5-L4RVA-XAPAJ-DKB4G' // 必填 换成自己申请到的
 });
@@ -15,35 +17,7 @@ Page({
     page: 0, 
     pageSize : 10,
     begin: "城市",
-    companyItems: [{
-      logo: "../../images/company1.jpg",
-      name: "德力西电气有限公司",
-      spec: "德力西电气有限公司是成立于2007年的大型的合资企业，座落于“中国电器之都”———浙江省乐清市柳市镇，累计投资额近20亿元人民币，占地达240, 000平方米，拥有员工10, 000余人，是中国低压电器行业具有一定规模的合资企业。",
-      tel: "0577-61778888",
-      by: "浙江、江苏、上海配送",
-      location: "浙江省乐清市柳市镇德力西高科技工业园",
-    }, {
-      logo: "../../images/company2.jpg",
-      name: "万隆化工有限公司",
-      spec: "万隆化工有限公司创建于1984年，是我国历史悠久，生产规模庞大的荧光颜料生产企业。公司通过了ISO9001质量体系认证和ISO14001环境体系认证，荣获多项国家专利，是国家级高新技术企业",
-      tel: "0577-65092470",
-      by: "浙江、江苏、上海配送",
-      location: "浙江省温州市瑞安市锦湖街道万隆化工",
-    }, {
-      logo: "../../images/company1.jpg",
-      name: "德力西电气有限公司",
-      spec: "德力西电气有限公司是成立于2007年的大型的合资企业，座落于“中国电器之都”———浙江省乐清市柳市镇，累计投资额近20亿元人民币，占地达240, 000平方米，拥有员工10, 000余人，是中国低压电器行业具有一定规模的合资企业。",
-      tel: "0577-61778888",
-      by: "浙江、江苏、上海配送",
-      location: "浙江省乐清市柳市镇德力西高科技工业园",
-    }, {
-      logo: "../../images/company2.jpg",
-      name: "万隆化工有限公司",
-      spec: "万隆化工有限公司创建于1984年，是我国历史悠久，生产规模庞大的荧光颜料生产企业。公司通过了ISO9001质量体系认证和ISO14001环境体系认证，荣获多项国家专利，是国家级高新技术企业",
-      tel: "0577-65092470",
-      by: "浙江、江苏、上海配送",
-      location: "浙江省温州市瑞安市锦湖街道万隆化工",
-    }, ]
+    companyItems: []
   },
 
   lower: function (e) {
@@ -103,6 +77,7 @@ Page({
   toBind: function(e) {
     var logo = e.currentTarget.dataset.logo
     var title = e.currentTarget.dataset.name
+    var area = e.currentTarget.dataset.area
     wx.navigateBack({ //返回
       delta: 1
     })
@@ -112,6 +87,7 @@ Page({
     prevPage.setData({
       logo: logo,
       title: title,
+      area: area,
     })
   },
 
@@ -120,7 +96,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    console.log()
+    ajax.getApi('app/common/getShopListByGrant', {
+      page: this.data.page,
+      pageSize: this.data.pageSize,
+      app_area: app.globalData.piaopiaoQianAppArea
+    }, (err, res) => {
+      if (res && res.success) {
+        console.log(res)
+        util.handleImgUrl(res.data, 'logo_img')
+        console.log(res)
+        this.setData({
+          companyItems: res.data
+        })
+      }
+    })
   },
 
   /**

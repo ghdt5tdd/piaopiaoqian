@@ -6,11 +6,11 @@
   <view class='bind-content'>
     <view class="bind-item">
       <image class='bind-icon' src='../../images/bind1.png'></image>
-      <input type="text" name="name" placeholder="{{name}}" focus="{{focus}}" />
+      <input type="text" name="name" placeholder="{{name}}" focus="{{focus}}" value="{{loginUsername}}" bindinput='setLoginUsername'/>
     </view>
     <view class="bind-item">
       <image class='bind-icon' src='../../images/bind2.png'></image>
-      <input type="text" name="password" placeholder="{{password}}" focus="{{focus}}" />
+      <input type="password" name="password" placeholder="{{password}}" focus="{{focus}}" value="{{loginPassword}}" bindinput='setLoginPassword' />
     </view>
   </view>
   <view class='bind-page'>
@@ -18,5 +18,5 @@
     <view bindtap='toRegister'>注册账号</view>
   </view>
   
-  <button class='button-bottom' formType="submit">绑定</button>
+  <button class='button-bottom' formType="submit">登陆</button>
 </form>

@@ -9,34 +9,34 @@
 <view class='company-list'>
   <view class='company-item' wx:for="{{companyItems}}">
     <view class='company-head'>
-      <image class='company-logo' src='{{item.logo}}'></image>
+      <image class='company-logo' src='{{item.logo_img}}'></image>
       <view>{{item.name}}</view>
-      <view class='company-spec'>{{item.spec}}</view>
+      <view class='company-spec'>{{item.profile}}</view>
     </view>
     <view class='company-info'>
       <view class='company-bar'>
         <image src='../../images/send-tel.png'></image>
-        <view>{{item.tel}}</view>
+        <view>{{item.service_hotline}}</view>
       </view>
       <view class='company-bar'>
         <image src='../../images/send-by.png'></image>
-        <view>{{item.by}}</view>
+        <view>{{item.service_items}}</view>
       </view>
       <view class='company-bar'>
         <image src='../../images/send-location.png'></image>
-        <view>{{item.location}}</view>
+        <view>{{item.address}}</view>
       </view>
     </view>
     <view class='company-opt'>
-      <view class='company-opt-item' bindtap='bookTel' data-tel="{{item.tel}}">
+      <view class='company-opt-item' bindtap='bookTel' data-tel="{{item.service_hotline}}">
         <image src='../../images/tel.png'></image>
         <view>电话</view>
       </view>
-      <view class='company-opt-item' bindtap='navigation' data-location="{{item.location}}">
+      <view class='company-opt-item' bindtap='navigation' data-location="{{item.address}}">
         <image src='../../images/navigation.png'></image>
         <view>导航</view>
       </view>
-      <view class='company-opt-item' bindtap='toBind' data-logo="{{item.logo}}" data-name="{{item.name}}">
+      <view class='company-opt-item' bindtap='toBind' data-logo="{{item.logo_img}}" data-name="{{item.company}}" data-area="{{item.shop_area}}">
         <image src='../../images/list1.png'></image>
         <view>登录</view>
       </view>

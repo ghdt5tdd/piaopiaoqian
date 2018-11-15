@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "企业选择"
+  "navigationBarTitleText": "企业选择",
+  "usingComponents": {
+    "oss-img": "../../components/ossImg/ossImg"
+  }
 }

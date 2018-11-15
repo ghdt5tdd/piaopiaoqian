@@ -1,5 +1,7 @@
 // pages/bind/bind.js
 var timer; // 计时器
+const ajax = require('../../utils/ajax.js')
+const app = getApp()
 Page({
 
   /**
@@ -8,8 +10,11 @@ Page({
   data: {
     logo: "../../images/logo.jpg",
     title: "德力西电气物流信息系统",
+    area: "delixiarea",
     name: "请输入账号",
     password: "请输入登录密码",
+    loginUsername:'',
+    loginPassword:'',
   },
 
   toCompany: function(e) {
@@ -34,24 +39,50 @@ Page({
   formSubmit: function(e) {
     var warn = "";
     var flag = false;
-    if (e.detail.value.name == "") {
+
+    const loginUsername = this.data.loginUsername
+    const loginPassword = this.data.loginPassword
+    const area = this.data.area
+
+    if (loginUsername === '') {
       warn = "请填写您的账号！";
-    } else if (e.detail.value.password == "") {
+    } else if (loginPassword == '') {
       warn = "请填写您的密码！";
     } else {
       flag = true;
-      wx.showToast({
-        title: '绑定成功',
-        icon: 'success',
-        duration: 2000,
-        mask: true
-      })
+      ajax.postApi('app/member/appLogin', {
+        account: loginUsername,
+        password: loginPassword,
+        app_area: area
+      }, (err, res) => {
+        if (res && res.success) {
+          wx.setStorageSync(area + 'LoginUsername', loginUsername)
+          wx.setStorageSync(area + 'LoginPassword', loginPassword)
+          app.globalData.memberInfo = res.data
 
-      timer = setTimeout(function() {
-        wx.switchTab({
-          url: '../home/home',
-        })
-      }, 3000);
+          wx.showToast({
+            title: '登陆成功',
+            icon: 'success',
+            duration: 2000,
+            mask: true
+          })
+
+          timer = setTimeout(function () {
+            wx.switchTab({
+              url: '../home/home',
+            })
+          }, 3000);
+        }else {
+          wx.showToast({
+            title: '登陆失败',
+            icon: 'fail',
+            duration: 2000,
+            mask: true
+          })
+        }
+      })	
+
+
     }
     if (flag == false) {
       wx.showModal({
@@ -62,12 +93,34 @@ Page({
 
   },
 
+  setLoginUsername: function(e) {
+    const val = e.detail.value;
+    this.setData({
+      loginUsername: val
+    });
+  },
+  setLoginPassword: function(e) {
+    const val = e.detail.value;
+    this.setData({
+      loginPassword: val
+    });
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    const loginUsername = wx.getStorageSync(this.data.area + 'LoginUsername') || ''
+    const loginPassword = wx.getStorageSync(this.data.area + 'LoginPassword') || ''
 
+    console.log(loginUsername)
+    console.log(loginPassword)
+
+    this.setData({
+      loginUsername,
+      loginPassword
+    })
   },
 
   /**
