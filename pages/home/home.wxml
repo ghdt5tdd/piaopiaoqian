@@ -33,11 +33,12 @@
   </view>
 
   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" vertical="{{vertical}}" circular="{{circular}}" class='newswiper'>
-    <block wx:for="{{newsUrls}}">
+    <block wx:for="{{newsList}}">
       <swiper-item>
         <view>
-          <view class='newswiper-info' wx:for="{{item.info}}" bindtap='{{item.to}}'>
-            <text>[{{item.style}}]</text>{{item.name}}</view>
+          <view class='newswiper-info' bindtap='toNews' data-news-id='{{item.id}}'>
+            <text>[{{item.nav_name}}]</text>{{item.title}}
+          </view>
         </view>
       </swiper-item>
     </block>

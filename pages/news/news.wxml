@@ -1,31 +1,27 @@
 <!--pages/news/news.wxml-->
-<scroll-view scroll-y="true" style="height:calc(100%- 100rpx);position:fixed;top:0;bottom:100rpx;">
-  <view class='news-name'>{{name}}</view>
+<scroll-view scroll-y="true" style="height:calc(100%- 100rpx);position:fixed;top:0;bottom:100rpx;" bindscrolltolower="lower">
+  <view class='news-name'>{{newsInfo.title}}</view>
   <view class='news-head'>
-    <image src='{{avatar}}'></image>
-    <view>{{style}}</view>
-    <view class='news-time'>{{time}}</view>
+    <view>{{newsInfo.nav_name}}</view>
+    <view class='news-time'>{{newsInfo.create_date}}</view>
   </view>
   <view class='news-content'>
-    <view class='news-info' wx:for="{{newsInfo}}">
-      <view>{{item.info}}</view>
-      <image wx:if="{{item.pic != ''}}" mode="widthFix" src='{{item.pic}}'></image>
+    <view class='news-info' >
+      <rich-text nodes="{{newsInfo.content}}"></rich-text>
     </view>
   </view>
   <view class='news-comment'>
-    <view class='news-comment-num'>全部评价({{num}})</view>
+    <view class='news-comment-num'>全部评价({{newsInfo.commentNum}})</view>
     <view>
-      <view class='news-comment-item' wx:for="{{newsComment}}">
-        <image class='news-comment-avatar' src='{{item.avatar}}'></image>
+      <view class='news-comment-item' wx:for="{{newsComment}}" wx:for-index="index">
+        <image class='news-comment-avatar' src='{{item.head_img}}'></image>
         <view class='news-comment-opt'>
-          <image bindtap='showComment' data-name="{{item.name}}" src='../../images/comment.png'></image>
-          <image wx:if="{{item.icon}}" bindtap='zan' data-index="{{index}}" src='../../images/zan.png'></image>
-          <image wx:else bindtap='zan' data-index="{{index}}" src='../../images/zan-r.png'></image>
+          <image wx:if="{{item.isLiked}}" bindtap='zan' data-is-zan="{{item.isLiked}}" data-comment-id="{{item.id}}" data-index="{{index}}" src='../../images/zan-r.png'></image>
+          <image wx:else                  bindtap='zan' data-is-zan="{{item.isLiked}}" data-comment-id="{{item.id}}" data-index="{{index}}"src='../../images/zan.png'></image>
         </view>
-        <view class='news-comment-name'>{{item.name}}</view>
-        <view class='news-comment-time'>{{item.time}}</view>
-        <view class='news-comment-info'>{{item.info}}</view>
-        <view bindtap='{{item.to}}' data-avatar="{{item.avatar}}"  data-name="{{item.name}}" data-time="{{item.time}}"  data-info="{{item.info}}"  data-sum="{{item.sum}}" class='news-comment-reply'>{{item.reply}}等{{item.sum}}条回复</view>
+        <view class='news-comment-name'>{{item.user_nickname}}</view>
+        <view class='news-comment-time'>{{item.create_date}}</view>
+        <view class='news-comment-info'>{{item.content}}</view>
       </view>
     </view>
   </view>
@@ -35,10 +31,17 @@
 <view class='fixed-opt'>
   <view class='fixed-opt-left' bindtap='showComment'>写评论...</view>
   <view class='fixed-opt-right'>
-    <view class='fixed-opt-item' wx:for="{{optItems}}" bindtap='{{item.to}}' data-select="{{setected}}" data-index="{{index}}">
-      <image src='{{item.pic}}'></image>
-      <view wx:if="{{item.num != ''}}">{{item.num}}</view>
-      <view wx:else>分享</view>
+    <view class='fixed-opt-item' bindtap='collect'>
+      <image src='../../images/collect.png'></image>
+      <view>{{newsInfo.likeNum}}</view>
+    </view>
+    <view class='fixed-opt-item'>
+      <image src='../../images/comment.png'></image>
+      <view>{{newsInfo.commentNum}}</view>
+    </view>
+    <view class='fixed-opt-item' bindtap='share'>
+      <image src='../../images/share.png'></image>
+      <view>分享</view>
     </view>
   </view>
 </view>

@@ -1,55 +1,16 @@
 // pages/news/news.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    name: "关于2018-02-10至2018-02-25期间停止所有物流商品配送说明",
-    avatar: "../../images/logo-s.png",
-    style: "通知",
-    time: "2018-01-12",
-    newsInfo: [{
-      info: "春节马上就要来了!最开心的消息肯定就是要放假啦!说到放假就肯定离不开疯狂购物一波，但是要注意快递的放假时间，别等到快递都放假了再买",
-      pic: "../../images/news-b.jpg"
-    }, {
-      info: "最后揽件时间：2月09日(腊月二十四)，年后2月25日(正月十一)开始正常工作。",
-      pic: ""
-    }],
-    num: "2",
-    newsComment: [{
-      avatar: "../../images/friend1.png",
-      name: "姜饼小A",
-      time: "2018-01-25  15:32",
-      info: "天啦噜，快递这么早就停运了啊，我还有很多东西想买呢，抓紧时间买买买。",
-      reply: "小熊饼干",
-      sum: "3",
-      to: "toReply",
-      icon: true,
-    }, {
-      avatar: "../../images/friend2.png",
-      name: "尖叫的土拨鼠",
-      time: "2018-01-25  15:32",
-      info: "天啦噜，快递这么早就停运了啊，我还有很多东西想买呢，抓紧时间买买买。",
-      reply: "ZXw72j",
-      sum: "5",
-      to: "toReply",
-      icon: true,
-    }],
-
-    optItems: [{
-      pic: "../../images/collect.png",
-      num: "500",
-      to: "collect"
-    }, {
-      pic: "../../images/comment.png",
-      num: "24",
-      to: ""
-    }, {
-      pic: "../../images/share.png",
-      num: "",
-      to: "share"
-    }],
+    commentPage: 1,
+    commentPageSize: 10,
+    newsId: '',
+    newsInfo: {},
+    newsComment: [],
     setected: false,
     hide: true,
     hideComment: true,
@@ -58,13 +19,21 @@ Page({
 
   //点赞
   zan: function(e) {
-    var newsComment = this.data.newsComment
-    var index = e.currentTarget.dataset.index
-    var icon = newsComment[index].icon;
-    newsComment[index].icon = !icon;
-
-    this.setData({
-      newsComment: newsComment,
+    const isZan = e.target.dataset.isZan
+    const commentId = e.target.dataset.commentId
+    const index = e.target.dataset.index
+    const newsComment = this.data.newsComment
+    const commentInfo = this.data.newsComment[index]
+    ajax.postApi('app/member/newsCommentLikeHandler', {
+      commentId
+    }, (err, res) => {
+      if (res && res.success) {
+        commentInfo.isLiked = !commentInfo.isLiked
+        newsComment[index] = commentInfo
+        this.setData({
+          newsComment
+        })
+      }
     })
   },
 
@@ -132,11 +101,86 @@ Page({
 
   },
 
+  lower:function(e) {
+      const commentNum = this.data.newsInfo.commentNum
+      let commentPage = this.data.commentPage
+      const commentPageSize = this.data.commentPageSize
+      console.log(commentNum, commentPage, commentPageSize)
+      if (commentNum > commentPage * commentPageSize) {
+        wx.showLoading({
+          title: '评论加载中...',
+        })
+        console.log(1)
+        commentPage++
+        this.setData({
+          commentPage
+        }, () => {
+          this.getComments(this.data.newsId, () => {
+            wx.hideLoading()
+          })
+        })
+      }else {
+        wx.showToast({
+          title: '评论已加载完毕',
+          duration: 1000
+        })
+      }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    const newsId = options.id
+    if(newsId === undefined || newsId === '') {
+      wx.showToast({
+        title:'没有新闻id!',
+        duration: 1000,
+        mask:true,
+        success () {
+          wx.navigateBack({
+            delta: 1 
+          })
+        }
+      })
+    }else {
+      this.setData({
+        newsId
+      })
+      this.getNewsDetail(newsId)
+      this.getComments(newsId)
+    }
+  },
 
+  getNewsDetail: function (newsId) {
+    ajax.getApi('app/member/getShopNewsDetail', {
+      newsId
+    }, (err, res) => {
+      if (res && res.success) {
+        this.setData({
+          newsInfo: res.data
+        })
+      }
+    })
+  },
+  getComments: function (newsId, callback) {
+    ajax.getApi('app/member/getShopNewsCommentList', {
+      newsId,
+      page: this.data.commentPage,
+      pageSize: this.data.commentPageSize
+    }, (err, res) => {
+      if (res && res.success) {
+        console.log(res.data)
+        const newsComment = this.data.newsComment
+        Array.prototype.push.apply(newsComment, res.data);
+        this.setData({
+          newsComment
+        })
+      }
+      if (callback) {
+        callback()
+      }
+    })
   },
 
   /**

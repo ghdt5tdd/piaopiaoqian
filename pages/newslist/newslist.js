@@ -1,79 +1,87 @@
 // pages/newslist/newslist.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    newsItems: [{
-      avatar: "../../images/logo-s.png",
-      style: "通知",
-      name: "关于2018-02至2018-02-25期间停止所有物流商品配送说明 ",
-      time: "2018-01-12",
-      pic: "../../images/news-s.png",
-      collect: "500",
-      comment: "24",
-      to: "toNews"
-
-    }, {
-      avatar: "../../images/logo-s.png",
-      style: "通知",
-      name: "APP将于10月25日9：00至11：00进行更新",
-      time: "2018-01-12",
-      pic: "../../images/news-s.png",
-      collect: "500",
-      comment: "24",
-      to: "toNews"
-    }, {
-      avatar: "../../images/logo-s.png",
-      style: "新闻",
-      name: "德力西电气全新官网，服务品质再度升级",
-      time: "2018-01-12",
-      pic: "../../images/news-s.png",
-      collect: "500",
-      comment: "24",
-      to: "toNews"
-    }, {
-      avatar: "../../images/logo-s.png",
-      style: "新闻",
-      name: "人事自助服务终端‘德家小AI惊艳面世’",
-      time: "2018-01-12",
-      pic: "../../images/news-s.png",
-      collect: "500",
-      comment: "24",
-      to: "toNews"
-    }, {
-      avatar: "../../images/logo-s.png",
-      style: "公告",
-      name: "小米手机GPS持续上传设置方法",
-      time: "2018-01-12",
-      pic: "../../images/news-s.png",
-      collect: "500",
-      comment: "24",
-      to: "toNews"
-    }, ],
-
-
-
+    page: 1,
+    pageSize: 10,
+    loadCompleted: false,
+    newsList:[],
   },
 
 
 
   //跳转到新闻详情页面
-  toNews: function(e) {
+  toDetail: function(e) {
     wx.navigateTo({
-      url: '../news/news'
+      url: '../news/news?id=' + e.target.dataset.newsId
     })
   },
 
-
-
+  lower:function(e) {
+    let page = this.data.page
+    const pageSize = this.data.pageSize
+    const loadCompleted = this.data.loadCompleted
+    console.log(page, pageSize)
+    if (!loadCompleted) {
+      wx.showLoading({
+        title: '更多新闻加载中...',
+      })
+      page++
+      this.setData({
+        page
+      }, () => {
+        this.getNewsList(() => {
+          wx.hideLoading()
+        })
+      })
+    } else {
+      wx.showToast({
+        title: '新闻已全部加载完毕',
+        duration: 1000
+      })
+    }
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.getNewsList()
+  },
 
+  getNewsList: function (callback) {
+    ajax.getApi('app/member/getShopNewsList', {
+      page: this.data.page,
+      pageSize: this.data.pageSize
+    }, (err, res) => {
+      console.log(res)
+      if (res && res.success) {
+        if(res.data.length > 0) {
+          const newsList = this.data.newsList
+          Array.prototype.push.apply(newsList, res.data);
+          this.setData({
+            newsList
+          })
+        }else {
+          wx.hideLoading(() => {
+            wx.showToast({
+              title: '新闻已全部加载完毕',
+              duration: 1000
+            })
+          })
+          this.setData({
+            loadCompleted: true
+          })
+        }
+      }
+      if (callback) {
+        callback()
+      }
+    })
   },
 
   /**

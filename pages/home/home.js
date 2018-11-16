@@ -26,6 +26,7 @@ Page({
     }],
     memberInfo: null,
     banner: "../../images/banner.jpg",
+    newsList: [],
     newsUrls: [{
         index: 0,
         info: [{
@@ -124,7 +125,7 @@ Page({
   //跳转到新闻详情页面
   toNews: function(e) {
     wx.navigateTo({
-      url: '../news/news'
+      url: '../news/news?id=' + e.target.dataset.newsId
     })
   },
 
@@ -202,9 +203,10 @@ Page({
       page: 0,
       pageSize: 10
     }, (err, res) => {
-      console.log(res)
       if (res && res.success) {
-        
+        this.setData({
+          newsList: res.data
+        })
       }
     })	
   },
@@ -226,7 +228,6 @@ Page({
       this.setData({
         memberInfo: app.globalData.memberInfo
       })
-      console.log(app.globalData.memberInfo)
     }
   },
 
