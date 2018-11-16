@@ -47,7 +47,6 @@ Page({
       address: e.currentTarget.dataset.location,
 
       success: function(res) {
-        console.log(res)
         var latitude = res.result.location.lat
         var longitude = res.result.location.lng
         var addressOn = e.currentTarget.dataset.location
@@ -58,7 +57,6 @@ Page({
           address: addressOn,
           scale: 28
         })
-
       },
       fail: function(res) {
         // console.log(res);
@@ -67,10 +65,6 @@ Page({
         // console.log(res);
       }
     });
-
-
-
-
   },
 
   //选择企业
@@ -96,16 +90,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log()
+
     ajax.getApi('app/common/getShopListByGrant', {
       page: this.data.page,
       pageSize: this.data.pageSize,
       app_area: app.globalData.piaopiaoQianAppArea
     }, (err, res) => {
       if (res && res.success) {
-        console.log(res)
         util.handleImgUrl(res.data, 'logo_img')
-        console.log(res)
         this.setData({
           companyItems: res.data
         })

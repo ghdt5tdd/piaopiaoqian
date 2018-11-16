@@ -1,21 +1,23 @@
 // pages/password/password.js
 var timer; // 计时器
+const ajax = require('../../utils/ajax.js')
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    tel: "请输入手机号",
+    username: "请输入账号",
     code: "请输入验证码",
     codename: "获取验证码",
     password: "请输入新密码",
     password2: "请再次输入新密码",
+    area: ''
   },
 
   //获取input输入框的值  
-  getPhoneValue: function(e) {
+  getUserValue: function(e) {
     this.setData({
-      tel: e.detail.value
+      username: e.detail.value
     })
   },
   getCodeValue: function(e) {
@@ -38,44 +40,56 @@ Page({
   },
   //获取验证码  
   getVerificationCode(e) {
-    var _this = this;
-    var myreg = /^(14[0-9]|13[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$$/;
-    if (this.data.tel == "请输入手机号") {
+    if (this.data.username == "请输入账号") {
       wx.showToast({
-        title: '手机号不能为空',
-        icon: 'none',
-        duration: 1000
-      })
-      return false;
-    } else if (!myreg.test(this.data.tel)) {
-      wx.showToast({
-        title: '请输入正确的手机号',
+        title: '账号不能为空',
         icon: 'none',
         duration: 1000
       })
       return false;
     } else {
       var num = 60
-      var timer = setInterval(function() {
+      var timer = setInterval(() => {
         num--;
         if (num <= 0) {
           clearInterval(timer);
-          _this.setData({
+          this.setData({
             codename: '重新发送',
             disabled: false,
             codetype: false
           })
         } else {
-          _this.setData({
+          this.setData({
             codename: num + "s",
             codetype: true
           })
         }
       }, 1000)
+
+      ajax.getApi('app/member/sendForgetPwd', {
+        state: '0',
+        account: this.data.username,
+        app_area: this.data.area
+      }, (err, res) => {
+        console.log(res)
+        if (res && res.success) {
+          wx.showToast({
+            title: '发送成功',
+            icon: 'success',
+            duration: 1000
+          })
+        }else {
+          wx.showToast({
+            title: res.text,
+            icon: 'none',
+            duration: 1000
+          })
+        }
+      })	
     }
 
 
-    _this.setData({
+    this.setData({
       disabled: true
     })
   },
@@ -84,33 +98,48 @@ Page({
   formSubmit: function(e) {
     var warn = "";
     var flag = false;
-    var password = e.detail.value.password
-    if (e.detail.value.tel == "") {
-      warn = "请输入手机号！";
-    } else if (e.detail.value.code == "") {
+    const username = e.detail.value.username
+    const code = e.detail.value.code
+    const password = e.detail.value.password
+    const password2 = e.detail.value.password2
+    const area = this.data.area
+
+    if (username == "") {
+      warn = "请输入账号！";
+    } else if (code == "") {
       warn = "请输入验证码！"; //判断验证码是否输入正确的没写
-    } else if (e.detail.value.password == "") {
+    } else if (password == "") {
       warn = "请输入新密码！";
-    } else if (e.detail.value.password2 == "") {
+    } else if (password2 == "") {
       warn = "请再次输入新密码！";
-    } else if (e.detail.value.password2 != password) {
+    } else if (password2 !== password) {
       warn = "两次密码不一致！";
     } else {
       flag = true;
-      wx.showToast({
-        title: '密码已重置',
-        icon: 'success',
-        duration: 2000,
-        mask: true
-      })
+      ajax.postApi('app/member/forgetPassword', {
+        state: '0',
+        code,
+        password,
+        account: username,
+        app_area: area
+      }, (err, res) => {0
+        if (res && res.success) {
+          wx.showToast({
+            title: '密码已重置',
+            icon: 'success',
+            duration: 2000,
+            mask: true
+          })
 
-      timer = setTimeout(function() {
-        wx.navigateBack({
-          delta: 1
-        })
-      }, 3000);
-
+          timer = setTimeout(function () {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 3000);
+        }
+      })	
     }
+
     if (flag == false) {
       wx.showModal({
         title: '提示',
@@ -125,7 +154,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.setData({
+      area: options.area
+    })
   },
 
   /**

@@ -25,7 +25,7 @@ Page({
 
   toPassword: function(e) {
     wx.navigateTo({
-      url: '../password/password',
+      url: '../password/password?area=' + this.data.area,
     })
   },
 
@@ -50,12 +50,16 @@ Page({
       warn = "请填写您的密码！";
     } else {
       flag = true;
+      wx.showLoading({
+        title: '登录中...',
+      })
       ajax.postApi('app/member/appLogin', {
         account: loginUsername,
         password: loginPassword,
         app_area: area
       }, (err, res) => {
         if (res && res.success) {
+          wx.hideLoading()
           wx.setStorageSync(area + 'LoginUsername', loginUsername)
           wx.setStorageSync(area + 'LoginPassword', loginPassword)
           app.globalData.memberInfo = res.data
@@ -63,7 +67,7 @@ Page({
           wx.showToast({
             title: '登陆成功',
             icon: 'success',
-            duration: 2000,
+            duration: 1000,
             mask: true
           })
 
@@ -71,7 +75,7 @@ Page({
             wx.switchTab({
               url: '../home/home',
             })
-          }, 3000);
+          }, 1000);
         }else {
           wx.showToast({
             title: '登陆失败',

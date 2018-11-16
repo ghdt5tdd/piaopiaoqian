@@ -1,4 +1,7 @@
 // pages/home/home.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const app = getApp()
 Page({
 
   /**
@@ -21,9 +24,7 @@ Page({
       name: "预约下单",
       to: 'toAppoint'
     }],
-
-
-
+    memberInfo: null,
     banner: "../../images/banner.jpg",
     newsUrls: [{
         index: 0,
@@ -192,7 +193,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    if (app.globalData.memberInfo === null) {
+      wx.showToast({
+        title: '用户信息缺失，请重新登录',
+        icon: 'loading',
+        duration: 1000,
+        mask: true
+      })
+      setTimeout(function () {
+        wx.redirectTo({
+          url: '../bind/bind'
+        })
+      }, 1000);
+    }else {
+      this.setData({
+        memberInfo : app.globalData.memberInfo
+      })
+    }
   },
 
   /**
