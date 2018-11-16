@@ -63,7 +63,7 @@ Page({
           wx.setStorageSync(area + 'LoginUsername', loginUsername)
           wx.setStorageSync(area + 'LoginPassword', loginPassword)
           app.globalData.memberInfo = res.data
-
+          
           wx.showToast({
             title: '登陆成功',
             icon: 'success',

@@ -1,10 +1,10 @@
 <view class='top-bar'>
   <view class='top-bar-info'>
     <view class='vip-avatar'>
-      <image src='{{vipAvatar}}'></image>
+      <image src='{{memberInfo.head_img}}'></image>
       <image class='vip-icon' src='{{vipLevel}}'></image>
     </view>
-    <view class='vip-name'>{{vipName}}
+    <view class='vip-name'>{{memberInfo.user_nickname}}
       <text>({{vipSpec}})</text>,您好</view>
   </view>
   <view class='top-bar-opt'>

@@ -11,7 +11,7 @@ Page({
     vipAvatar: "../../images/avatar-sy.png",
     vipLevel: "../../images/Vip2.png",
     vipName: "长安物流",
-    vipSpec: "LV2",
+    vipSpec: "LV1",
     optScan: "../../images/scan-m.png",
     optFunc: "../../images/add.png",
     hideList: true,
@@ -193,6 +193,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.getMemberInfo()
+    this.getNewsList()
+  },
+
+  getNewsList () {
+    ajax.getApi('app/member/getShopNewsList', {
+      page: 0,
+      pageSize: 10
+    }, (err, res) => {
+      console.log(res)
+      if (res && res.success) {
+        
+      }
+    })	
+  },
+
+  getMemberInfo () {
     if (app.globalData.memberInfo === null) {
       wx.showToast({
         title: '用户信息缺失，请重新登录',
@@ -205,10 +222,11 @@ Page({
           url: '../bind/bind'
         })
       }, 1000);
-    }else {
+    } else {
       this.setData({
-        memberInfo : app.globalData.memberInfo
+        memberInfo: app.globalData.memberInfo
       })
+      console.log(app.globalData.memberInfo)
     }
   },
 

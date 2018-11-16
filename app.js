@@ -1,5 +1,6 @@
 //app.js
 const ajax = require('utils/ajax.js')
+const util = require('utils/util.js')
 App({
   onLaunch: function (e) {
     // 展示本地存储能力
@@ -66,6 +67,7 @@ App({
     sessionKey: '',
     unionId: '',
     memberInfo: null,
-    userInfo: null
+    userInfo: null,
+    jsSessionId: null,
   }
 })

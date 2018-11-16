@@ -5,7 +5,7 @@ const _config = {
 }
 
 function getApi(apiName, params, cb) {
-  wx.request({
+  request({
     url: _config.serverUrl + apiName,
     data: params,
     method: 'GET',
@@ -19,11 +19,11 @@ function getApi(apiName, params, cb) {
     fail: function (err) {
       typeof cb == "function" && cb(err)
     }
-  })
+  }) 
 }
 
 function postApi(apiName, params, cb) {
-  wx.request({
+  request({
     url: _config.serverUrl + apiName,
     data: params,
     method: 'POST',
@@ -38,6 +38,15 @@ function postApi(apiName, params, cb) {
       typeof cb == "function" && cb(err)
     }
   })
+}
+function request(requestSetting) {
+  let JSSESSIONID = wx.getStorageSync('JSSESSIONID')
+  if (JSSESSIONID === '') {
+    JSSESSIONID = util.RandomUUID()
+    wx.setStorageSync('JSSESSIONID', uuid)
+  }
+  requestSetting.header['cookie'] = 'JSESSIONID=' + JSSESSIONID
+  wx.request(requestSetting)
 }
 
 
