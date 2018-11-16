@@ -31,10 +31,15 @@
 <view class='fixed-opt'>
   <view class='fixed-opt-left' bindtap='showComment'>写评论...</view>
   <view class='fixed-opt-right'>
-    <view class='fixed-opt-item' bindtap='collect'>
+    <view wx:if="{{newsInfo.isLiked}}" class='fixed-opt-item' bindtap='collect' data-is-liked="{{newsInfo.isLiked}}" >
+      <image  src='../../images/collect-r.png'></image>
+      <view>{{newsInfo.likeNum}}</view>
+    </view>
+    <view wx:else class='fixed-opt-item' bindtap='collect' data-is-liked="{{newsInfo.isLiked}}" >
       <image src='../../images/collect.png'></image>
       <view>{{newsInfo.likeNum}}</view>
     </view>
+
     <view class='fixed-opt-item'>
       <image src='../../images/comment.png'></image>
       <view>{{newsInfo.commentNum}}</view>
@@ -48,9 +53,9 @@
 
 <view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
 <view class='popup-comment' hidden='{{hideComment}}'>
-  <textarea placeholder='{{textComment}}'></textarea>
+  <textarea placeholder='{{textComment}}' bindinput='writeComment'></textarea>
   <view class='popup-comment-opt'>
     <view bindtap='hide'>取消</view>
-    <view class='bg-blue' bindtap='hide'>发送</view>
+    <view class='bg-blue' bindtap='commentNew'>发送</view>
   </view>
 </view>

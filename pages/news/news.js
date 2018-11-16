@@ -1,5 +1,6 @@
 // pages/news/news.js
 const ajax = require('../../utils/ajax.js')
+const app = getApp()
 Page({
 
   /**
@@ -14,16 +15,27 @@ Page({
     setected: false,
     hide: true,
     hideComment: true,
-    textComment: "我也说一句..."
+    textComment: "我也说一句...",
+    commentContent: ''
   },
 
   //点赞
   zan: function(e) {
     const isZan = e.target.dataset.isZan
+    if (isZan) {
+      return;
+    }
     const commentId = e.target.dataset.commentId
     const index = e.target.dataset.index
     const newsComment = this.data.newsComment
     const commentInfo = this.data.newsComment[index]
+    if(commentId === '-1'){
+      wx.showToast({
+        title: '请刷新页面',
+        duration: 1000
+      })
+      return;
+    }
     ajax.postApi('app/member/newsCommentLikeHandler', {
       commentId
     }, (err, res) => {
@@ -64,28 +76,74 @@ Page({
       textComment: '我也说一句...',
     })
   },
+  commentNew: function() {
+    const content = this.data.commentContent
+    const newsId = this.data.newsId
+    if (content === '') {
+      wx.showToast({
+        title: '请先填写评论内容',
+        duration : 1000
+      })
+      return;
+    }
+    this.hide()
+    wx.showLoading({
+      title: '提交中...',
+    })
+    ajax.postApi('app/member/shopNewsComment', {
+      newsId,
+      content
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        const newsComment = this.data.newsComment
+        const newsInfo = this.data.newsInfo
+        const newComment = {
+          head_img: app.globalData.memberInfo.head_img,
+          isLiked: false,
+          user_nickname: app.globalData.memberInfo.user_nickname,
+          create_date: new Date(),
+          content,
+          id: '-1'
+        }
+        newsInfo.commentNum ++
+        newsComment.unshift(newComment)
+        
+        this.setData({
+          newsComment,
+          newsInfo
+        })
+      }
+    })	
+  },
 
+  writeComment:function(e) {
+    this.setData({
+      commentContent: e.detail.value
+    })
+  },
 
   //收藏
   collect: function(e) {
-    var select = e.currentTarget.dataset.select
-    var index = e.currentTarget.dataset.index
-    var optItems = this.data.optItems
-    if (select) {
-      optItems[index].pic = '../../images/collect.png';
-      //收藏数字也要变化，留给你
-      this.setData({
-        setected: false,
-        optItems: optItems
-      })
-    } else {
-      optItems[index].pic = '../../images/collect-r.png';
-      //收藏数字也要变化，留给你
-      this.setData({
-        setected: true,
-        optItems: optItems
-      })
+    const isLiked = e.currentTarget.dataset.isLiked
+    const newsId = this.data.newsId
+    if (isLiked) {
+      return;
     }
+    
+    ajax.postApi('app/member/newsLikeHandler', {
+      newsId
+    }, (err, res) => {
+      if (res && res.success) {
+        const newsInfo = this.data.newsInfo
+        newsInfo.isLiked = true
+        newsInfo.likeNum ++
+        this.setData({
+          newsInfo
+        })
+      }
+    })	
+
   },
 
 
@@ -105,12 +163,10 @@ Page({
       const commentNum = this.data.newsInfo.commentNum
       let commentPage = this.data.commentPage
       const commentPageSize = this.data.commentPageSize
-      console.log(commentNum, commentPage, commentPageSize)
       if (commentNum > commentPage * commentPageSize) {
         wx.showLoading({
           title: '评论加载中...',
         })
-        console.log(1)
         commentPage++
         this.setData({
           commentPage
@@ -170,7 +226,6 @@ Page({
       pageSize: this.data.commentPageSize
     }, (err, res) => {
       if (res && res.success) {
-        console.log(res.data)
         const newsComment = this.data.newsComment
         Array.prototype.push.apply(newsComment, res.data);
         this.setData({
