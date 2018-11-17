@@ -52,7 +52,7 @@ Page({
         label: "账户日记",
         to: "toDiary",
       }, ]
-    }, {
+     }, {
       bar: [{
         img: "../../images/my3.png",
         label: "个人资料",
