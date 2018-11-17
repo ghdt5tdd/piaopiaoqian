@@ -51,8 +51,8 @@
 <view class='module-list'>
   <block wx:for="{{moduleItems}}">
     <view class="module-items" bindtap='{{item.to}}'>
-      <image src="{{item.image}}"></image>
-      <view>{{item.name}}</view>
+      <image src="{{item.img}}"></image>
+      <view>{{item.itemText}}</view>
     </view>
   </block>
 </view>

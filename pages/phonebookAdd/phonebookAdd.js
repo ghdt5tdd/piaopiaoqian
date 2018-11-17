@@ -1,59 +1,102 @@
 // pages/phonebookAdd/phonebookAdd.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: {
-    src: "../../images/avatar-sy.png",
-    phoneItems: [{
-      img: "../../images/list1.png",
-      label: "头像",
-    }, {
-      img: "../../images/list2.png",
-      label: "姓名",
-      name: "温州山鹰物流公司",
-    }, {
-      img: "../../images/list3.png",
-      label: "联系人",
-      name: "李程",
-    }, {
-      img: "../../images/list4.png",
-      label: "联系方式",
-      name: "13584904645",
-    }, {
-      img: "../../images/list5.png",
-      label: "卡号",
-      name: "42030216372893085",
-    }, {
-      img: "../../images/list6.png",
-      label: "地址",
-      name: "浙江省温州市鹿城广场",
-    }, {
-      img: "../../images/list7.png",
-      label: "备注",
-      name: "可不填",
-    }, ]
-
-
+  data: { 
+      head_img: '',
+      name: '',
+      contact_man: '',
+      contact_way: '',
+      card_number: '',
+      address: '',
+      remark: '',
   },
 
+  name: function(e) {
+    const name = e.detail.value
+    this.setData({
+      name
+    })
+  },
 
+  contact_man: function (e) {
+    const contact_man = e.detail.value
+    this.setData({
+      contact_man
+    })
+  },
 
+  contact_way: function (e) {
+    const contact_way = e.detail.value
+    this.setData({
+      contact_way
+    })
+  },
+
+  card_number: function (e) {
+    const card_number = e.detail.value
+    this.setData({
+      card_number
+    })
+  },
+
+  address: function (e) {
+    const address = e.detail.value
+    this.setData({
+      address
+    })
+  },
+
+  remark: function (e) {
+    const remark = e.detail.value
+    this.setData({
+      remark
+    })
+  },
+
+  save: function() {
+    wx.showLoading({
+      title: '保存中...',
+    })
+    ajax.postApi('app/member/telbookSaveOrUpdate', {
+      ...this.data
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.showToast({
+          title: '保存成功',
+          duration: 1500
+        })
+        wx.navigateBack({
+          delta: 1
+        })
+      }else {
+        wx.showToast({
+          title: '保存失败',
+          duration: 1000
+        })
+      }
+    })	
+  },
 
   //上传图片
   changePic: function(e) {
-    var that = this // 不能直接用this，留坑
     wx.chooseImage({
       count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function(res) {
+      success: res => {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        that.setData({
-          src: res.tempFilePaths
+        util.ImgPathToBase64(res.tempFilePaths[0], base64 => {
+          const head_img = 'data:image/png;base64,' + base64
+          this.setData({
+            head_img
+          })
         })
-
       }
     })
 
@@ -64,7 +107,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    console.log(...this.data)
   },
 
   /**

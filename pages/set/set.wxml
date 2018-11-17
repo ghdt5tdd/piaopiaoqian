@@ -1,0 +1,38 @@
+<!--pages/set/set.wxml-->
+<view class='my-list'>
+  <view class='my-bar' wx:for="{{myList}}" bindtap='{{item.to}}'>
+    <image src='{{item.img}}' class='my-bar-img'></image>
+    <view class='my-bar-label'>{{item.label}}</view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+</view>
+
+<view class='my-list'>
+  <view class='my-bar'>
+    <image src='../../images/icon12.png' class='my-bar-img'></image>
+    <view class='my-bar-label'>GPS权限</view>
+    <view class='my-bar-status' data-param="1" bindtap='GPS'>
+      <image wx:if="{{gps}}" src='../../images/start.png'></image>
+      <image wx:else src='../../images/stop.png'></image>
+    </view>
+  </view>
+  <view class='my-bar'>
+    <image src='../../images/icon13.png' class='my-bar-img'></image>
+    <view class='my-bar-label'>电子围栏自动签收授权</view>
+    <view class='my-bar-status' bindtap='Fence'>
+      <image wx:if="{{fence}}" src='../../images/start.png'></image>
+      <image wx:else src='../../images/stop.png'></image>
+    </view>
+  </view>
+</view>
+
+<view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
+<view class='popup-fence' hidden="{{hideFence}}">
+  <view class='popup-fence-head'>电子围栏自动签收授权</view>
+  <scroll-view scroll-y="true" style="height:calc(100% - 180rpx);">
+    <view class='popup-fence-info'>{{popupFence}}</view>
+  </scroll-view>
+  <view class='popup-fence-opt bg-orange' bindtap='sure'>
+    开启
+  </view>
+</view>

@@ -1,19 +1,15 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+const ajax = require('../../utils/ajax.js')
 Page({
   data: {
-    nickId: "13648372638", //虚拟数据
     userInfo: {},
+    memberInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-
-    orderStatus: [{
-      name: "货运单发出",
-    }, {
-      name: "货运单接收",
-    }, ],
+    curCode: null,
+    orderStatus: [],
 
     selectStatus: 0,
     ul: "ul-2",
@@ -80,9 +76,9 @@ Page({
 
   //选择状态
   selectStatus: function(e) {
-    var index = e.target.dataset.index;
+    var curCode = e.target.dataset.code;
     this.setData({
-      selectStatus: index
+      curCode
     })
   },
 
@@ -124,6 +120,70 @@ Page({
     })
   },
   onLoad: function() {
+    this.initUserInfo()
+    this.getMemberInfo()
+    this.getNavByRole(this.getNavDataByRole)
+  },
+
+  getMemberInfo: function() {
+    const memberInfo = app.globalData.memberInfo
+    this.setData({
+      memberInfo
+    })
+  },
+
+  getNavByRole:function(callback) {
+    const orderStatus = wx.getStorageSync('orderStatus' + app.globalData.memberInfo.id)
+    if (orderStatus === '') {
+      ajax.getApi('app/member/getNavByRole', {
+        
+      }, (err, res) => {
+        if (res && res.success) {
+          wx.setStorageSync('orderStatus' + app.globalData.memberInfo.id, res.data)
+          if(res.data instanceof Array && res.data.length > 0) {
+            this.setData({
+              orderStatus: res.data,
+              curCode: res.data[0].code
+            })
+            callback(res.data)
+          }
+        }
+      })	
+    } else {
+      callback(orderStatus)
+      this.setData({
+        orderStatus,
+        curCode: orderStatus[0].code
+      })
+    }
+  },
+
+
+
+  getNavDataByRole: function(navs) {
+    navs.forEach((v,i) => {
+      const code = v.code
+      ajax.getApi('app/member/getNavDataByRole', {
+        code
+      }, (err, res) => {
+        if (res && res.success) {
+          console.log(res.data)
+          const orderStatus = this.data.orderStatus
+          orderStatus.forEach(value => {
+            if (value.code === code){
+              value.tabs = res.data
+            }
+          })
+
+          this.setData({
+            orderStatus
+          })
+        }
+      })
+    })
+  },
+
+  initUserInfo: function() {
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

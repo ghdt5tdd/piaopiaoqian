@@ -8,39 +8,47 @@
   <image class='book-add' bindtap='bookAdd' src='../../images/add-orange.png'></image>
 </view>
 <view class='a-z'>
-  <view wx:for="{{bookAZ}}" wx:key="unique">
+  <view wx:for="{{bookAZ}}">
     <view data-id='{{item.bookName}}' bindtap='bindAZ'>{{item.bookName}}</view>
   </view>
 </view>
 <view class='book-item-content'>
-  <view wx:for="{{bookResults}}" wx:key="unique">
-    <view wx:if="{{item.bookPY.length > 1}}" class="touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove">
-      <view class='book-item' data-bookname='{{item.bookName}}' bindtap='bookDetail'>{{item.bookName}}</view>
+  <view wx:for="{{filterBooks}}" wx:key="unique">
+    <view wx:if="{{!item.bookAZ}}" class="touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove">
+      <view class='book-item' bindtap='bookDetail' data-id="{{item.id}}">{{item.name}}</view>
       <view class='book-opt'>
-        <view class="edit" catchtap="edit" data-index="{{index}}">修改</view>
-        <view class="del" catchtap="del" data-index="{{index}}">删除</view>
+       <!-- <view class="edit" catchtap="edit" data-index="{{index}}">修改</view>-->
+        <view class="del" catchtap="del" data-id="{{item.id}}">删除</view>
       </view>
 
     </view>
-    <view wx:else class='book-item-A-Z' data-bookname='{{item.bookName}}'>{{item.bookName}}</view>
+    <view wx:else class='book-item-A-Z' >{{item.name}}</view>
   </view>
 </view>
 
 <view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
 <view class='popup-book' hidden="{{hideBook}}">
-  <image class='popup-book-logo' src='{{bookLogo}}'></image>
+  <image class='popup-book-logo' src='{{curBookDetail.head_img}}'></image>
   <view class='popup-book-info'>
-    <view class='popup-book-name'>{{bookName}}</view>
+    <view class='popup-book-name'>{{curBookDetail.name}}</view>
     <view class='popup-book-contact'>
-      <text>{{bookContact}}</text>
-      <text>{{bookTel}}</text>
+      <text>{{curBookDetail.contact_man}}</text>
+      <text>{{curBookDetail.contact_way}}</text>
     </view>
     <image class='popup-book-dial' bindtap='bookTel' src='../../images/Tel.png'></image>
   </view>
   <view class='popup-book-spec'>
-    <view wx:for="{{bookSpec}}">
-      <view class='popup-book-label'>{{item.label}}：</view>
-      <view class='popup-book-note'>{{item.note}}</view>
+    <view >
+      <view class='popup-book-label'>卡号：</view>
+      <view class='popup-book-note'>{{curBookDetail.card_number}}</view>
+    </view>
+    <view>
+      <view class='popup-book-label'>地址：</view>
+      <view class='popup-book-note'>{{curBookDetail.address}}</view>
+    </view>
+    <view>
+      <view class='popup-book-label'>备注：</view>
+      <view class='popup-book-note'>{{curBookDetail.remark}}</view>
     </view>
   </view>
 </view>

@@ -1,20 +1,16 @@
 // pages/phonebook/phonebook.js
 const app = getApp()
-
+const ajax = require('../../utils/ajax.js')
 Page({
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
 
-    this.setData({
-      bookResults: this.data.books
-    })
-
   },
 
   //右侧字母定位
-  bindAZ: function(e) {
+  bindAZ: function(e) { 
     var currentbookName = e.currentTarget.dataset.id
     var that = this;
     //放入A-Z的scrollTop参数
@@ -68,41 +64,20 @@ Page({
     })
 
     var inputVal = e.detail.value;
-    var bookResultsTemp = new Array()
-    var books = this.data.books;
-
-    if (inputVal == null || inputVal.trim() == '') {
-      this.setData({
-        bookResults: books
-      })
-      return;
-    }
-
-    for (var i = 0; i < books.length; i++) {
-      if (books[i].bookName.indexOf(inputVal) == 0 || books[i].bookPY.indexOf(inputVal.toLowerCase()) == 0) {
-
-        var ifHas = false;
-        for (var j = 0; j < bookResultsTemp.length; j++) {
-          if (bookResultsTemp[j] == books[i]) {
-            ifHas = true;
-            break;
-          }
-        }
-        if (!ifHas) {
-          bookResultsTemp.push(books[i]);
-        }
-      }
-    }
+    const filterBooks = this.data.bookResults.filter(item => {
+      return item.name.indexOf(inputVal) !== -1
+    })
     this.setData({
-      bookResults: bookResultsTemp,
-      searchClear: false
+      filterBooks,
+      searchClear: false,
+      searchVal: inputVal
     })
   },
 
   //清除搜索
   searchClear: function(e) {
     this.setData({
-      bookResults: this.data.books,
+      filterBooks: this.data.bookResults,
       searchClear: true,
       searchVal: ''
     })
@@ -112,14 +87,14 @@ Page({
   //手指触摸动作开始 记录起点X坐标
   touchstart: function(e) {
     //开始触摸时 重置所有删除
-    this.data.bookResults.forEach(function(v, i) {
+    this.data.filterBooks.forEach(function(v, i) {
       if (v.isTouchMove) //只操作为true的
         v.isTouchMove = false;
     })
     this.setData({
       startX: e.changedTouches[0].clientX,
       startY: e.changedTouches[0].clientY,
-      bookResults: this.data.bookResults
+      filterBooks: this.data.filterBooks
     })
   },
 
@@ -139,7 +114,7 @@ Page({
         X: touchMoveX,
         Y: touchMoveY
       });
-    that.data.bookResults.forEach(function(v, i) {
+    that.data.filterBooks.forEach(function(v, i) {
       v.isTouchMove = false
       //滑动超过30度角 return
       if (Math.abs(angle) > 30) return;
@@ -152,7 +127,7 @@ Page({
     })
     //更新数据
     that.setData({
-      bookResults: that.data.bookResults
+      filterBooks: that.data.filterBooks
     })
   },
   /**
@@ -169,40 +144,84 @@ Page({
 
   //右滑删除事件
   del: function(e) {
-    this.data.bookResults.splice(e.currentTarget.dataset.index, 1)
-    this.setData({
-      bookResults: this.data.bookResults
+    const telbookId = e.target.dataset.id
+    wx.showLoading({
+      title: '请稍后...',
     })
+
+    ajax.postApi('app/member/deleteTelbookById', {
+      telbookId
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.showToast({
+          title: '删除成功',
+          duration: 1000
+        })
+        const bookResults = this.data.bookResults
+        let delIndex
+        bookResults.forEach((item,index) => {
+          if(item.id === telbookId) {
+            delIndex = index
+          }
+        })
+        bookResults.splice(delIndex, 1)
+
+        const filterBooks = bookResults.filter(item => {
+          return item.name.indexOf(this.data.searchVal) !== -1
+        })
+
+        this.setData({
+          bookResults,
+          filterBooks
+        })
+        
+      }else{
+        wx.showToast({
+          title: '删除失败',
+          duration: 1000
+        })
+      }
+    })	
+
   },
 
 
   //查看通讯录详情
   bookDetail: function(e) {
-    this.setData({
-      hide: false,
-      hideBook: false,
-      bookLogo: "../../images/company.png",
-      bookName: "温州山鹰物流公司",
-      bookContact: "李程",
-      bookTel: "13584904645",
-      bookSpec: [{
-        label: "卡号",
-        note: "42030216372893085",
-      }, {
-          label: "地址",
-          note: "浙江省温州市鹿城广场",
-      }, {
-          label: "备注",
-          note: "常用联系人",
-      }]
+    wx.showLoading({
+      title: '获取中...',
     })
+    const id = e.target.dataset.id
+    ajax.getApi('app/member/getTelbookById', {
+      id
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        this.setData({
+          hide: false,
+          hideBook: false,
+        })
+        console.log(res.data)
+        this.setData({
+          curBookDetail: res.data
+        })
+      }else {
+        wx.showToast({
+          title: '无法获取联系人详情',
+          duration: 1000
+        })
+      }
+    })	
+
+
   },
 
 
   //拨打电话
   bookTel: function (e) {
     wx.makePhoneCall({
-      phoneNumber: this.data.bookTel
+      phoneNumber: this.data.curBookDetail.contact_way
     })
   },
 
@@ -228,7 +247,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    ajax.getApi('app/member/getTelbook', {
+      return_mode: '1'
+    }, (err, res) => {
+      if (res && res.success) {
+        console.log(res.data)
+        this.setData({
+          bookResults: res.data,
+          filterBooks: res.data
+        })
+      }
+    })	
   },
 
   /**
@@ -275,10 +304,12 @@ Page({
     searchVal: '',
     hide: true,
     hideBook: true,
+    curBookDetail: null,
     searchClear: true,
     scrollAZ: null,
     scrollNow: 0,
     bookResults: null,
+    filterBooks: null,
     bookAZ: [{
       bookName: 'A'
     }, {
@@ -332,120 +363,6 @@ Page({
     }, {
       bookName: 'Z'
     }, ],
-    books: [{
-      bookName: 'A',
-      bookPY: 'a'
-    }, {
-      bookName: '阿波罗物流公司',
-      bookPY: 'abl'
-    }, {
-      bookName: '安康物流公司',
-      bookPY: 'ak'
-    }, {
-      bookName: 'B',
-      bookPY: 'b'
-    }, {
-      bookName: '白城物流公司',
-      bookPY: 'bc'
-    }, {
-      bookName: '保定货物公司',
-      bookPY: 'bd'
-    }, {
-      bookName: '北京物流公司',
-      bookPY: 'bj'
-    }, {
-      bookName: 'C',
-      bookPY: 'c'
-    }, {
-      bookName: '沧州货物公司',
-      bookPY: 'cz'
-    }, {
-      bookName: '常德货物公司',
-      bookPY: 'cd'
-    }, {
-      bookName: '长春万里货物公司',
-      bookPY: 'ccwl'
-    }, {
-      bookName: '成都货物公司',
-      bookPY: 'cd'
-    }, {
-      bookName: '重庆货物公司',
-      bookPY: 'cq'
-    }, {
-      bookName: 'D',
-      bookPY: 'd'
-    }, {
-      bookName: '大理航空公司',
-      bookPY: 'dl'
-    }, {
-      bookName: '大连轮运公司',
-      bookPY: 'dl'
-    }, {
-      bookName: '定远航空公司',
-      bookPY: 'dy'
-    }, {
-      bookName: '东莞航空公司',
-      bookPY: 'dg'
-    }, {
-      bookName: 'E',
-      bookPY: 'e'
-    }, {
-      bookName: '俄罗斯国际货物公司',
-      bookPY: 'els'
-    }, {
-      bookName: '峨眉货物公司',
-      bookPY: 'em'
-    }, {
-      bookName: 'W',
-      bookPY: 'w'
-    }, {
-      bookName: '温州山鹰物流公司',
-      bookPY: 'wzsy'
-    }, {
-      bookName: '温州宇通货运公司',
-      bookPY: 'wzyt'
-    }, {
-      bookName: 'X',
-      bookPY: 'x'
-    }, {
-      bookName: '西安物流公司',
-      bookPY: 'xa'
-    }, {
-      bookName: '襄阳货运公司',
-      bookPY: 'xy'
-    }, {
-      bookName: '信阳货运公司',
-      bookPY: 'xy'
-    }, {
-      bookName: 'Y',
-      bookPY: 'y'
-    }, {
-      bookName: '延安货运公司',
-      bookPY: 'ya'
-    }, {
-      bookName: '扬州百里货运公司',
-      bookPY: 'yzbl'
-    }, {
-      bookName: '烟台批发公司',
-      bookPY: 'yt'
-    }, {
-      bookName: '义乌批发公司',
-      bookPY: 'yw'
-    }, {
-      bookName: '岳阳楼货运公司',
-      bookPY: 'yyl'
-    }, {
-      bookName: 'Z',
-      bookPY: 'z'
-    }, {
-      bookName: '张家界货运公司',
-      bookPY: 'zjj'
-    }, {
-      bookName: '长沙货运公司',
-      bookPY: 'zs'
-    }, {
-      bookName: '郑州物流公司',
-      bookPY: 'zz'
-    }, ]
+    books: []
   }
 })

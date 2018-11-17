@@ -1,0 +1,14 @@
+/* pages/guide/guide.wxss */
+@import '../index/index.wxss';
+
+.my-bar {
+  padding-left: 20rpx;
+  display: block;
+}
+
+.my-bar-label {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

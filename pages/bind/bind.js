@@ -118,9 +118,6 @@ Page({
     const loginUsername = wx.getStorageSync(this.data.area + 'LoginUsername') || ''
     const loginPassword = wx.getStorageSync(this.data.area + 'LoginPassword') || ''
 
-    console.log(loginUsername)
-    console.log(loginPassword)
-
     this.setData({
       loginUsername,
       loginPassword

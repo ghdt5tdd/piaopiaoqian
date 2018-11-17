@@ -1,0 +1,8 @@
+<!--pages/guide/guide.wxml-->
+<view class='my-list' >
+  <view class='my-bar' wx:for="{{guide}}" bindtap='{{item.to}}'>
+     <view class='my-bar-label'>{{item.label}}</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+</view>
+

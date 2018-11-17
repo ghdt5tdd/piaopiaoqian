@@ -1,0 +1,21 @@
+<!--pages/changeTel/changeTel.wxml-->
+<form bindsubmit="formSubmit" report-submit="true">
+  <view class='bind-content'>
+    <view class="bind-item">
+      <image class='bind-icon' src='../../images/bind3.png'></image>
+      <input type="number" name="tel"  bindinput='getPhoneValue' placeholder="{{tel}}"  focus="{{focus}}" />
+    </view>
+    <view class="bind-item">
+      <image class='bind-icon' src='../../images/bind4.png'></image>
+      <input type="text" name="code"  bindinput='getCodeValue' placeholder="{{code}}"  focus="{{focus}}" />
+      <button class="codeBtn {{codetype ? 'on':''}}" bindtap='getVerificationCode' disabled='{{disabled}}'>{{codename}}</button>
+    </view>
+    <view class="bind-item">
+      <image class='bind-icon' src='../../images/bind3.png'></image>
+      <input type="text" name="tel2" bindinput="getPhoneValue2" placeholder="{{tel2}}" focus="{{focus}}" />
+    </view>
+  </view>
+  
+  <button class='button-bottom' formType="submit">确认</button>
+  
+</form>

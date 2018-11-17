@@ -1,0 +1,11 @@
+/* pages/accountAdd/accountAdd.wxss */
+@import '../index/index.wxss';
+
+.my-bar {
+  padding-left: 20rpx;
+  align-items: center;
+}
+
+.my-bar-input {
+  text-align: left;
+}

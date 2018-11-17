@@ -1,0 +1,32 @@
+/* pages/set/set.wxss */
+@import '../index/index.wxss';
+
+.popup-fence {
+  position: fixed;
+  background: #fff;
+  top:50%;
+  left:50%;
+  margin: -210rpx 0 0 -270rpx;
+  width: 540rpx;
+  height: 420rpx;
+  z-index: 999;
+}
+
+.popup-fence-head {
+  font-size: 36rpx;
+  text-align: center;
+  padding: 20rpx 0;
+  line-height: 60rpx;
+}
+
+.popup-fence-opt {
+  font-size: 30rpx;
+  line-height: 80rpx;
+  text-align: center;
+}
+
+.popup-fence-info{
+  padding:0 20rpx 20rpx;
+  text-indent: 2em;
+  font-size: 28rpx;
+}

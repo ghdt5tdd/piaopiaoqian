@@ -1,0 +1,49 @@
+<!--pages/account/account.wxml-->
+<view class='account'>
+  <block wx:for="{{account}}">
+    <view class="account-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove">
+      <view class='account-info'>
+        <view bindtap='permit' data-index="{{index}}">
+          <view class='account-name'>{{item.name}}</view>
+          <view class='account-spec'>
+            <view class='account-contacts'>{{item.contacts}}({{item.nickname}})</view>
+            <view class='account-permit'>{{item.permit}}</view>
+          </view>
+        </view>
+
+        <view class='account-set' bindtap='set' data-index="{{index}}">
+          <image wx:if="{{item.start}}" src='../../images/start.png'></image>
+          <image wx:else src='../../images/stop.png'></image>
+        </view>
+
+      </view>
+      <view class='account-opt'>
+        <view class="edit" catchtap="edit" data-index="{{index}}">修改</view>
+        <view class="del" catchtap="del" data-index="{{index}}">删除</view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view class='fixed-bottom' bindtap='toAdd'>新增</view>
+
+<view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
+<view class='popup-permit' hidden="{{hidePermit}}">
+  <view class='popup-permit-head'>账户授权</view>
+  <scroll-view scroll-y="true" style="height:calc(100% - 180rpx - 1px);">
+    <view class='popup-permit-content'>
+      <view class='popup-permit-role' wx:for="{{permitRole}}" bindtap='choose' data-index="{{index}}">
+        <view class='permit-role-name'>{{item.name}}</view>
+        <view class='permit-role-icon'>
+          <icon size="16"  type="{{item.icon}}"></icon>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class='popup-permit-opt'>
+    <view bindtap='hide'>取消</view>
+    <view class='orange' bindtap='sure'>保存</view>
+  </view>
+  
+</view>

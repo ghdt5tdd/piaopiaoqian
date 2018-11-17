@@ -2,6 +2,19 @@
 const ajax = require('../../utils/ajax.js')
 const util = require('../../utils/util.js')
 const app = getApp()
+const moduleItemImgs = new Map()
+moduleItemImgs.set('0', { img: '../../images/model1.png', to: 'toOrder' })//订单查询
+moduleItemImgs.set('1', { img: '../../images/model8.png', to: 'toAppoint' })//预约下单
+moduleItemImgs.set('2', { img: '../../images/model3.png', to: 'toHandover' })//货运单交接
+moduleItemImgs.set('3', { img: '../../images/model2.png', to: 'toTransport' })//物流跟踪
+moduleItemImgs.set('4', { img: '../../images/model4.png', to: 'toAbnormal' })//异常上报
+moduleItemImgs.set('5', { img: '../../images/model9.png', to: 'toWarn' })//预警提示
+moduleItemImgs.set('6', { img: '../../images/model5.png', to: 'toForm' })//统计报表
+moduleItemImgs.set('9', { img: '../../images/model3.png', to: 'toSign' })//货运单签收
+
+//这两个暂时还没有
+moduleItemImgs.set('7', { img: '../../images/model3.png', to: 'toOrder' })//预约订单
+moduleItemImgs.set('8', { img: '../../images/model3.png', to: 'toOrder' })//货运单接受
 Page({
 
   /**
@@ -69,6 +82,9 @@ Page({
     duration: 1000,
 
 
+    moduleItemImg:{
+
+    },
     moduleItems: [{
       image: "../../images/model1.png",
       name: "订单查询",
@@ -196,6 +212,45 @@ Page({
   onLoad: function(options) {
     this.getMemberInfo()
     this.getNewsList()
+    this.getModulesByRole()
+  },
+
+  getModulesByRole () {
+    const moduleItems = wx.getStorageSync('moduleItems' + app.globalData.memberInfo.id)
+    if (moduleItems === '') {
+      ajax.getApi('app/member/getModulesByRole', {
+
+      }, (err, res) => {
+        if (res && res.success) {
+          wx.setStorageSync('moduleItems' + app.globalData.memberInfo.id, res.data)
+          this.setData({
+            moduleItems: res.data
+          }, () => {
+            this.getModulesInfo()
+          })
+        }
+      })
+    } else {
+      this.setData({
+        moduleItems
+      }, () => {
+        this.getModulesInfo()
+      })
+    }
+  },
+
+  getModulesInfo() {
+    const moduleItems = this.data.moduleItems
+    moduleItems.forEach(v => {
+      const itemKey = v.itemKey
+      const moduleInfo = moduleItemImgs.get(itemKey)
+      v.img = moduleInfo.img
+      v.to = moduleInfo.to
+    })
+
+    this.setData({
+      moduleItems
+    })
   },
 
   getNewsList () {

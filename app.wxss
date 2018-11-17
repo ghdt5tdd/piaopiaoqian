@@ -92,6 +92,7 @@ page {
 
 input {
   min-height: 0;
+  height: auto
 }
 
 button::after {

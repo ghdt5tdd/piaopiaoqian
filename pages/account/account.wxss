@@ -1,0 +1,149 @@
+/* pages/account/account.wxss */
+
+.account {
+  margin-top: 20rpx;
+  margin-bottom: 80rpx;
+}
+
+.account-item {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1rpx solid #ccc;
+  width: 100%;
+  overflow: hidden;
+}
+
+.account-item:first-child {
+  border: none;
+}
+
+.account-info {
+  background: #fff;
+  width: 100%;
+  font-size: 36rpx;
+  line-height: 60rpx;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform: translateX(200rpx);
+  transform: translateX(200rpx);
+  margin-left: -200rpx;
+  padding: 20rpx 180rpx 20rpx 20rpx;
+  position: relative;
+}
+
+.account-spec {
+  font-size: 28rpx;
+  color: #999;
+  line-height: 40rpx;
+  display: flex;
+}
+
+.account-permit {
+  margin-left: 20rpx;
+}
+
+.account-set {
+  position: absolute;
+  right: 20rpx;
+  top: 40rpx;
+  width: 150rpx;
+  height: 60rpx;
+}
+
+.account-set image {
+  width: 150rpx;
+  height: 60rpx;
+}
+
+.account-opt {
+  background-color: #e52019;
+  width: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  -webkit-transform: translateX(200rpx);
+  transform: translateX(200rpx);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.edit, .del {
+  width: 100rpx;
+  line-height: 140rpx;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.edit {
+  background: #b3b3b3;
+}
+
+.touch-move-active .account-info, .touch-move-active .account-opt {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.popup-permit {
+  position: fixed;
+  z-index: 999;
+  background: #fff;
+  width: 540rpx;
+  height: 600rpx;
+  left: 50%;
+  top: 50%;
+  margin: -300rpx 0 0 -270rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.popup-permit-head {
+  font-size: 36rpx;
+  text-align: center;
+  padding: 20rpx 0;
+  line-height: 60rpx;
+}
+
+.popup-permit-opt {
+  display: flex;
+  line-height: 80rpx;
+  align-items: center;
+  margin-right: -1px;
+  border-top: 1px solid #e7e7e7;
+}
+
+.popup-permit-opt view {
+  font-size: 30rpx;
+  text-align: center;
+  width: calc(50% - 1px);
+  border-right: 1px solid #e7e7e7;
+}
+
+.popup-permit-content {
+  padding: 0 20rpx;
+}
+
+.popup-permit-role {
+  border-bottom: 1px solid #e7e7e7;
+  padding: 20rpx;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.permit-role-icon {
+  border: 1px solid #e7e7e7;
+  width: 40rpx;
+  height: 40rpx;
+  text-align: center;
+}
+
+.permit-role-icon icon {
+  display: inline-block;
+  line-height: 40rpx;
+}
+
+.popup-permit-role:last-child {
+  border: none;
+}
