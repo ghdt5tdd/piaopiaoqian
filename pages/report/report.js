@@ -1,4 +1,6 @@
 // pages/report/report.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
 Page({
 
   /**
@@ -9,19 +11,36 @@ Page({
     location: "点击定位",
     locationtype: 0,
     imgs: [],
-
-    abnormalType: ['货损', '货差', '其他'],
+    abnormalType: [], 
     indexType: 0,
-    abnormalNode: ['取货', '交接', '签收'],
+    abnormalNode: [],
     indexNode: 0,
-    abnormalDate: "请选择发生时间",
+    abnormalDate: "",
     hide: true,
     showDate: false,
-    abnormalName: "请填写联系人",
-    abnormalTel: "请填写联系方式",
+    abnormalName: "",
+    abnormalTel: "",
+    abnormalContent: "",
   },
 
 
+  inputAbnormalName: function (e) {
+    this.setData({
+      abnormalName: e.detail.value
+    })
+  },
+
+  inputContent: function (e) {
+    this.setData({
+      abnormalContent: e.detail.value
+    })
+  },
+
+  inputAbnormalTel: function (e) {
+    this.setData({
+      abnormalTel: e.detail.value
+    })
+  },
 
   //异常类型
   bindTypeChange: function(e) {
@@ -36,7 +55,6 @@ Page({
       indexNode: e.detail.value
     })
   },
-
 
   //时间弹窗
   showDate: function(e) {
@@ -55,6 +73,30 @@ Page({
 
 
 
+
+
+  //上传图片
+  changePic: function (e) {
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: res => {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        res.tempFilePaths.forEach(v => {
+          util.ImgPathToBase64(v, base64 => {
+            const imgs = this.data.imgs
+            const img = 'data:image/png;base64,' + base64
+            imgs.push(img)
+            this.setData({
+              imgs
+            })
+          })
+        })
+      }
+    })
+
+  },
 
   //上传图片
   changePic: function(e) {
@@ -107,14 +149,75 @@ Page({
     })
   },
 
+  reportException: function() {
+    wx.showLoading({
+      title: '提交中...',
+    })
+    const type = this.data.abnormalType[this.data.indexType].itemKey
+    const link = this.data.abnormalNode[this.data.indexNode].itemKey
+    const contact_man = this.data.abnormalName
+    const contact_way = this.data.abnormalTel
+    const report_content = this.data.abnormalContent
+    const pictures = this.data.imgs
+    const address = this.data.location
+    const location_type = this.data.locationtype
+    const location = this.data.locationIndex
+    const happen_date = this.data.abnormalDate
 
-
+    ajax.postApi('app/order/reportException', {
+      type, link, contact_man, contact_way, report_content,
+      pictures, address, location, location_type, happen_date
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.showToast({
+          title: '提交成功',
+          duration: 1000
+        })
+        wx.navigateBack({
+          delta: 1
+        })
+      }else {
+        wx.showToast({
+          title: '提交失败:' + res.text,
+          duration: 1000
+        })
+      }
+    })	
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     this.setNowDate();
+    this.getExceptionType()
+    this.getExceptionLink()
+  },
+
+  getExceptionType:function() {
+    ajax.getApi('app/order/getExceptionType', {
+
+    }, (err, res) => {
+      if (res && res.success) {
+        console.log(res.data)
+        this.setData({
+          abnormalType: res.data
+        })
+      }
+    })	
+  },
+
+  getExceptionLink:function() {
+    ajax.getApi('app/order/getExceptionLink', {
+
+    }, (err, res) => {
+      if (res && res.success) {
+        this.setData({
+          abnormalNode: res.data
+        })
+      }
+    })
   },
 
 
@@ -150,6 +253,7 @@ Page({
       cur_month: cur_month,
       weeks_ch,
       todayIndex,
+      abnormalDate: cur_year + '-' + cur_month + '-' + (todayIndex + 1)
     })
   },
   getThisMonthDays(year, month) {
@@ -247,7 +351,7 @@ Page({
       that.setData({ //将携带的参数赋值
         locationtype: sign,
         region: [currPage.data.province, currPage.data.city, currPage.data.district],
-        location: currPage.data.door,
+        location: currPage.data.province + currPage.data.city + currPage.data.district + currPage.data.door,
       });
 
     }

@@ -8,7 +8,7 @@
   <image class='book-add' bindtap='bookAdd' src='../../images/add-orange.png'></image>
 </view>
 <view class='a-z'>
-  <view wx:for="{{bookAZ}}">
+  <view wx:for="{{bookAZ}}" wx:key="bookName">
     <view data-id='{{item.bookName}}' bindtap='bindAZ'>{{item.bookName}}</view>
   </view>
 </view>

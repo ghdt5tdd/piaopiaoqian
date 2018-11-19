@@ -1,16 +1,28 @@
 <!--pages/abnormalinfo/abnormalinfo.wxml-->
 <view class='order-table mt-10'>
-  <block wx:for="{{abnormalItems}}">
+  <block>
     <view class="order-table-items">
       <view class='order-table-head'>
-        <view class='order-table-name'>{{item.name}}的异常上报</view>
-        <view class='order-table-time orange'>{{item.status}}</view>
+        <view class='order-table-name'>{{exceptionInfo.report_man}}的异常上报</view>
+        <view class='order-table-time orange'>{{exceptionInfo.state}}</view>
       </view>
       <view class='order-table-content'>
         <view class='order-table-row'>
-          <view wx:for="{{item.row}}" class='order-row-bar'>
-            <view class='order-bar-label'>{{item.label}}：</view>
-            <view class='order-bar-name'>{{item.name}}</view>
+          <view class='order-row-bar'>
+            <view class='order-bar-label'>异常类型：</view>
+            <view class='order-bar-name'>{{exceptionInfo.type}}</view>
+          </view>
+          <view class='order-row-bar'>
+            <view class='order-bar-label'>发生环节：</view>
+            <view class='order-bar-name'>{{exceptionInfo.link}}</view>
+          </view>
+          <view class='order-row-bar'>
+            <view class='order-bar-label'>异常内容：</view>
+            <view class='order-bar-name'>{{exceptionInfo.report_content}}</view>
+          </view>
+          <view class='order-row-bar'>
+            <view class='order-bar-label'>发生地点：</view>
+            <view class='order-bar-name'>{{exceptionInfo.address}}</view>
           </view>
         </view>
       </view>
@@ -21,23 +33,23 @@
 <view class='abnormal-gallery'>
   <view class='abnormal-gallery-head'>现场图片</view>
   <view class='abnormal-gallery-info'>
-    <view class="abnormal-gallery-img" wx:for="{{abnormalImgs}}" wx:for-item="item" wx:key="*this">
-      <image src="{{item.pic}}" data-index="{{index}}" mode="widthFix"></image>
+    <view class="abnormal-gallery-img" wx:for="{{exceptionInfo.pictures}}" wx:for-index="index">
+      <image src="{{item}}" bindtap='preview' data-index="{{index}}" mode="widthFix"></image>
     </view>
   </view>
   <view class='abnormal-gallery-spec'>联系人：
-    <text>{{bookName}}</text>
-    <text>{{bookTel}}</text>
+    <text>{{exceptionInfo.contact_man}}</text>
+    <text>{{exceptionInfo.contact_way}}</text>
     <image bindtap='bookTel' src='../../images/Tel.png'></image>
   </view>
 </view>
 
 <view class='abnormal-record'>
-  <block wx:for="{{abnormalRecord}}">
+  <block>
     <view class="abnormal-record-items">
-      <view class='abnormal-record-name'>{{item.name}}</view>
-      <view class='abnormal-record-info'>{{item.info}}</view>
-      <view class='abnormal-record-time'>{{item.time}}</view>
+      <!-- <view class='abnormal-record-name'>{{exceptionInfo.name}}</view>
+      <view class='abnormal-record-info'>{{exceptionInfo.info}}</view> -->
+      <view class='abnormal-record-time'>发生时间：{{exceptionInfo.happen_date}}</view>
     </view>
   </block>
 </view>

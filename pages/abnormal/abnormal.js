@@ -1,47 +1,17 @@
 // pages/abnormal/abnormal.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    orderStatus: [{
-      name: "我上报的",
-    }, {
-      name: "通知我的",
-    }, ],
-    selectStatus: 0,
+    selectStatus: 1,
+    page: 1, 
+    pageSize: 3,
     ul: "ul-2",
-
-    abnormalItems: [{
-      name: "张三",
-      time: "2018-01-08",
-      status: "等待处理",
-      row: [{
-        label: "异常类型",
-        name: "货损",
-      }, {
-        label: "发生环节",
-        name: "取货",
-      }, {
-        label: "联系人",
-        name: "张三",
-      }],
-    }, {
-      name: "张三",
-      time: "2018-01-08",
-      status: "等待处理",
-      row: [{
-        label: "异常类型",
-        name: "货损",
-      }, {
-        label: "发生环节",
-        name: "取货",
-      }, {
-        label: "联系人",
-        name: "张三",
-      }],
-    }],
+    abnormalItems: [],
+    loadCompleted: false
   },
 
 
@@ -49,7 +19,18 @@ Page({
   selectStatus: function(e) {
     var index = e.target.dataset.index;
     this.setData({
-      selectStatus: index
+      page: 1,
+      pageSize: 10,
+      abnormalItems: [],
+      selectStatus: index,
+      loadCompleted: false
+    }, () => {
+      wx.showLoading({
+        title: '数据加载中...',
+      })
+      this.getExceptionList(() => {
+        wx.hideLoading()
+      })
     })
   },
 
@@ -64,8 +45,9 @@ Page({
   
   //跳转到异常详情页面
   toInfo: function(e) {
+    const id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: '../abnormalinfo/abnormalinfo'
+      url: '../abnormalinfo/abnormalinfo?id=' + id
     })
   },
 
@@ -76,7 +58,70 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.showLoading({
+      title: '数据加载中...',
+    })
+    this.getExceptionList(() => {
+      wx.hideLoading()
+    })
+  },
 
+  getExceptionList: function (callback) {
+    const type = this.data.selectStatus
+    const page = this.data.page
+    const pageSize = this.data.pageSize
+    ajax.getApi('app/order/getExceptionList', {
+      type,
+      page,
+      pageSize
+    }, (err, res) => {
+      if (res && res.success) {
+        if (res.data.length > 0) {
+          const abnormalItems = this.data.abnormalItems
+          Array.prototype.push.apply(abnormalItems, res.data);
+          this.setData({
+            abnormalItems
+          })
+        } else {
+          wx.hideLoading(() => {
+            wx.showToast({
+              title: '数据已全部加载完毕',
+              duration: 1000
+            })
+          })
+          this.setData({
+            loadCompleted: true
+          })
+        }
+      }
+      if (callback) {
+        callback()
+      }
+    })	
+  },
+
+  lower: function (e) {
+    let page = this.data.page
+    const pageSize = this.data.pageSize
+    const loadCompleted = this.data.loadCompleted
+    if (!loadCompleted) {
+      wx.showLoading({
+        title: '更多数据加载中...',
+      })
+      page++
+      this.setData({
+        page
+      }, () => {
+        this.getExceptionList(() => {
+          wx.hideLoading()
+        })
+      })
+    } else {
+      wx.showToast({
+        title: '数据已全部加载完毕',
+        duration: 1000
+      })
+    }
   },
 
   /**

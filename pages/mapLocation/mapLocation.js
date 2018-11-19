@@ -148,7 +148,8 @@ Page({
 
       sendAddress: locationData.ad_info.province + ',' + locationData.ad_info.city + ',' + locationData.ad_info.district,
       address: locationData.ad_info.province + '/' + locationData.ad_info.city + '/' + locationData.ad_info.district,
-      location: longitude + ',' + latitude
+      location: longitude + ',' + latitude,
+      locationIndex: longitude + ',' + latitude
     })
 
     var locationDic = { 'latitude': latitude, 'longitude': longitude };

@@ -1,10 +1,13 @@
 // pages/abnormalinfo/abnormalinfo.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    exceptionId:'',
+    exceptionInfo: {},
     abnormalItems: [{
       name: "张三",
       status: "等待处理",
@@ -50,13 +53,22 @@ Page({
 
 
 
+  preview:function(e) {
+    const index = e.currentTarget.dataset.index
+    const currentImg = this.data.exceptionInfo.pictures[index]
+    
+    wx.previewImage({
+      urls: this.data.exceptionInfo.pictures,
+      current: currentImg
+    })
 
+  },
 
 
   //拨打电话
   bookTel: function(e) {
     wx.makePhoneCall({
-      phoneNumber: this.data.bookTel
+      phoneNumber: this.data.exceptionInfo.contact_way
     })
   },
 
@@ -65,6 +77,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    const exceptionId = options.id
+    this.setData({
+      exceptionId
+    })
+    wx.showLoading({
+      title: '详情加载中',
+    })
+
+    ajax.getApi('app/order/getExceptionDetail', {
+      exceptionId
+    }, (err, res) => {
+      if (res && res.success) {
+        wx.hideLoading()
+        console.log(res.data)
+        this.setData({
+          exceptionInfo: res.data
+        })
+      }
+    })	
+
 
   },
 

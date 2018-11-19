@@ -3,9 +3,9 @@
   <view class='abnormal-bar'>
     <text class="abnormal-bar-label">异常类型</text>
     <view class="abnormal-bar-info">
-      <picker name="abnormalType" bindchange="bindTypeChange" data-value="{{abnormalType[indexType]}}" range="{{abnormalType}}">
+      <picker name="abnormalType" bindchange="bindTypeChange" data-value="{{abnormalType[indexType].itemKey}}" range="{{abnormalType}}" range-key="itemText">
         <view class="picker">
-          {{abnormalType[indexType]}}
+          {{abnormalType[indexType].itemText}}
         </view>
       </picker>
     </view>
@@ -13,9 +13,9 @@
   <view class='abnormal-bar'>
     <text class="abnormal-bar-label">发生环节</text>
     <view class="abnormal-bar-info">
-      <picker name="abnormalNode" bindchange="bindNodeChange" data-value="{{abnormalNode[indexNode]}}" range="{{abnormalNode}}">
+      <picker name="abnormalNode" bindchange="bindNodeChange" data-value="{{abnormalNode[indexNode].itemKey}}" range="{{abnormalNode}}" range-key="itemText">
         <view class="picker">
-          {{abnormalNode[indexNode]}}
+          {{abnormalNode[indexNode].itemText}}
         </view>
       </picker>
     </view>
@@ -30,14 +30,14 @@
   <view class='abnormal-bar'>
     <text class="abnormal-bar-label">联系人</text>
     <view class="abnormal-bar-info">
-      <input placeholder='{{abnormalName}}' type='text' value=''></input>
+      <input placeholder='请填写联系人' type='text' bindinput='inputAbnormalName'></input>
     </view>
   </view>
 
   <view class='abnormal-bar'>
     <text class="abnormal-bar-label">联系方式</text>
     <view class="abnormal-bar-info">
-      <input placeholder='{{abnormalTel}}' type='number' value=''></input>
+      <input placeholder='请填写联系方式' type='number' bindinput='inputAbnormalTel'></input>
     </view>
   </view>
 </view>
@@ -49,7 +49,7 @@
 
 
 <view class='abnormal-text'>
-  <textarea placeholder='{{comment}}'></textarea>
+  <textarea placeholder='{{comment}}' bindinput='inputContent'></textarea>
   <view class="abnormal-location {{locationtype == 1 ?'active':''}}">
     <image src='../../images/scene-add.png'></image>
     <text bindtap="location">{{location}}</text>
@@ -74,7 +74,7 @@
 </view>
 
 
-<view class='button-bottom'>确认</view>
+<view class='button-bottom' bindtap='reportException'>确认</view>
 
 <view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
 
