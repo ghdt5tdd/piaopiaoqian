@@ -1,9 +1,54 @@
 <!--pages/personal/personal.wxml-->
-<view class='my-list' wx:for="{{myList}}">
-  <view class='my-bar' wx:for="{{item.bar}}" bindtap='{{item.to}}'>
-     <image src='{{item.img}}' class='my-bar-img'></image>
-     <view class='my-bar-label'>{{item.label}}</view>
-     <view class='my-bar-input'>{{item.name}}</view>
+<view class='my-list' >
+  <view class='my-bar' bindtap=''>
+     <image src='../../images/icon1.png' class='my-bar-img'></image>
+     <view class='my-bar-label'>真实姓名</view>
+     <view class='my-bar-input'>{{personalInfo.name}}</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar' bindtap='showNickname'>
+     <image src='../../images/icon2.png' class='my-bar-img'></image>
+     <view class='my-bar-label'>昵称</view>
+     <view class='my-bar-input'>{{personalInfo.nickname}}</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar' bindtap=''>
+     <image src='../../images/icon3.png' class='my-bar-img'></image>
+     <view class='my-bar-label'>账号</view>
+     <view class='my-bar-input'>{{personalInfo.user_account}}</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+    <view class='my-bar' bindtap=''>
+     <image src='../../images/icon4.png' class='my-bar-img'></image>
+     <view class='my-bar-label'>年龄</view>
+     <view class='my-bar-input'>{{personalInfo.age}}</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+</view>
+
+<view class='my-list'>
+  <view class='my-bar'  bindtap=''>
+     <image src='../../images/icon5.png' class='my-bar-img'></image>
+     <view class='my-bar-label'>联系方式</view>
+     <view class='my-bar-input'>{{personalInfo.phone}}</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'  bindtap=''>
+     <image src='../../images/icon6.png' class='my-bar-img'></image>
+     <view class='my-bar-label'>邮箱</view>
+     <view class='my-bar-input'>{{personalInfo.email}}</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'  bindtap=''>
+     <image src='../../images/icon7.png' class='my-bar-img'></image>
+     <view class='my-bar-label'>单位名称</view>
+     <view class='my-bar-input'>{{personalInfo.unit_name}}</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'  bindtap=''>
+     <image src='../../images/icon8.png' class='my-bar-img'></image>
+     <view class='my-bar-label'>单位地址</view>
+     <view class='my-bar-input'>{{personalInfo.unit_address}}</view>
      <image src='../../images/next.png' class='my-bar-next'></image>
   </view>
 </view>

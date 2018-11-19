@@ -1,6 +1,6 @@
 // pages/home/home.js
 const ajax = require('../../utils/ajax.js')
-const util = require('../../utils/util.js')
+const util = require('../../utils/util.js') 
 const app = getApp()
 const moduleItemImgs = new Map()
 moduleItemImgs.set('0', { img: '../../images/model1.png', to: 'toOrder' })//订单查询

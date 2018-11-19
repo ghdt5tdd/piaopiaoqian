@@ -1,13 +1,43 @@
 // pages/suggest/suggest.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    suggest:"请您写下对我们的建议，我们会用心采纳的"
+    suggest: "" 
   },
 
+  suggest: function(e) {
+    this.setData({
+      suggest: e.detail.value
+    })
+  },
+
+  commit: function() {
+    const feedback_content = this.data.suggest
+    wx.showLoading({
+      title: '提交中...',
+    })
+
+    ajax.postApi('app/member/feedback', {
+      feedback_content
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.showToast({
+          title: '提交成功',
+          duration: 1000
+        })
+
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    })	
+
+  },
   /**
    * 生命周期函数--监听页面加载
    */

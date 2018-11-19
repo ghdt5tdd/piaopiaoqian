@@ -1,4 +1,5 @@
 <!--pages/diary/diary.wxml-->
+<scroll-view scroll-y="true" style="height:calc(100%);position:fixed;bottom:0" bindscrolltolower="lower">
 <view class='notice-block'>
   <view class='notice-bar' wx:for="{{diaryBar}}" bindtap='{{item.to}}'>
     <view>{{index+1}}</view>
@@ -6,3 +7,4 @@
     <view class='notice-bar-name'>{{item.name}}</view>
   </view>
 </view>
+</scroll-view>

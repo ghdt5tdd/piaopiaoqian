@@ -1,7 +1,19 @@
 <!--pages/code/code.wxml-->
 <view class='my-list'>
-  <view class='my-bar' wx:for="{{codeItems}}">
-     <view class='my-bar-label'>{{item.label}}</view>
-     <view class='my-bar-input'>{{item.name}}</view>
+  <view class='my-bar' >
+     <view class='my-bar-label'>手机品牌</view>
+     <view class='my-bar-input'>{{systemInfo.brand}}</view>
+  </view>
+  <view class='my-bar' >
+     <view class='my-bar-label'>手机型号</view>
+     <view class='my-bar-input'>{{systemInfo.model}}</view>
+  </view>
+    <view class='my-bar'>
+     <view class='my-bar-label'>系统版本</view>
+     <view class='my-bar-input'>{{systemInfo.system}}</view>
+  </view>
+    <view class='my-bar'>
+     <view class='my-bar-label'>客户端平台</view>
+     <view class='my-bar-input'>{{systemInfo.platform}}</view>
   </view>
 </view>

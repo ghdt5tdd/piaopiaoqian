@@ -1,31 +1,43 @@
 // pages/code/code.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    codeItems: [{
-      label: "型号",
-      name: "Mi Note2",
-    }, {
-      label: "品牌",
-      name: "小米",
-    }, {
-      label: "主板型号",
-      name: "MSM8x74AA",
-    }, {
-      label: "设备序列号",
-      name: "3XSdg9O87dkwhZ",
-    }, ]
+    systemInfo: {
 
+    },
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    let systemInfo = wx.getStorageSync('systemInfo')
+    console.log(systemInfo)
+    if(systemInfo === '') {
+      wx.getSystemInfo({
+        success: res => {
+            console.log(res)
+            this.setData({
+              systemInfo: {
+                brand: res.brand,
+                model: res.model,
+                system: res.system,
+                platform: res.platform,
+                screenWidth: res.screenWidth,
+                screenHeight: res.screenHeight
+              }
+            })
+        }
+      })
+    }else {
+      this.setData({
+        systemInfo
+      })
+    }
   },
 
   /**

@@ -202,7 +202,6 @@ Page({
           hide: false,
           hideBook: false,
         })
-        console.log(res.data)
         this.setData({
           curBookDetail: res.data
         })
@@ -251,7 +250,6 @@ Page({
       return_mode: '1'
     }, (err, res) => {
       if (res && res.success) {
-        console.log(res.data)
         this.setData({
           bookResults: res.data,
           filterBooks: res.data

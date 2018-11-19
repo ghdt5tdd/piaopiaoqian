@@ -12,10 +12,16 @@
     <image bindtap='showList' data-param="1"  class='top-opt-func' src='{{optFunc}}'></image>
   </view>
   <view class='top-list' hidden='{{hideList}}'>
-    <block wx:for="{{listItems}}">
-      <view class="top-list-items" bindtap='{{item.to}}'>
-        <image src="{{item.image}}"></image>
-        <view>{{item.name}}</view>
+    <block>
+      <view class="top-list-items" bindtap='toAbnormal'>
+        <image src="../../images/abnormal.png"></image>
+        <view>异常上报</view>
+      </view>
+    </block>
+    <block>
+      <view class="top-list-items" bindtap='toAppoint'>
+        <image src="../../images/abnormal.png"></image>
+        <view>预约下单</view>
       </view>
     </block>
   </view>
@@ -33,7 +39,7 @@
   </view>
 
   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" vertical="{{vertical}}" circular="{{circular}}" class='newswiper'>
-    <block wx:for="{{newsList}}">
+    <block wx:for="{{newsList}}" wx:key="id">
       <swiper-item>
         <view>
           <view class='newswiper-info' bindtap='toNews' data-news-id='{{item.id}}'>
@@ -49,7 +55,7 @@
 
 
 <view class='module-list'>
-  <block wx:for="{{moduleItems}}">
+  <block wx:for="{{moduleItems}}" wx:key= "id">
     <view class="module-items" bindtap='{{item.to}}'>
       <image src="{{item.img}}"></image>
       <view>{{item.itemText}}</view>

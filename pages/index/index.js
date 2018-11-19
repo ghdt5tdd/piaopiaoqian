@@ -167,7 +167,6 @@ Page({
         code
       }, (err, res) => {
         if (res && res.success) {
-          console.log(res.data)
           const orderStatus = this.data.orderStatus
           orderStatus.forEach(value => {
             if (value.code === code){

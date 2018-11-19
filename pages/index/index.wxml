@@ -29,18 +29,18 @@
   </block>
 </view>
 
-<view class='my-list'>
-  <view class='my-bar' bindtap=''>
+<!-- <view class='my-list'> -->
+  <!-- <view class='my-bar' bindtap=''>
      <image src='../../images/my1.png' class='my-bar-img'></image>
      <view class='my-bar-label'>子账户管理</view>
      <image src='../../images/next.png' class='my-bar-next'></image>
-  </view>
-  <view class='my-bar' bindtap='toDiary'>
+  </view> -->
+  <!-- <view class='my-bar' bindtap='toDiary'>
      <image src='../../images/my2.png' class='my-bar-img'></image>
      <view class='my-bar-label'>账户日记</view>
      <image src='../../images/next.png' class='my-bar-next'></image>
-  </view>
-</view>
+  </view> -->
+<!-- </view> -->
 
 <view class='my-list'>
   <view class='my-bar' bindtap='toPersonal'>
@@ -48,14 +48,14 @@
      <view class='my-bar-label'>个人资料</view>
      <image src='../../images/next.png' class='my-bar-next'></image>
   </view>
-  <view class='my-bar' bindtap=''>
+  <!-- <view class='my-bar' bindtap=''>
      <image src='../../images/my4.png' class='my-bar-img'></image>
      <view class='my-bar-label'>我的设置</view>
      <image src='../../images/next.png' class='my-bar-next'></image>
-  </view>
+  </view> -->
   <view class='my-bar' bindtap='toCode'>
      <image src='../../images/my5.png' class='my-bar-img'></image>
-     <view class='my-bar-label'>手机硬件码</view>
+     <view class='my-bar-label'>硬件信息</view>
      <image src='../../images/next.png' class='my-bar-next'></image>
   </view>
   <view class='my-bar' bindtap='toSuggest'>
