@@ -4,49 +4,49 @@
     <view class='my-bar'>
       <view class='my-bar-label'>账号</view>
       <view class='my-bar-input'>
-        <input type="text" name="name" placeholder='{{name}}'></input>
+        <input type="text" name="name" placeholder='请输入账号' bindinput='account'></input>
       </view>
       <image src='../../images/next.png' class='my-bar-next'></image>
     </view>
     <view class='my-bar'>
       <view class='my-bar-label'>昵称</view>
       <view class='my-bar-input'>
-        <input type="text" name="nickname" placeholder='{{nickname}}'></input>
+        <input type="text" name="nickname" placeholder='请输入昵称' bindinput='nickname'></input>
       </view>
       <image src='../../images/next.png' class='my-bar-next'></image>
     </view>
     <view class='my-bar'>
       <view class='my-bar-label'>姓名</view>
       <view class='my-bar-input'>
-        <input type="text" name="contacts" placeholder='{{contacts}}'></input>
+        <input type="text" name="contacts" placeholder='请输入姓名' bindinput='fullname'></input>
       </view>
       <image src='../../images/next.png' class='my-bar-next'></image>
     </view>
     <view class='my-bar'>
       <view class='my-bar-label'>联系方式</view>
       <view class='my-bar-input'>
-        <input type="number" name="tel" placeholder='{{tel}}'></input>
+        <input type="number" name="tel" placeholder='请输入联系方式' bindinput='phone'></input>
       </view>
       <image src='../../images/next.png' class='my-bar-next'></image>
     </view>
     <view class='my-bar'>
       <view class='my-bar-label'>密码</view>
       <view class='my-bar-input'>
-        <input type="text" name="password" placeholder='{{password}}'></input>
+        <input type="password" name="password" placeholder='请输入密码' bindinput='password'></input>
       </view>
       <image src='../../images/next.png' class='my-bar-next'></image>
     </view>
     <view class='my-bar'>
       <view class='my-bar-label'>确认密码</view>
       <view class='my-bar-input'>
-        <input type="text" name="password2" placeholder='{{password2}}'></input>
+        <input type="password" name="password2" placeholder='请再次输入密码' bindinput='repassword'></input>
       </view>
       <image src='../../images/next.png' class='my-bar-next'></image>
     </view>
     <view class='my-bar'>
       <view class='my-bar-label'>备注</view>
       <view class='my-bar-input'>
-        <input type="text" name="remark" placeholder='{{remark}}'></input>
+        <input type="text" name="remark" placeholder='可不填' bindinput='remark'></input>
       </view>
       <image src='../../images/next.png' class='my-bar-next'></image>
     </view>

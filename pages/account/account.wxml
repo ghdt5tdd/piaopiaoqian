@@ -1,30 +1,32 @@
 <!--pages/account/account.wxml-->
+<scroll-view scroll-y="true" style="height:calc(100%);position:fixed;" bindscrolltolower="lower">
 <view class='account'>
-  <block wx:for="{{account}}">
+  <block wx:for="{{account}}" wx:key="id">
     <view class="account-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove">
       <view class='account-info'>
-        <view bindtap='permit' data-index="{{index}}">
-          <view class='account-name'>{{item.name}}</view>
+        <!-- <view bindtap='permit' data-index="{{index}}"> -->
+        <view >
+          <view class='account-name'>{{item.user_account}}</view>
           <view class='account-spec'>
-            <view class='account-contacts'>{{item.contacts}}({{item.nickname}})</view>
-            <view class='account-permit'>{{item.permit}}</view>
+            <view class='account-contacts'>{{item.full_name}}({{item.phone}})</view>
+            <!-- <view class='account-permit'>{{item.permit}}</view> -->
           </view>
         </view>
 
-        <view class='account-set' bindtap='set' data-index="{{index}}">
-          <image wx:if="{{item.start}}" src='../../images/start.png'></image>
-          <image wx:else src='../../images/stop.png'></image>
+        <view class='account-set' bindtap='set' data-id="{{item.id}}" data-index="{{index}}">
+          <image hidden="{{item.state !== '1'}}" src='../../images/start.png'></image>
+          <image hidden="{{item.state === '1'}}" src='../../images/stop.png'></image>
         </view>
 
       </view>
       <view class='account-opt'>
-        <view class="edit" catchtap="edit" data-index="{{index}}">修改</view>
-        <view class="del" catchtap="del" data-index="{{index}}">删除</view>
+        <!-- <view class="edit" catchtap="edit" data-id="{{item.id}}">修改</view> -->
+        <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
       </view>
     </view>
   </block>
 </view>
-
+</scroll-view>
 <view class='fixed-bottom' bindtap='toAdd'>新增</view>
 
 <view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>

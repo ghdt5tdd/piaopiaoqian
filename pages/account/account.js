@@ -1,23 +1,14 @@
 // pages/account/account.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    account: [{
-      name: "子账户一",
-      contacts: "张三",
-      nickname: "001",
-      permit: "",
-      start: false
-    }, {
-      name: "子账户二",
-      contacts: "李思",
-      nickname: "002",
-      permit: "普通操作员",
-      start: true
-    }],
+    page: 1,
+    pageSize: 50,
+    account: [],
     hide: true,
     hidePermit: true,
     permitRole: [{
@@ -30,6 +21,10 @@ Page({
       name: "普通操作者",
       icon: 'success_no_circle'
     }]
+  },
+
+  lower:function(e) {
+    console.log(e)
   },
 
 
@@ -94,22 +89,58 @@ Page({
 
   //右滑删除事件
   del: function(e) {
-    this.data.account.splice(e.currentTarget.dataset.index, 1)
-    this.setData({
-      account: this.data.account
+    const index = e.currentTarget.dataset.index
+    const id = e.currentTarget.dataset.id
+    wx.showLoading({
+      title: '删除中...',
     })
+    ajax.postApi('app/member/deleteSubAccount', {
+      id
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        this.data.account.splice(index, 1)
+        this.setData({
+          account: this.data.account
+        })
+      }
+    })	
+
   },
 
   //启用账号
   set: function(e) {
-    var index = e.currentTarget.dataset.index
-    var account = this.data.account
-    var start = account[index].start;
-    account[index].start = !start;
+    const id = e.currentTarget.dataset.id
+    const index = e.currentTarget.dataset.index
+    let state = this.data.account[index].state
 
-    this.setData({
-      account: account
+    if(state === '1') {
+      state = '0'
+    }else {
+      state = '1'
+    }
+
+    wx.showLoading({
+      title: '修改状态中...',
     })
+
+    ajax.postApi('app/member/setSubAccountState', {
+      id,
+      state: this.data.account[index].state
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        this.data.account[index].state = state
+        this.setData({
+          account: this.data.account
+        })
+      }
+    })
+    console.log(index)
+    console.log(id)
+    // this.setData({
+    //   account: account
+    // })
   },
 
   //账号授权
@@ -156,7 +187,7 @@ Page({
       hide: true,
       hidePermit: true,
     })
-  },
+  }, 
 
   //新增
   toAdd: function(e) {
@@ -171,6 +202,7 @@ Page({
    */
   onLoad: function(options) {
 
+
   },
 
   /**
@@ -184,7 +216,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    wx.showLoading({
+      title: '数据加载中',
+    })
+    const page = this.data.page
+    const pageSize = this.data.pageSize
 
+    ajax.getApi('app/member/findSubAccount', {
+      page,
+      pageSize
+    }, (err, res) => {
+      if (res && res.success) {
+        wx.hideLoading()
+        console.log(res.data)
+        this.setData({
+          account: res.data
+        })
+      }
+    })	
   },
 
   /**

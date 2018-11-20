@@ -89,6 +89,13 @@ Page({
     })
   },
 
+  //跳转到子账户页面
+  toAccount: function(e) {
+    wx.navigateTo({
+      url: '../account/account'
+    })
+  },
+
 
   //跳转到账户日记页面
   toDiary: function(e) {
