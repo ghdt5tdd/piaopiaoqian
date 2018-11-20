@@ -1,216 +1,76 @@
 // pages/order/order.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const app = getApp()
+const orderInterface = new Map()
+orderInterface.set('ownLogistCenter', 'app/order/getOwnLogistSellerOrders')
+orderInterface.set('ownLogistArea', 'app/order/getOwnLogistSellerOrders')
+
+orderInterface.set('bigCustomer', 'app/order/getCustomAndFranchiserSellerOrders')
+orderInterface.set('franchiser', 'app/order/getCustomAndFranchiserSellerOrders')
 Page({
 
   /**
    * 页面的初始数据
-   */
+   */ 
   data: {
-    queryItems: [{
-      name: "请输入订单号",
-      status: false,
-      val: "",
-    }, {
-      name: "请输入物料编号",
-      status: false,
-      val: "",
-    }],
-
-    queryDate: [{
-      name: "请选择开始时间",
-      status: false,
-      val: "请选择开始时间",
-    }, {
-      name: "请选择结束时间",
-      status: false,
-      val: "请选择结束时间",
-    }],
-
-
+    query:{
+      no: '',
+      state: undefined,
+      startDate: '',
+      endDate: '',
+      goodsCode: '',
+      billNo: '',
+      page:1,
+      pageSize: 3,
+      loadCompleted: false
+    },
     hideFilter: true,
     hide: true,
-    filter: [{
-      label: "订单号",
-      style: 1,
-      name: "请输入订单号",
-      val: "",
-    }, {
-      label: "订单状态",
-      style: 2,
-      name: "请选择订单状态",
-    }, {
-      label: "物流编号",
-      style: 1,
-      name: "请输入物料编号",
-      val: "",
-    }, {
-      label: "发运单号",
-      style: 1,
-      name: "请输入发运单号",
-      val: "",
-    }, ],
-    filterDate: [{
-      label: "开始时间",
-      name: "请选择开始时间",
-    }, {
-      label: "结束时间",
-      name: "请选择结束时间",
-    }],
+    filter: [],
     Index: "",
 
 
     orderStatus: [{
       name: "全部",
+      value: undefined
     }, {
       name: "生产中",
-    }, {
-      name: "调拨中",
+      value: 0
     }, {
       name: "待发货",
+      value: 1
+    }, {
+      name: "调拨中",
+      value: 2
     }, {
       name: "在途中",
+      value: 3
+    }, {
+      name: "已到达",
+      value: 4
     }, {
       name: "待签收",
+      value: 5
     }, {
       name: "已签收",
+      value: 6
     }, ],
 
     selectStatus: 0,
+    orders:[],
     orderWidth: "100%",
-
-    orderTable: [{
-      id: "18352790283072",
-      time: "2018-01-10",
-      bar: [{
-        opt: "节点状态>>",
-        info: [{
-          label: "",
-          name: "10",
-        }, {
-          label: "商品编码",
-          name: "EWHTCK0283",
-        }, {
-          label: "商品名称",
-          name: "SC32*50S带磁气缸",
-        }, {
-          label: "订单数量",
-          name: "500",
-        }, {
-          label: "属性状态",
-          name: "库存 待发货",
-        }, {
-          label: "备注",
-          name: "破损包换，若发货数量有误，3日内补发",
-        }, ]
-      }, {
-        opt: "节点状态>>",
-        info: [{
-          label: "",
-          name: "20",
-        }, {
-          label: "商品编码",
-          name: "DHCHTS0201",
-        }, {
-          label: "商品名称",
-          name: "8寸5合1多功能尖嘴钳",
-        }, {
-          label: "订单数量",
-          name: "120",
-        }, {
-          label: "属性状态",
-          name: "库存 缺货",
-        }, {
-          label: "备注",
-          name: "",
-        }, ]
-      }]
-    }, {
-      id: "18352790280265",
-      time: "2018-01-02",
-      bar: [{
-        opt: "节点状态>>",
-        info: [{
-          label: "",
-          name: "10",
-        }, {
-          label: "商品编码",
-          name: "EWHTCK0283",
-        }, {
-          label: "商品名称",
-          name: "SC32*50S带磁气缸",
-        }, {
-          label: "订单数量",
-          name: "500",
-        }, {
-          label: "属性状态",
-          name: "定制 待发货",
-        }, {
-          label: "备注",
-          name: "破损包换，若发货数量有误，3日内补发",
-        }, ]
-      }, ]
-    }, {
-      id: "18352790283072",
-      time: "2018-01-10",
-      bar: [{
-        opt: "节点状态>>",
-        info: [{
-          label: "",
-          name: "10",
-        }, {
-          label: "商品编码",
-          name: "EWHTCK0283",
-        }, {
-          label: "商品名称",
-          name: "SC32*50S带磁气缸",
-        }, {
-          label: "订单数量",
-          name: "500",
-        }, {
-          label: "属性状态",
-          name: "库存 待发货",
-        }, {
-          label: "备注",
-          name: "破损包换，若发货数量有误，3日内补发",
-        }, ]
-      }, {
-        opt: "节点状态>>",
-        info: [{
-          label: "",
-          name: "20",
-        }, {
-          label: "商品编码",
-          name: "DHCHTS0201",
-        }, {
-          label: "商品名称",
-          name: "8寸5合1多功能尖嘴钳",
-        }, {
-          label: "订单数量",
-          name: "120",
-        }, {
-          label: "属性状态",
-          name: "库存 缺货",
-        }, {
-          label: "备注",
-          name: "",
-        }, ]
-      }]
-    }, ]
-
-
-
   },
 
 
 
   //输入筛选条件
-  bindInput: function(e) {
-    var index = e.currentTarget.dataset.index
-    var queryItems = this.data.queryItems
-    queryItems[index].status = true
-    queryItems[index].val = e.detail.value
+  bindInput: function(e) {   
+    const key = e.currentTarget.dataset.key
+    this.data.query[key] = e.detail.value
 
     this.setData({
-      queryItems: queryItems,
+      query: this.data.query,
     })
   },
 
@@ -228,7 +88,7 @@ Page({
 
   //打开日历
   showDate: function(e) {
-    wx.setStorageSync('timeindex', e.currentTarget.dataset.index)
+    wx.setStorageSync('timeindex', e.currentTarget.dataset.key)
     this.setData({
       showDate: true,
       hide: false,
@@ -244,18 +104,6 @@ Page({
     });
   },
 
-  //清除日历
-  DateClear: function(e) {
-    var index = e.currentTarget.dataset.index
-    var queryDate = this.data.queryDate
-    var queryDefault = queryDate[index].name
-    queryDate[index].status = false
-    queryDate[index].val = queryDefault
-
-    this.setData({
-      queryDate: queryDate
-    })
-  },
 
 
   //打开筛选条件
@@ -298,9 +146,15 @@ Page({
 
   //选择我的订单状态
   selectStatus: function(e) {
-    var index = e.target.dataset.index;
+    var state = e.target.dataset.state;
+    this.data.query.state = state
+    this.data.query.page = 1
+    this.data.query.loadCompleted = false
     this.setData({
-      selectStatus: index
+      query: this.data.query,
+      orders: [],
+    }, () => {
+      this.getOrder()
     })
   },
 
@@ -312,15 +166,92 @@ Page({
     })
   },
 
+  search:function(){
+    this.data.query.page = 1
+    this.data.query.loadCompleted = false
+    this.setData({
+      query: this.data.query,
+      orders: [],
+    }, () => {
+      this.getOrder()
+    })
+  },
 
 
+  lower: function (e) {
+    let page = this.data.query.page
+    const pageSize = this.data.query.pageSize
+    const loadCompleted = this.data.query.loadCompleted
+    console.log(page, pageSize)
+    if (!loadCompleted) {
+      wx.showLoading({
+        title: '更多订单加载中...',
+      })
+      this.data.query.page++
+      this.setData({
+        query: this.data.query
+      }, () => {
+        this.getOrder(() => {
+          wx.hideLoading()
+        })
+      })
+    } else {
+      wx.showToast({
+        title: '订单已全部加载完毕',
+        duration: 1000
+      })
+    }
+  },
 
+  getOrder: function (callback){
+    wx.showLoading({
+      title: '查询中..',
+    })
+
+    const partnerTypeCode = app.globalData.memberInfo.partnerTypeCode
+    const api = orderInterface.get(partnerTypeCode)
+    ajax.postApi(api, {
+      ...this.data.query
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        if (res.data.length > 0) {
+          const orders = this.data.orders
+          Array.prototype.push.apply(orders, res.data);
+          this.setData({
+            orders
+          })
+        } else {
+          wx.hideLoading(() => {
+            wx.showToast({
+              title: '订单已全部加载完毕',
+              duration: 1000
+            })
+          })
+          this.data.query.loadCompleted = true
+          this.setData({
+            query: this.data.query
+          })
+        }
+      }else {
+        wx.showToast({
+          title: '订单获取失败',
+        })
+      }
+
+      if (callback) {
+        callback()
+      }
+    })	
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     this.setNowDate();
+    this.resetQuery()
+    this.getOrder()
 
     //计算宽度
     var query = wx.createSelectorQuery();
@@ -338,24 +269,24 @@ Page({
     //方便重置筛选条件
     wx.setStorageSync('filter', this.data.filter)
     wx.setStorageSync('filterDate', this.data.filterDate)
+  },
 
-
+  resetQuery:function() {
+    this.data.query.startDate = this.data.cur_year + '-' + this.data.cur_month + '-' + this.data.cur_day
+    this.data.query.endDate = this.data.cur_year + '-' + this.data.cur_month + '-' + this.data.cur_day
+    this.setData({
+      query: this.data.query
+    })
   },
 
   //选择日期
   dateSelectAction: function(e) {
+    const key = wx.getStorageSync('timeindex')
     var cur_day = e.currentTarget.dataset.idx;
     var cur_date = cur_day + 1;
     var cur_month = this.data.cur_month;
     var cur_year = this.data.cur_year;
-    var index = wx.getStorageSync('timeindex')
-    var queryDate = this.data.queryDate
-    queryDate[index].status = true
-    queryDate[index].val = cur_year + "-" + cur_month + "-" + cur_date
-
-    var filterDate = this.data.filterDate
-    filterDate[index].name = cur_year + "-" + cur_month + "-" + cur_date
-
+    this.data.query[key] = cur_year + "-" + cur_month + "-" + cur_date
 
     if (this.data.hideFilter == true) {
       this.setData({
@@ -366,8 +297,7 @@ Page({
     this.setData({
       todayIndex: cur_day,
       showDate: false,
-      queryDate: queryDate,
-      filterDate: filterDate
+      query: this.data.query,
     })
   },
 
@@ -376,13 +306,15 @@ Page({
     const date = new Date();
     const cur_year = date.getFullYear();
     const cur_month = date.getMonth() + 1;
+    const cur_day = date.getDate() ;
     const todayIndex = date.getDate() - 1;
     const weeks_ch = ['日', '一', '二', '三', '四', '五', '六'];
     this.calculateEmptyGrids(cur_year, cur_month);
     this.calculateDays(cur_year, cur_month);
     this.setData({
-      cur_year: cur_year,
-      cur_month: cur_month,
+      cur_year,
+      cur_month,
+      cur_day,
       weeks_ch,
       todayIndex,
     })
