@@ -1,24 +1,24 @@
 <!--pages/point/point.wxml-->
 <view class='node-logistics'>
-  <view wx:for="{{logistics}}" class="logistics-list">
+  <view wx:for="{{orderNodes}}" wx:key="node_state" class="logistics-list">
     <view class="logistics-list-item">
       <view class="logistics-list-circle">
         <image wx:if="{{index == 0}}" src="../../images/track-on.png" mode="widthFix"></image>
         <image wx:else src="../../images/track.png" mode="widthFix"></image>
       </view>
       <view class="logistics-list-txt">
-        <view class="logistics-list-status">{{item.status}}</view>
+        <view class="logistics-list-status">{{item.node_content}}</view>
         <view class='logistics-list-content'>
-          <view wx:for="{{item.detail}}" wx:for-index="secondIndex" class='logistics-list-detail'>
+          <view class='logistics-list-detail'>
             <view class='logistics-list-point'></view>
-            <view class="logistics-list-info">{{item.loginfo}}</view>
-            <view wx:if="{{index == 0 && secondIndex == 0}}" class='logistics-list-location' bindtap='toLoaction'>
+            <view class="logistics-list-info">{{item.node_remark}}</view>
+            <view wx:if="{{index == 0}}" class='logistics-list-location' bindtap='toLoaction'>
                <image src="../../images/position.png"></image>
                <view>查看实时定位</view>
             </view>            
             <view class="logistics-list-time">
-              <view class='logistics-list-date'>{{item.logdate}}</view>
-              <view class='logistics-list-hour'>{{item.logtime}}</view>
+              <view class='logistics-list-date'>{{item.createDate}}</view>
+              <view class='logistics-list-hour'>{{item.createTime}}</view>
             </view>
           </view>
         </view>

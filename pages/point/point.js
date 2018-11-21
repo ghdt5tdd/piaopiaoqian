@@ -1,11 +1,13 @@
 // pages/point/point.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    orderNodes:null,
+    shopOrderId:'',
     logistics: [{
       'status': '在途中',
       'detail': [{
@@ -36,7 +38,7 @@ Page({
 //查看实时定位
   toLoaction: function (e) {
     wx.navigateTo({
-      url: '../location/location'
+      url: '../location/location?id=' + this.data.shopOrderId
     })
   },
 
@@ -45,7 +47,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    const shopOrderId = options.id
+    this.setData({
+      shopOrderId
+    })
+    wx.showLoading({
+      title: '节点加载中',
+    })
 
+    ajax.getApi('app/order/getNodeDataByShopOrder', {
+      shopOrderId
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        if(res.data.length > 0) {
+          const orderNodes = res.data
+          orderNodes.forEach(v => {
+            v.createDate = v.create_date.substring(0, 10)
+            v.createTime = v.create_date.substring(11)
+          })
+        this.setData({
+          orderNodes
+        })
+        }
+      }
+    })
   },
 
   /**

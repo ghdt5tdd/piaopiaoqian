@@ -1,10 +1,12 @@
 // pages/goodsdetail/goodsdetail.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    orderDetails:null,
     tableTh: [{
       title: "行号"
     }, {
@@ -59,7 +61,35 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.getDetail(options)
+    this.fixedWidth()
+  },
 
+  getDetail:function(options) {
+    const shopOrderId = options.id
+    wx.showLoading({
+      title: '明细加载中',
+    })
+
+    ajax.getApi('app/order/listShopOrderProducts', {
+      shopOrderId
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        this.setData({
+          orderDetails: res.data
+        })
+      }
+    })
+  },
+
+  fixedWidth:function() {
+    const query = wx.createSelectorQuery();
+    query.select('.table').boundingClientRect(rect => {
+      this.setData({
+        goodsWidth: rect.width + 'px'
+      })
+    }).exec();
   },
 
   /**

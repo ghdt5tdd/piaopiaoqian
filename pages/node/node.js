@@ -1,10 +1,12 @@
 // pages/node/node.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    saleOrderDetail:null,
     nodeHead: [{
       label: "商品编码",
       name: "EWHTCK0283"
@@ -145,8 +147,66 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    const orderId = options.id
+    this.setData({
+      orderId
+    })
+    
+    this.getSaleOrderDetailById(orderId)
   },
+
+  getSaleOrderDetailById: function (saleDetailId, shoporderId, deliveryId) {
+    wx.showLoading({
+      title: '数据加载中...',
+    })
+    ajax.getApi('app/order/getSaleOrderDetailById', {
+      saleDetailId,
+      shoporderId,
+      deliveryId
+    }, (err, res) => {
+      if (res && res.success) {
+        wx.hideLoading()
+        const saleOrderDetail = res.data
+        const carsInfo = saleOrderDetail.middle.carsInfo
+        if (carsInfo instanceof Array && carsInfo.length > 0) {
+          carsInfo.forEach(c => {
+            if(c.type == 0) {
+              saleOrderDetail.middle.firstCar = c.quantity
+              saleOrderDetail.middle.firstCarId = c.shop_order_detail_id
+            }else if(c.type == 1){
+              saleOrderDetail.middle.secondCar = c.quantity
+              saleOrderDetail.middle.secondCarId = c.shop_order_detail_id
+            }
+          })
+        } 
+
+        this.setData({
+          saleOrderDetail
+        })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
+        })
+      }
+    })	
+    
+  },
+
+  carChangeBranch:function(e) {
+    console.log(e)
+    const shopOrderDetailId = e.currentTarget.dataset.shoporderId
+    const orderId = this.data.orderId
+    this.getSaleOrderDetailById(orderId, shopOrderDetailId)
+  },
+
+  batchChangeBranch:function(e) {
+    console.log(e)
+    const deliveryDetailId = e.currentTarget.dataset.deliveryId
+    const orderId = this.data.orderId
+    this.getSaleOrderDetailById(orderId, undefined, deliveryDetailId)
+  },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成

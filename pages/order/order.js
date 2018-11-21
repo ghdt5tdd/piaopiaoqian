@@ -22,7 +22,7 @@ Page({
       goodsCode: '',
       billNo: '',
       page:1,
-      pageSize: 3,
+      pageSize: 10,
       loadCompleted: false
     },
     hideFilter: true,
@@ -126,7 +126,15 @@ Page({
     var filter = wx.getStorageSync('filter')
     var filterDate = wx.getStorageSync('filterDate')
 
+
+    this.data.query.no = ''
+    this.data.query.state = undefined
+    this.data.query.goodsCode = ''
+    this.data.query.billNo = ''
+    this.data.query.page = 1
+    this.data.query.loadCompleted = false
     this.setData({
+      query: this.data.query,
       Index: '',
       filter: filter,
       filterDate: filterDate,
@@ -139,7 +147,10 @@ Page({
     this.setData({
       hideFilter: true,
       hide: true,
+    }, () => {
+      this.search()
     });
+   
   },
 
 
@@ -161,8 +172,9 @@ Page({
 
   //去节点状态页面
   toNode: function(e) {
+    const id = e.target.dataset.id
     wx.navigateTo({
-      url: '../node/node'
+      url: '../node/node?id=' + id
     })
   },
 
@@ -210,7 +222,7 @@ Page({
 
     const partnerTypeCode = app.globalData.memberInfo.partnerTypeCode
     const api = orderInterface.get(partnerTypeCode)
-    ajax.postApi(api, {
+    ajax.getApi(api, {
       ...this.data.query
     }, (err, res) => {
       wx.hideLoading()
@@ -272,8 +284,16 @@ Page({
   },
 
   resetQuery:function() {
-    this.data.query.startDate = this.data.cur_year + '-' + this.data.cur_month + '-' + this.data.cur_day
-    this.data.query.endDate = this.data.cur_year + '-' + this.data.cur_month + '-' + this.data.cur_day
+    let cur_day = this.data.cur_day
+    let cur_month = this.data.cur_month
+    if (cur_day < 10) {
+      cur_day = "0" + cur_day
+    }
+    if (cur_month < 10) {
+      cur_month = "0" + cur_month
+    }
+    this.data.query.startDate = this.data.cur_year + '-' + cur_month + '-' + cur_day
+    this.data.query.endDate = this.data.cur_year + '-' + cur_month + '-' + cur_day
     this.setData({
       query: this.data.query
     })
@@ -286,6 +306,12 @@ Page({
     var cur_date = cur_day + 1;
     var cur_month = this.data.cur_month;
     var cur_year = this.data.cur_year;
+    if (cur_date < 10) {
+      cur_date = "0" + cur_date
+    }
+    if (cur_month < 10) {
+      cur_month = "0" + cur_month
+    }
     this.data.query[key] = cur_year + "-" + cur_month + "-" + cur_date
 
     if (this.data.hideFilter == true) {
@@ -366,6 +392,7 @@ Page({
       }
       this.calculateDays(newYear, newMonth);
       this.calculateEmptyGrids(newYear, newMonth);
+
       this.setData({
         cur_year: newYear,
         cur_month: newMonth
@@ -379,6 +406,7 @@ Page({
       }
       this.calculateDays(newYear, newMonth);
       this.calculateEmptyGrids(newYear, newMonth);
+
       this.setData({
         cur_year: newYear,
         cur_month: newMonth

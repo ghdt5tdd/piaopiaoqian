@@ -43,7 +43,7 @@ function request(requestSetting) {
   let JSSESSIONID = wx.getStorageSync('JSSESSIONID')
   if (JSSESSIONID === '') {
     JSSESSIONID = util.RandomUUID()
-    wx.setStorageSync('JSSESSIONID', uuid)
+    wx.setStorageSync('JSSESSIONID', JSSESSIONID)
   }
   requestSetting.header['cookie'] = 'JSESSIONID=' + JSSESSIONID
   wx.request(requestSetting)

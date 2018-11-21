@@ -77,7 +77,7 @@
               <view class='order-bar-name'>{{detail.detail_remark}}</view>
             </view>
           </view>
-          <view class='order-bar-opt' bindtap='toNode'>节点状态>></view>
+          <view class='order-bar-opt' bindtap='toNode' data-id="{{detail.id}}">节点状态>></view>
         </view>
       </view>
     </view>

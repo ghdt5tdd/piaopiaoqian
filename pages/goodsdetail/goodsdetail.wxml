@@ -1,15 +1,35 @@
 <!--pages/goodsdetail/goodsdetail.wxml-->
+<scroll-view scroll-x="true" style="width:100%" >
 <view class='goodsTable'>
   <view class="table">
     <view class="tr">
-      <view class='th' wx:for="{{tableTh}}">
-        {{item.title}}
+      <view class='th' >
+        行号
+      </view>
+      <view class='th' >
+        商品编码
+      </view>
+      <view class='th' >
+        商品名称
+      </view>
+      <view class='th' >
+        数量
       </view>
     </view>
-    <view class="tr" wx:for="{{tableTr}}">
-      <view class='td' wx:for="{{item.td}}">
-        {{item.name}}
+    <view class="tr" wx:for="{{orderDetails.details}}" wx:key="id">
+      <view class='td' >
+        {{item.line_number}}
+      </view>
+      <view class='td' >
+        {{item.goods_code}}
+      </view>
+      <view class='td' >
+        {{item.goods_name}}
+      </view>
+      <view class='td' >
+        {{item.quantity}}
       </view>
     </view>
   </view>
 </view>
+</scroll-view>

@@ -1,15 +1,27 @@
 <!--pages/location/location.wxml-->
 <view class='location-map'>
-  <image src='{{map}}' mode="widthFix"></image>
+  <map id="map" longitude="{{locationDetails.locations[0][0]}}" latitude="{{locationDetails.locations[0][1]}}" scale="14" c bindcontroltap="controltap"  polyline="{{locationDetails.locations}}" show-location style="width: 100%; height: 300px;"></map>
 </view>
 
 <view class="location-content {{popup?'spread':''}} ">
   <view hidden="{{!popup}}" class='location-info'>
     <view class='clearfix'>
-      <block wx:for="{{locationInfo}}">
+      <block>
         <view class="location-info-items">
-          <view class="location-info-label">{{item.label}}：</view>
-          <view class="location-info-name">{{item.name}}</view>
+          <view class="location-info-label">承运商：</view>
+          <view class="location-info-name">{{orderDetails.carrier_name}}</view>
+        </view>
+        <view class="location-info-items">
+          <view class="location-info-label">预计到达时间：</view>
+          <view class="location-info-name">{{orderDetails.estimated_arrive_date}}</view>
+        </view>
+        <view class="location-info-items">
+          <view class="location-info-label">司机：</view>
+          <view class="location-info-name">{{orderDetails.driver_name}}</view>
+        </view>
+        <view class="location-info-items">
+          <view class="location-info-label">联系方式：</view>
+          <view class="location-info-name">{{orderDetails.contact_way}}</view>
         </view>
       </block>
     </view>
@@ -17,24 +29,24 @@
     <view class='location-info-line'>
 
       <view class='order-table-head'>
-        <view class='order-table-id'>货物单号：{{billId}}</view>
-        <view class='order-table-time'>{{billTime}}</view>
+        <view class='order-table-id'>货物单号：{{orderDetails.order_no}}</view>
+        <view class='order-table-time'>{{orderDetails.start_departing_date}}</view>
       </view>
       <view class='order-table-content'>
         <view class='order-table-line'>
           <view class='order-line-route'>
-            <view class='order-route-point'>{{routeStart}}</view>
+            <view class='order-route-point'>{{orderDetails.consignment_station_name}}</view>
             <image mode="widthFix" src="../../images/arrow.png"></image>
-            <view class='order-route-point'>{{routeEnd}}</view>
+            <view class='order-route-point'>{{orderDetails.receiving_station_name}}</view>
           </view>
           <view class='order-line-cargo'>
             <view class='order-cargo-receive'>
               <image src="../../images/person.png"></image>
-              <view>{{receive}}收</view>
+              <view>{{orderDetails.consignee_name}}收</view>
             </view>
             <view class='order-cargo-num'>
               <image src="../../images/cargo.png"></image>
-              <view>{{num}}件</view>
+              <view>{{orderDetails.total_packing_quantity}}件</view>
             </view>
           </view>
         </view>
@@ -45,11 +57,11 @@
   </view>
   <view class='location-bottom'>
     <view class='location-status'>
-      {{status}}
+      {{orderDetails.order_state}}
     </view>
     <view class='location-opt orange'>
-      <view wx:if="{{popup}}" bindtap='retract'>点击收起</view>
-      <view wx:else bindtap='spread'>点击展开</view>
+      <!-- <view wx:if="{{popup}}" bindtap='retract'>点击收起</view> -->
+      <!-- <view bindtap='spread'>点击展开</view> -->
     </view>
   </view>
 </view>

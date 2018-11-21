@@ -1,9 +1,21 @@
 <!--pages/node/node.wxml-->
 <view class='node-head'>
-  <block wx:for="{{nodeHead}}">
+  <block>
     <view class="node-head-items">
-      <view class="node-head-label">{{item.label}}：</view>
-      <view class="node-head-name">{{item.name}}</view>
+      <view class="node-head-label">商品编码：</view>
+      <view class="node-head-name">{{saleOrderDetail.up.goods_code}}</view>
+    </view>
+    <view class="node-head-items">
+      <view class="node-head-label">商品名称：</view>
+      <view class="node-head-name">{{saleOrderDetail.up.goods_name}}</view>
+    </view>
+    <view class="node-head-items">
+      <view class="node-head-label">剩余数量：</view>
+      <view class="node-head-name">{{saleOrderDetail.up.residue_quantity}}</view>
+    </view>
+    <view class="node-head-items">
+      <view class="node-head-label">发货批次：</view>
+      <view class="node-head-name" style='color:red'><view wx:for="{{saleOrderDetail.up.batches}}" bindtap="batchChangeBranch" data-delivery-id="{{item.delivery_detail_id}}">{{item.quantity}} </view>  </view>
     </view>
   </block>
 </view>
@@ -12,13 +24,46 @@
 <view class='node-list'>
   <view class='node-list-line'></view>
   <view class='node-list-content'>
-    <block wx:for="{{nodeList}}">
+    <block>
       <view class="node-list-item">
-        <view class="node-item-num {{item.now?'active':''}} {{item.transit?'transit':''}}">{{item.num}}</view>
-        <image class='node-item-icon' wx:if="{{item.transit}}" src='{{item.icon}}'></image>
-        <image class='node-item-pic' src="{{item.pic}}"></image>
-        <view class='node-item-name'>{{item.name}}</view>
+        <view class="node-item-num"  wx-if="{{saleOrderDetail.middle.issueOrder > 0}}">{{saleOrderDetail.middle.issueOrder}}</view>
+        <image class='node-item-pic' src="../../images/node1.png"></image>
+        <view class='node-item-name'>下单</view>
       </view>
+      <view class="node-list-item">
+        <view class="node-item-num" wx-if="{{saleOrderDetail.middle.factoryOrderNum > 0}}">{{saleOrderDetail.middle.factoryOrderNum}}</view>
+        <image class='node-item-pic' src="../../images/node2.png"></image>
+        <view class='node-item-name'>工厂</view>
+      </view>
+      <view class="node-list-item">
+        <view class="node-item-num transit" wx-if="{{saleOrderDetail.middle.firstCar && saleOrderDetail.middle.firstCar > 0}}">{{saleOrderDetail.middle.firstCar}}</view>
+        <view wx-if="{{saleOrderDetail.middle.firstCar}}" bindtap='carChangeBranch' data-shoporder-id="{{saleOrderDetail.middle.secondCarId}}">
+        <image class='node-item-icon' src='../../images/node-num.png' ></image>
+        </view>
+        <view class="node-item-num active" wx-if="{{saleOrderDetail.middle.centralWarehouseNum > 0}}">{{saleOrderDetail.middle.centralWarehouseNum}}</view>
+        <image class='node-item-pic' src="../../images/node3.png"></image>
+        <view class='node-item-name'>中央仓</view>
+      </view>
+      <view class="node-list-item">
+        <view class="node-item-num transit" wx-if="{{saleOrderDetail.middle.secondCar && saleOrderDetail.middle.secondCar > 0}}">{{saleOrderDetail.middle.secondCar}}</view>
+        <view wx-if="{{saleOrderDetail.middle.secondCar}}" bindtap='carChangeBranch' data-shoporder-id="{{saleOrderDetail.middle.secondCarId}}">
+        <image class='node-item-icon' src='../../images/node-num.png' ></image>
+        </view>
+        <view class="node-item-num active" wx-if="{{saleOrderDetail.middle.areaWarehouseNum > 0}}">{{saleOrderDetail.middle.areaWarehouseNum}}</view>
+        <image class='node-item-pic' src="../../images/node4.png"></image>
+        <view class='node-item-name'>区域仓</view>
+      </view>
+      <view class="node-list-item">
+        <view class="node-item-num"  wx-if="{{saleOrderDetail.middle.receiptOrderNum > 0}}">{{saleOrderDetail.middle.receiptOrderNum}}</view>
+        <image class='node-item-pic' src="../../images/node5.png"></image>
+        <view class='node-item-name'>签收</view>
+      </view>
+      <view class="node-list-item">
+        <view class="node-item-num "  wx-if="{{saleOrderDetail.middle.arrivalOrderNum > 0}}">{{saleOrderDetail.middle.arrivalOrderNum}}</view>
+        <image class='node-item-pic' src="../../images/node6.png"></image>
+        <view class='node-item-name'>到达</view>
+      </view>
+
     </block>
   </view>
 </view>
