@@ -1,17 +1,25 @@
 // pages/warn/warn.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    orderStatus: [{
+    orderStatus: [{ 
       name: "预警运单",
+      value: 0
     }, {
       name: "预警订单",
+      value: 1
     }, ],
 
+    sellerOrder:[],
+    shopOrder:[],
     selectStatus: 0,
+    page: 1,
+    pageSize: 10,
+    loadCompleted: false,
     ul: "ul-2",
 
     orderTable: [{
@@ -117,7 +125,18 @@ Page({
   selectStatus: function(e) {
     var index = e.target.dataset.index;
     this.setData({
-      selectStatus: index
+      selectStatus: index,
+      page: 1,
+      shopOrder: [],
+      sellerOrder: [],
+      loadCompleted: false,
+    }, () => {
+      wx.showLoading({
+        title: '数据加载中...',
+      })
+      this.getOrder(() => {
+        wx.hideLoading()
+      })
     })
   },
 
@@ -125,15 +144,124 @@ Page({
   //跳转到货运单详情页面
   toInfo: function(e) {
     wx.navigateTo({
-      url: '../transportdetail/transportdetail'
+      url: '../transportdetail/transportdetail?id=' + e.currentTarget.dataset.shoporderId
     })
+  },
+
+  lower: function (e) {
+    let page = this.data.page
+    const pageSize = this.data.pageSize
+    const loadCompleted = this.data.loadCompleted
+    console.log(page, pageSize)
+    if (!loadCompleted) {
+      wx.showLoading({
+        title: '更多数据加载中...',
+      })
+      page++
+      this.setData({
+        page
+      }, () => {
+        this.getOrder(() => {
+          wx.hideLoading()
+        })
+      })
+    } else {
+      wx.showToast({
+        title: '数据已全部加载完毕',
+        duration: 1000
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.showLoading({
+      title: '数据加载中...',
+    })
+    this.getOrder(() => {
+      wx.hideLoading()
+    })
+  },
 
+  getOrder: function (callback) {
+    const status = this.data.selectStatus
+    if (status === 0) {
+      //预警运单
+      this.getEarlyWaringShopOrder(callback)
+    } else if (status === 1){
+      //预警订单
+      this.getEarlyWaringSellerOrder(callback)
+    }else {
+      wx.showToast({
+        title: '错误的tab_id',
+      })
+    }
+  },
+
+  //预警运单
+  getEarlyWaringShopOrder: function (callback) {
+    ajax.getApi('app/order/getEarlyWaringShopOrder', {
+      page: this.data.page,
+      pageSize: this.data.pageSize
+    }, (err, res) => {
+      console.log(res)
+      if (res && res.success) {
+        if (res.data.length > 0) {
+          const shopOrder = this.data.shopOrder
+          Array.prototype.push.apply(shopOrder, res.data);
+          this.setData({
+            shopOrder
+          })
+        } else {
+          wx.hideLoading(() => {
+            wx.showToast({
+              title: '预警运单已加载完毕',
+              duration: 1000
+            })
+          })
+          this.setData({
+            loadCompleted: true
+          })
+        }
+      }
+      if (callback) {
+        callback()
+      }
+    })
+  },
+
+  //预警订单
+  getEarlyWaringSellerOrder: function (callback) {
+    ajax.getApi('app/order/getEarlyWaringSellerOrder', {
+      page: this.data.page,
+      pageSize: this.data.pageSize
+    }, (err, res) => {
+      console.log(res)
+      if (res && res.success) {
+        if (res.data.length > 0) {
+          const sellerOrder = this.data.sellerOrder
+          Array.prototype.push.apply(sellerOrder, res.data);
+          this.setData({
+            sellerOrder
+          })
+        } else {
+          wx.hideLoading(() => {
+            wx.showToast({
+              title: '预警订单已加载完毕',
+              duration: 1000
+            })
+          })
+          this.setData({
+            loadCompleted: true
+          })
+        }
+      }
+      if (callback) {
+        callback()
+      }
+    })
   },
 
   /**

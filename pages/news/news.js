@@ -209,12 +209,21 @@ Page({
   },
 
   getNewsDetail: function (newsId) {
+    wx.showLoading({
+      title: '新闻加载中...',
+    })
     ajax.getApi('app/member/getShopNewsDetail', {
       newsId
     }, (err, res) => {
+      wx.hideLoading()
       if (res && res.success) {
         this.setData({
           newsInfo: res.data
+        })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
         })
       }
     })
@@ -230,6 +239,11 @@ Page({
         Array.prototype.push.apply(newsComment, res.data);
         this.setData({
           newsComment
+        })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
         })
       }
       if (callback) {

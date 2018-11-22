@@ -7,54 +7,6 @@ Page({
    */
   data: {
     orderDetails:null,
-    tableTh: [{
-      title: "行号"
-    }, {
-      title: "商品编码"
-    }, {
-      title: "商品名称"
-    }, {
-      title: "数量"
-    }, ],
-
-    tableTr: [{
-      td: [{
-        name: "10"
-      }, {
-        name: "EWHTCK0283"
-      }, {
-        name: "SC32*50S带磁气缸"
-      }, {
-        name: "66"
-      }, ]
-    }, {
-      td: [{
-        name: "20"
-      }, {
-        name: "DHCHTS0201"
-      }, {
-        name: "8寸5合1多功能尖嘴钳"
-      }, {
-        name: "20"
-      }, ]
-    }, {
-      td: [{
-        name: "30"
-      }, {
-        name: "EWHTCK0283"
-      }, {
-        name: "SC32*50S带磁气缸"
-      }, {
-        name: "48"
-      }, ]
-    }, ]
-
-
-
-
-
-
-
   },
 
   /**

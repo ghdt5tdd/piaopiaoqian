@@ -8,7 +8,7 @@ Page({
   data: {
     selectStatus: 1,
     page: 1, 
-    pageSize: 3,
+    pageSize: 10,
     ul: "ul-2",
     abnormalItems: [],
     loadCompleted: false
