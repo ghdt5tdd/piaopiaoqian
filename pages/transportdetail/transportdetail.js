@@ -1,4 +1,5 @@
 // pages/transportdetail/transportdetail.js
+const ajax = require('../../utils/ajax.js')
 Page({
 
   /**
@@ -19,6 +20,9 @@ Page({
 
     selectStatus: 0,
     ul: "ul-5",
+
+    shopOrderId:'',
+    shoporderDetail:{},
 
     //运单详情
     transportId: "18352790283072",
@@ -207,7 +211,38 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options.id)
+    const shopOrderId = options.id
+    this.setData({
+      shopOrderId
+    })
+    this.getShopOrderDetail(shopOrderId)
+  },
+
+  getShopOrderDetail: function (shopOrderId) {
+    wx.showLoading({
+      title: '详情加载中...',
+    })
+
+    ajax.getApi('app/order/getShopOrderDetail', {
+      shopOrderId
+    }, (err, res) => {
+      console.log(res)
+      wx.hideLoading()
+      if (res && res.success) {
+        const shoporderDetail = res.data
+        shoporderDetail.start_departing_date_short = shoporderDetail.start_departing_date.substring(0, 10)
+        shoporderDetail.estimated_arriver_date_short = shoporderDetail.estimated_arriver_date.substring(0, 10)
+        this.setData({
+          shoporderDetail
+        })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
+        })
+      }
+    })	
+
   },
 
   /**

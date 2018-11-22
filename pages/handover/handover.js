@@ -1,85 +1,62 @@
 // pages/handover/handover.js
+const ajax = require('../../utils/ajax.js')
+const QRCode = require('../../utils/weapp-qrcode.js')
+let qr
+const orderInterface = new Map()
+orderInterface.set(0, 'app/order/getOrderByWaitTransfer')
+orderInterface.set(1, 'app/order/getOrderByTransfed')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    queryItems: [{
-      name: "请输入订单号",
-      status: false,
-      val: "",
-    }, {
-      name: "请输入客户卡号",
-      status: false,
-      val: "",
-    }],
+    query: {
+      orderNo: '',
+      state: 0,
+      startDate: '',
+      endDate: '',
+      consigneeCode: '',
+      page: 1,
+      pageSize: 10,
+      loadCompleted: false
+    },
+    orders:[],
+    hideFilter: true,
     hide: true,
-    queryDate: [{
-      name: "请选择开始时间",
-      status: false,
-      val: "请选择开始时间",
-    }, {
-      name: "请选择结束时间",
-      status: false,
-      val: "请选择结束时间",
-    }],
-
+    filter: [],
     orderStatus: [{
       name: "待交付货运单",
+      value: 0
     }, {
       name: "已交付货运单",
+      value: 1
     }, ],
     selectStatus: 0,
     ul: "ul-2",
 
     handoverTip: "货运单二维码可点击放大",
-    orderTable: [{
-      id: "18352790283072",
-      time: "2018-01-10",
-      start: "浙江温州",
-      end: "湖北武汉",
-      receive: "武汉恒望科技有限公司",
-      num: "210",
-      status: "已发货",
-      code: "../../images/code-big.jpg",
-    }, {
-      id: "18352790280265",
-      time: "2018-01-02",
-      start: "浙江温州",
-      end: "北京市",
-      receive: "北京海淀雷蒙赛博机电技术有限公司",
-      num: "150",
-      status: "调拨中",
-      code: "../../images/code-big.jpg",
-    }, {
-      id: "18352790283072",
-      time: "2018-01-01",
-      start: "浙江温州",
-      end: "湖北武汉",
-      receive: "武汉恒望科技有限公司",
-      num: "210",
-      status: "司机接收",
-      code: "../../images/code-big.jpg",
-    }, ],
-
     hideCode: true,
   },
 
-
-
-
-
+  search: function () {
+    this.data.query.page = 1
+    this.data.query.loadCompleted = false
+    this.setData({
+      query: this.data.query,
+      orders: [],
+    }, () => {
+      this.getOrder()
+    })
+  },
 
   //输入筛选条件
-  bindInput: function(e) {
-    var index = e.currentTarget.dataset.index
-    var queryItems = this.data.queryItems
-    queryItems[index].status = true
-    queryItems[index].val = e.detail.value
+  bindInput: function (e) {
+    const key = e.currentTarget.dataset.key
+    this.data.query[key] = e.detail.value
 
     this.setData({
-      queryItems: queryItems,
+      query: this.data.query,
     })
   },
 
@@ -96,13 +73,14 @@ Page({
   },
 
   //打开日历
-  showDate: function(e) {
-    wx.setStorageSync('timeindex', e.currentTarget.dataset.index)
+  showDate: function (e) {
+    wx.setStorageSync('timeindex', e.currentTarget.dataset.key)
     this.setData({
       showDate: true,
       hide: false,
     });
   },
+
 
   //关闭弹窗
   hide: function(e) {
@@ -126,82 +104,192 @@ Page({
     })
   },
 
-
-
-
   //选择我的订单状态
-  selectStatus: function(e) {
-    var index = e.target.dataset.index;
+  selectStatus: function (e) {
+    var state = e.target.dataset.state;
+    this.data.query.state = state
+    this.data.query.page = 1
+    this.data.query.loadCompleted = false
     this.setData({
-      selectStatus: index
+      query: this.data.query,
+      orders: [],
+    }, () => {
+      this.getOrder()
     })
   },
-
 
   //跳转到货运单详情页面
   toInfo: function(e) {
     wx.navigateTo({
-      url: '../transportdetail/transportdetail'
+      url: '../transportdetail/transportdetail?id=' + e.currentTarget.dataset.shoporderId
     })
   },
   
   //打开二维码弹窗
   showCode: function(e) {
-    var codeId = e.currentTarget.dataset.id
-    var codePic = e.currentTarget.dataset.code
+    wx.showLoading({
+      title: '二维码生成中...',
+    })
+
+    setTimeout(() => {
+      wx.hideLoading()
+    }, 1000)
+    const no = e.currentTarget.dataset.no
+    const codeUrl = e.currentTarget.dataset.codeUrl
     this.setData({
       hide: false,
       hideCode: false,
-      codeId: codeId,
-      codePic: codePic
+      codeId: no,
     })
+
+    if (qr) {
+      qr.makeCode(codeUrl);
+    }else {
+      qr = new QRCode('canvas', {
+        text: codeUrl,
+        width: 125,
+        height: 125,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+    }
   },
 
+  resetQuery: function () {
+    let cur_day = this.data.cur_day
+    let cur_month = this.data.cur_month
+    if (cur_day < 10) {
+      cur_day = "0" + cur_day
+    }
+    if (cur_month < 10) {
+      cur_month = "0" + cur_month
+    }
+    this.data.query.startDate = this.data.cur_year + '-' + cur_month + '-' + cur_day
+    this.data.query.endDate = this.data.cur_year + '-' + cur_month + '-' + cur_day
+    this.setData({
+      query: this.data.query
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.setNowDate();
+    this.resetQuery()
+    this.getOrder()
   },
 
+  lower: function (e) {
+    let page = this.data.query.page
+    const pageSize = this.data.query.pageSize
+    const loadCompleted = this.data.query.loadCompleted
+    console.log(page, pageSize)
+    if (!loadCompleted) {
+      wx.showLoading({
+        title: '更多运单加载中...',
+      })
+      this.data.query.page++
+      this.setData({
+        query: this.data.query
+      }, () => {
+        this.getOrder(() => {
+          wx.hideLoading()
+        })
+      })
+    } else {
+      wx.showToast({
+        title: '运单已全部加载完毕',
+        duration: 1000
+      })
+    }
+  },
 
+  getOrder: function (callback) {
+    wx.showLoading({
+      title: '查询中..',
+    })
 
+    const state = this.data.query.state
+    const api = orderInterface.get(state)
 
-
-
+    ajax.getApi(api, {
+      ...this.data.query
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        if (res.data.length > 0) {
+          const orders = this.data.orders
+          Array.prototype.push.apply(orders, res.data);
+          this.setData({
+            orders
+          })
+        } else {
+          wx.hideLoading(() => {
+            wx.showToast({
+              title: '运单已全部加载完毕',
+              duration: 1000
+            })
+          })
+          this.data.query.loadCompleted = true
+          this.setData({
+            query: this.data.query
+          })
+        }
+      } else {
+        wx.showToast({
+          title: '运单获取失败',
+        })
+      }
+      if (callback) {
+        callback()
+      }
+    })
+  },
 
   //选择日期
-  dateSelectAction: function(e) {
+  dateSelectAction: function (e) {
+    const key = wx.getStorageSync('timeindex')
     var cur_day = e.currentTarget.dataset.idx;
     var cur_date = cur_day + 1;
     var cur_month = this.data.cur_month;
     var cur_year = this.data.cur_year;
-    var index = wx.getStorageSync('timeindex')
-    var queryDate = this.data.queryDate
-    queryDate[index].status = true
-    queryDate[index].val = cur_year + "-" + cur_month + "-" + cur_date
+    if (cur_date < 10) {
+      cur_date = "0" + cur_date
+    }
+    if (cur_month < 10) {
+      cur_month = "0" + cur_month
+    }
+    this.data.query[key] = cur_year + "-" + cur_month + "-" + cur_date
 
+    if (this.data.hideFilter == true) {
+      this.setData({
+        hide: true,
+      })
+    }
 
     this.setData({
       todayIndex: cur_day,
-      hide: true,
       showDate: false,
-      queryDate: queryDate,
+      query: this.data.query,
     })
   },
 
   //构造日历插件
-  setNowDate: function() {
+  setNowDate: function () {
     const date = new Date();
     const cur_year = date.getFullYear();
     const cur_month = date.getMonth() + 1;
+    const cur_day = date.getDate();
     const todayIndex = date.getDate() - 1;
     const weeks_ch = ['日', '一', '二', '三', '四', '五', '六'];
     this.calculateEmptyGrids(cur_year, cur_month);
     this.calculateDays(cur_year, cur_month);
+
     this.setData({
-      cur_year: cur_year,
-      cur_month: cur_month,
+      cur_year,
+      cur_month,
+      cur_day,
       weeks_ch,
       todayIndex,
     })
@@ -272,20 +360,6 @@ Page({
       })
     }
   },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   /**

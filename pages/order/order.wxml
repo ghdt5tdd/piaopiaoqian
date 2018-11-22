@@ -1,6 +1,6 @@
 <!--pages/order/order.wxml-->
 <view class='query'>
-  <view class='query-condition'>
+  <view class='query-condition'> 
       <view class="query-condition-items ">
         <!-- <view hidden="{{!item.status}}" class='query-conditions-name'>请输入订单号</view> -->
         <input placeholder="请输入订单号" bindinput='bindInput'  data-key="no" />

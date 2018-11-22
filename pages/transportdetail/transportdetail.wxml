@@ -8,23 +8,22 @@
 </view>
 
 <scroll-view scroll-y="true" style="height:calc(100%- 106rpx);position:fixed;top:106rpx;bottom:0">
-
   <view class='transport' wx:if="{{selectStatus == 0}}">
     <view class='order-table-head'>
-      <view class='order-table-id'>预约单号：{{transportId}}</view>
-      <view class='order-table-time'>{{transportTime}}</view>
+      <view class='order-table-id'>运单号：{{shoporderDetail.bill_no}}</view>
+      <view class='order-table-time'>{{shoporderDetail.bill_date}}</view>
     </view>
 
     <view class='order-table-line'>
       <view class='order-line-route'>
         <view class='order-route-point'>
-          <view>{{transportStart}}</view>
-          <view class='order-route-time'>{{startTime}}</view>
+          <view>{{shoporderDetail.consignment_station_name}}</view>
+          <view class='order-route-time'>{{shoporderDetail.start_departing_date_short}}</view>
         </view>
         <image mode="widthFix" src="../../images/arrow.png"></image>
         <view class='order-route-point'>
-          <view>{{transportEnd}}</view>
-          <view class='order-route-time'>{{endTime}}</view>
+          <view>{{shoporderDetail.receiving_station_name}}</view>
+          <view class='order-route-time'>{{shoporderDetail.estimated_arriver_date_short}}</view>
         </view>
       </view>
     </view>
@@ -33,32 +32,71 @@
       <view class='order-address-item'>
         <image src='../../images/line-start.png'></image>
         <view class='order-address-info'>
-          <view class='order-address-company'>{{startCompany}}</view>
+          <view class='order-address-company'>{{shoporderDetail.consigner_unit}}</view>
           <view class='order-address-name'>
-            <text>{{startName}}</text>
-            <text>{{startTel}}</text>
+            <text>{{shoporderDetail.consigner_man}}</text>
+            <text>{{shoporderDetail.consigner_tel}}</text>
           </view>
-          <view class='order-address-door'>{{startDoor}}</view>
+          <view class='order-address-door'>{{shoporderDetail.consigner_address}}</view>
         </view>
       </view>
       <view class='order-address-item'>
         <image src='../../images/line-end.png'></image>
         <view class='order-address-info'>
-          <view class='order-address-company'>{{endCompany}}</view>
+          <view class='order-address-company'>{{shoporderDetail.consignee_unit}}</view>
           <view class='order-address-name'>
-            <text>{{endName}}</text>
-            <text>{{endTel}}</text>
+            <text>{{shoporderDetail.consignee_man}}</text>
+            <text>{{shoporderDetail.consignee_tel}}</text>
           </view>
-          <view class='order-address-door'>{{endDoor}}</view>
+          <view class='order-address-door'>{{shoporderDetail.consignee_address}}</view>
         </view>
       </view>
     </view>
 
 
-    <view class='order-block' wx:for="{{transportBar}}">
-      <view class='order-bar' wx:for="{{item.bar}}">
-        <view class='order-bar-label'>{{item.label}}</view>
-        <view class='order-bar-text'>{{item.text}}</view>
+    <view class='order-block'>
+      <view class='order-bar'>
+        <view class='order-bar-label'>开始起运时间</view>
+        <view class='order-bar-text'>{{shoporderDetail.start_departing_date}}</view>
+      </view>
+      <view class='order-bar'>
+        <view class='order-bar-label'>预计送达时间</view>
+        <view class='order-bar-text'>{{shoporderDetail.estimated_arriver_date}}</view>
+      </view>
+      <view class='order-bar'>
+        <view class='order-bar-label'>货物名称</view>
+        <view class='order-bar-text'>{{shoporderDetail.goods_name}}</view>
+      </view>
+      <view class='order-bar'>
+        <view class='order-bar-label'>货物件数</view>
+        <view class='order-bar-text'>{{shoporderDetail.total_packing_quantity}}</view>
+      </view>
+      <view class='order-bar'>
+        <view class='order-bar-label'>货物重量</view>
+        <view class='order-bar-text'>{{shoporderDetail.total_weight}}</view>
+      </view>
+      <view class='order-bar'>
+        <view class='order-bar-label'>货物体积</view>
+        <view class='order-bar-text'>{{shoporderDetail.total_volume}}</view>
+      </view>
+      <view class='order-bar'>
+        <view class='order-bar-label'>备注</view>
+        <view class='order-bar-text'>{{shoporderDetail.remark}}</view>
+      </view>
+    </view>
+
+    <view class='order-block'>
+      <view class='order-bar'>
+        <view class='order-bar-label'>承运商</view>
+        <view class='order-bar-text'>{{shoporderDetail.carrier_name}}</view>
+      </view>
+      <view class='order-bar'>
+        <view class='order-bar-label'>联系人</view>
+        <view class='order-bar-text'>{{shoporderDetail.carrier_contact_man}}</view>
+      </view>
+      <view class='order-bar'>
+        <view class='order-bar-label'>联系方式</view>
+        <view class='order-bar-text'>{{shoporderDetail.carrier_contact_way}}</view>
       </view>
     </view>
 

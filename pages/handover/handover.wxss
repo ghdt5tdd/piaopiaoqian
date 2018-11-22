@@ -28,4 +28,5 @@
   width: 320rpx;
   height: 320rpx;
   margin-top: 30rpx;
+  margin:0 auto;
 }
