@@ -38,7 +38,7 @@ Page({
 //查看实时定位
   toLoaction: function (e) {
     wx.navigateTo({
-      url: '../location/location?id=' + this.data.shopOrderId
+      url: '../location/location?shop_order_id=' + this.data.shopOrderId
     })
   },
 

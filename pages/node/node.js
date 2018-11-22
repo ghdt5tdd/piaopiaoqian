@@ -7,6 +7,7 @@ Page({
    */
   data: {
     saleOrderDetail:null,
+    shoporderDetailId: undefined,
     nodeHead: [{
       label: "商品编码",
       name: "EWHTCK0283"
@@ -138,7 +139,7 @@ Page({
 //查看实时定位
   toLoaction: function (e) {
     wx.navigateTo({
-      url: '../location/location'
+      url: '../location/location?shop_order_detail_id=' + this.data.shoporderDetailId
     })
   },
 
@@ -168,6 +169,8 @@ Page({
         wx.hideLoading()
         const saleOrderDetail = res.data
         const carsInfo = saleOrderDetail.middle.carsInfo
+        const bottom = saleOrderDetail.bottom
+        const shoporderDetailId = saleOrderDetail.up.batches[0].shop_order_detail_id
         if (carsInfo instanceof Array && carsInfo.length > 0) {
           carsInfo.forEach(c => {
             if(c.type == 0) {
@@ -180,7 +183,17 @@ Page({
           })
         } 
 
+        if (bottom instanceof Array && bottom.length > 0) {
+          bottom.forEach(b => {
+            if (b.create_date) {
+              b.createDate = b.create_date.substring(0, 10)
+              b.createTime = b.create_date.substring(11)
+            } 
+          })
+        }
+
         this.setData({
+          shoporderDetailId,
           saleOrderDetail
         })
       } else {
@@ -203,6 +216,10 @@ Page({
   batchChangeBranch:function(e) {
     console.log(e)
     const deliveryDetailId = e.currentTarget.dataset.deliveryId
+    const shoporderDetailId = e.currentTarget.dataset.shoporderDetailId
+    this.setData({
+      shoporderDetailId
+    })
     const orderId = this.data.orderId
     this.getSaleOrderDetailById(orderId, undefined, deliveryDetailId)
   },
