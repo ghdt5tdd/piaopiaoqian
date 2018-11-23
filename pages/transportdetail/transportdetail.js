@@ -1,5 +1,11 @@
 // pages/transportdetail/transportdetail.js
 const ajax = require('../../utils/ajax.js')
+const starMap = new Map()
+starMap.set(1, '非常差')
+starMap.set(2, '较差')
+starMap.set(3, '一般')
+starMap.set(4, '较好')
+starMap.set(5, '非常好')
 Page({
 
   /**
@@ -23,6 +29,10 @@ Page({
 
     shopOrderId:'',
     shoporderDetail:{},
+    shoporderEvaluation:{},
+    returnReceipt:{
+      receipt_name: ''
+    },
 
     //运单详情
     transportId: "18352790283072",
@@ -83,35 +93,37 @@ Page({
 
 
     //异常上报
-    abnormalItems: [{
-      name: "张三",
-      time: "2018-01-08",
-      status: "等待处理",
-      row: [{
-        label: "异常类型",
-        name: "货损",
-      }, {
-        label: "发生环节",
-        name: "取货",
-      }, {
-        label: "联系人",
-        name: "张三",
-      }],
-    }, {
-      name: "李思",
-      time: "2018-01-08",
-      status: "等待处理",
-      row: [{
-        label: "异常类型",
-        name: "货差",
-      }, {
-        label: "发生环节",
-        name: "交接",
-      }, {
-        label: "联系人",
-        name: "李思",
-      }],
-    }],
+    abnormalItems: [
+    //   {
+    //   name: "张三",
+    //   time: "2018-01-08",
+    //   status: "等待处理",
+    //   row: [{
+    //     label: "异常类型",
+    //     name: "货损",
+    //   }, {
+    //     label: "发生环节",
+    //     name: "取货",
+    //   }, {
+    //     label: "联系人",
+    //     name: "张三",
+    //   }],
+    // }, {
+    //   name: "李思",
+    //   time: "2018-01-08",
+    //   status: "等待处理",
+    //   row: [{
+    //     label: "异常类型",
+    //     name: "货差",
+    //   }, {
+    //     label: "发生环节",
+    //     name: "交接",
+    //   }, {
+    //     label: "联系人",
+    //     name: "李思",
+    //   }],
+    // }
+    ],
 
 
 
@@ -216,6 +228,8 @@ Page({
       shopOrderId
     })
     this.getShopOrderDetail(shopOrderId)
+    this.getEvaluateList(shopOrderId)
+    this.getReturnReceiptList(shopOrderId)
   },
 
   getShopOrderDetail: function (shopOrderId) {
@@ -234,6 +248,53 @@ Page({
         shoporderDetail.estimated_arriver_date_short = shoporderDetail.estimated_arriver_date.substring(0, 10)
         this.setData({
           shoporderDetail
+        })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
+        })
+      }
+    })	
+
+  },
+
+  getEvaluateList: function (id) {
+    ajax.getApi('app/order/getEvaluateList', {
+      id
+    }, (err, res) => {
+      console.log(res)
+      if (res && res.success) {
+        const shoporderEvaluation = res.data
+        if (shoporderEvaluation) {
+          const starNum = shoporderEvaluation.comment_star
+          const commentRank = starMap.get(starNum)
+          shoporderEvaluation.commentRank = commentRank
+          shoporderEvaluation.commentStar = 'star-' + starNum
+        }
+        this.setData({
+          shoporderEvaluation
+        })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
+        })
+      }
+    })	
+
+  },
+
+  getReturnReceiptList: function (id) {
+    ajax.getApi('app/order/getReturnReceiptList', {
+      id
+    }, (err, res) => {
+      console.log(res)
+      if (res && res.success) {
+        const returnReceipt = res.data
+      
+        this.setData({
+          returnReceipt
         })
       } else {
         wx.showToast({

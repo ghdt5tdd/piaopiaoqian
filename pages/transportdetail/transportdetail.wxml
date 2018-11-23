@@ -137,36 +137,33 @@
 
   </view>
 
-  <view class='comment-order' wx:if="{{selectStatus == 3}}">
-    <view class='comment-head'>
-      <view class='comment-people'>
-        <image class='comment-avatar' src='{{commentAvatar}}'></image>
-        <view>{{commentName}}</view>
-      </view>
-
-      <view class='comment-info'>
-        <view class='comment-status {{commentStar}}'>
-          <image src="../../images/eva.png" />
+  <block wx:if="{{selectStatus == 3}}">
+    <view class='comment-order'>
+      <view class='comment-head'>
+        <view class='comment-people'>
+          <view>{{shoporderEvaluation.user_name}}</view>
         </view>
-        <view>{{commentRank}}</view>
-      </view>
-    </view>
-    <view class='comment-time'>{{commentTime}}</view>
-    <view class='comment-words'>{{commentWords}}</view>
 
-    <view class='comment-gallery'>
-      <view class='comment-gallery-info'>
-        <view class="img" wx:for="{{commentImgs}}">
-          <image src="{{item.img}}" data-index="{{index}}"></image>
+        <view class='comment-info'>
+          <view class='comment-status {{shoporderEvaluation.commentStar}}'>
+            <image src="../../images/eva.png" />
+          </view>
+          <view>{{shoporderEvaluation.commentRank}}</view>
         </view>
       </view>
+      <view class='comment-time'>{{shoporderEvaluation.comment_date}}</view>
+      <view class='comment-words'>{{shoporderEvaluation.comment_content}}</view>
 
+      <view class='comment-gallery'>
+        <view class='comment-gallery-info'>
+          <view class="img" wx:for="{{shoporderEvaluation.imgs}}">
+            <image src="{{item}}" data-index="{{index}}"></image>
+          </view>
+        </view>
+
+      </view>
     </view>
-
-  </view>
-
-
-
+  </block>
 
   <view class='stub' wx:if="{{selectStatus == 4}}">
 
@@ -176,40 +173,54 @@
         <view>{{transportId}}</view>
       </view>
       <view class='stub-spec'>
-        <view>始发地：{{transportStart}}</view>
-        <view>目的地：{{transportEnd}}</view>
+        <view>始发地：{{shoporderDetail.consignment_station_name}}</view>
+        <view>目的地：{{shoporderDetail.receiving_station_name}}</view>
       </view>
     </view>
     <view class='stub-content'>
       <view class='order-address-item'>
         <view class='order-address-label'>寄</view>
         <view class='order-address-info'>
-          <view class='order-address-company'>{{startCompany}}</view>
+          <view class='order-address-company'>{{shoporderDetail.startconsigner_unitCompany}}</view>
           <view class='order-address-name'>
-            <text>{{startName}}</text>
-            <text>{{startTel}}</text>
+            <text>{{shoporderDetail.consigner_man}}</text>
+            <text>{{shoporderDetail.consigner_tel}}</text>
           </view>
-          <view class='order-address-door'>{{startDoor}}</view>
+          <view class='order-address-door'>{{shoporderDetail.consigner_address}}</view>
         </view>
       </view>
       <view class='order-address-item'>
         <view class='order-address-label'>收</view>
         <view class='order-address-info'>
-          <view class='order-address-company'>{{endCompany}}</view>
+          <view class='order-address-company'>{{shoporderDetail.consignee_unit}}</view>
           <view class='order-address-name'>
-            <text>{{endName}}</text>
-            <text>{{endTel}}</text>
+            <text>{{shoporderDetail.consignee_man}}</text>
+            <text>{{shoporderDetail.consignee_tel}}</text>
           </view>
-          <view class='order-address-door'>{{endDoor}}</view>
+          <view class='order-address-door'>{{shoporderDetail.consignee_address}}</view>
         </view>
       </view>
       <view class='order-address-item'>
         <view class='order-address-label'>货</view>
         <view class='order-address-info half'>
-          <view class='order-address-cargo' wx:for="{{stubItem}}">
-            <view wx:for="{{item.info}}">
-              <text>{{item.label}}：</text>
-              <text>{{item.text}}</text>
+          <view class='order-address-cargo'>
+            <view>
+              <text>货物名称：</text>
+              <text>{{shoporderDetail.goods_name}}</text>
+            </view>
+            <view>
+              <text>货物件数：</text>
+              <text>{{shoporderDetail.total_packing_quantity}}</text>
+            </view>
+          </view>
+          <view class='order-address-cargo'>
+            <view>
+              <text>货物重量：</text>
+              <text>{{shoporderDetail.total_weight}}</text>
+            </view>
+            <view>
+              <text>货物体积：</text>
+              <text>{{shoporderDetail.total_volume}}</text>
             </view>
           </view>
         </view>
@@ -219,10 +230,41 @@
     </view>
 
 
-    <view class="stub-block {{item.style == 1?'half':''}} clearfix" wx:for="{{stubBar}}">
-      <view class='order-bar' wx:for="{{item.bar}}">
-        <view class='order-bar-label'>{{item.label}}：</view>
-        <view class='order-bar-text'>{{item.text}}</view>
+    <view class="stub-block half clearfix" >
+      <view class='order-bar' >
+        <view class='order-bar-label'>揽件人：</view>
+        <view class='order-bar-text'>{{shoporderDetail.consignee_man}}</view>
+      </view>
+      <view class='order-bar' >
+        <view class='order-bar-label'>支付方式：</view>
+        <view class='order-bar-text'>{{shoporderDetail.settlement_mode}}</view>
+      </view>
+      <view class='order-bar' >
+        <view class='order-bar-label'>发件人：</view>
+        <view class='order-bar-text'>{{shoporderDetail.consigner_man}}</view>
+      </view>
+      <view class='order-bar' >
+        <view class='order-bar-label'>签收人：</view>
+        <view class='order-bar-text'>{{returnReceipt.receipt_name}}</view>
+      </view>
+    </view>
+
+    <view class="stub-block clearfix" >
+     <view class='order-bar' >
+        <view class='order-bar-label'>承运商：</view>
+        <view class='order-bar-text'>{{shoporderDetail.carrier_name}}</view>
+      </view>
+     <view class='order-bar' >
+        <view class='order-bar-label'>创建时间：</view>
+        <view class='order-bar-text'>{{shoporderDetail.bill_date}}</view>
+      </view>
+     <view class='order-bar' >
+        <view class='order-bar-label'>起运时间：</view>
+        <view class='order-bar-text'>{{shoporderDetail.start_departing_date_short}}</view>
+      </view>
+     <view class='order-bar' >
+        <view class='order-bar-label'>备注：</view>
+        <view class='order-bar-text'>{{shoporderDetail.remark}}</view>
       </view>
     </view>
 

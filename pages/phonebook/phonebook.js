@@ -1,5 +1,6 @@
 // pages/phonebook/phonebook.js
 const app = getApp()
+const util = require('../../utils/util.js')
 const ajax = require('../../utils/ajax.js')
 Page({
   /**
@@ -145,6 +146,8 @@ Page({
   //右滑删除事件
   del: function(e) {
     const telbookId = e.target.dataset.id
+    const now = util.getFormatDate()
+
     wx.showLoading({
       title: '请稍后...',
     })
@@ -171,11 +174,16 @@ Page({
           return item.name.indexOf(this.data.searchVal) !== -1
         })
 
+
         this.setData({
           bookResults,
           filterBooks
         })
-        
+
+        wx.setStorageSync('telbooksInfo', {
+          data: bookResults,
+          expire: now
+        })
       }else{
         wx.showToast({
           title: '删除失败',
@@ -189,6 +197,7 @@ Page({
 
   //查看通讯录详情
   bookDetail: function(e) {
+    const telbooksInfo = wx.getStorageSync('telbooksInfo')
     wx.showLoading({
       title: '获取中...',
     })
@@ -246,16 +255,29 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    ajax.getApi('app/member/getTelbook', {
-      return_mode: '1'
-    }, (err, res) => {
-      if (res && res.success) {
-        this.setData({
-          bookResults: res.data,
-          filterBooks: res.data
-        })
-      }
-    })	
+    const now = util.getFormatDate()
+    const telbooksInfo = wx.getStorageSync('telbooksInfo')
+    if (telbooksInfo && telbooksInfo.expire === now) {
+      this.setData({
+        bookResults: telbooksInfo.data,
+        filterBooks: mytelbooks
+      })
+    } else {
+      ajax.getApi('app/member/getTelbook', {
+        return_mode: '1'
+      }, (err, res) => {
+        if (res && res.success) {
+          this.setData({
+            bookResults: res.data,
+            filterBooks: res.data
+          })
+          wx.setStorageSync('telbooksInfo', {
+            data: res.data,
+            expire: now
+          })
+        }
+      })	
+    }
   },
 
   /**

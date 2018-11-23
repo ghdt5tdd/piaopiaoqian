@@ -124,7 +124,7 @@ Page({
     const contact_man = this.data.abnormalName
     const contact_way = this.data.abnormalTel
     const report_content = this.data.abnormalContent
-    const pictures = this.data.imgs
+    const pictures = JSON.stringify(this.data.imgs)
     const address = this.data.location
     const location_type = this.data.locationtype
     const location = this.data.locationIndex

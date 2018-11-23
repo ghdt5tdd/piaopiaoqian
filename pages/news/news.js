@@ -209,24 +209,33 @@ Page({
   },
 
   getNewsDetail: function (newsId) {
-    wx.showLoading({
-      title: '新闻加载中...',
-    })
-    ajax.getApi('app/member/getShopNewsDetail', {
-      newsId
-    }, (err, res) => {
-      wx.hideLoading()
-      if (res && res.success) {
-        this.setData({
-          newsInfo: res.data
-        })
-      } else {
-        wx.showToast({
-          title: res.text,
-          duration: 1000
-        })
-      }
-    })
+    const newsDetail = wx.getStorageSync('newsDetail' + newsId)
+
+    if (newsDetail) {
+      this.setData({
+        newsInfo: newsDetail
+      })
+    } else {
+      wx.showLoading({
+        title: '新闻加载中...',
+      })
+      ajax.getApi('app/member/getShopNewsDetail', {
+        newsId
+      }, (err, res) => {
+        wx.hideLoading()
+        if (res && res.success) {
+          this.setData({
+            newsInfo: res.data
+          })
+          wx.setStorageSync('newsDetail' + newsId, res.data)
+        } else {
+          wx.showToast({
+            title: res.text,
+            duration: 1000
+          })
+        }
+      })
+    }
   },
   getComments: function (newsId, callback) {
     ajax.getApi('app/member/getShopNewsCommentList', {

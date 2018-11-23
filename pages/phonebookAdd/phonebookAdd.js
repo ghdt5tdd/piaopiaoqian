@@ -59,6 +59,7 @@ Page({
   },
 
   save: function() {
+    const now = util.getFormatDate()
     wx.showLoading({
       title: '保存中...',
     })
@@ -71,6 +72,7 @@ Page({
           title: '保存成功',
           duration: 1500
         })
+        wx.removeStorageSync('telbooksInfo')
         wx.navigateBack({
           delta: 1
         })
