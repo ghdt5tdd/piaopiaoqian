@@ -1,86 +1,143 @@
 // pages/sign/sign.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    queryItems: [{
-      name: "请输入订单号",
-      status: false,
-      val: "",
-    }, {
-      name: "请输入客户卡号",
-      status: false,
-      val: "",
-    }],
+    memberInfo:null,
+    selectOrder:null,
+    getlocation: true,
+    query: {
+      orderNo: '',
+      state: 0,
+      startDate: '',
+      endDate: '',
+      consigneeCode: '',
+      page: 1,
+      pageSize: 10,
+      loadCompleted: false
+    },
+
+    hideFilter: true,
     hide: true,
-    queryDate: [{
-      name: "请选择开始时间",
-      status: false,
-      val: "请选择开始时间",
-    }, {
-      name: "请选择结束时间",
-      status: false,
-      val: "请选择结束时间",
-    }],
+    filter: [],
+    selectIndex:0,
+    now: null,
 
     orderStatus: [{
       name: "全部",
+      value: -1
     }, {
       name: "待签收",
+      value: 0
     }, {
       name: "已签收",
+      value: 1
     }, ],
     selectStatus: 0,
     ul: "ul-3",
-
-    orderTable: [{
-      id: "18352790283072",
-      time: "2018-01-10",
-      start: "浙江温州",
-      end: "湖北武汉",
-      receive: "武汉恒望科技有限公司",
-      num: "210",
-      status: "面单生成",
-      btn: "一键签收",
-      open: "showSign",
-    }, {
-      id: "18352790280265",
-      time: "2018-01-02",
-      start: "浙江温州",
-      end: "北京市",
-      receive: "北京海淀雷蒙赛博机电技术有限公司",
-      num: "150",
-      status: "一键签收",
-      btn: "去评价",
-      open: "showComment",
-    }, {
-      id: "18352790283072",
-      time: "2018-01-01",
-      start: "浙江温州",
-      end: "湖北武汉",
-      receive: "武汉恒望科技有限公司",
-      num: "210",
-      status: "已评价",
-      btn: "",
-    }, ],
-
+    orders: [],
     hideSign: true,
     hideComment: true,
+    latitude: undefined,
+    longitude: undefined
   },
 
+  signOrder:function() {
+    const idList = this.data.selectOrder.id
+    const latitude = this.data.latitude
+    const longitude = this.data.longitude
 
+    if (this.data.getlocation) {
+      wx.showLoading({
+        title: '正在签收中...',
+      })
+      ajax.postApi('app/order/receiptShopOrder', {
+        idList,
+        location: longitude + ',' + latitude
+      }, (err, res) => {
+        wx.hideLoading()
+        if (res && res.success) {
+          wx.showToast({
+            title: '签收成功',
+          })
+          this.data.orders.splice(this.data.selectIndex, 1)
+          this.setData({
+            orders: this.data.orders,
+            hide: true,
+            hideSign: true,
+          })
+        } else {
+          wx.showToast({
+            title: res.text,
+            duration: 1000
+          })
+        }
+      })
+
+    } else {
+      wx.showToast({
+        title: '坐标获取异常',
+      })
+    }
+  },
+
+  commitComment: function () {
+    const id = this.data.selectOrder.id
+    const comment_star = this.data.starSelect
+    const comment = this.data.comment
+    const imgs = this.data.imgs
+    wx.showLoading({
+      title: '评价提交中...',
+    })
+    ajax.postApi('app/order/evaluateShopOrder', {
+      id,
+      comment_content: comment,
+      comment_star,
+      imgs
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.showToast({
+          title: '提交成功',
+        })
+        this.data.orders.splice(this.data.selectIndex, 1)
+        this.setData({
+          orders: this.data.orders,
+          hide: true,
+          hideComment: true,
+        })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
+        })
+      }
+    })	
+  },
+
+  search: function () {
+    this.data.query.page = 1
+    this.data.query.loadCompleted = false
+    this.setData({
+      query: this.data.query,
+      orders: [],
+    }, () => {
+      this.getOrder()
+    })
+  },
 
   //输入筛选条件
-  bindInput: function(e) {
-    var index = e.currentTarget.dataset.index
-    var queryItems = this.data.queryItems
-    queryItems[index].status = true
-    queryItems[index].val = e.detail.value
+  bindInput: function (e) {
+    const key = e.currentTarget.dataset.key
+    this.data.query[key] = e.detail.value
 
     this.setData({
-      queryItems: queryItems,
+      query: this.data.query,
     })
   },
 
@@ -97,8 +154,8 @@ Page({
   },
 
   //打开日历
-  showDate: function(e) {
-    wx.setStorageSync('timeindex', e.currentTarget.dataset.index)
+  showDate: function (e) {
+    wx.setStorageSync('timeindex', e.currentTarget.dataset.key)
     this.setData({
       showDate: true,
       hide: false,
@@ -130,40 +187,36 @@ Page({
 
 
   //选择我的订单状态
-  selectStatus: function(e) {
-    var index = e.target.dataset.index;
+  selectStatus: function (e) {
+    var state = e.target.dataset.state;
+    this.data.query.state = state
+    this.data.query.page = 1
+    this.data.query.loadCompleted = false
     this.setData({
-      selectStatus: index
+      query: this.data.query,
+      orders: [],
+    }, () => {
+      this.getOrder()
     })
   },
 
   //跳转到货运单详情页面
-  toInfo: function(e) {
+  toInfo: function (e) {
     wx.navigateTo({
-      url: '../transportdetail/transportdetail'
+      url: '../transportdetail/transportdetail?id=' + e.currentTarget.dataset.shoporderId
     })
   },
 
   //打开签收弹窗
   showSign: function(e) {
+    const index = e.currentTarget.dataset.index
+    
     this.setData({
       hide: false,
       hideSign: false,
-      //签收数据
-      signPic: "../../images/avatar-wd.png",
-      signName: "张三水",
-      signTime: "2018-01-15 15:32",
-      signTable: [{
-        id: "18352790283072",
-        time: "2018-01-10",
-        start: "浙江温州",
-        end: "湖北武汉",
-        dispatch: "温州物流",
-        dispatchTel: "18765243092",
-        receive: "武汉物流",
-        receiveTel: "13525362231",
-        num: "210",
-      }, ],
+      selectOrder: this.data.orders[index],
+      selectIndex: index,
+      now: util.getFormatDate(1)
     })
   },
 
@@ -180,21 +233,12 @@ Page({
 
   //打开评价弹窗
   showComment: function(e) {
+    const index = e.currentTarget.dataset.index
     this.setData({
       hide: false,
       hideComment: false,
-      //评价数据
-      commentTable: [{
-        id: "18352790283072",
-        time: "2018-01-10",
-        start: "浙江温州",
-        end: "湖北武汉",
-        dispatch: "温州物流",
-        dispatchTel: "18765243092",
-        receive: "武汉物流",
-        receiveTel: "13525362231",
-        num: "210",
-      }],
+      selectIndex: index,
+      selectOrder: this.data.orders[index],
       //评价星级
       commentStar: [{
           pic: '../../images/eva-on.png',
@@ -224,13 +268,42 @@ Page({
       ],
 
       commentRank: "非常好",
-      comment: "写下您对货运单的评价吧",
+      comment: "",
       imgs: [],
-
+      starSelect: 5,
 
     })
   },
 
+  inputComment:function(e){
+    const comment = e.detail.value
+    this.setData({
+      comment
+    })
+  },
+
+  //上传图片
+  changePic: function (e) {
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: res => {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        res.tempFilePaths.forEach(v => {
+          util.ImgPathToBase64(v, base64 => {
+            const imgs = this.data.imgs
+            const img = 'data:image/png;base64,' + base64
+            imgs.push(img)
+            this.setData({
+              imgs
+            })
+          })
+        })
+      }
+    })
+
+  },
 
   //评价星级选择
   changeEva: function(e) {
@@ -246,7 +319,7 @@ Page({
     }
     this.setData({
       commentStar: commentStar,
-      starSelect: checkIndex,
+      starSelect: checkIndex + 1,
     });
 
 
@@ -254,7 +327,11 @@ Page({
       this.setData({
         commentRank: "非常好",
       });
-    } else if (checkIndex == 3 || checkIndex == 2) {
+    } else if (checkIndex == 3) {
+      this.setData({
+        commentRank: "较好",
+      });
+    } else if (checkIndex == 2) {
       this.setData({
         commentRank: "一般",
       });
@@ -263,38 +340,6 @@ Page({
         commentRank: "差",
       });
     }
-
-  },
-
-  //上传图片
-  changePic: function(e) {
-    var that = this // 不能直接用this，留坑
-    wx.chooseImage({
-      count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function(res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = res.tempFilePaths;
-
-
-        var imgs = that.data.imgs;
-
-        for (var i = 0; i < tempFilePaths.length; i++) {
-          if (imgs.length >= 3) {
-            that.setData({
-              imgs: imgs
-            });
-            return false;
-          } else {
-            imgs.push(tempFilePaths[i]);
-          }
-        }
-        that.setData({
-          imgs: imgs,
-        });
-      }
-    })
 
   },
 
@@ -319,49 +364,184 @@ Page({
     })
   },
 
+  lower: function (e) {
+    let page = this.data.query.page
+    const pageSize = this.data.query.pageSize
+    const loadCompleted = this.data.query.loadCompleted
+    console.log(page, pageSize)
+    if (!loadCompleted) {
+      wx.showLoading({
+        title: '更多运单加载中...',
+      })
+      this.data.query.page++
+      this.setData({
+        query: this.data.query
+      }, () => {
+        this.getOrder(() => {
+          wx.hideLoading()
+        })
+      })
+    } else {
+      wx.showToast({
+        title: '运单已全部加载完毕',
+        duration: 1000
+      })
+    }
+  },
+
+  getOrder: function (callback) {
+    wx.showLoading({
+      title: '查询中..',
+    })
+
+    ajax.getApi('app/order/getShopOrderList', {
+      ...this.data.query
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        if (res.data.length > 0) {
+          const orders = this.data.orders
+          Array.prototype.push.apply(orders, res.data);
+          this.setData({
+            orders
+          })
+        } else {
+          wx.hideLoading(() => {
+            wx.showToast({
+              title: '运单已全部加载完毕',
+              duration: 1000
+            })
+          })
+          this.data.query.loadCompleted = true
+          this.setData({
+            query: this.data.query
+          })
+        }
+      } else {
+        wx.showToast({
+          title: '运单获取失败',
+        })
+      }
+
+      if (callback) {
+        callback()
+      }
+    })
+  },
+
+  showScan: function () {
+    wx.scanCode({
+      success: function (res) {
+        console.log(res)
+      }
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setNowDate();
+    this.setNowDate()
+    this.resetQuery()
+    this.getOrder()
+    this.getLocation()
+    this.setData({
+      memberInfo: app.globalData.memberInfo
+    })
+
+  },
+  getLocation:function(){
+    let latitude = this.data.latitude
+    let longitude = this.data.longitude
+    if (!latitude) {
+      wx.getLocation({
+        type: 'wgs84',//默认为 wgs84 返回 gps 坐标，gcj02 返回可用于wx.openLocation的坐标
+        success: res => {
+          console.log(res)
+          latitude = res.latitude
+          longitude = res.longitude
+          this.setData({
+            latitude,
+            longitude
+          })
+        },
+        fail: res => {
+          this.setData({
+            getlocation: false
+          })
+          wx.showModal({
+            title: '坐标异常',
+            content: '获取用户当前坐标失败,无法进行签收',
+          })
+        }
+      })
+    }
+  },
+
+
+  resetQuery: function () {
+    let cur_day = this.data.cur_day
+    let cur_month = this.data.cur_month
+    if (cur_day < 10) {
+      cur_day = "0" + cur_day
+    }
+    if (cur_month < 10) {
+      cur_month = "0" + cur_month
+    }
+    this.data.query.startDate = this.data.cur_year + '-' + cur_month + '-' + cur_day
+    this.data.query.endDate = this.data.cur_year + '-' + cur_month + '-' + cur_day
+    this.setData({
+      query: this.data.query
+    })
   },
 
 
 
 
   //选择日期
-  dateSelectAction: function(e) {
+  dateSelectAction: function (e) {
+    const key = wx.getStorageSync('timeindex')
     var cur_day = e.currentTarget.dataset.idx;
     var cur_date = cur_day + 1;
     var cur_month = this.data.cur_month;
     var cur_year = this.data.cur_year;
-    var index = wx.getStorageSync('timeindex')
-    var queryDate = this.data.queryDate
-    queryDate[index].status = true
-    queryDate[index].val = cur_year + "-" + cur_month + "-" + cur_date
+    if (cur_date < 10) {
+      cur_date = "0" + cur_date
+    }
+    if (cur_month < 10) {
+      cur_month = "0" + cur_month
+    }
+    this.data.query[key] = cur_year + "-" + cur_month + "-" + cur_date
 
+    if (this.data.hideFilter == true) {
+      this.setData({
+        hide: true,
+      })
+    }
 
     this.setData({
       todayIndex: cur_day,
-      hide: true,
       showDate: false,
-      queryDate: queryDate,
+      query: this.data.query,
     })
   },
 
+
   //构造日历插件
-  setNowDate: function() {
+  setNowDate: function () {
     const date = new Date();
     const cur_year = date.getFullYear();
     const cur_month = date.getMonth() + 1;
+    const cur_day = date.getDate();
     const todayIndex = date.getDate() - 1;
     const weeks_ch = ['日', '一', '二', '三', '四', '五', '六'];
     this.calculateEmptyGrids(cur_year, cur_month);
     this.calculateDays(cur_year, cur_month);
+
     this.setData({
-      cur_year: cur_year,
-      cur_month: cur_month,
+      cur_year,
+      cur_month,
+      cur_day,
       weeks_ch,
       todayIndex,
     })

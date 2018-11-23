@@ -254,16 +254,28 @@ Page({
   },
 
   getNewsList () {
-    ajax.getApi('app/member/getShopNewsList', {
-      page: 0,
-      pageSize: 10
-    }, (err, res) => {
-      if (res && res.success) {
-        this.setData({
-          newsList: res.data
-        })
-      }
-    })	
+    const now = util.getFormatDate()
+    const newsInfo = wx.getStorageSync('newsInfo')
+    if (newsInfo && newsInfo.expire === now) {
+      this.setData({
+        newsList: newsInfo.data
+      })
+    }else {
+      ajax.getApi('app/member/getShopNewsList', {
+        page: 0,
+        pageSize: 10
+      }, (err, res) => {
+        if (res && res.success) {
+          this.setData({
+            newsList: res.data
+          })
+          wx.setStorageSync('newsInfo', {
+            data: res.data,
+            expire: now
+          })
+        }
+      })	
+    }
   },
 
   getMemberInfo () {

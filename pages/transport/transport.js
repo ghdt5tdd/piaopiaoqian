@@ -2,7 +2,7 @@
 const ajax = require('../../utils/ajax.js')
 const util = require('../../utils/util.js')
 const app = getApp()
-const orderInterface = new Map()
+const orderInterface = new Map() 
 orderInterface.set('ownLogistCenter', 'app/order/getLogistAreaShopOrderList')
 orderInterface.set('ownLogistArea', 'app/order/getLogistAreaShopOrderList')
 
@@ -52,35 +52,6 @@ Page({
     ul: "ul-5",
 
     orders:[],
-    orderTable: [{
-      id: "18352790283072",
-      time: "2018-01-10",
-      start: "浙江温州",
-      end: "湖北武汉",
-      receive: "武汉恒望科技有限公司",
-      num: "210",
-      status: "已发货",
-
-    }, {
-      id: "18352790280265",
-      time: "2018-01-02",
-      start: "浙江温州",
-      end: "北京市",
-      receive: "北京海淀雷蒙赛博机电技术有限公司",
-      num: "150",
-      status: "调拨中",
-
-    }, {
-      id: "18352790283072",
-      time: "2018-01-01",
-      start: "浙江温州",
-      end: "湖北武汉",
-      receive: "武汉恒望科技有限公司",
-      num: "210",
-      status: "司机到达",
-
-    }, ],
-
     hideSign: true,
     hideComment: true,
   },
@@ -167,7 +138,7 @@ Page({
   //跳转到货运单详情页面
   toInfo: function(e) {
     wx.navigateTo({
-      url: '../transportdetail/transportdetail'
+      url: '../transportdetail/transportdetail?id=' + e.currentTarget.dataset.shoporderId
     })
   },
 
