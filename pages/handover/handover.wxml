@@ -27,7 +27,8 @@
         <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='DateClear' data-index="{{index}}"></image> -->
       </view>
   </view>
-  <image class='query-search' bindtap='search' src='../../images/search-big.png'></image>
+  <image class='query-filter' bindtap='showScan' src='../../images/scan.png'></image>
+  <image class='query-search' bindtap='search' src='../../images/search-big.png'></image> 
 </view>
 
 <view class='order-status {{ul}}'>
@@ -74,7 +75,7 @@
         <view class='order-table-opt'>
           <view class='order-opt-status'>{{item.order_state}}</view>
           <view class='order-opt-tip'>{{handoverTip}}</view>
-          <image class='order-opt-code' bindtap='showCode' data-no="{{item.no}}" data-code-url="{{item.qrcodeURL}}" src='../../images/code.png'></image>
+          <image class='order-opt-code' bindtap='showCode' data-no="{{item.no}}" data-code-url="{{item.qrcodeURL}}" data-index="{{index}}" src='../../images/code.png'></image>
         </view>
 
       </view>

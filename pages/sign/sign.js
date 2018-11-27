@@ -8,6 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    x:undefined,
+    y:undefined,
     memberInfo:null,
     selectOrder:null,
     getlocation: true,
@@ -431,8 +433,48 @@ Page({
 
   showScan: function () {
     wx.scanCode({
-      success: function (res) {
-        console.log(res)
+      success: (res) => {
+        const api = res.result
+        const x = this.data.longitude
+        const y = this.data.latitude
+        if (api && api.indexOf('app/order/scanReceiptShopOrder') !== -1) {
+          wx.showLoading({
+            title: '正在签收运单...',
+          })
+          ajax.postApi(api, {
+            location: x + ',' + y,
+          }, (err, res) => {
+            wx.hideLoading()
+            if (res && res.success) {
+              wx.showToast({
+                title: '签收成功',
+              })
+              this.data.query.page = 1
+              this.data.query.loadCompleted = false
+              this.setData({
+                query: this.data.query,
+                orders: [],
+              }, () => {
+                this.getOrder()
+              })
+            } else {
+              wx.showToast({
+                title: res.text || '接口失败',
+                duration: 1000
+              })
+            }
+          }, true)
+        } else {
+          wx.showToast({
+            title: '错误的二维码内容',
+          })
+        }
+
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '扫码失败',
+        })
       }
     })
   },

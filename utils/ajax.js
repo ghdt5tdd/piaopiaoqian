@@ -4,9 +4,9 @@ const _config = {
   serverUrl: 'https://fall.wlhn.com/fallapp-child-dlxapp-userlla/'
 }
 
-function getApi(apiName, params, cb) {
+function getApi(apiName, params, cb, isOwnAddress) {
   request({
-    url: _config.serverUrl + apiName,
+    url: isOwnAddress ? apiName : _config.serverUrl + apiName,
     data: params,
     method: 'GET',
     header: {
@@ -22,9 +22,9 @@ function getApi(apiName, params, cb) {
   }) 
 }
 
-function postApi(apiName, params, cb) {
+function postApi(apiName, params, cb, isOwnAddress) {
   request({
-    url: _config.serverUrl + apiName,
+    url: isOwnAddress ? apiName : _config.serverUrl + apiName,
     data: params,
     method: 'POST',
     header: {

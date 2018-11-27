@@ -50,7 +50,7 @@ Page({
     endName: "张三",
     endTel: "15890268364",
     endDoor: "湖北省武汉市洪山区光谷世贸中心",
-
+ 
 
     transportBar: [{
       bar: [{
@@ -217,6 +217,16 @@ Page({
     })
   },
 
+  preview: function (e) {
+    const index = e.currentTarget.dataset.index
+    const currentImg = this.data.shoporderEvaluation.imgs[index]
+
+    wx.previewImage({
+      urls: this.data.shoporderEvaluation.imgs,
+      current: currentImg
+    })
+
+  },
 
 
   /**

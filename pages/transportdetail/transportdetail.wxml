@@ -157,7 +157,7 @@
       <view class='comment-gallery'>
         <view class='comment-gallery-info'>
           <view class="img" wx:for="{{shoporderEvaluation.imgs}}">
-            <image src="{{item}}" data-index="{{index}}"></image>
+            <image src="{{item}}" bindtap='preview' data-index="{{index}}" mode="widthFix"></image>
           </view>
         </view>
 

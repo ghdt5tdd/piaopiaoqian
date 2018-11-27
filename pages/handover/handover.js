@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    x:undefined,
+    y:undefined,
     query: {
       orderNo: '',
       state: 0,
@@ -171,13 +173,75 @@ Page({
       query: this.data.query
     })
   },
-  /**
+  /** 
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.setNowDate();
     this.resetQuery()
     this.getOrder()
+    this.getLocation()
+  },
+
+  getLocation:function(){
+    wx.getLocation({
+      success: res => {
+        const x = res.longitude
+        const y = res.latitude
+        this.setData({
+          x,y
+        })
+      }
+    })
+  },
+
+  showScan: function () {
+    wx.scanCode({
+      success: (res) => {
+        const api = res.result
+        const x = this.data.x
+        const y = this.data.y
+        if (api && api.indexOf('app/order/setOrderDriverTransfer') !== -1) {
+          wx.showLoading({
+            title: '正在交接运单...',
+          })
+          ajax.postApi(api, {
+            x,y,
+            type: 0
+          }, (err, res) => {
+            wx.hideLoading()
+            if (res && res.success) {
+              wx.showToast({
+                title: '交接成功',
+              })
+              this.data.query.page = 1
+              this.data.query.loadCompleted = false
+              this.setData({
+                query: this.data.query,
+                orders: [],
+              }, () => {
+                this.getOrder()
+              })
+            } else {
+              wx.showToast({
+                title: res.text || '接口失败',
+                duration: 1000
+              })
+            }
+          }, true)	
+        }else {
+          wx.showToast({
+            title: '错误的二维码内容',
+          })
+        }
+
+      },
+      fail: function(res) {
+        wx.showToast({
+          title: '扫码失败',
+        })
+      }
+    })
   },
 
   lower: function (e) {

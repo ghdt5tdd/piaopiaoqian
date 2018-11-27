@@ -3,12 +3,12 @@
   <view class='query-condition'> 
       <view class="query-condition-items ">
         <!-- <view hidden="{{!item.status}}" class='query-conditions-name'>请输入订单号</view> -->
-        <input placeholder="请输入订单号" bindinput='bindInput'  data-key="no" />
+        <input placeholder="请输入订单号" bindinput='bindInput'  data-key="no"  value="{{query.no}}"/>
         <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-index="{{index}}"></image> -->
       </view>
       <view class="query-condition-items ">
         <!-- <view hidden="{{!item.status}}" class='query-conditions-name'>请输入物料编号</view> -->
-        <input placeholder="请输入物料编号" bindinput='bindInput' data-key="goodsCode" />
+        <input placeholder="请输入物料编号" bindinput='bindInput' data-key="goodsCode" value="{{query.goodsCode}}"/>
         <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-index="{{index}}"></image> -->
       </view>
   </view>
