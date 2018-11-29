@@ -156,7 +156,11 @@ Page({
 
   //分享
   share: function(e) {
-
+    wx.showShareMenu({
+      success:function(res){
+        console.log(res)
+      }
+    })
   },
 
   lower:function(e) {
@@ -209,13 +213,13 @@ Page({
   },
 
   getNewsDetail: function (newsId) {
-    const newsDetail = wx.getStorageSync('newsDetail' + newsId)
+    // const newsDetail = wx.getStorageSync('newsDetail' + newsId)
 
-    if (newsDetail) {
-      this.setData({
-        newsInfo: newsDetail
-      })
-    } else {
+    // if (newsDetail) {
+    //   this.setData({
+    //     newsInfo: newsDetail
+    //   })
+    // } else {
       wx.showLoading({
         title: '新闻加载中...',
       })
@@ -227,7 +231,7 @@ Page({
           this.setData({
             newsInfo: res.data
           })
-          wx.setStorageSync('newsDetail' + newsId, res.data)
+          // wx.setStorageSync('newsDetail' + newsId, res.data)
         } else {
           wx.showToast({
             title: res.text,
@@ -235,7 +239,7 @@ Page({
           })
         }
       })
-    }
+    // }
   },
   getComments: function (newsId, callback) {
     ajax.getApi('app/member/getShopNewsCommentList', {

@@ -137,7 +137,7 @@
 
   </view>
 
-  <block wx:if="{{selectStatus == 3}}">
+  <block wx:if="{{selectStatus == 3 && shoporderEvaluation}}">
     <view class='comment-order'>
       <view class='comment-head'>
         <view class='comment-people'>

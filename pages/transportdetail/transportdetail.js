@@ -29,7 +29,7 @@ Page({
 
     shopOrderId:'',
     shoporderDetail:{},
-    shoporderEvaluation:{},
+    shoporderEvaluation:undefined,
     returnReceipt:{
       receipt_name: ''
     },
@@ -41,7 +41,7 @@ Page({
     transportEnd: "湖北武汉",
     startTime: "2018-01-11",
     endTime: "2018-01-15",
-
+ 
     startCompany: "温州物流",
     startName: "郭丽",
     startTel: "13633928364",

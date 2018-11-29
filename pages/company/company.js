@@ -1,4 +1,4 @@
-// pages/company/company.js
+//pages/company/company.js
 const app = getApp()
 const ajax = require('../../utils/ajax.js')
 const util = require('../../utils/util.js')
