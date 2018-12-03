@@ -286,10 +286,10 @@ Page({
           shoporderEvaluation
         })
       } else {
-        wx.showToast({
-          title: res.text,
-          duration: 1000
-        })
+        // wx.showToast({
+        //   title: res.text,
+        //   duration: 1000
+        // })
       }
     })	
 
@@ -307,10 +307,10 @@ Page({
           returnReceipt
         })
       } else {
-        wx.showToast({
-          title: res.text,
-          duration: 1000
-        })
+        // wx.showToast({
+        //   title: res.text,
+        //   duration: 1000
+        // })
       }
     })	
 

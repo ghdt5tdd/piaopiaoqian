@@ -197,32 +197,37 @@ Page({
 
   //查看通讯录详情
   bookDetail: function(e) {
-    const telbooksInfo = wx.getStorageSync('telbooksInfo')
-    wx.showLoading({
-      title: '获取中...',
-    })
     const id = e.target.dataset.id
-    ajax.getApi('app/member/getTelbookById', {
-      id
-    }, (err, res) => {
-      wx.hideLoading()
-      if (res && res.success) {
-        this.setData({
-          hide: false,
-          hideBook: false,
-        })
-        this.setData({
-          curBookDetail: res.data
-        })
-      }else {
-        wx.showToast({
-          title: '无法获取联系人详情',
-          duration: 1000
-        })
-      }
-    })	
-
-
+    const telbooksDetail = wx.getStorageSync('telbooksDetail' + id)
+    if(telbooksDetail === '') {
+      wx.showLoading({
+        title: '获取中...',
+      })
+      ajax.getApi('app/member/getTelbookById', {
+        id
+      }, (err, res) => {
+        wx.hideLoading()
+        if (res && res.success) {
+          this.setData({
+            hide: false,
+            hideBook: false,
+            curBookDetail: res.data
+          })
+          wx.setStorageSync('telbooksDetail' + id, res.data)
+        } else {
+          wx.showToast({
+            title: '无法获取联系人详情',
+            duration: 1000
+          })
+        }
+      })	
+    } else {
+      this.setData({
+        hide: false,
+        hideBook: false,
+        curBookDetail: telbooksDetail
+      })
+    }
   },
 
 
@@ -260,7 +265,7 @@ Page({
     if (telbooksInfo && telbooksInfo.expire === now) {
       this.setData({
         bookResults: telbooksInfo.data,
-        filterBooks: mytelbooks
+        filterBooks: telbooksInfo.data
       })
     } else {
       ajax.getApi('app/member/getTelbook', {
