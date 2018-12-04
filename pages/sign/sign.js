@@ -437,7 +437,7 @@ Page({
         const api = res.result
         const x = this.data.longitude
         const y = this.data.latitude
-        if (api && api.indexOf('app/order/scanReceiptShopOrder') !== -1) {
+        if (api && api.indexOf('app/order/receiptShopOrder') !== -1) {
           wx.showLoading({
             title: '正在签收运单...',
           })

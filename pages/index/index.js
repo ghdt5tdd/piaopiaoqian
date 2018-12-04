@@ -73,6 +73,27 @@ Page({
     }]
   },
 
+  off: function() {
+    wx.showLoading({
+      title: '正在退出...',
+    })
+    ajax.postApi('app/member/clearSession', {
+
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.reLaunch({
+          url: '../bind/bind'
+        })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
+        })
+      }
+    })	
+  },
+
 
   //选择状态
   selectStatus: function(e) {

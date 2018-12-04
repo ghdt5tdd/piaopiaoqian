@@ -42,7 +42,8 @@
     "pages/phonebookAdd/phonebookAdd",
     "pages/notice/notice",
     "pages/noticeTransport/noticeTransport",
-    "pages/form/form"
+    "pages/form/form",
+    "pages/receive/receive"
   ],
   "window": {
     "backgroundTextStyle": "light",

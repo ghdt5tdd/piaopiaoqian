@@ -9,7 +9,7 @@
       </view>
       <view class="query-condition-items">
         <!-- <view hidden="{{!item.status}}" class='query-conditions-name'>{{item.name}}</view> -->
-        <input placeholder="请输入客户卡号" bindinput='bindInput'  data-key="consigneeCode" />
+        <input placeholder="请输入客户卡号" bindinput='bindInput'  data-key="clientAccount" />
         <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-index="{{index}}"></image> -->
       </view>
     </block>
@@ -27,7 +27,7 @@
         <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='DateClear' data-index="{{index}}"></image> -->
       </view>
   </view>
-  <!-- <image class='query-filter' bindtap='showScan' src='../../images/scan.png'></image> -->
+  <image class='query-filter' bindtap='showScan' src='../../images/scan.png'></image>
   <image class='query-search' bindtap='search' src='../../images/search-big.png'></image> 
 </view>
 
@@ -75,7 +75,7 @@
         <view class='order-table-opt'>
           <view class='order-opt-status'>{{item.order_state}}</view>
           <view class='order-opt-tip'>{{handoverTip}}</view>
-          <image class='order-opt-code' bindtap='showCode' data-no="{{item.no}}" data-code-url="{{item.qrcodeURL}}" data-index="{{index}}" src='../../images/code.png'></image>
+          <image class='order-opt-code' bindtap='showCode' data-no="{{item.bill_no}}" data-code-url="{{item.qrcodeURL}}" data-index="{{index}}" src='../../images/code.png'></image>
         </view>
 
       </view>

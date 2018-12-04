@@ -1,0 +1,32 @@
+/* pages/handover/handover.wxss */
+@import '../appoint/appoint.wxss';
+
+.order-opt-status {
+  margin-bottom: 10rpx;
+}
+
+.popup-code {
+  position: fixed;
+  width: 520rpx;
+  height: 600rpx;
+  left: 50%;
+  top: 50%;
+  margin: -300rpx 0 0 -260rpx;
+  font-size: 30rpx;
+  text-align: center;
+  z-index: 999;
+  background: #fff;
+}
+
+.popup-code-head {
+  color: #fd7c29;
+  font-size: 36rpx;
+  margin: 60rpx 0 30rpx;
+}
+
+.popup-code-pic {
+  width: 320rpx;
+  height: 320rpx;
+  margin-top: 30rpx;
+  margin:0 auto;
+}

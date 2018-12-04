@@ -1,5 +1,12 @@
 /**index.wxss**/
 
+.logoff {
+  position: absolute;
+  font-size: 30rpx;
+  top:30rpx;
+  right: 40rpx;
+}
+
 .my-head {
   position: relative;
 }

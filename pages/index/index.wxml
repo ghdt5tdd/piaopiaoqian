@@ -6,8 +6,9 @@
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{memberInfo.head_img}}" mode="cover"></image>
       <view class="userinfo-nickname">昵称:{{memberInfo.user_nickname}}</view>
       <view class="userinfo-nickid">账号:{{memberInfo.user_account}}</view>
-    </block>
+    </block> 
   </view>
+  <view class='logoff' bindtap='off' >退出登录</view>
 </view>
 
 <view class='my-tabs'>

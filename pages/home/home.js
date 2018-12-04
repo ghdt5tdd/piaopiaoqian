@@ -14,7 +14,7 @@ moduleItemImgs.set('9', { img: '../../images/model3.png', to: 'toSign' })//货�
 
 //这两个暂时还没有
 moduleItemImgs.set('7', { img: '../../images/model3.png', to: '' })//预约订单
-moduleItemImgs.set('8', { img: '../../images/model3.png', to: '' })//货运单接受
+moduleItemImgs.set('8', { img: '../../images/model3.png', to: 'toReceive' })//货运单接受
 Page({
 
   /**
@@ -163,6 +163,13 @@ Page({
   toHandover: function(e) {
     wx.navigateTo({
       url: '../handover/handover'
+    })
+  },
+
+  //跳转到货运单接收页面
+  toReceive: function(e) {
+    wx.navigateTo({
+      url: '../receive/receive'
     })
   },
 
