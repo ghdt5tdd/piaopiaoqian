@@ -45,7 +45,7 @@
     <block wx:for="{{orders}}" wx:key="id">
       <view class="order-table-items">
         <view class='order-table-head'>
-          <view class='order-table-id'>货运单号：{{item.no}}</view>
+          <view class='order-table-id'>货运单号：{{item.bill_no}}</view>
           <view class='order-table-time'>{{item.start_departing_date}}</view>
         </view>
         <view class='order-table-content' bindtap='toInfo' data-shoporder-id="{{item.id}}">
