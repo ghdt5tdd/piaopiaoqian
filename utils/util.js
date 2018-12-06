@@ -93,10 +93,24 @@ function ImgPathToBase64(imgPath, callback) {
   })
 }
 
+function compareDate(date1, date2) {
+  let result
+  const oDate1 = new Date(date1);
+  const oDate2 = new Date(date2);
+  const compare = oDate1.getTime() > oDate2.getTime()
+  if (compare) {
+    result = 1
+  } else {
+    result = oDate1.getTime() == oDate2.getTime() ? 0 : -1
+  }
+  return result
+}
+
 module.exports = {
   formatTime,
   handleImgUrl,
   RandomUUID,
   ImgPathToBase64,
   getFormatDate,
+  compareDate,
 }

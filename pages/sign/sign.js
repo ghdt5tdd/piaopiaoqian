@@ -29,7 +29,7 @@ Page({
     filter: [],
     selectIndex:0,
     now: null,
-
+    
     orderStatus: [{
       name: "全部",
       value: -1
@@ -45,8 +45,39 @@ Page({
     orders: [],
     hideSign: true,
     hideComment: true,
+    timelyArray:[{
+      text:"及时",
+      img: "../../images/time1.png",
+      value: 1
+    }, {
+      text: "不及时",
+        img: "../../images/time2.png",
+      value: 0
+    }],
+    timelyIndex:0,
     latitude: undefined,
-    longitude: undefined
+    longitude: undefined,
+    operator:undefined,
+    signNow: undefined,
+    actualNumber:undefined,
+    actualDate:undefined,
+    actualTime:undefined,
+    timeliness:undefined,
+  },
+
+  //异常类型
+  bindTimelyChange: function (e) {
+    this.setData({
+      timelyIndex: e.detail.value,
+      timeliness: this.data.timelyArray[e.detail.value].value
+    })
+  },
+
+  //异常类型
+  bindTimeChange: function (e) {
+    this.setData({
+      actualTime: e.detail.value,
+    })
   },
 
   signOrder:function() {
@@ -60,7 +91,11 @@ Page({
       })
       ajax.postApi('app/order/receiptShopOrder', {
         idList,
-        location: longitude + ',' + latitude
+        location: longitude + ',' + latitude,
+        actual_arrive_date: this.data.actualDate + ' ' + this.data.actualTime,
+        sign_date: this.data.now,
+        quantity: this.data.actualNumber,
+        timeliness: this.data.timeliness,
       }, (err, res) => {
         wx.hideLoading()
         if (res && res.success) {
@@ -143,6 +178,19 @@ Page({
     })
   },
 
+  //输入筛选条件
+  bindActualNumberInput: function (e) {
+    this.setData({
+      actualNumber: e.detail.value
+    })
+  },
+  //输入筛选条件
+  bindOperatorInput: function (e) {
+    this.setData({
+      operator: e.detail.value
+    })
+  },
+
   //清除筛选条件
   conditionClear: function(e) {
     var index = e.currentTarget.dataset.index
@@ -219,6 +267,16 @@ Page({
       selectOrder: this.data.orders[index],
       selectIndex: index,
       now: util.getFormatDate(1)
+    }, () => {
+      const isTimely = util.compareDate(this.data.selectOrder.estimated_arrive_date, this.data.now)
+      this.setData({
+        actualNumber: this.data.selectOrder.total_packing_quantity,
+        actualDate: this.data.now.substring(0, 10),
+        actualTime: this.data.now.substring(11, 16),
+        timely: isTimely >= 0,
+        timeliness: isTimely >= 0 ? 1 : 0,
+        timelyIndex: isTimely >= 0 ? 0 : 1,
+      })
     })
   },
 
@@ -553,7 +611,23 @@ Page({
     if (cur_month < 10) {
       cur_month = "0" + cur_month
     }
-    this.data.query[key] = cur_year + "-" + cur_month + "-" + cur_date
+    if (key === 'startDate' || key === 'endDate') {
+      this.data.query[key] = cur_year + "-" + cur_month + "-" + cur_date
+
+      this.setData({
+        todayIndex: cur_day,
+        showDate: false,
+        query: this.data.query,
+      })
+    }else {
+      this.data[key] = cur_year + "-" + cur_month + "-" + cur_date
+      this.setData({
+        todayIndex: cur_day,
+        showDate: false,
+        [key]: this.data[key] 
+      })
+      
+    }
 
     if (this.data.hideFilter == true) {
       this.setData({
@@ -561,11 +635,6 @@ Page({
       })
     }
 
-    this.setData({
-      todayIndex: cur_day,
-      showDate: false,
-      query: this.data.query,
-    })
   },
 
 

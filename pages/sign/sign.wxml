@@ -163,7 +163,49 @@
           </view>
 
         </view>
+        
       </block>
+    </view>
+    <view class='order-other'>
+      <view class='order-other-bar'>
+        <text>实收件数：</text>
+        <input value="{{actualNumber}}" bindinput='bindActualNumberInput' ></input>
+      </view>
+      <view class='order-other-bar'>
+        <text>起运时间：</text>
+        <view>{{selectOrder.start_departing_date}}</view>
+      </view>
+      <view class='order-other-bar'>
+        <text>预计到达时间：</text>
+        <view>{{selectOrder.estimated_arrive_date}}</view>
+      </view>
+      <view class='order-other-bar' wx:if="{{!timely}}">
+        <text>是否及时：</text>
+        <picker bindchange="bindTimelyChange" value="{{value}}" range="{{timelyArray}}" range-key="text">
+          <view class="picker"><image src="{{timelyArray[timelyIndex].img}}" />
+            {{timelyArray[timelyIndex].text}}
+          </view>
+        </picker>
+        <!-- <view wx:if="{{timely}}"><image src="../../images/time1.png" />及时</view>
+        <view wx:else><image src="../../images/time2.png" />不及时</view> -->
+      </view>
+      <view class='order-other-bar'>
+        <text>实际到货日期：</text>
+        <view class='query-date-val' bindtap='showDate' data-key="actualDate" >{{actualDate}}</view>
+        <!-- <view>{{now}}</view> -->
+      </view>
+      <view class='order-other-bar'>
+        <text>实际到货时间：</text>
+        <picker mode="time" value="{{actualTime}}"  bindchange="bindTimeChange">
+          <view class="picker">
+            {{actualTime}}
+          </view>
+        </picker>
+      </view>
+      <view class='order-other-bar'>
+        <text>操作时间：</text>
+        <view>{{now}}</view>
+      </view>
     </view>
   </scroll-view>
 

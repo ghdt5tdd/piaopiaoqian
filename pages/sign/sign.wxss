@@ -112,3 +112,31 @@
   width: 140rpx;
   height: 140rpx;
 }
+.order-other {
+  background: #fff;
+  padding: 0 20rpx 20rpx;
+  margin-top: -10rpx
+}
+
+.order-other-bar {
+  display: flex;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  align-items: center;
+  margin-bottom: 10rpx
+}
+
+.order-other-bar input {
+  height: 40rpx;
+}
+
+.order-other-bar image{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 0 10rpx
+}
+
+.order-other-bar view{
+  display: flex;
+  align-items: center
+}
