@@ -129,12 +129,22 @@ Page({
     wx.showLoading({
       title: '二维码生成中...',
     })
+    const no = e.currentTarget.dataset.no
+    const codeUrl = e.currentTarget.dataset.codeUrl
+    if (codeUrl.indexOf("?") === -1) {
+      wx.hideLoading()
+
+      wx.showToast({
+        title: '二维码地址错误',
+      })
+      return ;
+    }
 
     setTimeout(() => {
       wx.hideLoading()
     }, 1000)
-    const no = e.currentTarget.dataset.no
-    const codeUrl = e.currentTarget.dataset.codeUrl
+
+    const id = codeUrl.substring(codeUrl.indexOf("?") + 1)
     this.setData({
       hide: false,
       hideCode: false,
@@ -142,10 +152,10 @@ Page({
     })
 
     if (qr) {
-      qr.makeCode(codeUrl);
+      qr.makeCode(id);
     }else {
       qr = new QRCode('canvas', {
-        text: codeUrl,
+        text: id,
         width: 125,
         height: 125,
         colorDark: "#000000",
@@ -195,14 +205,15 @@ Page({
   showScan: function () {
     wx.scanCode({
       success: (res) => {
-        const api = res.result
+        const id = res.result
         const x = this.data.x
         const y = this.data.y
-        if (api && api.indexOf('app/order/setOrderDriverTransfer') !== -1) {
+        if (id && id.length === 32) {
           wx.showLoading({
             title: '正在交接运单...',
           })
-          ajax.postApi(api, {
+          ajax.postApi('app/order/setOrderDriverTransfer', {
+            id,
             x,y,
             type: 0
           }, (err, res) => {

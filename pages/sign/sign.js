@@ -492,14 +492,15 @@ Page({
   showScan: function () {
     wx.scanCode({
       success: (res) => {
-        const api = res.result
+        const id = res.result
         const x = this.data.longitude
         const y = this.data.latitude
-        if (api && api.indexOf('app/order/receiptShopOrder') !== -1) {
+        if (id && id.length === 32) {
           wx.showLoading({
             title: '正在签收运单...',
           })
-          ajax.postApi(api, {
+          ajax.postApi('app/order/receiptShopOrder', {
+            idList: id,
             location: x + ',' + y,
           }, (err, res) => {
             wx.hideLoading()

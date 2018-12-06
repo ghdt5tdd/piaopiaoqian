@@ -128,16 +128,26 @@ Page({
   },
   
   //打开二维码弹窗
-  showCode: function(e) {
+  showCode: function (e) {
     wx.showLoading({
       title: '二维码生成中...',
     })
+    const no = e.currentTarget.dataset.no
+    const codeUrl = e.currentTarget.dataset.codeUrl
+    if (codeUrl.indexOf("?") === -1) {
+      wx.hideLoading()
+
+      wx.showToast({
+        title: '二维码地址错误',
+      })
+      return;
+    }
 
     setTimeout(() => {
       wx.hideLoading()
     }, 1000)
-    const no = e.currentTarget.dataset.no
-    const codeUrl = e.currentTarget.dataset.codeUrl
+
+    const id = codeUrl.substring(codeUrl.indexOf("?") + 4)
     this.setData({
       hide: false,
       hideCode: false,
@@ -145,10 +155,10 @@ Page({
     })
 
     if (qr) {
-      qr.makeCode(codeUrl);
-    }else {
+      qr.makeCode(id);
+    } else {
       qr = new QRCode('canvas', {
-        text: codeUrl,
+        text: id,
         width: 125,
         height: 125,
         colorDark: "#000000",
