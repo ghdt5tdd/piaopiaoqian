@@ -133,21 +133,11 @@ Page({
       title: '二维码生成中...',
     })
     const no = e.currentTarget.dataset.no
-    const codeUrl = e.currentTarget.dataset.codeUrl
-    if (codeUrl.indexOf("?") === -1) {
-      wx.hideLoading()
-
-      wx.showToast({
-        title: '二维码地址错误',
-      })
-      return;
-    }
-
+    const id = e.currentTarget.dataset.id
     setTimeout(() => {
       wx.hideLoading()
     }, 1000)
 
-    const id = codeUrl.substring(codeUrl.indexOf("?") + 4)
     this.setData({
       hide: false,
       hideCode: false,
