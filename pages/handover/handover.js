@@ -1,6 +1,7 @@
 // pages/handover/handover.js
 const ajax = require('../../utils/ajax.js')
 const QRCode = require('../../utils/weapp-qrcode.js')
+const util = require('../../utils/util.js')
 let qr
 const orderInterface = new Map()
 orderInterface.set(0, 'app/order/getOrderByWaitTransfer')
@@ -168,7 +169,7 @@ Page({
       cur_month = "0" + cur_month
     }
     this.data.query.startDate = this.data.cur_year + '-' + cur_month + '-' + cur_day
-    this.data.query.endDate = this.data.cur_year + '-' + cur_month + '-' + cur_day
+    this.data.query.endDate = util.addDate(new Date(), 7)
     this.setData({
       query: this.data.query
     })

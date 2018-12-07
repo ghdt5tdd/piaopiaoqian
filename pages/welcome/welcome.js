@@ -10,7 +10,11 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
-  onLoad: function() {
+  onLoad: function (options) {
+    // wx.showModal({
+    //   title: '页面参数',
+    //   content: (JSON.stringify(options)),
+    // })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
