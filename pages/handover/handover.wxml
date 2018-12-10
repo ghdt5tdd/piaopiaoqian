@@ -16,13 +16,13 @@
   </view>
   <view class='query-date'>
       <view class="query-date-items">
-        <!-- <view hidden="{{!item.status}}" class='query-date-name'>{{item.name}}</view> -->
+        <view class='query-date-name'>起始日期</view>
         <view class='query-date-val' bindtap='showDate'data-key="startDate"  >{{query.startDate}}</view>
         <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='DateClear' data-index="{{index}}"></image> -->
       </view>
       <view class="query-date-items" >至</view>
       <view class="query-date-items">
-        <!-- <view hidden="{{!item.status}}" class='query-date-name'>{{item.name}}</view> -->
+        <view class='query-date-name'>结束日期</view>
         <view class='query-date-val' bindtap='showDate' data-key="endDate" >{{query.endDate}}</view>
         <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='DateClear' data-index="{{index}}"></image> -->
       </view>
