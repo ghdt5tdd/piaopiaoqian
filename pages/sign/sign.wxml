@@ -3,8 +3,8 @@
   <view class='query-condition'>
     <block >
       <view class="query-condition-items active">
-        <view class='query-conditions-name'>订单号</view>
-        <input placeholder="请输入订单号" bindinput='bindInput'  data-key="orderNo" />
+        <view class='query-conditions-name'>运单号</view>
+        <input placeholder="请输入运单号" bindinput='bindInput'  data-key="orderNo" />
         <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-index="{{index}}"></image> -->
       </view>
       <view class="query-condition-items active">
@@ -117,7 +117,7 @@
   <view class='popup-sign-head'>
     <image src='{{memberInfo.head_img}}'></image>
     <view class='popup-sign-name'>签收人：{{memberInfo.user_nickname}}</view>
-    <view class='popup-sign-time'>签收时间：{{now}}</view>
+    <!-- <view class='popup-sign-time'>签收时间：{{now}}</view> -->
   </view>
 
   <scroll-view scroll-y="true" class='popup-sign-content'>
@@ -126,7 +126,15 @@
         <view class="order-table-items">
           <view class='order-table-head'>
             <view class='order-table-id'>货运单号：{{selectOrder.bill_no}}</view>
-            <view class='order-table-time'>{{selectOrder.start_departing_date}}</view>
+            <!-- <view class='order-table-time'>{{selectOrder.start_departing_date}}</view> -->
+          </view>
+          <view class='order-other-bar'>
+            <text>起运时间：</text>
+            <view>{{selectOrder.start_departing_date}}</view>
+          </view>
+          <view class='order-other-bar'>
+            <text>预计到达时间：</text>
+            <view>{{selectOrder.estimated_arrive_date}}</view>
           </view>
           <view class='order-table-content'>
 
@@ -170,14 +178,6 @@
       <view class='order-other-bar'>
         <text>实收件数：</text>
         <input value="{{actualNumber}}" bindinput='bindActualNumberInput' ></input>
-      </view>
-      <view class='order-other-bar'>
-        <text>起运时间：</text>
-        <view>{{selectOrder.start_departing_date}}</view>
-      </view>
-      <view class='order-other-bar'>
-        <text>预计到达时间：</text>
-        <view>{{selectOrder.estimated_arrive_date}}</view>
       </view>
       <view class='order-other-bar' wx:if="{{!timely}}">
         <text>是否及时：</text>

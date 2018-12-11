@@ -261,6 +261,8 @@ Page({
   showSign: function(e) {
     const index = e.currentTarget.dataset.index
     
+    console.log(this.data.now)
+    console.log(util.getFormatDate(1))
     this.setData({
       hide: false,
       hideSign: false,
@@ -589,8 +591,8 @@ Page({
     if (cur_month < 10) {
       cur_month = "0" + cur_month
     }
-    this.data.query.startDate = this.data.cur_year + '-' + cur_month + '-' + cur_day
-    this.data.query.endDate = util.addDate(new Date(), 7)
+    this.data.query.startDate = util.addDate(new Date(), -7)
+    this.data.query.endDate = this.data.cur_year + '-' + cur_month + '-' + cur_day
     this.setData({
       query: this.data.query
     })
