@@ -1,5 +1,6 @@
 // pages/transportdetail/transportdetail.js
 const ajax = require('../../utils/ajax.js')
+const barcode = require('../../utils/weapp-barcode.js')
 const starMap = new Map()
 starMap.set(1, '非常差')
 starMap.set(2, '较差')
@@ -242,6 +243,14 @@ Page({
     this.getReturnReceiptList(shopOrderId)
   },
 
+  convert_length : function(length) {
+    return Math.round(wx.getSystemInfoSync().windowWidth * length / 750);
+  },
+
+  createBarCode: function (id, content, width = 370, height= 100) {
+    barcode.code128(wx.createCanvasContext(id), content, this.convert_length(width), this.convert_length(height))
+  },
+
   getShopOrderDetail: function (shopOrderId) {
     wx.showLoading({
       title: '详情加载中...',
@@ -256,6 +265,10 @@ Page({
         const shoporderDetail = res.data
         shoporderDetail.start_departing_date_short = shoporderDetail.start_departing_date.substring(0, 10)
         shoporderDetail.estimated_arriver_date_short = shoporderDetail.estimated_arriver_date.substring(0, 10)
+        if (shoporderDetail.bill_no) {
+          this.createBarCode('canvas', shoporderDetail.bill_no)
+          // 
+        }
         this.setData({
           shoporderDetail
         })

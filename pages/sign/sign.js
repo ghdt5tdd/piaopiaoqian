@@ -168,6 +168,8 @@ Page({
     const comment_star = this.data.starSelect
     const comment = this.data.comment
     const imgs = JSON.stringify(this.data.imgs)
+
+    if (comment === '') {}
     wx.showLoading({
       title: '评价提交中...',
     })

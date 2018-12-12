@@ -165,12 +165,12 @@
     </view>
   </block>
 
-  <view class='stub' wx:if="{{selectStatus == 4}}">
+  <view class='stub' hidden="{{selectStatus !== 4}}">
 
     <view class='stub-head'>
       <view class='stub-code'>
-        <image src='{{stubCode}}' mode='widthFix'></image>
-        <view>{{transportId}}</view>
+        <canvas style="width: 400px; height: 40px;position：static" canvas-id="canvas" ></canvas>
+        <view>{{shoporderDetail.bill_no}}</view> 
       </view>
       <view class='stub-spec'>
         <view>始发地：{{shoporderDetail.consignment_station_name}}</view>
