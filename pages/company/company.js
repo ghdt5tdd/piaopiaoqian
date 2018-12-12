@@ -82,6 +82,8 @@ Page({
       logo: logo,
       title: title,
       area: area,
+      loginUsername: '',
+      loginPassword: '',
     })
   },
 

@@ -47,11 +47,11 @@ Page({
     hideComment: true,
     timelyArray:[{
       text:"及时",
-      img: "../../images/time1.png",
+      img: "../../images/check.png",
       value: 1
     }, {
       text: "不及时",
-        img: "../../images/time2.png",
+      img: "../../images/uncheck.png",
       value: 0
     }],
     timelyIndex:0,
@@ -80,10 +80,50 @@ Page({
     })
   },
 
+  selectRadio:function(e) {
+    if (e.currentTarget.dataset.index === 0) {
+      const actualDate = this.data.selectOrder.estimated_arrive_date.substring(0, 10)
+      const actualTime = this.data.selectOrder.estimated_arrive_date.substring(11)
+      this.setData({
+        actualDate,
+        actualTime,
+      })
+    }
+    this.setData({
+      timely: e.currentTarget.dataset.index === 0 ? true : false,
+      timelyIndex: e.currentTarget.dataset.index,
+      timeliness: this.data.timelyArray[e.currentTarget.dataset.index].value
+    })
+
+  },
+
   signOrder:function() {
     const idList = this.data.selectOrder.id
     const latitude = this.data.latitude
     const longitude = this.data.longitude
+    const actualDate = this.data.actualDate
+    const actual_arrive_date = this.data.actualDate + ' ' + this.data.actualTime
+    const estimated_arrive_date = this.data.selectOrder.estimated_arrive_date
+    const now = this.data.now
+    const timely = this.data.timely
+
+    if (util.compareDate(actual_arrive_date, now) > 0) {
+      wx.showModal({
+        title: '日期错误',
+        content: '实际到货时间不得大于目前时间',
+      })
+      return ;
+    }
+
+    if (!timely && util.compareDate(estimated_arrive_date, actual_arrive_date) >= 0) {
+      wx.showModal({
+        title: '日期错误',
+        content: '不及时的情况下实际到货时间不能小于等于预计到货时间',
+      })
+      return;
+    }
+
+
 
     if (this.data.getlocation) {
       wx.showLoading({
@@ -205,6 +245,9 @@ Page({
 
   //打开日历
   showDate: function (e) {
+    if(this.data.timely) {
+      return;
+    }
     wx.setStorageSync('timeindex', e.currentTarget.dataset.key)
     this.setData({
       showDate: true,
@@ -271,11 +314,15 @@ Page({
       now: util.getFormatDate(1)
     }, () => {
       const isTimely = util.compareDate(this.data.selectOrder.estimated_arrive_date, this.data.now)
+      console.log(this.data.selectOrder.estimated_arrive_date)
+      console.log(this.data.now)
+      console.log(isTimely)
       this.setData({
         actualNumber: this.data.selectOrder.total_packing_quantity,
         actualDate: this.data.now.substring(0, 10),
         actualTime: this.data.now.substring(11, 16),
         timely: isTimely >= 0,
+        isHideTimeLy: isTimely >= 0,
         timeliness: isTimely >= 0 ? 1 : 0,
         timelyIndex: isTimely >= 0 ? 0 : 1,
       })

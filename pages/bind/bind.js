@@ -7,7 +7,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: { 
     logo: "../../images/logo.jpg",
     title: "德力西电气物流信息系统",
     area: "delixiarea",
@@ -43,6 +43,8 @@ Page({
     const loginUsername = this.data.loginUsername
     const loginPassword = this.data.loginPassword
     const area = this.data.area
+    const title = this.data.title
+    const logo = this.data.logo
 
     if (loginUsername === '') {
       warn = "请填写您的账号！";
@@ -62,6 +64,10 @@ Page({
           wx.hideLoading()
           wx.setStorageSync(area + 'LoginUsername', loginUsername)
           wx.setStorageSync(area + 'LoginPassword', loginPassword)
+          wx.setStorageSync('lastLogo', logo)
+          wx.setStorageSync('lastTitle', title)
+          wx.setStorageSync('lastArea', area)
+
           app.globalData.memberInfo = res.data
           
           wx.showToast({
@@ -117,6 +123,17 @@ Page({
   onLoad: function(options) {
     const loginUsername = wx.getStorageSync(this.data.area + 'LoginUsername') || ''
     const loginPassword = wx.getStorageSync(this.data.area + 'LoginPassword') || ''
+    const logo = wx.getStorageSync('lastLogo') || ''
+    const title = wx.getStorageSync('lastTitle') || ''
+    const area = wx.getStorageSync('lastArea') || ''
+
+    if (logo !== '' && title !== '' && area !== '') {
+      this.setData({
+        logo,
+        title,
+        area
+      })
+    }
 
     this.setData({
       loginUsername,

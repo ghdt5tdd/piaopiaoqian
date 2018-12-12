@@ -4,8 +4,9 @@
       <image src='{{memberInfo.head_img}}'></image>
       <image class='vip-icon' src='{{vipLevel}}'></image>
     </view>
-    <view class='vip-name'>{{memberInfo.user_nickname}}
-      <text>({{vipSpec}})</text>,您好</view>
+    <view class='vip-name'>{{memberInfo.user_account}}
+      <!-- <text>({{vipSpec}})</text>,您好 -->
+      </view>
   </view>
   <view class='top-bar-opt'>
     <!-- <image class='top-opt-scan' src='{{optScan}}'></image> -->

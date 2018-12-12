@@ -57,8 +57,8 @@
 }
 
 .order-line-cargo image, .order-bar-cargo image {
-  width: 32rpx;
-  height: 32rpx;
+  width: 40rpx;
+  height: 40rpx;
   margin-right: 10rpx;
 }
 
@@ -68,7 +68,6 @@
 }
 
 .order-bar-dispatch, .order-bar-receive, .order-bar-num {
-  float: left;
   display: flex;
   align-items: center;
   min-width: 50%;

@@ -123,9 +123,10 @@ function ImgPathToBase64(imgPath, callback) {
 }
 
 function compareDate(date1, date2) {
-  let result
-  const oDate1 = new Date(date1);
-  const oDate2 = new Date(date2);
+  let result,oDate1,oDate2
+
+  oDate1 = new Date(date1)
+  oDate2 = new Date(date2);
   const compare = oDate1.getTime() > oDate2.getTime()
   if (compare) {
     result = 1

@@ -59,7 +59,7 @@
             <view class='order-line-cargo'>
               <view class='order-cargo-receive'>
                 <image src="../../images/person.png"></image>
-                <view>{{item.consignee_name}}收</view>
+                <view>{{item.consignee_name}}(收)</view>
               </view>
               <view class='order-cargo-num'>
                 <image src="../../images/cargo.png"></image>
@@ -146,17 +146,17 @@
               </view>
               <view class='order-bar-cargo'>
                 <view class='order-bar-dispatch'>
-                  <image src="../../images/dispatch-name.png"></image>
+                  <image src="../../images/line-start.png"></image>
                   <view>
-                    <text>{{selectOrder.consigner_name}}发</text>
-                    <text>{{selectOrder.consigner_tel}}</text>
+                    <view>{{selectOrder.consigner_name}}</view>
+                    <view>{{selectOrder.consigner_tel}}</view>
                   </view>
                 </view>
                 <view class='order-bar-receive'>
-                  <image src="../../images/receive-name.png"></image>
+                  <image src="../../images/line-end.png"></image>
                   <view>
-                    <text>{{selectOrder.consignee_man}}收</text>
-                    <text>{{selectOrder.consignee_tel}}</text>
+                    <view>{{selectOrder.consignee_name}}</view>
+                    <view>{{selectOrder.consignee_tel}}</view>
                   </view>
                 </view>
                 <view class='order-bar-num'>
@@ -166,7 +166,7 @@
               </view>
             </view>
 
-            <image class='order-table-to' bindtap='toDetail' src='../../images/next.png'></image>
+            <!-- <image class='order-table-to' bindtap='toDetail' src='../../images/next.png'></image> -->
 
           </view>
 
@@ -179,13 +179,22 @@
         <text>实收件数：</text>
         <input value="{{actualNumber}}" bindinput='bindActualNumberInput' ></input>
       </view>
-      <view class='order-other-bar' wx:if="{{!timely}}">
+      <view class='order-other-bar'>
         <text>是否及时：</text>
-        <picker bindchange="bindTimelyChange" value="{{value}}" range="{{timelyArray}}" range-key="text">
-          <view class="picker"><image src="{{timelyArray[timelyIndex].img}}" />
-            {{timelyArray[timelyIndex].text}}
-          </view>
-        </picker>
+        <view class='order-other-radio'>
+          <block wx:if="{{isHideTimeLy}}">
+            <view>
+              <image src="../../images/check.png"></image>
+              <text>{{timelyArray[0].text}}</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view wx:for="{{timelyArray}}" bindtap='selectRadio' data-index="{{index}}">
+              <image src="{{timelyIndex === index ? '../../images/check.png' : '../../images/uncheck.png'}}"></image>
+              <text>{{item.text}}</text>
+            </view>
+          </block>
+        </view>
         <!-- <view wx:if="{{timely}}"><image src="../../images/time1.png" />及时</view>
         <view wx:else><image src="../../images/time2.png" />不及时</view> -->
       </view>
@@ -196,7 +205,7 @@
       </view>
       <view class='order-other-bar'>
         <text>实际到货时间：</text>
-        <picker mode="time" value="{{actualTime}}"  bindchange="bindTimeChange">
+        <picker mode="time" value="{{actualTime}}" disabled="{{timely}}"  bindchange="bindTimeChange">
           <view class="picker">
             {{actualTime}}
           </view>
