@@ -84,7 +84,7 @@ Page({
           }, 1000);
         }else {
           wx.showToast({
-            title: '登陆失败',
+            title: res.text || '登陆失败',
             icon: 'fail',
             duration: 2000,
             mask: true
@@ -121,8 +121,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    const loginUsername = wx.getStorageSync(this.data.area + 'LoginUsername') || ''
-    const loginPassword = wx.getStorageSync(this.data.area + 'LoginPassword') || ''
     const logo = wx.getStorageSync('lastLogo') || ''
     const title = wx.getStorageSync('lastTitle') || ''
     const area = wx.getStorageSync('lastArea') || ''
@@ -132,13 +130,21 @@ Page({
         logo,
         title,
         area
+      }, () => {
+        const loginUsername = wx.getStorageSync(area + 'LoginUsername') || ''
+        const loginPassword = wx.getStorageSync(area + 'LoginPassword') || ''
+        this.setData({
+          loginUsername,
+          loginPassword
+        })
+      })
+    }else {
+      this.setData({
+        loginUsername,
+        loginPassword
       })
     }
 
-    this.setData({
-      loginUsername,
-      loginPassword
-    })
   },
 
   /**
