@@ -108,15 +108,13 @@ function RandomUUID() {
 
 function ImgPathToBase64(imgPath, callback) {
   console.log(imgPath)
-  wx.request({
-    url: imgPath,
-    method: 'GET',
-    responseType: 'arraybuffer',
-    success: function (res) {
-      let base64 = wx.arrayBufferToBase64(res.data);
-      callback(base64)
+  wx.getFileSystemManager().readFile({
+    filePath: imgPath, //选择图片返回的相对路径
+    encoding: 'base64', //编码格式
+    success: res => { //成功的回调
+      callback(res.data)
     },
-    fail: function(err) {
+    fail: function (err) {
       console.log(err)
     }
   })

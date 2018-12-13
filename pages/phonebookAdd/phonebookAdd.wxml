@@ -14,7 +14,7 @@
       <image src='../../images/list2.png' class='my-bar-img'></image>
       <view class='my-bar-label'>姓名</view>
       <view class='my-bar-input'>
-        <input bindinput='name'></input>
+        <input bindinput='name' placeholder='请输入姓名'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
@@ -23,7 +23,7 @@
       <image src='../../images/list3.png' class='my-bar-img'></image>
       <view class='my-bar-label'>联系人</view>
       <view class='my-bar-input'>
-        <input bindinput='contact_man'></input>
+        <input bindinput='contact_man' placeholder='请输入联系人'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
@@ -32,7 +32,7 @@
       <image src='../../images/list4.png' class='my-bar-img'></image>
       <view class='my-bar-label'>联系方式</view>
       <view class='my-bar-input'>
-        <input bindinput='contact_way'></input>
+        <input bindinput='contact_way' placeholder='请输入联系方式'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
@@ -41,7 +41,7 @@
       <image src='../../images/list5.png' class='my-bar-img'></image>
       <view class='my-bar-label'>卡号</view>
       <view class='my-bar-input'>
-        <input bindinput='card_number'></input>
+        <input bindinput='card_number' placeholder='请输入卡号'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
@@ -50,7 +50,7 @@
       <image src='../../images/list6.png' class='my-bar-img'></image>
       <view class='my-bar-label'>地址</view>
       <view class='my-bar-input'>
-        <input bindinput='address'></input>
+        <input bindinput='address' placeholder='请输入地址'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
@@ -59,7 +59,7 @@
       <image src='../../images/list7.png' class='my-bar-img'></image>
       <view class='my-bar-label'>备注</view>
       <view class='my-bar-input'>
-        <input bindinput='remark'></input>
+        <input bindinput='remark' placeholder='请输入备注'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
