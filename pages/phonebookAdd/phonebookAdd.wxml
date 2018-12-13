@@ -4,10 +4,10 @@
     <view class='my-bar' bindtap="changePic">	
       <image src='../../images/list1.png' class='my-bar-img'></image>
       <view class='my-bar-label'>头像</view>
-      <view class='my-bar-avatar' >
+      <view class='my-bar-avatar'>
         <image src='{{head_img}}'></image>
       </view>
-      <image src='../../images/next.png' class='my-bar-next'></image>
+      <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
 
     <view class='my-bar'>
@@ -16,7 +16,7 @@
       <view class='my-bar-input'>
         <input bindinput='name'></input>
       </view>
-      <image src='../../images/next.png' class='my-bar-next'></image>
+      <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
 
     <view class='my-bar'>
@@ -25,7 +25,7 @@
       <view class='my-bar-input'>
         <input bindinput='contact_man'></input>
       </view>
-      <image src='../../images/next.png' class='my-bar-next'></image>
+      <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
 
     <view class='my-bar'>
@@ -34,7 +34,7 @@
       <view class='my-bar-input'>
         <input bindinput='contact_way'></input>
       </view>
-      <image src='../../images/next.png' class='my-bar-next'></image>
+      <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
 
     <view class='my-bar'>
@@ -43,7 +43,7 @@
       <view class='my-bar-input'>
         <input bindinput='card_number'></input>
       </view>
-      <image src='../../images/next.png' class='my-bar-next'></image>
+      <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
 
     <view class='my-bar'>
@@ -52,7 +52,7 @@
       <view class='my-bar-input'>
         <input bindinput='address'></input>
       </view>
-      <image src='../../images/next.png' class='my-bar-next'></image>
+      <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
 
     <view class='my-bar'>
@@ -61,7 +61,7 @@
       <view class='my-bar-input'>
         <input bindinput='remark'></input>
       </view>
-      <image src='../../images/next.png' class='my-bar-next'></image>
+      <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
   </view>
 

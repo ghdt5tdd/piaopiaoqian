@@ -132,5 +132,5 @@
 
 .my-bar-input{
   width: calc(100% - 160rpx);
-  text-align: right
+  text-align: left
 }

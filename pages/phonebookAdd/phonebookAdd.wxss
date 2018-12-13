@@ -10,7 +10,7 @@
 }
 
 .my-bar-avatar {
-  width: 80rpx;
+  width: calc(100% - 160rpx);
   height: 80rpx;
 }
 
@@ -18,4 +18,9 @@
   width: 80rpx;
   height: 80rpx;
   border-radius: 50%;
+}
+
+.my-bar-input{
+   width: calc(100% - 160rpx);
+  text-align: left
 }
