@@ -1,5 +1,5 @@
 <!--pages/phonebookAdd/phonebookAdd.wxml-->
-<form bindsubmit="formSubmit" report-submit="true">
+
   <view class='my-list'>
     <view class='my-bar' bindtap="changePic">	
       <image src='../../images/list1.png' class='my-bar-img'></image>
@@ -12,9 +12,9 @@
 
     <view class='my-bar'>
       <image src='../../images/list2.png' class='my-bar-img'></image>
-      <view class='my-bar-label'>姓名</view>
+      <view class='my-bar-label'>单位</view>
       <view class='my-bar-input'>
-        <input bindinput='name' placeholder='请输入姓名'></input>
+        <input bindinput='name' placeholder='请输入单位名称' value="{{name}}"></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
@@ -23,7 +23,7 @@
       <image src='../../images/list3.png' class='my-bar-img'></image>
       <view class='my-bar-label'>联系人</view>
       <view class='my-bar-input'>
-        <input bindinput='contact_man' placeholder='请输入联系人'></input>
+        <input bindinput='contact_man' placeholder='请输入联系人' value="{{contact_man}}"></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
@@ -32,7 +32,7 @@
       <image src='../../images/list4.png' class='my-bar-img'></image>
       <view class='my-bar-label'>联系方式</view>
       <view class='my-bar-input'>
-        <input bindinput='contact_way' placeholder='请输入联系方式'></input>
+        <input bindinput='contact_way' placeholder='请输入联系方式' value="{{contact_way}}"></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
@@ -41,7 +41,7 @@
       <image src='../../images/list5.png' class='my-bar-img'></image>
       <view class='my-bar-label'>卡号</view>
       <view class='my-bar-input'>
-        <input bindinput='card_number' placeholder='请输入卡号'></input>
+        <input bindinput='card_number' placeholder='请输入卡号' value="{{card_number}}"></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
@@ -50,7 +50,7 @@
       <image src='../../images/list6.png' class='my-bar-img'></image>
       <view class='my-bar-label'>地址</view>
       <view class='my-bar-input'>
-        <input bindinput='address' placeholder='请输入地址'></input>
+        <input bindinput='address' placeholder='请输入地址' value="{{address}}"></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
@@ -59,12 +59,9 @@
       <image src='../../images/list7.png' class='my-bar-img'></image>
       <view class='my-bar-label'>备注</view>
       <view class='my-bar-input'>
-        <input bindinput='remark' placeholder='请输入备注'></input>
+        <input bindinput='remark' placeholder='请输入备注' value="{{remark}}"></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
   </view>
-
-
-  <button class='button-bottom' formType="submit">确认</button>
-</form>
+  <button class='button-bottom'  bindtap='save'>确认</button>

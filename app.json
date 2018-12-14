@@ -31,6 +31,7 @@
     "pages/personal/personal",
     "pages/account/account",
     "pages/accountAdd/accountAdd",
+    "pages/accountEdit/accountEdit",
     "pages/diary/diary",
     "pages/set/set",
     "pages/changePassword/changePassword",

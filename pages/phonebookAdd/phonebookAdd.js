@@ -14,6 +14,7 @@ Page({
       card_number: '',
       address: '',
       remark: '',
+      id:undefined,
   },
 
   name: function(e) {
@@ -66,6 +67,7 @@ Page({
     ajax.postApi('app/member/telbookSaveOrUpdate', {
       ...this.data
     }, (err, res) => {
+      console.log(err, res)
       wx.hideLoading()
       if (res && res.success) {
         wx.showToast({
@@ -109,7 +111,35 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(...this.data)
+    const id = options.id
+    if(id) {
+      wx.showLoading({
+        title: '获取中...',
+      })
+      ajax.getApi('app/member/getTelbookById', {
+        id
+      }, (err, res) => {
+        wx.hideLoading()
+        if (res && res.success) {
+          const data = res.data
+          this.setData({
+            address: data.address,
+            card_number: data.card_number,
+            contact_man: data.contact_man,
+            contact_way: data.contact_way,
+            head_img: data.head_img,
+            id: data.id,
+            name: data.name,
+            remark: data.remark,
+          })
+        } else {
+          wx.showToast({
+            title: '无法获取联系人详情',
+            duration: 1000
+          })
+        }
+      })
+    }
   },
 
   /**

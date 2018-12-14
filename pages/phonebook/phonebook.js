@@ -50,6 +50,13 @@ Page({
     })
   },
 
+  edit:function(e) {
+    const telbookId = e.target.dataset.id
+    wx.navigateTo({
+      url: '../phonebookAdd/phonebookAdd?id=' + telbookId,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

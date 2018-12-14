@@ -5,7 +5,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: { 
     page: 1,
     pageSize: 50,
     account: [],
@@ -85,6 +85,13 @@ Page({
       _Y = end.Y - start.Y
     //返回角度 /Math.atan()返回数字的反正切值
     return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
+  },
+
+  edit:function(e){
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../accountEdit/accountEdit?id=' + id
+    })
   },
 
   //右滑删除事件

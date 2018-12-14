@@ -20,7 +20,7 @@
 
       </view>
       <view class='account-opt'>
-        <!-- <view class="edit" catchtap="edit" data-id="{{item.id}}">修改</view> -->
+        <view class="edit" catchtap="edit" data-id="{{item.id}}">修改</view>
         <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
       </view>
     </view>
