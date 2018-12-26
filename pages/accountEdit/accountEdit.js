@@ -9,7 +9,7 @@ Page({
     full_name:"",
     user_account: "",
     user_nickname: "", 
-    phone: "", wx25262e4c892d549ewx25262e4c892d549eaaaaaasaaaassaasas
+    phone: "",
     remark:"",
     id:undefined
   },
