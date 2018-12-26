@@ -49,7 +49,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "票票签",
+    "navigationBarTitleText": "企业票票签",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
