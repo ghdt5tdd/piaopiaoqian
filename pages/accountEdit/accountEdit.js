@@ -9,7 +9,7 @@ Page({
     full_name:"",
     user_account: "",
     user_nickname: "", 
-    phone:"",   
+    phone: "", wx25262e4c892d549ewx25262e4c892d549eaaaaaasaaaassaasas
     remark:"",
     id:undefined
   },
@@ -61,12 +61,6 @@ Page({
       warn = "请输入联系方式！";
     } else if (!myreg.test(phone)) {
       warn = "请输入正确的联系方式！";
-    } else if (user_password == "") {
-      warn = "请输入密码！";
-    } else if (repassword == "") {
-      warn = "请再次输入新密码！";
-    } else if (repassword != user_password) {
-      warn = "两次密码不一致！";
     } else { 
       flag = true;
       wx.showLoading({
@@ -86,7 +80,7 @@ Page({
         }
       })	
     }
-    if (flag == false) {
+    if (!flag) {
       wx.showModal({
         title: '提示',
         content: warn
