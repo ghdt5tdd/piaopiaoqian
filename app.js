@@ -8,6 +8,7 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
     const openId = wx.getStorageSync('openId') || ''
+    const unionId = wx.getStorageSync('unionId') || ''
     const sessionKey = wx.getStorageSync('sessionKey') || ''
 
     if(openId === '') {
@@ -16,6 +17,7 @@ App({
       const secret = this.globalData.appSecret
       wx.login({
         success: res => {
+          console.log(res)
           ajax.getApi('mini/program/code2Session', {
             app_area: app_area,
             js_code: res.code,
@@ -24,8 +26,10 @@ App({
             if (rest && rest.success) {
               const result = rest.data
               this.globalData.openId = result.openid
+              this.globalData.unionId = result.unionid
               this.globalData.sessionKey = result.session_key
               wx.setStorageSync('openId', result.openid)
+              wx.setStorageSync('unionId', result.unionid)
               wx.setStorageSync('sessionKey', result.session_key)
             }
           })
@@ -34,6 +38,7 @@ App({
       })
     } else {
       this.globalData.openId = openId
+      this.globalData.unionId = unionId
       this.globalData.sessionKey = sessionKey
     }
     // 获取用户信息
@@ -44,6 +49,7 @@ App({
           wx.getUserInfo({
             lang: 'zh_CN',
             success: res => {
+              console.log(res)
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
 
@@ -62,6 +68,7 @@ App({
     platformAppArea: 'wlhn',
     piaopiaoQianAppArea: 'def2dbc9fddf415e8b96dc167ccea5dc',
     piaopiaoQianMemberId: 'ba154b8a17d94b298e3fb6feb3593a39',
+    qqMapKey: 'NUTBZ-GQQK3-2HX3Q-YBQRB-MCEWK-V5BW3',
     openId: '',
     sessionKey: '',
     unionId: '',

@@ -75,6 +75,7 @@ Page({
       ajax.getApi('mini/program/createMember', {
         ...app.globalData.userInfo,
         openId: app.globalData.openId,
+        unionId: app.globalData.unionId,
         app_area: app.globalData.platformAppArea,
         referrer_member_id: app.globalData.piaopiaoQianMemberId
       }, (err, rest) => {

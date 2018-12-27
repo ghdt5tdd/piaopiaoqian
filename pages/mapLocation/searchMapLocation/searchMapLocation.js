@@ -1,8 +1,9 @@
 // searchMapLocation.js
 // 引入SDK核心类
+const app = getApp()
 var QQMapWX = require('../../qqmap/qqmap-wx-jssdk.js');
 var demo = new QQMapWX({
-  key: 'I5GBZ-ZQULP-6MTD5-L4RVA-XAPAJ-DKB4G' // 必填 换成自己申请到的
+  key: app.globalData.qqMapKey // 必填 换成自己申请到的
 });
 Page({
 
