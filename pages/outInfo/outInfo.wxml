@@ -1,0 +1,59 @@
+<!--pages/outInfo/outInfo.wxml-->
+<view class='order-table mt-10'>
+  <view class="order-table-items">
+    <view class='order-table-head'>
+      <view class='order-table-name'>报告单号：{{outid}}</view>
+      <view class='order-table-time orange'>{{outstatus}}</view>
+    </view>
+    <view class='order-table-content'>
+      <view class='order-table-row'>
+        <view class='order-row-bar'>
+          <view class='order-bar-label'>客户卡号：</view>
+          <view class='order-bar-name'>{{outcard}}</view>
+        </view>
+        <view class='order-row-bar'>
+          <view class='order-bar-label'>客户名称：</view>
+          <view class='order-bar-name'>{{outname}}</view>
+        </view>
+        <view class='order-row-bar'>
+          <view class='order-bar-label'>鞋底材料：</view>
+          <view class='order-bar-name'>{{outsole}}</view>
+        </view>
+        <view class='order-row-bar'>
+          <view class='order-bar-label'>鞋底处理剂：</view>
+          <view class='order-bar-name'>{{outsoledrug}}</view>
+        </view>
+        <view class='order-row-bar'>
+          <view class='order-bar-label'>鞋面材料：</view>
+          <view class='order-bar-name'>{{outvamp}}</view>
+        </view>
+        <view class='order-row-bar'>
+          <view class='order-bar-label'>鞋面处理剂：</view>
+          <view class='order-bar-name'>{{outvampdrug}}</view>
+        </view>
+        <view class='order-row-bar'>
+          <view class='order-bar-label'>联系人：</view>
+          <view class='order-bar-name'>{{outperson}} {{outTel}}</view>
+          <image class='order-bar-icon' bindtap='bookTel' src='../../images/Tel.png'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='abnormal-record'>
+  <block wx:for="{{outRecord}}">
+    <view class="abnormal-record-items">
+      <view class='abnormal-record-name'>{{item.name}}</view>
+      <view class='abnormal-record-info'>{{item.info}}</view>
+      <view class='abnormal-record-time'>{{item.time}}</view>
+    </view>
+  </block>
+</view>
+
+
+<view class='fixed-bottom' wx:if="{{outstatus == '待确认'}}">确认</view>
+
+<navigator wx:if="{{outstatus == '待评价'}}" url="../workComment/workComment" hover-class='none'>
+  <view class='fixed-bottom'>去评价</view>
+</navigator>

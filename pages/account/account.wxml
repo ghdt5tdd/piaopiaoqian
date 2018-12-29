@@ -1,11 +1,20 @@
 <!--pages/account/account.wxml-->
+<view class="top-box">
+  <view class="search-box">
+    <image class='search-icon' src="../../images/search.png"></image>
+    <input placeholder="请输入关键字搜索" class='search-input' bindinput='bindSarchInput' value='{{searchVal}}' />
+    <image hidden='{{searchClear}}' class='search-clear' src="../../images/clear.png" bindtap='searchClear'></image>
+  </view>
+  <image class='book-add' bindtap='toAdd' src='../../images/add-orange.png'></image>
+</view>
+
 <scroll-view scroll-y="true" style="height:calc(100%);position:fixed;" bindscrolltolower="lower">
 <view class='account'>
-  <block wx:for="{{account}}" wx:key="id">
+  <block wx:for="{{filterAccount}}" wx:key="id">
     <view class="account-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove">
       <view class='account-info'>
         <!-- <view bindtap='permit' data-index="{{index}}"> -->
-        <view >
+        <view data-index="{{index}}" bindtap='permit' bindlongpress="longTap">
           <view class='account-name'>{{item.user_account}}</view>
           <view class='account-spec'>
             <view class='account-contacts'>{{item.full_name}}({{item.phone}})</view>
@@ -19,15 +28,15 @@
         </view>
 
       </view>
-      <view class='account-opt'>
+      <!-- <view class='account-opt'>
         <view class="edit" catchtap="edit" data-id="{{item.id}}">修改</view>
         <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
-      </view>
+      </view> -->
     </view>
   </block>
 </view>
 </scroll-view>
-<view class='fixed-bottom' bindtap='toAdd'>新增</view>
+<!-- <view class='fixed-bottom' bindtap='toAdd'>新增</view> -->
 
 <view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
 <view class='popup-permit' hidden="{{hidePermit}}">
@@ -48,4 +57,12 @@
     <view class='orange' bindtap='sure'>保存</view>
   </view>
   
+</view>
+<view class='popup-longTap' hidden='{{hideLongtap}}'>
+  <view class='longTap-opt'>绑定网点</view>
+  <view class='longTap-opt'>绑定车辆</view>
+  <view class='longTap-opt'>重置密码</view>
+  <view class='longTap-opt' bindtap='edit' data-id="{{item.id}}">修改</view>
+  <view class='longTap-opt' bindtap='del' data-id="{{item.id}}" data-index="{{index}}">删除</view>
+  <view class='longTap-opt' bindtap='hide'>取消</view>
 </view>

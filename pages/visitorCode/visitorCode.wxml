@@ -1,0 +1,15 @@
+<!--pages/visitorCode/visitorCode.wxml-->
+<view class='visitor-block'>
+  <view class='visitor-code'>
+    <view class='visitor-code-content'>
+      <view class='visitor-code-head'>尊敬的{{visitorname}}</view>
+      <view class='visitor-code-image'>
+        <image src='{{visitorcode}}'></image>
+      </view>
+      <view class='visitor-code-limit'>
+        <view>有效时间：{{visitorlimit}}</view>
+        <view>拜访时，请出示此二维码给保安人员</view>
+      </view>
+    </view>
+  </view>
+</view>

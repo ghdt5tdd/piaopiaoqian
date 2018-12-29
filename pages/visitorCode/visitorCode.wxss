@@ -1,0 +1,5 @@
+/* pages/visitorCode/visitorCode.wxss */
+@import '../visitorInfo/visitorInfo.wxss';
+.visitor-code{
+  background: none
+}

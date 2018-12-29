@@ -5,6 +5,9 @@
     <input placeholder="请输入关键字搜索" class='search-input' bindinput='bindSarchInput' value='{{searchVal}}' />
     <image hidden='{{searchClear}}' class='search-clear' src="../../images/clear.png" bindtap='searchClear'></image>
   </view>
+  <navigator url="../phonebookDept/phonebookDept" hover-class='none'>
+    <image class='book-dept' src='../../images/dept.png'></image>
+  </navigator>
   <image class='book-add' bindtap='bookAdd' src='../../images/add-orange.png'></image>
 </view>
 <view class='a-z'>

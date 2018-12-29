@@ -1,0 +1,12 @@
+<!--pages/daily/daily.wxml-->
+<view class='notice-block mb-40'>
+  <view class='notice-bar' wx:for="{{dailyBar}}">
+    <view>{{index+1}}</view>
+    <view class='notice-bar-time'>{{item.time}}</view>
+    <view class='notice-bar-name'>{{item.name}}</view>
+  </view>
+</view>
+
+<navigator url="../dailyAdd/dailyAdd" hover-class='none'>
+  <view class='fixed-bottom'>新增</view>
+</navigator>

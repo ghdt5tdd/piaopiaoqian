@@ -1,0 +1,119 @@
+<!--pages/out/out.wxml-->
+<view class='query'>
+  <view class='query-condition'>
+    <block wx:for="{{queryItems}}">
+      <view class="query-condition-items  {{item.status?'active':''}}">
+        <view hidden="{{!item.status}}" class='query-conditions-name'>{{item.name}}</view>
+        <input placeholder="{{item.name}}" bindinput='bindInput' value='{{item.val}}' data-index="{{index}}" />
+        <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-index="{{index}}"></image>
+      </view>
+    </block>
+  </view>
+  <view class='query-date'>
+    <block wx:for="{{queryDate}}">
+      <view class="query-date-items  {{item.status?'active':''}}">
+        <view hidden="{{!item.status}}" class='query-date-name'>{{item.name}}</view>
+        <view class='query-date-val' bindtap='showDate' data-index="{{index}}">{{item.val}}</view>
+        <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='DateClear' data-index="{{index}}"></image>
+      </view>
+      <view class="query-date-items" wx:if="{{0 == index}}">至</view>
+    </block>
+  </view>
+  <image class='query-search' src='../../images/search-big.png'></image>
+
+</view>
+
+
+<view class="order-status">
+  <view style='width:{{orderWidth}}'>
+    <block wx:for="{{orderStatus}}">
+      <view class="order-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+        {{item.name}}
+      </view>
+    </block>
+  </view>
+</view>
+
+
+<scroll-view scroll-y="true" style="height:calc(100% - 382rpx);position:fixed;top:302rpx;bottom:80rpx">
+  <view class='order-table'>
+    <block wx:for="{{outItems}}">
+      <view class="order-table-items">
+        <view class='order-table-head'>
+          <view class='order-table-name'>单号：{{item.id}}</view>
+          <view class='order-table-time'>{{item.time}}</view>
+        </view>
+        <navigator url="../outInfo/outInfo" hover-class='none'>
+          <view class='order-table-content'>
+            <view class='order-table-row'>
+              <view class='order-row-bar'>
+                <view class='order-bar-label'>客户卡号：</view>
+                <view class='order-bar-name'>{{item.card}}</view>
+              </view>
+              <view class='order-row-bar'>
+                <view class='order-bar-label'>客户名称：</view>
+                <view class='order-bar-name'>{{item.name}}</view>
+              </view>
+              <view class='order-row-bar'>
+                <view class='order-bar-label'>鞋底材料：</view>
+                <view class='order-bar-name'>{{item.sole}}</view>
+              </view>
+              <view class='order-row-bar'>
+                <view class='order-bar-label'>鞋底处理剂：</view>
+                <view class='order-bar-name'>{{item.soledrug}}</view>
+              </view>
+              <view class='order-row-bar'>
+                <view class='order-bar-label'>鞋面材料：</view>
+                <view class='order-bar-name'>{{item.vamp}}</view>
+              </view>
+              <view class='order-row-bar'>
+                <view class='order-bar-label'>鞋面处理剂：</view>
+                <view class='order-bar-name'>{{item.vampdrug}}</view>
+              </view>
+            </view>
+
+            <image class='order-table-to' src='../../images/next.png'></image>
+
+          </view>
+        </navigator>
+        <view class='order-table-opt'>
+          <view class='order-opt-status orange'>{{item.status}}</view>
+        </view>
+
+      </view>
+    </block>
+  </view>
+
+
+
+
+</scroll-view>
+<navigator url="../outAdd/outAdd" hover-class='none'>
+  <view class='fixed-bottom'>新增</view>
+</navigator>
+
+<view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
+
+<view class="canlendarBgView" wx:if="{{showDate}}">
+  <view class="canlendarView">
+    <view class="canlendarTopView">
+      <view class="leftBgView" bindtap="handleCalendar" data-handle="prev">
+        <view class="leftView">《</view>
+      </view>
+      <view class="centerView">{{cur_year || "--"}} 年 {{cur_month || "--"}} 月</view>
+      <view class="rightBgView" bindtap="handleCalendar" data-handle="next">
+        <view class="rightView">》</view>
+      </view>
+    </view>
+    <view class="weekBgView">
+      <view class="weekView" wx:for="{{weeks_ch}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
+    </view>
+    <view class="dateBgView">
+      <view wx:if="{{hasEmptyGrid}}" class="dateEmptyView" wx:for="{{empytGrids}}" wx:key="{{index}}" data-idx="{{index}}"> </view>
+      <view class="dateView" wx:for="{{days}}" wx:key="{{index}}" data-idx="{{index}}" bindtap="dateSelectAction">
+        <view class="datesView {{index == todayIndex ? 'dateSelectView' : ''}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,46 @@
+<!--pages/visitorForm/visitorForm.wxml-->
+<view class='abnormal-block'>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">姓名</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{visitorname}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">性别</text>
+    <view class="abnormal-bar-info">
+      <picker name="visitorType" bindchange="bindTypeChange" data-value="{{visitorType[indexType]}}" range="{{visitorType}}">
+        <view class="picker">
+          {{visitorType[indexType]}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">手机号</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{visitortel}}' type='number' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">身份证</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{visitorcard}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">所属公司</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{visitorcompany}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">所属部门</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{visitordept}}' type='text' value=''></input>
+    </view>
+  </view>
+</view>
+<navigator url="../visitorCode/visitorCode" hover-class='none'>
+  <view class='button-bottom'>确认</view>
+</navigator>

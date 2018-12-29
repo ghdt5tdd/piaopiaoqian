@@ -59,9 +59,14 @@
      <view class='my-bar-label'>硬件信息</view>
      <image src='../../images/next.png' class='my-bar-next'></image>
   </view>
-  <view class='my-bar' bindtap='toSuggest'>
+  <!-- <view class='my-bar' bindtap='toSuggest'>
      <image src='../../images/my6.png' class='my-bar-img'></image>
      <view class='my-bar-label'>建议反馈</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view> -->
+  <view class='my-bar' bindtap='toService'>
+     <image src='../../images/my7.png' class='my-bar-img'></image>
+     <view class='my-bar-label'>服务中心</view>
      <image src='../../images/next.png' class='my-bar-next'></image>
   </view>
 </view>

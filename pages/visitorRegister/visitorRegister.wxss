@@ -1,0 +1,2 @@
+/* pages/visitorRegister/visitorRegister.wxss */
+@import '../visitor/visitor.wxss';

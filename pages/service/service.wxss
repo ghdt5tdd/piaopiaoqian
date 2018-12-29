@@ -1,0 +1,30 @@
+/* pages/service/service.wxss */
+
+.notice-bar {
+  display: flex;
+  border-top: 1px solid #e7e7e7;
+  align-items: center;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  padding: 20rpx;
+  background: #fff;
+  position: relative
+}
+
+.notice-bar-img {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+}
+
+.notice-bar-next {
+  position: absolute;
+  width: 30rpx;
+  height: 30rpx;
+  right: 20rpx;
+  top: 35rpx;
+}
+
+.notice-bar-time{
+  margin: 0 20rpx;
+}

@@ -1,0 +1,23 @@
+<!--pages/workComment/workComment.wxml-->
+<view class='comment-bar mt-10'>
+  <view>整体评价</view>
+  <view class='comment-star'>
+    <view wx:for="{{commentStar}}" class="comment-star-pic  {{index == starSelect ? 'active':''}}" bindtap="changeEva" data-index="{{index}}">
+      <image src="{{item.pic}}" />
+    </view>
+  </view>
+</view>
+<view class='comment-bar'>
+  <view>问题情况</view>
+  <view class='comment-radio'>
+    <view wx:for="{{commentRadio}}" bindtap='selectRadio' data-index="{{index}}">
+      <image src="{{item.radio}}"></image>
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+</view>
+<view class='comment-textarea'>
+  <textarea placeholder='写下您对工单的评价'></textarea>
+</view>
+
+<view class='fixed-bottom'>确认</view>

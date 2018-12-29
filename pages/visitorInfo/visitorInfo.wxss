@@ -1,0 +1,82 @@
+/* pages/visitorInfo/visitorInfo.wxss */
+
+.visitor-head {
+  color: #fd8436;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  padding: 0 20rpx;
+}
+
+.visitor-row {
+  background: #fff;
+}
+
+.visitor-bar {
+  display: flex;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  border-bottom: 1px solid #e7e7e7;
+  padding: 0 20rpx;
+}
+
+.visitor-bar:last-child {
+  border: none;
+}
+
+.visitor-bar-label {
+  width: 160rpx;
+}
+
+.visitor-bar-info {
+  width: calc(100% - 160rpx);
+}
+
+.visitor-record {
+  background: #fff;
+  padding: 20rpx 0;
+}
+
+.visitor-record-item {
+  font-size: 30rpx;
+  line-height: 60rpx;
+  padding: 0 20rpx;
+}
+
+.visitor-code {
+  background: #fff;
+  padding: 60rpx 0;
+}
+
+.visitor-code-content {
+  width: 520rpx;
+  margin: auto;
+  border: 1px solid #fd8436;
+}
+
+.visitor-code-head {
+  background: #fd8436;
+  color: #fff;
+  font-size: 30rpx;
+  line-height: 50rpx;
+  padding: 20rpx;
+}
+
+.visitor-code-image {
+  width: 320rpx;
+  height: 320rpx;
+  margin: 80rpx auto;
+  font-size: 0;
+}
+
+.visitor-code-image image {
+  width: 320rpx;
+  height: 320rpx;
+}
+
+.visitor-code-limit {
+  background: #fd8436;
+  color: #fff;
+  font-size: 28rpx;
+  line-height: 46rpx;
+  padding: 20rpx;
+}

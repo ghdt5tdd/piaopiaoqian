@@ -1,0 +1,120 @@
+/* pages/work/work.wxss */
+
+.abnormal-block {
+  margin-top: 20rpx;
+  background: #fff;
+  padding: 0 20rpx;
+}
+
+.abnormal-bar {
+  display: flex;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.abnormal-bar-label {
+  width: 140rpx;
+}
+
+.abnormal-bar-info {
+  width: calc(100% - 140rpx);
+}
+
+.abnormal-bar-info input {
+  line-height: 80rpx;
+  height: 80rpx;
+}
+
+.abnormal-text {
+  margin-top: 20rpx;
+  background: #fff;
+  padding: 20rpx;
+}
+
+.abnormal-text textarea {
+  width: calc(100% - 40rpx);
+  border: 1px solid #e7e7e7;
+  padding: 20rpx;
+  line-height: 40rpx;
+  height: 200rpx;
+  font-size: 30rpx;
+}
+
+.abnormal-location {
+  position: relative;
+  padding-left: 40rpx;
+  line-height: 40rpx;
+  font-size: 30rpx;
+  color: #999;
+  padding-top: 20rpx;
+}
+
+.abnormal-location.active {
+  color: #333;
+}
+
+.abnormal-location image {
+  position: absolute;
+  left: 0;
+  top: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.abnormal-gallery {
+  margin-top: 20rpx;
+  background: #fff;
+}
+
+.abnormal-gallery-head {
+  padding: 20rpx 20rpx 10rpx;
+  font-size: 30rpx;
+  line-height: 40rpx;
+}
+
+.abnormal-gallery-info {
+  overflow: hidden;
+  padding: 0 10rpx 20rpx;
+}
+
+.abnormal-gallery-content {
+  float: left;
+}
+
+.abnormal-gallery-img, .abnormal-gallery-upload {
+  float: left;
+  padding: 10rpx;
+  position: relative;
+}
+
+.abnormal-gallery-img image, .abnormal-gallery-upload image {
+  width: 140rpx;
+  height: 140rpx;
+}
+
+.abnormal-gallery-img .delete-btn {
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  font-size: 30rpx;
+}
+
+.abnormal-gallery-spec {
+  position: relative;
+  padding: 10rpx 20rpx 30rpx;
+  line-height: 40rpx;
+  font-size: 30rpx;
+}
+
+.abnormal-gallery-spec text {
+  margin-right: 20rpx;
+}
+
+.abnormal-gallery-spec image {
+  position: absolute;
+  right: 20rpx;
+  top: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+}

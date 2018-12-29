@@ -1,0 +1,63 @@
+<!--pages/visitorInfo/visitorInfo.wxml-->
+<view class='visitor-block'>
+  <view class='visitor-head'>访客信息</view>
+  <view class='visitor-row'>
+    <view class='visitor-bar'>
+      <view class='visitor-bar-label'>邀请人：</view>
+      <view class='visitor-bar-name'>{{visitorguide}}</view>
+    </view>
+    <view class='visitor-bar'>
+      <view class='visitor-bar-label'>访客姓名：</view>
+      <view class='visitor-bar-name'>{{visitorname}}</view>
+    </view>
+    <view class='visitor-bar'>
+      <view class='visitor-bar-label'>访客性别：</view>
+      <view class='visitor-bar-name'>{{visitorsex}}</view>
+    </view>
+    <view class='visitor-bar'>
+      <view class='visitor-bar-label'>手机号：</view>
+      <view class='visitor-bar-name'>{{visitortel}}</view>
+    </view>
+    <view class='visitor-bar'>
+      <view class='visitor-bar-label'>身份证：</view>
+      <view class='visitor-bar-name'>{{visitorcard}}</view>
+    </view>
+    <view class='visitor-bar'>
+      <view class='visitor-bar-label'>所属公司：</view>
+      <view class='visitor-bar-name'>{{visitorcompany}}</view>
+    </view>
+    <view class='visitor-bar'>
+      <view class='visitor-bar-label'>所属部门：</view>
+      <view class='visitor-bar-name'>{{visitordept}}</view>
+    </view>
+    <view class='visitor-bar'>
+      <view class='visitor-bar-label'>访问状态：</view>
+      <view class='visitor-bar-name'>{{visitorstatus}}</view>
+    </view>
+  </view>
+</view>
+
+<view class='visitor-block'>
+  <view class='visitor-head'>访问记录（{{visitornum}}次）</view>
+  <view class='visitor-record'>
+    <view class='visitor-record-item' wx:for="{{visitorRecord}}">
+      在{{item.time}}拜访
+    </view>
+  </view>
+</view>
+
+<view class='visitor-block'>
+  <view class='visitor-head'>通行二维码</view>
+  <view class='visitor-code'>
+    <view class='visitor-code-content'>
+      <view class='visitor-code-head'>尊敬的{{visitorname}}</view>
+      <view class='visitor-code-image'>
+        <image src='{{visitorcode}}'></image>
+      </view>
+      <view class='visitor-code-limit'>
+        <view>有效时间：{{visitorlimit}}</view>
+        <view>拜访时，请出示此二维码给保安人员</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,36 @@
+/* pages/workComment/workComment.wxss */
+
+.comment-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  padding: 20rpx;
+  background: #fff;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.comment-bar view {
+  display: flex;
+  align-items: center;
+}
+
+.comment-radio image {
+  width: 40rpx;
+  height: 40rpx;
+  margin: 0 10rpx;
+}
+
+.comment-star-pic image {
+  width: 40rpx;
+  height: 40rpx;
+  padding-right: 10rpx;
+}
+
+.comment-textarea {
+  background: #fff;
+  padding: 20rpx;
+  font-size: 30rpx;
+  line-height: 40rpx;
+}

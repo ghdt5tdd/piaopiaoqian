@@ -30,7 +30,7 @@ page {
   height: 80rpx;
   text-align: center;
   font-size: 30rpx;
-  background: #fd8436;
+  background: #ff5102;
   color: #fff;
   margin: 40rpx 20rpx;
   border-radius: 10rpx;
@@ -88,6 +88,10 @@ page {
 
 .mt-10 {
   margin-top: 20rpx;
+}
+
+.mb-40{
+  margin-bottom: 80rpx;
 }
 
 input {
@@ -326,4 +330,17 @@ button::after {
 .order-bar-content {
   overflow: hidden;
   margin-right: -20rpx;
+}
+
+.order-table-content {
+  position: relative;
+}
+
+.order-table-to {
+  position: absolute;
+  width: 30rpx;
+  height: 30rpx;
+  right: 0;
+  top: 50%;
+  margin-top: -20rpx;
 }

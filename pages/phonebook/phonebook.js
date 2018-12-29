@@ -334,10 +334,10 @@ Page({
    */
   data: {
     searchVal: '',
+    searchClear: true,
     hide: true,
     hideBook: true,
     curBookDetail: null,
-    searchClear: true,
     scrollAZ: null,
     scrollNow: 0,
     bookResults: null,

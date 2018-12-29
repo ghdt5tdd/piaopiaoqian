@@ -1,0 +1,59 @@
+/* pages/outInfo/outInfo.wxss */
+@import '../appoint/appoint.wxss';
+
+.order-table-row {
+  padding: 20rpx 0;
+  border-top: 1px solid #e7e7e7;
+}
+
+.order-row-bar {
+  display: flex;
+  width: 100%;
+  font-size: 30rpx;
+  line-height: 50rpx;
+  align-items: flex-start;
+  position: relative;
+}
+
+.order-bar-name {
+  width: calc(100% - 180rpx);
+}
+
+.order-bar-icon {
+  position: absolute;
+  right: 0rpx;
+  top: 5rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.abnormal-record {
+  margin-top: 20rpx;
+  background: #fff;
+  margin-bottom: 80rpx;
+}
+
+.abnormal-record-items {
+  line-height: 40rpx;
+  border-bottom: 1px solid #e7e7e7;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx;
+  color: #999;
+}
+
+.abnormal-record-items:last-child {
+  border: none;
+}
+
+.abnormal-record-name {
+  width: 100rpx;
+  color: #333;
+}
+
+.abnormal-record-info {
+  width: calc(100% - 400rpx);
+  margin: 0 20rpx;
+  color: #333;
+}

@@ -1,0 +1,6 @@
+/* pages/phonebookDept/phonebookDept.wxss */
+@import '../phonebook/phonebook.wxss';
+
+.search-box {
+  width: calc(100% - 40rpx);
+}

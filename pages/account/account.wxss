@@ -1,8 +1,12 @@
 /* pages/account/account.wxss */
+@import '../phonebook/phonebook.wxss';
+
+.search-box {
+  width: calc(100% - 120rpx);
+}
 
 .account {
-  margin-top: 20rpx;
-  margin-bottom: 80rpx;
+  margin-top: 110rpx;
 }
 
 .account-item {
@@ -22,11 +26,6 @@
   width: 100%;
   font-size: 36rpx;
   line-height: 60rpx;
-  -webkit-transition: all 0.4s;
-  transition: all 0.4s;
-  -webkit-transform: translateX(200rpx);
-  transform: translateX(200rpx);
-  margin-left: -200rpx;
   padding: 20rpx 180rpx 20rpx 20rpx;
   position: relative;
 }
@@ -145,5 +144,26 @@
 }
 
 .popup-permit-role:last-child {
+  border: none;
+}
+
+.popup-longTap {
+  position: fixed;
+  z-index: 999;
+  background: #fff;
+  width: 100%;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.longTap-opt {
+  font-size: 28rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.longTap-opt:last-child {
+  background: #eee;
   border: none;
 }

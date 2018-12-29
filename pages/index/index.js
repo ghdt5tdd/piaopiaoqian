@@ -110,6 +110,13 @@ Page({
     })
   },
 
+  //跳转到服务中心页面
+  toService: function (e) {
+    wx.navigateTo({
+      url: '../service/service'
+    })
+  },
+
   //跳转到子账户页面
   toAccount: function(e) {
     wx.navigateTo({

@@ -1,0 +1,26 @@
+/* pages/visitorForm/visitorForm.wxss */
+.abnormal-block {
+  margin-top: 20rpx;
+  background: #fff;
+  padding: 0 20rpx;
+}
+
+.abnormal-bar {
+  display: flex;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.abnormal-bar-label {
+  width: 160rpx;
+}
+
+.abnormal-bar-info {
+  width: calc(100% - 160rpx);
+}
+
+.abnormal-bar-info input {
+  line-height: 80rpx;
+  height: 80rpx;
+}

@@ -1,0 +1,46 @@
+<!--pages/visitor/visitor.wxml-->
+<view class='order-status {{ul}}'>
+  <block wx:for="{{orderStatus}}">
+    <view class="order-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+      {{item.name}}
+    </view>
+  </block>
+</view>
+<scroll-view scroll-y="true" style="height:calc(100%- 186rpx);position:fixed;top:106rpx;bottom:80rpx">
+  <view class='order-table'>
+    <view class='order-table-items' wx:for="{{visitorRecord}}">
+      <view class='order-table-head'>
+        <view class='order-table-name'>访客：{{item.name}}</view>
+        <view class='order-table-time'>{{item.time}}</view>
+      </view>
+      <navigator url="../visitorInfo/visitorInfo" hover-class='none' wx:if="{{item.status != '待登记'}}">
+        <view class='order-table-content'>
+          <view class='order-table-row'>
+            <view class='order-row-bar'>
+              <view class='order-bar-label'>身份证：</view>
+              <view class='order-bar-name'>{{item.card}}</view>
+            </view>
+            <view class='order-row-bar'>
+              <view class='order-bar-label'>手机号：</view>
+              <view class='order-bar-name'>{{item.tel}}</view>
+            </view>
+            <view class='order-row-bar'>
+              <view class='order-bar-label'>访问次数：</view>
+              <view class='order-bar-name'>{{item.num}}</view>
+            </view>
+          </view>
+
+          <image class='order-table-to' src='../../images/next.png'></image>
+
+        </view>
+      </navigator>
+      <view class='order-table-opt'>
+        <view class='order-opt-status orange'>{{item.status}}</view>
+        <view class='order-opt-item on' wx:if="{{item.status == '已过期'}}">
+          <view>再次邀请</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<view class='fixed-bottom'>邀约新访客</view>

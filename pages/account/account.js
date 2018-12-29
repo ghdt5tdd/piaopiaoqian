@@ -6,9 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: { 
+    searchVal: '',
+    searchClear: true,
     page: 1,
     pageSize: 50,
     account: [],
+    filterAccount:[],
     hide: true,
     hidePermit: true,
     permitRole: [{
@@ -20,13 +23,26 @@ Page({
     }, {
       name: "普通操作者",
       icon: 'success_no_circle'
-    }]
+    }],
+    longClickIndex: -1,
+    //长按事件弹窗
+    hideLongtap: true
   },
 
   lower:function(e) {
     console.log(e)
   },
 
+  /// 长按事件
+  longTap: function (e) {
+    console.log("长按事件")
+    var index = e.currentTarget.dataset.index
+    this.setData({
+      hide: false,
+      hideLongtap: false,
+      longClickIndex: index,
+    })
+  },
 
 
   //手指触摸动作开始 记录起点X坐标
@@ -88,7 +104,7 @@ Page({
   },
 
   edit:function(e){
-    const id = e.currentTarget.dataset.id
+    const id = this.data.account[this.data.longClickIndex].id
     wx.navigateTo({
       url: '../accountEdit/accountEdit?id=' + id
     })
@@ -96,8 +112,11 @@ Page({
 
   //右滑删除事件
   del: function(e) {
+    this.setData({
+      hideLongtap: true,
+    })
     const index = e.currentTarget.dataset.index
-    const id = e.currentTarget.dataset.id
+    const id = this.data.account[this.data.longClickIndex].id
     wx.showLoading({
       title: '删除中...',
     })
@@ -106,13 +125,55 @@ Page({
     }, (err, res) => {
       wx.hideLoading()
       if (res && res.success) {
-        this.data.account.splice(index, 1)
+        let delIndex
+        const account = this.data.account
+        account.forEach((item, index) => {
+          if (item.id === id) {
+            delIndex = index
+          }
+        })
+        account.splice(delIndex, 1)
+
+        const filterAccount = account.filter(item => {
+          return item.phone.indexOf(this.data.searchVal) !== -1
+        })
+
+
         this.setData({
-          account: this.data.account
+          account,
+          filterAccount
         })
       }
     })	
 
+  },
+
+
+  //关键字搜索
+  bindSarchInput: function (e) {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 0
+    })
+
+    var inputVal = e.detail.value;
+    const filterAccount = this.data.account.filter(item => {
+      return item.phone.indexOf(inputVal) !== -1
+    })
+    this.setData({
+      filterAccount,
+      searchClear: false,
+      searchVal: inputVal
+    })
+  },
+
+  //清除搜索
+  searchClear: function (e) {
+    this.setData({
+      filterAccount: this.data.account,
+      searchClear: true,
+      searchVal: ''
+    })
   },
 
   //启用账号
@@ -193,6 +254,7 @@ Page({
     this.setData({
       hide: true,
       hidePermit: true,
+      hideLongtap: true,
     })
   }, 
 
@@ -237,7 +299,8 @@ Page({
         wx.hideLoading()
         console.log(res.data)
         this.setData({
-          account: res.data
+          account: res.data,
+          filterAccount: res.data
         })
       }
     })	

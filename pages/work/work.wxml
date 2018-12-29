@@ -1,0 +1,56 @@
+<!--pages/work/work.wxml-->
+<view class='abnormal-block'>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">优先级</text>
+    <view class="abnormal-bar-info">
+      <picker name="abnormalType" bindchange="bindTypeChange" data-value="{{abnormalType[indexType]}}" range="{{abnormalType}}">
+        <view class="picker">
+          {{abnormalType[indexType]}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">问题标题</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{abnormalTitle}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">联系人</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{abnormalName}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">联系方式</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{abnormalTel}}' type='number' value=''></input>
+    </view>
+  </view>
+</view>
+
+
+<view class='abnormal-text'>
+  <textarea placeholder='请详细描述您遇到的问题，可上传问题截图作为辅助说明'></textarea>
+</view>
+
+<view class='abnormal-gallery'>
+  <view class='abnormal-gallery-head'>问题截图</view>
+  <view class='abnormal-gallery-info'>
+    <view class='abnormal-gallery-content'>
+      <view class="abnormal-gallery-img" wx:for="{{imgs}}" wx:for-item="item" wx:key="*this">
+        <image src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
+        <icon class="delete-btn" type="clear" data-index="{{index}}" catchtap="deleteImg" />
+      </view>
+    </view>
+    <view class='abnormal-gallery-upload' bindtap="changePic">
+      <image src='../../images/picture1.png' mode="widthFix"></image>
+    </view>
+
+  </view>
+
+</view>
+
+
+<view class='button-bottom'>确认</view>

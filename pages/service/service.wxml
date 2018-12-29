@@ -1,0 +1,29 @@
+<!--pages/service/service.wxml-->
+<view class='notice-block'>
+  <view class='notice-bar'>
+    <image class='notice-bar-img' src='../../images/my8.png'></image>
+    <view class='notice-bar-name'>在线客服</view>
+    <image class='notice-bar-next' src='../../images/next.png'></image>
+  </view>
+  <!--在线客服和售前咨询都可以用小程序自带的客服消息做，例子5客蛋糕小程序-->
+  <view class='notice-bar'>
+    <image class='notice-bar-img' src='../../images/my9.png'></image>
+    <view class='notice-bar-name'>售前咨询</view>
+    <image class='notice-bar-next' src='../../images/next.png'></image>
+  </view>
+
+  <navigator url="../suggest/suggest" hover-class='none'>
+    <view class='notice-bar'>
+      <image class='notice-bar-img' src='../../images/my6.png'></image>
+      <view class='notice-bar-name'>投诉建议</view>
+      <image class='notice-bar-next' src='../../images/next.png'></image>
+    </view>
+  </navigator>
+  <navigator url="../workList/workList" hover-class='none'>
+    <view class='notice-bar'>
+      <image class='notice-bar-img' src='../../images/my10.png'></image>
+      <view class='notice-bar-name'>提交工单</view>
+      <image class='notice-bar-next' src='../../images/next.png'></image>
+    </view>
+  </navigator>
+</view>

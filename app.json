@@ -1,12 +1,13 @@
 {
   "pages": [
     "pages/welcome/welcome",
+    "pages/home/home",
     "pages/bind/bind",
     "pages/password/password",
     "pages/register/register",
     "pages/company/company",
     "pages/city/city",
-    "pages/home/home",
+
     "pages/newslist/newslist",
     "pages/news/news",
     "pages/reply/reply",
@@ -38,13 +39,29 @@
     "pages/changeTel/changeTel",
     "pages/guide/guide",
     "pages/code/code",
-    "pages/suggest/suggest",
     "pages/phonebook/phonebook",
     "pages/phonebookAdd/phonebookAdd",
+    "pages/phonebookDept/phonebookDept",
     "pages/notice/notice",
     "pages/noticeTransport/noticeTransport",
     "pages/form/form",
-    "pages/receive/receive"
+    
+    "pages/service/service",
+    "pages/workList/workList",
+    "pages/workInfo/workInfo",
+    "pages/workComment/workComment",
+    "pages/work/work",
+    "pages/suggest/suggest",
+    "pages/out/out",
+    "pages/outInfo/outInfo",
+    "pages/outAdd/outAdd",
+    "pages/daily/daily",
+    "pages/dailyAdd/dailyAdd",
+    "pages/visitor/visitor",
+    "pages/visitorInfo/visitorInfo",
+    "pages/visitorRegister/visitorRegister",
+    "pages/visitorForm/visitorForm",
+    "pages/visitorCode/visitorCode"
   ],
   "window": {
     "backgroundTextStyle": "light",

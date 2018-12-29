@@ -1,0 +1,95 @@
+/* pages/workInfo/workInfo.wxss */
+@import '../appoint/appoint.wxss';
+
+.order-table-row {
+  padding: 20rpx 0;
+  border-top: 1px solid #e7e7e7;
+}
+
+.order-row-bar {
+  display: flex;
+  width: 100%;
+  font-size: 30rpx;
+  line-height: 50rpx;
+  align-items: flex-start;
+}
+
+.order-bar-name {
+  width: calc(100% - 180rpx);
+}
+
+.abnormal-gallery {
+  margin-top: 20rpx;
+  background: #fff;
+}
+
+.abnormal-gallery-head {
+  padding: 20rpx 20rpx 10rpx;
+  font-size: 30rpx;
+  line-height: 40rpx;
+}
+
+.abnormal-gallery-info {
+  overflow: hidden;
+  padding: 0 10rpx;
+}
+
+.abnormal-gallery-img {
+  float: left;
+  padding: 10rpx;
+  width: calc(25% - 20rpx);
+}
+
+.abnormal-gallery-img image {
+  width: 100%;
+}
+
+.abnormal-gallery-spec {
+  position: relative;
+  padding: 10rpx 20rpx 30rpx;
+  line-height: 40rpx;
+  font-size: 30rpx;
+}
+
+.abnormal-gallery-spec text {
+  margin-right: 20rpx;
+}
+
+.abnormal-gallery-spec image {
+  position: absolute;
+  right: 20rpx;
+  top: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.abnormal-record {
+  margin-top: 20rpx;
+  background: #fff;
+  margin-bottom: 80rpx;
+}
+
+.abnormal-record-items {
+  line-height: 40rpx;
+  border-bottom: 1px solid #e7e7e7;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx;
+  color: #999;
+}
+
+.abnormal-record-items:last-child {
+  border: none;
+}
+
+.abnormal-record-name {
+  width: 100rpx;
+  color: #333;
+}
+
+.abnormal-record-info {
+  width: calc(100% - 320rpx);
+  margin: 0 20rpx;
+  color: #333;
+}

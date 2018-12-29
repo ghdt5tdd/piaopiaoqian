@@ -1,0 +1,59 @@
+<!--pages/outAdd/outAdd.wxml-->
+
+<view class='abnormal-block'>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">客户卡号</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{outcard}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">客户名称</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{outname}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">鞋底材料</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{outsole}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">鞋底处理剂</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{outsoledrug}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">鞋面材料</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{outvamp}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">鞋面处理剂</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{outvampdrug}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">联系人</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{outperson}}' type='text' value=''></input>
+    </view>
+  </view>
+  <view class='abnormal-bar'>
+    <text class="abnormal-bar-label">联系方式</text>
+    <view class="abnormal-bar-info">
+      <input placeholder='{{outTel}}' type='number' value=''></input>
+    </view>
+  </view>
+</view>
+
+
+<view class='abnormal-text'>
+  <textarea placeholder='可填写注意事项，可不填'></textarea>
+</view>
+
+<view class='button-bottom'>确认</view>

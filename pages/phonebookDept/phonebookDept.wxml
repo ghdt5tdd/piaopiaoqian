@@ -1,0 +1,37 @@
+<!--pages/phonebookDept/phonebookDept.wxml-->
+<view class="top-box">
+  <view class="search-box">
+    <image class='search-icon' src="../../images/search.png"></image>
+    <input placeholder="请输入关键字搜索" class='search-input' bindinput='bindSarchInput' value='{{searchVal}}' />
+    <image hidden='{{searchClear}}' class='search-clear' src="../../images/clear.png" bindtap='searchClear'></image>
+  </view>
+</view>
+
+<view class='book-item-content'>
+  <view wx:for="{{bookResults}}" wx:key="unique">
+    <view wx:if="{{item.bookPY.length > 1}}" class="touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove">
+      <view class='book-item' data-bookname='{{item.bookName}}' bindtap='bookDetail'>{{item.bookName}}</view>
+    </view>
+    <view wx:else class='book-item-A-Z' data-bookname='{{item.bookName}}'>{{item.bookName}}</view>
+  </view>
+</view>
+
+
+<view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
+<view class='popup-book' hidden="{{hideBook}}">
+  <image class='popup-book-logo' src='{{bookLogo}}'></image>
+  <view class='popup-book-info'>
+    <view class='popup-book-name'>{{bookName}}</view>
+    <view class='popup-book-contact'>
+      <text>{{bookContact}}</text>
+      <text>{{bookTel}}</text>
+    </view>
+    <image class='popup-book-dial' bindtap='bookTel' src='../../images/Tel.png'></image>
+  </view>
+  <view class='popup-book-spec'>
+    <view wx:for="{{bookSpec}}">
+      <view class='popup-book-label'>{{item.label}}：</view>
+      <view class='popup-book-note'>{{item.note}}</view>
+    </view>
+  </view>
+</view>

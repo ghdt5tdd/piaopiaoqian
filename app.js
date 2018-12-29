@@ -17,11 +17,10 @@ App({
       const secret = this.globalData.appSecret
       wx.login({
         success: res => {
-          console.log(res)
           ajax.getApi('mini/program/code2Session', {
             app_area: app_area,
             js_code: res.code,
-            key: '1'
+            app_id: this.globalData.appId
           }, (err, rest) => { 
             if (rest && rest.success) {
               const result = rest.data
@@ -69,6 +68,7 @@ App({
     piaopiaoQianAppArea: 'def2dbc9fddf415e8b96dc167ccea5dc',
     piaopiaoQianMemberId: 'ba154b8a17d94b298e3fb6feb3593a39',
     qqMapKey: 'NUTBZ-GQQK3-2HX3Q-YBQRB-MCEWK-V5BW3',
+    appId: 'wx25262e4c892d549e',
     openId: '',
     sessionKey: '',
     unionId: '',
