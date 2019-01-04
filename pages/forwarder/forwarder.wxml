@@ -1,0 +1,30 @@
+<!--pages/forwarder/forwarder.wxml-->
+<view class='search'>
+  <input placeholder='输入承运商名称查询'></input>
+  <icon type='search'></icon>
+</view>
+<scroll-view scroll-y class='forwarder-content'>
+  <view class='forwarder-list'>
+    <view class='forwarder-item' wx:for="{{forwarderList}}" bindtap='toSend' data-index="{{index}}">
+      <view class='forwarder-item-head'>
+        <image class='forwarder-item-logo' src='{{item.logo}}'></image>
+        <view class='forwarder-item-name'>{{item.name}}</view>
+        <view class='forwarder-item-spec'>{{item.spec}}</view>
+      </view>
+      <view class='forwarder-item-info'>
+        <view class='forwarder-item-bar'>
+          <image src='../../images/send-tel.png'></image>
+          <view>{{item.tel}}</view>
+        </view>
+        <view class='forwarder-item-bar'>
+          <image src='../../images/send-by.png'></image>
+          <view>{{item.by}}</view>
+        </view>
+        <view class='forwarder-item-bar'>
+          <image src='../../images/send-location.png'></image>
+          <view>{{item.location}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

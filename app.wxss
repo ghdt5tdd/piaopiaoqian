@@ -344,3 +344,126 @@ button::after {
   top: 50%;
   margin-top: -20rpx;
 }
+
+/**下单功能补充公共部分**/
+
+.red {
+  color: #e51c24 !important;
+}
+
+.orange {
+  color: #fd914c !important;
+}
+
+.pop-shadow {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+  height: 100%;
+  z-index: 886;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.pop-up {
+  position: fixed;
+  z-index: 888;
+  background: #fff;
+}
+
+.pop-head {
+  font-size: 30rpx;
+  padding: 20rpx;
+  background: #ebebeb;
+  line-height: 60rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pop-head .save {
+  color: #faaf18;
+}
+
+.pop-cancel {
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+  font-size: 42rpx;
+}
+
+.pop-bottom {
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  background: #ff5102;
+}
+
+.search {
+  border-radius: 10rpx;
+  margin: 20rpx;
+  background: #fff;
+  padding: 10rpx 80rpx 10rpx 50rpx;
+  font-size: 30rpx;
+  position: relative;
+}
+
+.search icon {
+  position: absolute;
+  top: 0;
+  padding: 15rpx 20rpx;
+  right: 0;
+  font-size: 40rpx;
+}
+
+.search input {
+  line-height: 60rpx;
+  height: 60rpx;
+}
+
+.button-tip {
+  font-size: 28rpx;
+  text-align: center;
+  color: #ff5102;
+  margin-top: 40rpx;
+}
+
+.button-bottom {
+  line-height: 80rpx;
+  height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  background: #ff5102;
+  color: #fff;
+  margin: 40rpx 20rpx;
+  border-radius: 10rpx;
+}
+
+.button-bottom-half {
+  display: flex;
+  margin: 40rpx 10rpx;
+}
+
+.button-bottom-half button {
+  line-height: 80rpx;
+  height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  background: #ff5102;
+  color: #fff;
+  margin: 0 10rpx;
+  width: calc(50% - 20rpx);
+  border-radius: 10rpx;
+}
+
+.button-bottom-half navigator {
+  margin: 0 10rpx;
+  width: calc(50% - 20rpx);
+}
+
+.button-bottom-half navigator button {
+  width: 100%;
+  margin: 0;
+}
+

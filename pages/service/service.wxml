@@ -1,29 +1,42 @@
 <!--pages/service/service.wxml-->
-<view class='notice-block'>
-  <view class='notice-bar'>
-    <image class='notice-bar-img' src='../../images/my8.png'></image>
-    <view class='notice-bar-name'>在线客服</view>
-    <image class='notice-bar-next' src='../../images/next.png'></image>
-  </view>
-  <!--在线客服和售前咨询都可以用小程序自带的客服消息做，例子5客蛋糕小程序-->
-  <view class='notice-bar'>
-    <image class='notice-bar-img' src='../../images/my9.png'></image>
-    <view class='notice-bar-name'>售前咨询</view>
-    <image class='notice-bar-next' src='../../images/next.png'></image>
+<form bindsubmit="formSubmit" report-submit="true">
+
+  <view class='section'>
+    <view class="section-bar">
+      <view class="section-title">保价声明</view>
+      <view class="section-info">
+        <input name="support" type='number' placeholder='请填写货物实际价值'></input>
+      </view>
+      <text>元</text>
+    </view>
+    <view class="section-bar"  wx:if="{{!showCollect}}">
+      <view class="section-title">是否有代收款</view>
+      <view class="section-info gray">
+        暂未开通代收款业务
+      </view>
+    </view>
+    <view class="section-bar" wx:if="{{showCollect}}">
+      <view class="section-title">代收货款</view>
+      <view class="section-info">
+        <input name="collect" type='number' placeholder='请填写代收货款'></input>
+      </view>
+      <text>元</text>
+    </view>
+
+    <view class="section-bar">
+      <view class="section-title">回单</view>
+      <view class="section-info">
+        <picker bindchange="bindBill" data-bill="{{bill}}" value="{{index}}" range="{{array}}">
+          <view class="picker">
+            {{array[index]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
   </view>
 
-  <navigator url="../suggest/suggest" hover-class='none'>
-    <view class='notice-bar'>
-      <image class='notice-bar-img' src='../../images/my6.png'></image>
-      <view class='notice-bar-name'>投诉建议</view>
-      <image class='notice-bar-next' src='../../images/next.png'></image>
-    </view>
-  </navigator>
-  <navigator url="../workList/workList" hover-class='none'>
-    <view class='notice-bar'>
-      <image class='notice-bar-img' src='../../images/my10.png'></image>
-      <view class='notice-bar-name'>提交工单</view>
-      <image class='notice-bar-next' src='../../images/next.png'></image>
-    </view>
-  </navigator>
-</view>
+
+  <button class='button-bottom' formType="submit">确认</button>
+
+</form>

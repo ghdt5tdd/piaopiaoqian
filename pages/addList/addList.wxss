@@ -1,0 +1,2 @@
+/* pages/addList/addList.wxss */
+@import '../addSend/addSend.wxss';

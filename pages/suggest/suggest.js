@@ -6,7 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    suggest: "" 
+    suggest: "",
+    abnormalType: ['功能建议', '产品缺陷'],
+    indexType: 0,
+    abnormalTitle: "请填写标题，15字以内",
+    abnormalName: "请填写联系人",
+    abnormalTel: "请填写联系方式",
   },
 
   suggest: function(e) {
@@ -14,6 +19,58 @@ Page({
       suggest: e.detail.value
     })
   },
+
+  //优先级
+  bindTypeChange: function (e) {
+    this.setData({
+      indexType: e.detail.value
+    })
+  },
+
+  //上传图片
+  changePic: function (e) {
+    var that = this // 不能直接用this，留坑
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        var tempFilePaths = res.tempFilePaths;
+
+
+        var imgs = that.data.imgs;
+
+        for (var i = 0; i < tempFilePaths.length; i++) {
+          if (imgs.length >= 4) {
+            that.setData({
+              imgs: imgs
+            });
+            return false;
+          } else {
+            imgs.push(tempFilePaths[i]);
+          }
+        }
+        that.setData({
+          imgs: imgs,
+        });
+
+      }
+    })
+
+  },
+
+
+  // 删除图片
+  deleteImg: function (e) {
+    var imgs = this.data.imgs;
+    var index = e.currentTarget.dataset.index;
+    imgs.splice(index, 1);
+    this.setData({
+      imgs: imgs,
+    });
+  },
+
 
   commit: function() {
     const feedback_content = this.data.suggest

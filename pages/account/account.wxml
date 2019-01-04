@@ -61,8 +61,8 @@
 <view class='popup-longTap' hidden='{{hideLongtap}}'>
   <view class='longTap-opt'>绑定网点</view>
   <view class='longTap-opt'>绑定车辆</view>
-  <view class='longTap-opt'>重置密码</view>
-  <view class='longTap-opt' bindtap='edit' data-id="{{item.id}}">修改</view>
-  <view class='longTap-opt' bindtap='del' data-id="{{item.id}}" data-index="{{index}}">删除</view>
+  <view class='longTap-opt' bindtap='resetPass' >重置密码</view>
+  <view class='longTap-opt' bindtap='edit'>修改</view>
+  <view class='longTap-opt' bindtap='del' data-index="{{index}}">删除</view>
   <view class='longTap-opt' bindtap='hide'>取消</view>
 </view>

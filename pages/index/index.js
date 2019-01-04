@@ -113,7 +113,7 @@ Page({
   //跳转到服务中心页面
   toService: function (e) {
     wx.navigateTo({
-      url: '../service/service'
+      url: '../custom/custom'
     })
   },
 

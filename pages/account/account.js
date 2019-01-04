@@ -30,7 +30,7 @@ Page({
   },
 
   lower:function(e) {
-    console.log(e)
+    console.log(e) 
   },
 
   /// 长按事件
@@ -103,6 +103,93 @@ Page({
     return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
   },
 
+  bindNetwork () {
+    this.setData({
+      hide: true,
+      hideLongtap: true,
+    })
+
+    {
+      wx.showLoading({
+        title: '目前不支持此功能...',
+      })
+      return ;
+    }
+
+    const id = this.data.account[this.data.longClickIndex].id
+    const user_account = this.data.account[this.data.longClickIndex].user_account
+    wx.showLoading({
+      title: '绑定网点中...',
+    })
+    ajax.postApi('app/member/subAccountBindBranch', {
+      subAccountId: id,
+      branchId : null
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.showModal({
+          title: '绑定成功!',
+          content: '子账户' + user_account + '已绑定网点：',
+        })
+      }
+    })	
+  },
+
+  bindVehicle() {
+    this.setData({
+      hide: true,
+      hideLongtap: true,
+    })
+
+    {
+      wx.showLoading({
+        title: '目前不支持此功能...',
+      })
+      return;
+    }
+
+    const id = this.data.account[this.data.longClickIndex].id
+    const user_account = this.data.account[this.data.longClickIndex].user_account
+    wx.showLoading({
+      title: '绑定车辆中...',
+    })
+    ajax.postApi('app/member/subAccountBindVehicle', {
+      subAccountId: id,
+      vehicleId: null
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.showModal({
+          title: '绑定成功!',
+          content: '子账户' + user_account + '已绑定车辆：',
+        })
+      }
+    })	
+  },
+
+  resetPass:function(e){
+    this.setData({
+      hide: true,
+      hideLongtap: true,
+    })
+    const id = this.data.account[this.data.longClickIndex].id
+    const user_account = this.data.account[this.data.longClickIndex].user_account
+    wx.showLoading({
+      title: '重置中...',
+    })
+    ajax.postApi('app/member/resetSubAccountPassword', {
+      id
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.showModal({
+          title: '重置成功!',
+          content: '子账户' + user_account + '的密码为888888',
+        })
+      }
+    })	
+  },
+
   edit:function(e){
     const id = this.data.account[this.data.longClickIndex].id
     wx.navigateTo({
@@ -113,6 +200,7 @@ Page({
   //右滑删除事件
   del: function(e) {
     this.setData({
+      hide: true,
       hideLongtap: true,
     })
     const index = e.currentTarget.dataset.index
@@ -180,13 +268,15 @@ Page({
   set: function(e) {
     const id = e.currentTarget.dataset.id
     const index = e.currentTarget.dataset.index
-    let state = this.data.account[index].state
+    let state = this.data.filterAccount[index].state
 
+    console.log(state)
     if(state === '1') {
       state = '0'
     }else {
       state = '1'
     }
+    console.log(state)
 
     wx.showLoading({
       title: '修改状态中...',
@@ -194,21 +284,16 @@ Page({
 
     ajax.postApi('app/member/setSubAccountState', {
       id,
-      state: this.data.account[index].state
+      state,
     }, (err, res) => {
       wx.hideLoading()
       if (res && res.success) {
-        this.data.account[index].state = state
+        this.data.filterAccount[index].state = state
         this.setData({
-          account: this.data.account
+          filterAccount: this.data.filterAccount
         })
       }
     })
-    console.log(index)
-    console.log(id)
-    // this.setData({
-    //   account: account
-    // })
   },
 
   //账号授权
@@ -216,7 +301,7 @@ Page({
     wx.setStorageSync('permitindex', e.currentTarget.dataset.index)
     this.setData({
       hide: false,
-      hidePermit: false,
+      hidePermit: false, 
     })
   },
 

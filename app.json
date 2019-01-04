@@ -7,7 +7,7 @@
     "pages/register/register",
     "pages/company/company",
     "pages/city/city",
-
+    "pages/custom/custom",
     "pages/newslist/newslist",
     "pages/news/news",
     "pages/reply/reply",
@@ -45,8 +45,6 @@
     "pages/notice/notice",
     "pages/noticeTransport/noticeTransport",
     "pages/form/form",
-    
-    "pages/service/service",
     "pages/workList/workList",
     "pages/workInfo/workInfo",
     "pages/workComment/workComment",
@@ -61,7 +59,17 @@
     "pages/visitorInfo/visitorInfo",
     "pages/visitorRegister/visitorRegister",
     "pages/visitorForm/visitorForm",
-    "pages/visitorCode/visitorCode"
+    "pages/visitorCode/visitorCode",
+
+    "pages/send/send",
+    "pages/addSend/addSend",
+    "pages/addReceive/addReceive",
+    "pages/addCreate/addCreate",
+    "pages/addEdit/addEdit",
+    "pages/cargo/cargo",
+    "pages/service/service",
+    "pages/forwarder/forwarder",
+    "pages/addList/addList"
   ],
   "window": {
     "backgroundTextStyle": "light",

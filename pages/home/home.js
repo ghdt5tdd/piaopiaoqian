@@ -15,6 +15,13 @@ moduleItemImgs.set('9', { img: '../../images/model3.png', to: 'toSign' })//货�
 //这两个暂时还没有
 moduleItemImgs.set('7', { img: '../../images/model3.png', to: '' })//预约订单
 moduleItemImgs.set('8', { img: '../../images/model3.png', to: 'toReceive' })//货运单接受
+
+//新加的，还没确定
+moduleItemImgs.set('10', { img: '../../images/model10.png', to: 'toOut' })//外出报告
+moduleItemImgs.set('11', { img: '../../images/model11.png', to: 'toDaily' })//工作报告
+moduleItemImgs.set('12', { img: '../../images/model12.png', to: 'toVisitor' })//访客邀约
+moduleItemImgs.set('13', { img: '../../images/model13.png', to: 'toRegister' })//访客登记
+
 Page({
 
   /**
@@ -129,6 +136,34 @@ Page({
     this.setData({
       hideList: param == 1 ? (!this.data.hideList) : false,
     });
+  },
+
+  //跳转到外出报告页面
+  toOut: function (e) {
+    wx.navigateTo({
+      url: '../out/out'
+    })
+  },
+
+  //跳转到工作报告页面
+  toDaily: function (e) {
+    wx.navigateTo({
+      url: '../daily/daily'
+    })
+  },
+
+  //跳转到访客邀约页面
+  toVisitor: function (e) {
+    wx.navigateTo({
+      url: '../visitor/visitor'
+    })
+  },
+
+  //跳转到访客登记页面
+  toRegister: function (e) {
+    wx.navigateTo({
+      url: '../visitorRegister/visitorRegister'
+    })
   },
 
   //跳转到新闻列表页面
