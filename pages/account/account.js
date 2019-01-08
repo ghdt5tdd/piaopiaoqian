@@ -270,13 +270,11 @@ Page({
     const index = e.currentTarget.dataset.index
     let state = this.data.filterAccount[index].state
 
-    console.log(state)
     if(state === '1') {
       state = '0'
     }else {
       state = '1'
     }
-    console.log(state)
 
     wx.showLoading({
       title: '修改状态中...',
