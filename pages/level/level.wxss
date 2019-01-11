@@ -1,0 +1,50 @@
+/* pages/goodsdetail/goodsdetail.wxss */
+
+.level-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30rpx;
+  padding: 20rpx;
+  line-height: 60rpx;
+}
+
+.level-head-left{
+  display: flex;
+  align-items: center;
+}
+
+
+.level-head  text {
+  color: #fd914c;
+}
+
+.table {
+  display: table;
+  width: 100%;
+}
+
+.goodsTable .tr {
+  display: table-row;
+  width: 100%;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.goodsTable .th, .goodsTable .td {
+  display: table-cell;
+  line-height: 80rpx;
+  white-space: nowrap;
+  padding: 0 10rpx;
+  background: #fff;
+  border-bottom: 1px solid #e7e7e7;
+  border-right: 1px solid #e7e7e7;
+}
+
+.goodsTable .th:last-child, .goodsTable .td:last-child{
+  border-right:none
+}
+
+.goodsTable .tr:last-child .td {
+  background: none !important;
+}

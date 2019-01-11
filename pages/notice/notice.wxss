@@ -17,6 +17,21 @@
   margin-right: 20rpx;
 }
 
+.notice-bar-num{
+  position: absolute;
+  padding: 0 8rpx;
+  min-width: 26rpx;
+  text-align: center;
+  background: #e52019;
+  color: #fff;
+  font-size: 26rpx;
+  border-radius: 20rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  right: 70rpx;
+  top: 30rpx;  
+}
+
 .notice-bar-next {
   position: absolute;
   width: 30rpx;

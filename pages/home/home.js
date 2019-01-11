@@ -1,6 +1,7 @@
 // pages/home/home.js
 const ajax = require('../../utils/ajax.js')
 const util = require('../../utils/util.js') 
+const storage = require('../../utils/storage.js') 
 const app = getApp()
 const moduleItemImgs = new Map()
 moduleItemImgs.set('0', { img: '../../images/model1.png', to: 'toOrder' })//订单查询
@@ -29,7 +30,8 @@ Page({
    */
   data: {
     vipAvatar: "../../images/avatar-sy.png",
-    vipLevel: "../../images/Vip2.png",
+    vipLevel: "level0",
+    vipNum: "../../images/b_blue_4.gif",
     vipName: "长安物流",
     vipSpec: "LV1",
     optScan: "../../images/scan-m.png",
@@ -44,6 +46,7 @@ Page({
       name: "预约下单",
       to: 'toAppoint'
     }],
+    memberServiceRate:{},
     memberInfo: null,
     banner: "../../images/banner.jpg",
     newsList: [],
@@ -136,6 +139,13 @@ Page({
     this.setData({
       hideList: param == 1 ? (!this.data.hideList) : false,
     });
+  },
+
+  //跳转到承运商服务详情统计页面
+  toLevel: function (e) {
+    wx.navigateTo({
+      url: '../level/level'
+    })
   },
 
   //跳转到外出报告页面
@@ -252,9 +262,36 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.setTabBarBadge({//未读消息
+      index: 2,
+      text: '3',
+    });
+    this.getServiceRating()
     this.getMemberInfo()
     this.getNewsList()
     this.getModulesByRole()
+  },
+
+  getServiceRating() {
+    const memberServiceRate = storage.get('memberServiceRate' + app.globalData.memberInfo.id)
+    if (!memberServiceRate) {
+      ajax.getApi('app/member/getServiceRating', {
+
+      }, (err, res) => {
+        if (res && res.success) {
+          storage.set('memberServiceRate' + app.globalData.memberInfo.id, res.data, 24 * 60 * 60)
+          this.setData({
+            memberServiceRate: res.data,
+            vipLevel: 'level' + res.data.service_level
+          })
+        }
+      })
+    } else {
+      this.setData({
+        memberServiceRate,
+        vipLevel: 'level' + memberServiceRate.service_level
+      })
+    }
   },
 
   getModulesByRole () {

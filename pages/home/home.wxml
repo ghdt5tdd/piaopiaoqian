@@ -2,9 +2,10 @@
   <view class='top-bar-info'>
     <view class='vip-avatar'>
       <image src='{{memberInfo.head_img}}'></image>
-      <image class='vip-icon' src='{{vipLevel}}'></image>
     </view>
-    <view class='vip-name'>{{memberInfo.user_account}}
+    <view class='vip-name' bindtap='toLevel'>
+      <view>{{memberInfo.user_account}}</view>
+      <image class='{{vipLevel}}' mode='aspectFit' src='{{vipNum}}'></image>
       <!-- <text>({{vipSpec}})</text>,您好 -->
       </view>
   </view>

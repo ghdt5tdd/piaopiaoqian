@@ -11,17 +11,18 @@
 .top-bar-info {
   display: flex;
   font-size: 30rpx;
+  align-items: center
 }
 
 .vip-avatar {
   position: relative;
   margin-right: 20rpx;
+  height: 40rpx;
 }
 
 .vip-avatar image {
   width: 40rpx;
   height: 40rpx;
-  border: 1px solid #fd914c;
   border-radius: 50%;
 }
 
@@ -33,6 +34,11 @@
   height: 16rpx;
   border-radius: 0;
   border: none;
+}
+
+.vip-name {
+  display: flex;
+  align-items: center
 }
 
 .top-bar-opt image {
@@ -146,7 +152,7 @@
 .module-list {
   background: #fff;
   margin-top: 20rpx;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .module-items {
@@ -157,17 +163,16 @@
   border-right: 1px solid #e7e7e7;
   display: flex;
   font-size: 32rpx;
-  align-items: center
+  align-items: center;
 }
 
-.module-items:nth-child(even)  {
+.module-items:nth-child(even) {
   border-right: none;
   width: calc(50% - 80rpx - 1px);
 }
 
-.module-items image{
+.module-items image {
   width: 70rpx;
   height: 70rpx;
-  margin-right: 20rpx
+  margin-right: 20rpx;
 }
-

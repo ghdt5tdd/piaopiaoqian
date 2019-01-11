@@ -9,20 +9,24 @@ Page({
     noticeBar: [{
       img: "../../images/notice1.png",
       name: "通知公告",
+      num: '',
       to: ""
     }, {
       img: "../../images/notice2.png",
       name: "运单消息",
+      num: '',
       to: "toTransport"
     }, {
       img: "../../images/notice3.png",
       name: "订单消息",
+      num: '3',
       to: ""
     }, {
       img: "../../images/notice4.png",
       name: "异常消息",
+      num: '',
       to: ""
-    }, ]
+    },]
 
   },
 

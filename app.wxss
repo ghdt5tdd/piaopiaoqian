@@ -467,3 +467,34 @@ button::after {
   margin: 0;
 }
 
+/**等级图片**/
+
+image.level5, image.level4, image.level3, image.level2, image.level1 {
+  height: 32rpx;
+  margin-left: 10rpx;
+  width: 176rpx;
+}
+
+image.level5 {
+  width: 176rpx;
+}
+
+image.level4 {
+  width: 140rpx;
+}
+
+image.level3 {
+  width: 104rpx;
+}
+
+image.level2 {
+  width: 68rpx;
+}
+
+image.level1 {
+  width: 32rpx;
+}
+
+image.level0 {
+  width: 0rpx;
+}

@@ -62,6 +62,7 @@ App({
         }
       }
     })
+    
   },
   globalData: {
     platformAppArea: 'wlhn',

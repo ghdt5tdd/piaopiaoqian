@@ -69,7 +69,8 @@
     "pages/cargo/cargo",
     "pages/service/service",
     "pages/forwarder/forwarder",
-    "pages/addList/addList"
+    "pages/addList/addList",
+    "pages/level/level"
   ],
   "window": {
     "backgroundTextStyle": "light",
