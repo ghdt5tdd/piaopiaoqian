@@ -1,4 +1,9 @@
 // pages/goodsdetail/goodsdetail.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const storage = require('../../utils/storage.js')
+const app = getApp()
+
 Page({
 
   /**
@@ -6,9 +11,11 @@ Page({
    */
   data: {
     levelTotal: "1081",
-    levelNum: "level4",
+    vipLevel: "level0",
     levelPic: "../../images/b_blue_4.gif",
     levelRate: "28%",
+    levelDatas:[],
+    memberServiceRate: {},
     tableTh: [{
       title: ""
     }, {
@@ -108,22 +115,93 @@ Page({
         name: "28%"
       }, ]
     }, ]
+  },
+
+  getServiceReport() {
+
+    const memberServiceReport = storage.get('memberServiceReport' + app.globalData.memberInfo.id)
+    if (!memberServiceReport) {
+      wx.showLoading({
+        title: '数据获取中',
+      })
+      ajax.getApi('app/member/getServiceReport', {
+
+      }, (err, res) => {
+        wx.hideLoading()
+        if (res && res.success) {
+          const levelDatas = res.data
+
+          levelDatas.forEach(v => {
+            v.favorable_rating *= 100
+          })
+          storage.put('memberServiceReport' + app.globalData.memberInfo.id, levelDatas, 12 * 60 * 60)
+          this.setData({
+            levelDatas
+          })
+
+        } else {
+          if (res.text) {
+            wx.showToast({
+              title: res.text,
+              duration: 1000
+            })
+          }
+        }
+      })	
+    } else {
+      this.setData({
+        levelDatas: memberServiceReport,
+      })
+    }
 
 
+  },
 
 
+  getServiceRating() {
+    const memberServiceRate = storage.get('memberServiceRate' + app.globalData.memberInfo.id)
+    if (!memberServiceRate) {
+      ajax.getApi('app/member/getServiceRating', {
 
+      }, (err, res) => {
+        if (res && res.success) {
+          const serviceRate = res.data
+          serviceRate.favorable_rating *= 100
+          storage.put('memberServiceRate' + app.globalData.memberInfo.id, serviceRate, 12 * 60 * 60)
+          this.setData({
+            memberServiceRate: serviceRate,
+            vipLevel: 'level' + serviceRate.icon_number,
+            levelTotal: serviceRate.total_order_number,
+            levelRate: serviceRate.favorable_rating,
+            levelPic: '../../images/b_blue_' + serviceRate.icon_number + '.gif'
+          })
+        }
+      })
+    } else {
+      this.setData({
+        memberServiceRate,
+        vipLevel: 'level' + memberServiceRate.icon_number,
+        levelTotal: memberServiceRate.total_order_number,
+        levelRate: memberServiceRate.favorable_rating,
+        levelPic: '../../images/b_blue_' + memberServiceRate.icon_number + '.gif'
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
+    this.setWidth()
+    this.getServiceReport()
+    this.getServiceRating()
+  },
+
+  setWidth() {
     //计算宽度
     var query = wx.createSelectorQuery();
     var that = this;
-    query.select('.table').boundingClientRect(function(rect) {
+    query.select('.table').boundingClientRect(function (rect) {
       console.log(rect.width)
       that.setData({
         goodsWidth: rect.width + 'px'

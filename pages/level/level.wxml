@@ -3,9 +3,9 @@
   <view class='level-head-left'>
     <view>承运商累计服务:<text>{{levelTotal}}</text>
     </view>
-    <image class='{{levelNum}}' mode='aspectFit' src='{{levelPic}}'></image>
+    <image class='{{vipLevel}}' mode='aspectFit' src='{{levelPic}}'></image>
   </view>
-  <view>服务率:<text>{{levelRate}}</text>
+  <view>服务率:<text>{{levelRate}}%</text>
   </view>
 </view>
 
@@ -18,9 +18,45 @@
           {{item.title}}
         </view>
       </view>
-      <view class="tr" wx:for="{{tableTr}}">
-        <view class='td' wx:for="{{item.td}}">
-          {{item.name}}
+      <view class="tr" wx:for="{{levelDatas}}">
+        <view class='td'>
+          {{item.total_time}}
+        </view>
+        <view class='td'>
+          {{item.favorable_order_number}}
+        </view>
+        <view class='td'>
+          {{item.middle_order_number}}
+        </view>
+        <view class='td'>
+          {{item.negative_order_number}}
+        </view>
+        <view class='td'>
+          {{item.total_order_number}}
+        </view>
+        <view class='td'>
+          {{item.favorable_rating}}%
+        </view>
+      </view>
+      <!-- 总计字段 -->
+      <view class="tr">
+        <view class='td'>
+          总计
+        </view>
+        <view class='td'>
+          {{memberServiceRate.favorable_order_number}}
+        </view>
+        <view class='td'>
+          {{memberServiceRate.middle_order_number}}
+        </view>
+        <view class='td'>
+          {{memberServiceRate.negative_order_number}}
+        </view>
+        <view class='td'>
+          {{memberServiceRate.total_order_number}}
+        </view>
+        <view class='td'>
+          {{memberServiceRate.favorable_rating}}%
         </view>
       </view>
     </view>

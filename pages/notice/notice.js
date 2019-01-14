@@ -1,4 +1,6 @@
 // pages/notice/notice.js
+const ajax = require('../../utils/ajax.js')
+const app = getApp()
 var order = ['red', 'yellow', 'blue', 'green', 'red']
 Page({
 
@@ -6,28 +8,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    noticeBar: [{
-      img: "../../images/notice1.png",
-      name: "通知公告",
-      num: '',
-      to: ""
-    }, {
-      img: "../../images/notice2.png",
-      name: "运单消息",
-      num: '',
-      to: "toTransport"
-    }, {
-      img: "../../images/notice3.png",
-      name: "订单消息",
-      num: '3',
-      to: ""
-    }, {
-      img: "../../images/notice4.png",
-      name: "异常消息",
-      num: '',
-      to: ""
-    },]
-
+    exceptionMessageCount: 0,
+    noticeCount: 0,
+    sellerOrderMessageCount: 0,
+    shopOrderMessageCount: 0
   },
 
 //运单消息
@@ -41,10 +25,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getUnreadMessageCount()
   },
 
+  getUnreadMessageCount() {
+    ajax.getApi('app/member/getUnreadMessageCount', {
 
+    }, (err, res) => {
+      if (res && res.success) {
+        const exceptionMessageCount = res.data.exceptionMessageCount
+        const noticeCount = res.data.noticeCount
+        const sellerOrderMessageCount = res.data.sellerOrderMessageCount
+        const shopOrderMessageCount = res.data.shopOrderMessageCount
+        this.setData({
+          exceptionMessageCount,
+          noticeCount,
+          sellerOrderMessageCount,
+          shopOrderMessageCount
+        })
+      }
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

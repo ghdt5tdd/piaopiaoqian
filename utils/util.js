@@ -16,7 +16,7 @@ const formatNumber = n => {
 
 /**
  *获取当前时间
- *state=1精确到分
+ *state=1年月日且精确到秒，不传为年月日
 */
 function getFormatDate(state, dateStr) {
   var now = new Date();
@@ -47,6 +47,9 @@ function getFormatDate(state, dateStr) {
   return time;
 }
 
+/**
+ * 处理图片地址
+ */
 function handleImgUrl (obj, imgKey) {
   if(obj instanceof Array) {
     obj.forEach(v => {
@@ -63,6 +66,11 @@ function handleImgUrl (obj, imgKey) {
   }
 }
 
+/**
+ * 处理日期，获取日期加减天数后的日期
+ * @datestr 日期字符串
+ * @days 要加减的天数
+ */
 function addDate(datestr, days) {
   if (days == undefined || days == '') {
     days = 1;
@@ -92,6 +100,9 @@ function getFormatDate2(arg) {
   return re;
 }
 
+/**
+ * 生成随机32位字符串
+ */
 function RandomUUID() {
   var s = [];
   var hexDigits = "0123456789abcdef";
@@ -106,6 +117,11 @@ function RandomUUID() {
   return uuid;
 }
 
+/**
+ * 将根据图片路径转为base64
+ * @imgPath 图片路径
+ * @callback 成功回调函数
+ */
 function ImgPathToBase64(imgPath, callback) {
   console.log(imgPath)
   wx.getFileSystemManager().readFile({
@@ -134,6 +150,21 @@ function compareDate(date1, date2) {
   return result
 }
 
+
+/**
+ * 获取url中的参数
+ * @url 完整url
+ * @key 参数键值
+ */
+function getQueryString(url, key) {
+  var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+  var r = url.substr(1).match(reg);
+  if (r != null) {
+    return unescape(r[2]);   
+  }
+  return null;
+} 
+
 module.exports = {
   formatTime,
   handleImgUrl,
@@ -142,4 +173,5 @@ module.exports = {
   getFormatDate,
   compareDate,
   addDate,
+  getQueryString,
 }

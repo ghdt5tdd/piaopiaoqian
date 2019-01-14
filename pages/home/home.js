@@ -262,14 +262,30 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.setTabBarBadge({//未读消息
-      index: 2,
-      text: '3',
-    });
+    this.getUnreadMessageCount()
     this.getServiceRating()
     this.getMemberInfo()
     this.getNewsList()
     this.getModulesByRole()
+  },
+
+  getUnreadMessageCount() {
+    ajax.getApi('app/member/getUnreadMessageCount', {
+
+    }, (err, res) => {
+      if (res && res.success) {
+        const unReadNum = res.data.exceptionMessageCount +
+          res.data.noticeCount +
+          res.data.sellerOrderMessageCount +
+          res.data.shopOrderMessageCount
+        if (unReadNum > 0) {
+          wx.setTabBarBadge({//未读消息
+            index: 2,
+            text: unReadNum,
+          });
+        }
+      }
+    })
   },
 
   getServiceRating() {
@@ -279,17 +295,20 @@ Page({
 
       }, (err, res) => {
         if (res && res.success) {
-          storage.set('memberServiceRate' + app.globalData.memberInfo.id, res.data, 24 * 60 * 60)
+          serviceRate.favorable_rating *= 100
+          storage.put('memberServiceRate' + app.globalData.memberInfo.id, res.data, 12 * 60 * 60)
           this.setData({
             memberServiceRate: res.data,
-            vipLevel: 'level' + res.data.service_level
+            vipLevel: 'level' + res.data.icon_number,
+            vipNum: '../../images/b_blue_' + res.data.icon_number +'.gif' 
           })
         }
       })
     } else {
       this.setData({
         memberServiceRate,
-        vipLevel: 'level' + memberServiceRate.service_level
+        vipLevel: 'level' + memberServiceRate.icon_number,
+        vipNum: '../../images/b_blue_' + memberServiceRate.icon_number + '.gif' 
       })
     }
   },
@@ -388,7 +407,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+  
   },
 
   /**

@@ -1,4 +1,8 @@
 // pages/noticeTransport/noticeTransport.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const storage = require('../../utils/storage.js')
+const app = getApp()
 Page({
 
   /**
@@ -7,9 +11,11 @@ Page({
   data: {
     ul: 'ul-2',
     orderStatus: [{
-      name: "未读"
+      name: "未读",
+      value: 0
     }, {
-      name: "已读"
+      name: "已读",
+      value: 1
     }],
     selectStatus: 0,
 
@@ -38,12 +44,18 @@ Page({
   },
 
 
+  getMyShopOrderMessageList() {
+    wx.showLoading({
+      title: '获取消息中...'
+    })
+    
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getMyShopOrderMessageList()
   },
 
   /**
