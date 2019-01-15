@@ -149,7 +149,7 @@ Page({
       qr.makeCode(url);
     } else {
       qr = new QRCode('canvas', {
-        text: id,
+        text: url,
         width: 125,
         height: 125,
         colorDark: "#000000",
@@ -200,15 +200,18 @@ Page({
     wx.scanCode({
       success: (res) => {
         const api = res.result
-        const x = this.data.x
+        const x = this.data.x 
         const y = this.data.y
-        if (station && station.indexOf('mini/program/station') !== -1 && station.indexOf('action=jj') !== -1) {
+        if (api && api.indexOf('ppq') !== -1 && api.indexOf('action=jj') !== -1) {
           wx.showLoading({
             title: '正在交接运单...',
           })
-          const url = encodeURI('https://fall.wlhn.com/fallapp-child-dlxapp/app/order/setOrderDriverTransfer?id=' + id + '&x=' + x + '&y=' + y + '&type=0')
-          ajax.postApi(station, {
-            url
+          const id = util.getQueryString(api, 'id')
+          ajax.postApi('app/order/setOrderDriverTransfer', {
+            id,
+            x,
+            y,
+            type: 0
           }, (err, res) => {
             wx.hideLoading()
             if (res && res.success) {

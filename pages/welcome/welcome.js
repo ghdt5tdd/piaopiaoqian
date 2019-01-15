@@ -12,11 +12,6 @@ Page({
   },
 
   onLoad: function (options) {
-    console.log(util.getQueryString('https://fall.wlhn.com/fallapp-child-dlxapp-userlla/app/order/getShopOrderList?orderNo=&state=0&startDate=2019-01-07&endDate=2019-01-14&consigneeCode=&page=1&pageSize=10&loadCompleted=false', 'startDate'))
-    // wx.showModal({
-    //   title: '页面参数',
-    //   content: (JSON.stringify(options)),
-    // })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

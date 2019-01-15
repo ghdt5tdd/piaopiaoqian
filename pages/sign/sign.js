@@ -543,16 +543,18 @@ Page({
   showScan: function () {
     wx.scanCode({
       success: (res) => {
-        const station = res.result
+        const api = res.result
         const x = this.data.longitude
         const y = this.data.latitude
-        if (station && station.indexOf('mini/program/station') !== -1 && station.indexOf('action=qs') !== -1) {
+        if (api && api.indexOf('ppq') !== -1 && api.indexOf('action=qs') !== -1) {
           wx.showLoading({
             title: '正在签收运单...',
           })
-          const url = encodeURI('https://fall.wlhn.com/fallapp-child-dlxapp/app/order/receiptShopOrder?idList=' + id +'&location=' + x + ',' + y)
-          ajax.postApi(station, {
-            url
+          const id = util.getQueryString(api, 'id')
+          // const ac = util.getQueryString(api, 'ac')
+          ajax.postApi('app/order/receiptShopOrder', {
+            idList: id,
+            location: x + ',' + y
           }, (err, res) => {
             wx.hideLoading()
             if (res && res.success) {

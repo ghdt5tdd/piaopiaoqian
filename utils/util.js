@@ -158,7 +158,8 @@ function compareDate(date1, date2) {
  */
 function getQueryString(url, key) {
   var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
-  var r = url.substr(1).match(reg);
+  const paramsIndex = url.indexOf('?')
+  var r = url.substr(paramsIndex + 1).match(reg);
   if (r != null) {
     return unescape(r[2]);   
   }

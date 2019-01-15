@@ -146,7 +146,7 @@ Page({
       qr.makeCode(url);
     } else {
       qr = new QRCode('canvas', {
-        text: id,
+        text: url,
         width: 125,
         height: 125,
         colorDark: "#000000",
@@ -196,16 +196,18 @@ Page({
   showScan: function () {
     wx.scanCode({
       success: (res) => {
-        const id = res.result
+        const api = res.result
         const x = this.data.x
         const y = this.data.y
-        if (id && id.length === 32) {
+        if (api && api.indexOf('ppq') !== -1 && api.indexOf('action=jj') !== -1) {
           wx.showLoading({
             title: '正在交接运单...',
           })
+          const id = util.getQueryString(api, 'id')
           ajax.postApi('app/order/setOrderDriverTransfer', {
             id,
-            x,y,
+            x,
+            y,
             type: 0
           }, (err, res) => {
             wx.hideLoading()
@@ -227,15 +229,15 @@ Page({
                 duration: 1000
               })
             }
-          }, true)	
-        }else {
+          }, true)
+        } else {
           wx.showToast({
             title: '错误的二维码内容',
           })
         }
 
       },
-      fail: function(res) {
+      fail: function (res) {
         wx.showToast({
           title: '扫码失败',
         })
