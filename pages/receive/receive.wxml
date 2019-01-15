@@ -75,7 +75,7 @@
         <view class='order-table-opt'>
           <view class='order-opt-status'>{{item.order_state}}</view>
           <view class='order-opt-tip'>{{handoverTip}}</view>
-          <image class='order-opt-code' bindtap='showCode' data-no="{{item.bill_no}}" data-id="{{item.id}}" data-index="{{index}}" src='../../images/code.png'></image>
+          <image class='order-opt-code' bindtap='showCode' data-no="{{item.bill_no}}" data-url="{{item.qrcodeURL}}" data-index="{{index}}" src='../../images/code.png'></image>
         </view>
 
       </view>

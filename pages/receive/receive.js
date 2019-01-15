@@ -131,7 +131,7 @@ Page({
       title: '二维码生成中...',
     })
     const no = e.currentTarget.dataset.no
-    const id = e.currentTarget.dataset.id
+    const url = e.currentTarget.dataset.url
     setTimeout(() => {
       wx.hideLoading()
     }, 1000)
@@ -143,7 +143,7 @@ Page({
     })
 
     if (qr) {
-      qr.makeCode(id);
+      qr.makeCode(url);
     } else {
       qr = new QRCode('canvas', {
         text: id,

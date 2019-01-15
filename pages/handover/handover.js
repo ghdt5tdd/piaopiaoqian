@@ -134,7 +134,7 @@ Page({
       title: '二维码生成中...',
     })
     const no = e.currentTarget.dataset.no
-    const id = e.currentTarget.dataset.id
+    const url = e.currentTarget.dataset.url
     setTimeout(() => {
       wx.hideLoading()
     }, 1000)
@@ -146,7 +146,7 @@ Page({
     })
 
     if (qr) {
-      qr.makeCode(id);
+      qr.makeCode(url);
     } else {
       qr = new QRCode('canvas', {
         text: id,
@@ -202,13 +202,13 @@ Page({
         const api = res.result
         const x = this.data.x
         const y = this.data.y
-        if (api && api.indexOf('app/order/setOrderDriverTransfer') !== -1) {
+        if (station && station.indexOf('mini/program/station') !== -1 && station.indexOf('action=jj') !== -1) {
           wx.showLoading({
             title: '正在交接运单...',
           })
-          ajax.postApi(api, {
-            x,y,
-            type: 0
+          const url = encodeURI('https://fall.wlhn.com/fallapp-child-dlxapp/app/order/setOrderDriverTransfer?id=' + id + '&x=' + x + '&y=' + y + '&type=0')
+          ajax.postApi(station, {
+            url
           }, (err, res) => {
             wx.hideLoading()
             if (res && res.success) {

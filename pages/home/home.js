@@ -295,6 +295,7 @@ Page({
 
       }, (err, res) => {
         if (res && res.success) {
+          const serviceRate = res.data
           serviceRate.favorable_rating *= 100
           storage.put('memberServiceRate' + app.globalData.memberInfo.id, res.data, 12 * 60 * 60)
           this.setData({

@@ -61,6 +61,7 @@
     "pages/visitorForm/visitorForm",
     "pages/visitorCode/visitorCode",
 
+    "pages/receive/receive",
     "pages/send/send",
     "pages/addSend/addSend",
     "pages/addReceive/addReceive",

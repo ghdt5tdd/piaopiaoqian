@@ -223,13 +223,13 @@ Page({
       }
     })
   },
-  showScan:function(){
-    wx.scanCode({
-      success: function (res) {
-        console.log(res)
-      }
-    })
-  },
+  // showScan:function(){
+  //   wx.scanCode({
+  //     success: function (res) {
+  //       console.log(res)
+  //     }
+  //   })
+  // },
 
   resetQuery: function () {
     let cur_day = this.data.cur_day

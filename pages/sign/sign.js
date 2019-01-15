@@ -543,16 +543,16 @@ Page({
   showScan: function () {
     wx.scanCode({
       success: (res) => {
-        const id = res.result
+        const station = res.result
         const x = this.data.longitude
         const y = this.data.latitude
-        if (id && id.length === 32) {
+        if (station && station.indexOf('mini/program/station') !== -1 && station.indexOf('action=qs') !== -1) {
           wx.showLoading({
             title: '正在签收运单...',
           })
-          ajax.postApi('app/order/receiptShopOrder', {
-            idList: id,
-            location: x + ',' + y,
+          const url = encodeURI('https://fall.wlhn.com/fallapp-child-dlxapp/app/order/receiptShopOrder?idList=' + id +'&location=' + x + ',' + y)
+          ajax.postApi(station, {
+            url
           }, (err, res) => {
             wx.hideLoading()
             if (res && res.success) {
@@ -569,7 +569,7 @@ Page({
               })
             } else {
               wx.showToast({
-                title: res.text || '接口失败',
+                title: res.text || '签收失败',
                 duration: 1000
               })
             }
