@@ -10,12 +10,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    levelTotal: "1081",
+    levelTotal: "0",
     vipLevel: "level0",
     levelPic: "../../images/b_blue_4.gif",
-    levelRate: "28%",
+    levelRate: "0",
     levelDatas:[],
-    memberServiceRate: {},
+    memberServiceRate: {
+      favorable_order_number: 0,
+      middle_order_number: 0,
+      negative_order_number: 0,
+      total_order_number: 0,
+      favorable_rating: 0,
+    },
     tableTh: [{
       title: ""
     }, {
@@ -173,7 +179,7 @@ Page({
             vipLevel: 'level' + serviceRate.icon_number,
             levelTotal: serviceRate.total_order_number,
             levelRate: serviceRate.favorable_rating,
-            levelPic: '../../images/b_blue_' + serviceRate.icon_number + '.gif'
+            levelPic: serviceRate.res.data.icon_file
           })
         }
       })
@@ -183,7 +189,7 @@ Page({
         vipLevel: 'level' + memberServiceRate.icon_number,
         levelTotal: memberServiceRate.total_order_number,
         levelRate: memberServiceRate.favorable_rating,
-        levelPic: '../../images/b_blue_' + memberServiceRate.icon_number + '.gif'
+        levelPic: memberServiceRate.icon_file
       })
     }
   },

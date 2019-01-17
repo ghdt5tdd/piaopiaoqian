@@ -123,8 +123,6 @@ Page({
       return;
     }
 
-
-
     if (this.data.getlocation) {
       wx.showLoading({
         title: '正在签收中...',
@@ -306,8 +304,6 @@ Page({
   showSign: function(e) {
     const index = e.currentTarget.dataset.index
     
-    console.log(this.data.now)
-    console.log(util.getFormatDate(1))
     this.setData({
       hide: false,
       hideSign: false,
@@ -546,20 +542,49 @@ Page({
         const api = res.result
         const x = this.data.longitude
         const y = this.data.latitude
-        if (api && api.indexOf('ppq') !== -1 && api.indexOf('action=qs') !== -1) {
-          wx.showLoading({
-            title: '正在签收运单...',
-          })
+        if (api && api.indexOf('ppq') !== -1 && api.indexOf('ac=') !== -1) {
           const id = util.getQueryString(api, 'id')
-          // const ac = util.getQueryString(api, 'ac')
-          ajax.postApi('app/order/receiptShopOrder', {
-            idList: id,
-            location: x + ',' + y
-          }, (err, res) => {
+          const ac = util.getQueryString(api, 'ac')
+
+          let mApi,
+            par,
+            successText,
+            loadingText
+          switch (ac) {
+            case 'qs':
+              mApi = 'app/order/receiptShopOrder'
+              par = {
+                idList: id,
+                location: x + ',' + y
+              }
+              successText = '签收成功'
+              loadingText = '正在签收运单...'
+              break;
+            case 'jj':
+              mApi = 'app/order/setOrderDriverTransfer'
+              par = {
+                id,
+                x,
+                y,
+                type: 0
+              }
+              successText = '交接成功'
+              loadingText = '正在交接运单...'
+              break;
+            default:
+              wx.showLoading({
+                title: 'ac_error',
+              })
+              return;
+          }
+          wx.showLoading({
+            title: loadingText,
+          })
+          ajax.postApi(mApi, par, (err, res) => {
             wx.hideLoading()
             if (res && res.success) {
               wx.showToast({
-                title: '签收成功',
+                title: successText,
               })
               this.data.query.page = 1
               this.data.query.loadCompleted = false
@@ -571,11 +596,11 @@ Page({
               })
             } else {
               wx.showToast({
-                title: res.text || '签收失败',
+                title: res.text || '访问失败',
                 duration: 1000
               })
             }
-          }, true)
+          })
         } else {
           wx.showToast({
             title: '错误的二维码内容',

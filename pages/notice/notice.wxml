@@ -3,13 +3,13 @@
   <view class='notice-bar' >
     <image class='notice-bar-img' src='../../images/notice1.png'></image>
     <view class='notice-bar-name' >通知公告</view>
-    <view class='notice-bar-num' wx:if="{{exceptionMessageCount > 0}}" >{{exceptionMessageCount}}</view>
+    <view class='notice-bar-num' wx:if="{{noticeCount > 0}}" >{{noticeCount}}</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>
   </view>
   <view class='notice-bar' bindtap='toTransport'>
     <image class='notice-bar-img' src='../../images/notice2.png'></image>
     <view class='notice-bar-name' >运单消息</view>
-    <view class='notice-bar-num' wx:if="{{noticeCount > 0}}" >{{noticeCount}}</view>
+    <view class='notice-bar-num' wx:if="{{shopOrderMessageCount > 0}}" >{{shopOrderMessageCount}}</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>
   </view>
   <view class='notice-bar'>
@@ -21,7 +21,7 @@
   <view class='notice-bar' >
     <image class='notice-bar-img' src='../../images/notice4.png'></image>
     <view class='notice-bar-name' >异常消息</view>
-    <view class='notice-bar-num' wx:if="{{shopOrderMessageCount > 0}}" >{{shopOrderMessageCount}}</view>
+    <view class='notice-bar-num' wx:if="{{exceptionMessageCount > 0}}" >{{exceptionMessageCount}}</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>
   </view>
 </view>

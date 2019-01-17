@@ -469,7 +469,7 @@ button::after {
 
 /**等级图片**/
 
-image.level5, image.level4, image.level3, image.level2, image.level1 {
+image.level5, image.level4, image.level3, image.level2, image.level1, image.level0 {
   height: 32rpx;
   margin-left: 10rpx;
   width: 176rpx;

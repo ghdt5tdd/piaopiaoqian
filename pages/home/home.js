@@ -301,7 +301,8 @@ Page({
           this.setData({
             memberServiceRate: res.data,
             vipLevel: 'level' + res.data.icon_number,
-            vipNum: '../../images/b_blue_' + res.data.icon_number +'.gif' 
+            // vipNum: '../../images/b_blue_' + res.data.icon_number +'.gif' 
+            vipNum: res.data.icon_file
           })
         }
       })
@@ -309,7 +310,7 @@ Page({
       this.setData({
         memberServiceRate,
         vipLevel: 'level' + memberServiceRate.icon_number,
-        vipNum: '../../images/b_blue_' + memberServiceRate.icon_number + '.gif' 
+        vipNum: memberServiceRate.icon_file 
       })
     }
   },

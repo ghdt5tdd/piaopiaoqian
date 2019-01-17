@@ -1,6 +1,6 @@
 // pages/handover/handover.js
 const ajax = require('../../utils/ajax.js')
-const util = require('../../utils/util.js')
+const util = require('../../utils/util.js') 
 const QRCode = require('../../utils/weapp-qrcode.js')
 let qr
 Page({
@@ -199,21 +199,49 @@ Page({
         const api = res.result
         const x = this.data.x
         const y = this.data.y
-        if (api && api.indexOf('ppq') !== -1 && api.indexOf('action=jj') !== -1) {
-          wx.showLoading({
-            title: '正在交接运单...',
-          })
+        if (api && api.indexOf('ppq') !== -1 && api.indexOf('ac=') !== -1) {
           const id = util.getQueryString(api, 'id')
-          ajax.postApi('app/order/setOrderDriverTransfer', {
-            id,
-            x,
-            y,
-            type: 0
-          }, (err, res) => {
+          const ac = util.getQueryString(api, 'ac')
+
+          let mApi,
+           par,
+           successText,
+           loadingText
+          switch(ac) {
+            case 'qs':
+              mApi = 'app/order/receiptShopOrder'
+              par = {
+                idList: id,
+                location: x + ',' + y
+              }
+              successText = '签收成功'
+              loadingText = '正在签收运单...'
+              break;
+            case 'jj':
+              mApi = 'app/order/setOrderDriverTransfer'
+              par = {
+                id,
+                x,
+                y,
+                type: 0
+              }
+              successText = '交接成功'
+              loadingText = '正在交接运单...'
+              break;
+            default:
+              wx.showLoading({
+                title: 'ac_error',
+              })
+              return ;
+          }
+          wx.showLoading({
+            title: loadingText,
+          })
+          ajax.postApi(mApi, par, (err, res) => {
             wx.hideLoading()
             if (res && res.success) {
               wx.showToast({
-                title: '交接成功',
+                title: successText,
               })
               this.data.query.page = 1
               this.data.query.loadCompleted = false
@@ -225,14 +253,14 @@ Page({
               })
             } else {
               wx.showToast({
-                title: res.text || '接口失败',
+                title: res.text || '访问失败',
                 duration: 1000
               })
             }
-          }, true)
+          })
         } else {
           wx.showToast({
-            title: '错误的二维码内容',
+            title: '错误二维码',
           })
         }
 
