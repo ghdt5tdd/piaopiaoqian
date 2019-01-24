@@ -193,9 +193,13 @@ Page({
         }
 
         this.setData({
-          shoporderDetailId,
           saleOrderDetail
         })
+        if (shoporderDetailId) {
+          this.setData({
+            shoporderDetailId
+          })
+        }
       } else {
         wx.showToast({
           title: res.text,

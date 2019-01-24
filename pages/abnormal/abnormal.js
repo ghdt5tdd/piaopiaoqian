@@ -106,7 +106,7 @@ Page({
     const loadCompleted = this.data.loadCompleted
     if (!loadCompleted) {
       wx.showLoading({
-        title: '更多数据加载中...',
+        title: '更多数据加载中...', 
       })
       page++
       this.setData({

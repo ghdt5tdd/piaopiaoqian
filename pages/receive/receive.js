@@ -199,45 +199,43 @@ Page({
         const api = res.result
         const x = this.data.x
         const y = this.data.y
-        if (api && api.indexOf('ppq') !== -1 && api.indexOf('ac=') !== -1) {
+        if (api && api.indexOf('ppq') !== -1) {
           const id = util.getQueryString(api, 'id')
           const ac = util.getQueryString(api, 'ac')
 
-          let mApi,
-           par,
+          let 
            successText,
            loadingText
-          switch(ac) {
-            case 'qs':
-              mApi = 'app/order/receiptShopOrder'
-              par = {
-                idList: id,
-                location: x + ',' + y
-              }
-              successText = '签收成功'
-              loadingText = '正在签收运单...'
-              break;
-            case 'jj':
-              mApi = 'app/order/setOrderDriverTransfer'
-              par = {
-                id,
-                x,
-                y,
-                type: 0
-              }
-              successText = '交接成功'
-              loadingText = '正在交接运单...'
-              break;
-            default:
-              wx.showLoading({
-                title: 'ac_error',
-              })
-              return ;
+
+          if(ac) {
+            switch (ac) {
+              case 'qs':
+                successText = '签收成功'
+                loadingText = '正在签收运单...'
+                break;
+              case 'jj':
+                successText = '交接成功'
+                loadingText = '正在交接运单...'
+                break;
+              default:
+                wx.showLoading({
+                  title: 'ac_error',
+                })
+                return;
+            }
+          } else {
+            successText = '处理成功'
+            loadingText = '正在处理运单...'
           }
           wx.showLoading({
             title: loadingText,
           })
-          ajax.postApi(mApi, par, (err, res) => {
+          ajax.postApi('app/order/scanReceiptAndTransferShopOrder', {
+            id,
+            x,
+            y,
+            type: 0
+          }, (err, res) => {
             wx.hideLoading()
             if (res && res.success) {
               wx.showToast({

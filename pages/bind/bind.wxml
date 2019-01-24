@@ -15,7 +15,7 @@
   </view>
   <view class='bind-page'>
     <view bindtap='toPassword'>忘记密码</view>
-    <view bindtap='toRegister'>注册账号</view>
+    <!-- <view bindtap='toRegister'>注册账号</view> -->
   </view>
   
   <button class='button-bottom' formType="submit">登陆</button>
