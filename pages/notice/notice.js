@@ -21,6 +21,14 @@ Page({
     })
   },
 
+  //订单消息
+  toOrder: function (e) {
+    wx.navigateTo({
+      url: '../noticeOrder/noticeOrder'
+    })
+  },
+
+
   /**
    * 生命周期函数--监听页面加载
    */

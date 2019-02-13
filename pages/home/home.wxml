@@ -5,9 +5,15 @@
     </view>
     <view class='vip-name' bindtap='toLevel'>
       <view>{{memberInfo.user_account}}</view>
-      <image class='{{vipLevel}}' mode='aspectFit' src='{{vipNum}}'></image>
-      <!-- <text>({{vipSpec}})</text>,您好 -->
+      <view class="vip-level level-{{vipLevel}}">
+        <image src='{{vipNum}}'></image>
+        <image src='{{vipNum}}'></image>
+        <image src='{{vipNum}}'></image>
+        <image src='{{vipNum}}'></image>
+        <image src='{{vipNum}}'></image>
       </view>
+      <!-- <text>({{vipSpec}})</text>,您好 -->
+    </view>
   </view>
   <view class='top-bar-opt'>
     <!-- <image class='top-opt-scan' src='{{optScan}}'></image> -->

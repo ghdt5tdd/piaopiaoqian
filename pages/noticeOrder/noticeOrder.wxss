@@ -1,5 +1,4 @@
-/* pages/noticeTransport/noticeTransport.wxss */
-
+/* pages/noticeOrder/noticeOrder.wxss */
 .notice {
   background: #fff;
   margin-top: 1rpx

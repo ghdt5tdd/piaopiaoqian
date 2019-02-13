@@ -45,6 +45,7 @@
   position: relative;
   padding-left: 140rpx;
   font-size: 34rpx;
+  height: 140rpx;
 }
 
 .company-logo {

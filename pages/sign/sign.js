@@ -167,7 +167,11 @@ Page({
     const comment = this.data.comment
     const imgs = JSON.stringify(this.data.imgs)
 
-    if (comment === '') {}
+    if (comment === '') {
+      wx.showToast({
+        title: '请进行评价',
+      })
+    }
     wx.showLoading({
       title: '评价提交中...',
     })

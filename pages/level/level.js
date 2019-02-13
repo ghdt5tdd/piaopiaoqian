@@ -11,7 +11,7 @@ Page({
    */
   data: {
     levelTotal: "0",
-    vipLevel: "level0",
+    vipLevel: "0",
     levelPic: "../../images/b_blue_4.gif",
     levelRate: "0",
     levelDatas:[],
@@ -176,7 +176,7 @@ Page({
           storage.put('memberServiceRate' + app.globalData.memberInfo.id, serviceRate, 12 * 60 * 60)
           this.setData({
             memberServiceRate: serviceRate,
-            vipLevel: 'level' + serviceRate.icon_number,
+            vipLevel: serviceRate.icon_number,
             levelTotal: serviceRate.total_order_number,
             levelRate: serviceRate.favorable_rating,
             levelPic: serviceRate.res.data.icon_file
@@ -186,7 +186,7 @@ Page({
     } else {
       this.setData({
         memberServiceRate,
-        vipLevel: 'level' + memberServiceRate.icon_number,
+        vipLevel: memberServiceRate.icon_number,
         levelTotal: memberServiceRate.total_order_number,
         levelRate: memberServiceRate.favorable_rating,
         levelPic: memberServiceRate.icon_file

@@ -1,25 +1,25 @@
 <!--pages/notice/notice.wxml-->
 <view class='notice-block'>
   <view class='notice-bar' >
-    <image class='notice-bar-img' src='../../images/notice1.png'></image>
+    <image class='notice-bar-img' src='../../images/my9.png'></image>
     <view class='notice-bar-name' >通知公告</view>
     <view class='notice-bar-num' wx:if="{{noticeCount > 0}}" >{{noticeCount}}</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>
   </view>
-  <view class='notice-bar' bindtap='toTransport'>
+  <view class='notice-bar' bindtap='toOrder'>
     <image class='notice-bar-img' src='../../images/notice2.png'></image>
     <view class='notice-bar-name' >运单消息</view>
     <view class='notice-bar-num' wx:if="{{shopOrderMessageCount > 0}}" >{{shopOrderMessageCount}}</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>
   </view>
   <view class='notice-bar'>
-    <image class='notice-bar-img' src='../../images/notice3.png'></image>
+    <image class='notice-bar-img' src='../../images/model8.png'></image>
     <view class='notice-bar-name' >订单消息</view>
     <view class='notice-bar-num' wx:if="{{sellerOrderMessageCount > 0}}" >{{sellerOrderMessageCount}}</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>
   </view>
   <view class='notice-bar' >
-    <image class='notice-bar-img' src='../../images/notice4.png'></image>
+    <image class='notice-bar-img' src='../../images/model4.png'></image>
     <view class='notice-bar-name' >异常消息</view>
     <view class='notice-bar-num' wx:if="{{exceptionMessageCount > 0}}" >{{exceptionMessageCount}}</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>

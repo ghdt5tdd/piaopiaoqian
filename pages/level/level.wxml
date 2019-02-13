@@ -1,9 +1,14 @@
 <!--pages/goodsdetail/goodsdetail.wxml-->
 <view class='level-head'>
   <view class='level-head-left'>
-    <view>承运商累计服务:<text>{{levelTotal}}</text>
+    <view>承运商累计服务:<text>{{levelTotal}}</text></view>
+    <view class="vip-level level-{{vipLevel}}">
+      <image src='{{levelPic}}'></image>
+      <image src='{{levelPic}}'></image>
+      <image src='{{levelPic}}'></image>
+      <image src='{{levelPic}}'></image>
+      <image src='{{levelPic}}'></image>
     </view>
-    <image class='{{vipLevel}}' mode='aspectFit' src='{{levelPic}}'></image>
   </view>
   <view>服务率:<text>{{levelRate}}%</text>
   </view>

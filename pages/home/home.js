@@ -30,7 +30,7 @@ Page({
    */
   data: {
     vipAvatar: "../../images/avatar-sy.png",
-    vipLevel: "level0",
+    vipLevel: "0",
     vipNum: "../../images/b_blue_4.gif",
     vipName: "长安物流",
     vipSpec: "LV1",
@@ -281,7 +281,7 @@ Page({
         if (unReadNum > 0) {
           wx.setTabBarBadge({//未读消息
             index: 2,
-            text: unReadNum,
+            text: unReadNum + '',
           });
         }
       }
@@ -300,7 +300,7 @@ Page({
           storage.put('memberServiceRate' + app.globalData.memberInfo.id, res.data, 12 * 60 * 60)
           this.setData({
             memberServiceRate: res.data,
-            vipLevel: 'level' + res.data.icon_number,
+            vipLevel: res.data.icon_number,
             // vipNum: '../../images/b_blue_' + res.data.icon_number +'.gif' 
             vipNum: res.data.icon_file
           })
@@ -309,7 +309,7 @@ Page({
     } else {
       this.setData({
         memberServiceRate,
-        vipLevel: 'level' + memberServiceRate.icon_number,
+        vipLevel: memberServiceRate.icon_number,
         vipNum: memberServiceRate.icon_file 
       })
     }

@@ -468,33 +468,37 @@ button::after {
 }
 
 /**等级图片**/
-
-image.level5, image.level4, image.level3, image.level2, image.level1, image.level0 {
-  height: 32rpx;
-  margin-left: 10rpx;
-  width: 176rpx;
+.vip-level {
+width: 170rpx;
+height: 32rpx;
+overflow: hidden;
+font-size: 0;
+margin-left: 20rpx;
 }
 
-image.level5 {
-  width: 176rpx;
+.vip-level.level-4 {
+width: 136rpx;
 }
 
-image.level4 {
-  width: 140rpx;
+.vip-level.level-3 {
+width: 102rpx;
 }
 
-image.level3 {
-  width: 104rpx;
+.vip-level.level-2 {
+width: 68rpx;
 }
 
-image.level2 {
-  width: 68rpx;
+.vip-level.level-1 {
+width: 34rpx;
+}
+.vip-level.level-0 {
+width: 0rpx;
 }
 
-image.level1 {
-  width: 32rpx;
-}
-
-image.level0 {
-  width: 0rpx;
+.vip-level image {
+display: block;
+float: left;
+width: 32rpx;
+height: 32rpx;
+margin: 0 1rpx;
 }

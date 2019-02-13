@@ -1,7 +1,7 @@
-<!--pages/noticeTransport/noticeTransport.wxml-->
+<!--pages/noticeOrder/noticeOrder.wxml-->
 <view class='notice'>
   <view class='notice-item' wx:for="{{noticeItem}}" bindtap='toInfo'>
-    <image class='notice-item-icon' src="../../images/notice2.png"></image>
+    <image class='notice-item-icon' src="../../images/model8.png"></image>
     <view class='notice-item-head'>
       <view class='notice-item-title'>
         <text class='notice-read' wx:if="{{!item.read}}"></text>

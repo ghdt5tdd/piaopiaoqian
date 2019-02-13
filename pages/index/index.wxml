@@ -4,7 +4,7 @@
   <view class="userinfo">
     <block>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{memberInfo.head_img}}" mode="cover"></image>
-      <view class="userinfo-nickname">昵称:{{memberInfo.user_nickname}}</view>
+      <view class="userinfo-nickname">昵称:{{memberInfo.partnerName}}</view>
       <view class="userinfo-nickid">主账号:{{memberInfo.clientAccount}}</view>
     </block> 
   </view>

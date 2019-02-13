@@ -71,7 +71,9 @@
     "pages/service/service",
     "pages/forwarder/forwarder",
     "pages/addList/addList",
-    "pages/level/level"
+    "pages/level/level",
+    "pages/noticeOrder/noticeOrder",
+    "pages/noticeInfo/noticeInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -82,7 +84,7 @@
   "tabBar": {
     "color": "#b7b7b7",
     "selectedColor": "#fd914c",
-    "borderStyle": "#f5f5f5",
+    "borderStyle": "white",
     "backgroundColor": "#fff",
     "list": [
       {
