@@ -47,6 +47,7 @@ Page({
       address: e.currentTarget.dataset.location,
 
       success: function(res) {
+        console.log(res)
         var latitude = res.result.location.lat
         var longitude = res.result.location.lng
         var addressOn = e.currentTarget.dataset.location
@@ -59,10 +60,10 @@ Page({
         })
       },
       fail: function(res) {
-        // console.log(res);
+        console.log(res);
       },
       complete: function(res) {
-        // console.log(res);
+        console.log(res);
       }
     });
   },

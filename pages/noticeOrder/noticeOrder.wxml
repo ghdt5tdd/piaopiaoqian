@@ -1,14 +1,16 @@
 <!--pages/noticeOrder/noticeOrder.wxml-->
+<scroll-view scroll-y="true" style="height:calc(100%);position:fixed;" bindscrolltolower="lower">
 <view class='notice'>
-  <view class='notice-item' wx:for="{{noticeItem}}" bindtap='toInfo'>
+  <view class='notice-item' wx:for="{{noticeItem}}" wx:key="id" bindtap='toInfo' data-id="{{item.id}}">
     <image class='notice-item-icon' src="../../images/model8.png"></image>
-    <view class='notice-item-head'>
+    <view class='notice-item-head'> 
       <view class='notice-item-title'>
-        <text class='notice-read' wx:if="{{!item.read}}"></text>
+        <text class='notice-read' wx:if="{{item.is_read === 0}}"></text>
         <text>{{item.title}}</text>
       </view>
-      <view class='notice-item-time'>{{item.time}}</view>
+      <view class='notice-item-time'>{{item.create_date}}</view>
     </view>
-    <view class='notice-item-info'>{{item.info}}</view>
+    <view class='notice-item-info'>{{item.context}}</view>
   </view>
 </view>
+</scroll-view>

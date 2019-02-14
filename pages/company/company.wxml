@@ -10,7 +10,7 @@
   <view class='company-item' wx:for="{{companyItems}}">
     <view class='company-head'>
       <image class='company-logo' src='{{item.logo_img}}'></image>
-      <view>{{item.name}}</view>
+      <view>{{item.company}}</view>
       <view class='company-spec'>{{item.profile}}</view>
     </view>
     <view class='company-info'>

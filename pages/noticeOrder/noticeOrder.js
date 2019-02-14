@@ -1,10 +1,17 @@
 // pages/noticeOrder/noticeOrder.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const storage = require('../../utils/storage.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    page: 1,
+    pageSize: 10,
+    loadCompleted: false,
     noticeItem: [{
       title: "长内容",
       time: "2018-01-15 10:08",
@@ -26,11 +33,67 @@ Page({
 
   //去消息详情
   toInfo: function (e) {
+    const id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: '../noticeInfo/noticeInfo'
+      url: '../noticeInfo/noticeInfo?id=' + id
     })
   },
   
+  getMySellerOrderMessageList: function (callback) {
+    const page = this.data.page
+    const pageSize = this.data.pageSize
+    ajax.getApi('app/member/getMySellerOrderMessageList', {
+      page,
+      pageSize
+    }, (err, res) => {
+      if (res && res.success) {
+        if (res.data.length > 0) {
+          const noticeItem = this.data.noticeItem
+          Array.prototype.push.apply(noticeItem, res.data);
+          this.setData({
+            noticeItem
+          })
+        } else {
+          wx.hideLoading(() => {
+            wx.showToast({
+              title: '数据已全部加载完毕',
+              duration: 1000
+            })
+          })
+          this.setData({
+            loadCompleted: true
+          })
+        }
+      }
+      if (callback) {
+        callback()
+      }
+    })
+  },
+
+  lower: function (e) {
+    let page = this.data.page
+    const pageSize = this.data.pageSize
+    const loadCompleted = this.data.loadCompleted
+    if (!loadCompleted) {
+      wx.showLoading({
+        title: '更多数据加载中...',
+      })
+      page++
+      this.setData({
+        page
+      }, () => {
+        this.getMySellerOrderMessageList(() => {
+          wx.hideLoading()
+        })
+      })
+    } else {
+      wx.showToast({
+        title: '数据已全部加载完毕',
+        duration: 1000
+      })
+    }
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -50,7 +113,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.setData({
+      page: 1,
+      noticeItem: [],
+      loadCompleted: false
+    }, () => {
+      this.getMySellerOrderMessageList()
+    })
   },
 
   /**
