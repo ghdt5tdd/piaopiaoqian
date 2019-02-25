@@ -141,12 +141,14 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  line-height: 36rpx;
+  line-height: 40rpx;
 }
 
 .newswiper-info text {
-  color: #e52019;
+  display: block;
+  color: #fd914c;
   margin-right: 8rpx;
+  line-height: 38rpx;
 }
 
 .module-list {

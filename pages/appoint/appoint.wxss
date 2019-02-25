@@ -98,13 +98,13 @@
 }
 
 .order-opt-item.active {
-  border: 1px solid #ff5102;
-  color: #ff5102;
+  border: 1px solid #fd914c;
+  color: #fd914c;
 }
 
 .order-opt-item.on {
-  border: 1px solid #ff5102;
-  background: #ff5102;
+  border: 1px solid #fd914c;
+  background: #fd914c;
   color: #fff;
 }
 

@@ -77,8 +77,8 @@
 }
 
 .tabs-status-items.on {
-  border-left: 10rpx solid #e52019;
-  color: #e52019;
+  border-left: 10rpx solid #fd914c;
+  color: #fd914c;
 }
 
 .my-tabs-content {
@@ -95,7 +95,7 @@
 
 .my-tabs-num {
   font-size: 36rpx;
-  color: #e52019;
+  color: #fd914c;
 }
 
 .my-list {

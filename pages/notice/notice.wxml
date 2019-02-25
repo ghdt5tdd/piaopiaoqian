@@ -1,12 +1,12 @@
 <!--pages/notice/notice.wxml-->
 <view class='notice-block'>
-  <view class='notice-bar' >
-    <image class='notice-bar-img' src='../../images/my9.png'></image>
-    <view class='notice-bar-name' >通知公告</view>
-    <view class='notice-bar-num' wx:if="{{noticeCount > 0}}" >{{noticeCount}}</view>
+  <view class='notice-bar' wx:for="{{messageList}}" wx:key="id" bindtap='toMessage' data-type-id="{{item.message_type_id}}" data-type-img="{{item.message_type_img}}">
+    <image class='notice-bar-img' src='{{item.message_type_img}}'></image>
+    <view class='notice-bar-name' >{{item.message_type_name}}</view>
+    <view class='notice-bar-num' wx:if="{{item.unread_message_count > 0}}" >{{item.unread_message_count}}</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>
   </view>
-  <view class='notice-bar' bindtap='toTransport'>
+  <!-- <view class='notice-bar' bindtap='toTransport'>
     <image class='notice-bar-img' src='../../images/notice2.png'></image>
     <view class='notice-bar-name' >运单消息</view>
     <view class='notice-bar-num' wx:if="{{shopOrderMessageCount > 0}}" >{{shopOrderMessageCount}}</view>
@@ -23,5 +23,5 @@
     <view class='notice-bar-name' >异常消息</view>
     <view class='notice-bar-num' wx:if="{{exceptionMessageCount > 0}}" >{{exceptionMessageCount}}</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>
-  </view>
+  </view> -->
 </view>

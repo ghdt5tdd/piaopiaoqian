@@ -4,7 +4,7 @@
     <text class="abnormal-bar-label">异常类型</text>
     <view class="abnormal-bar-info">
       <picker name="abnormalType" bindchange="bindTypeChange" data-value="{{abnormalType[indexType].itemKey}}" range="{{abnormalType}}" range-key="itemText">
-        <view class="picker">
+        <view class="picker"> 
           {{abnormalType[indexType].itemText}}
         </view>
       </picker>

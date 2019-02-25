@@ -39,12 +39,14 @@ Page({
     })
   },
   
-  getMySellerOrderMessageList: function (callback) {
+  getMyMessageList: function (callback) {
     const page = this.data.page
     const pageSize = this.data.pageSize
-    ajax.getApi('app/member/getMySellerOrderMessageList', {
+    const message_type_id = this.data.typeId
+    ajax.getApi('app/member/getMyMessageList', {
       page,
-      pageSize
+      pageSize,
+      message_type_id
     }, (err, res) => {
       if (res && res.success) {
         if (res.data.length > 0) {
@@ -99,7 +101,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    const typeId = options.typeId
+    const typeImg = options.typeImg
 
+    this.setData({
+      typeId,
+      typeImg
+    })
   },
 
   /**
@@ -118,7 +126,7 @@ Page({
       noticeItem: [],
       loadCompleted: false
     }, () => {
-      this.getMySellerOrderMessageList()
+      this.getMyMessageList()
     })
   },
 

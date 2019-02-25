@@ -270,14 +270,19 @@ Page({
   },
 
   getUnreadMessageCount() {
-    ajax.getApi('app/member/getUnreadMessageCount', {
+    ajax.getApi('app/member/getMessageTypeByRole', {
 
     }, (err, res) => {
       if (res && res.success) {
-        const unReadNum = res.data.exceptionMessageCount +
-          res.data.noticeCount +
-          res.data.sellerOrderMessageCount +
-          res.data.shopOrderMessageCount
+        const messages = res.data
+        let unReadNum = 0
+        messages.forEach(v => {
+          unReadNum += v.unread_message_count
+        })
+        // const unReadNum = res.data.exceptionMessageCount +
+        //   res.data.noticeCount +
+        //   res.data.sellerOrderMessageCount +
+        //   res.data.shopOrderMessageCount
         if (unReadNum > 0) {
           wx.setTabBarBadge({//未读消息
             index: 2,

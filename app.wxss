@@ -14,28 +14,6 @@ page {
   box-sizing: border-box;
 }
 
-.fixed-bottom {
-  position: fixed;
-  line-height: 80rpx;
-  text-align: center;
-  width: 100%;
-  bottom: 0;
-  font-size: 30rpx;
-  background: #ff5102;
-  color: #fff;
-}
-
-.button-bottom {
-  line-height: 80rpx;
-  height: 80rpx;
-  text-align: center;
-  font-size: 30rpx;
-  background: #ff5102;
-  color: #fff;
-  margin: 40rpx 20rpx;
-  border-radius: 10rpx;
-}
-
 .popup-shadow {
   position: fixed;
   top: 0;
@@ -90,13 +68,13 @@ page {
   margin-top: 20rpx;
 }
 
-.mb-40{
+.mb-40 {
   margin-bottom: 80rpx;
 }
 
 input {
   min-height: 0;
-  height: auto
+  height: auto;
 }
 
 button::after {
@@ -397,7 +375,7 @@ button::after {
   text-align: center;
   font-size: 30rpx;
   color: #fff;
-  background: #ff5102;
+  background: #fd914c;
 }
 
 .search {
@@ -425,8 +403,20 @@ button::after {
 .button-tip {
   font-size: 28rpx;
   text-align: center;
-  color: #ff5102;
+  color: #fd914c;
   margin-top: 40rpx;
+}
+
+
+.fixed-bottom {
+  position: fixed;
+  line-height: 80rpx;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+  font-size: 30rpx;
+  background: #fd914c;
+  color: #fff;
 }
 
 .button-bottom {
@@ -434,7 +424,7 @@ button::after {
   height: 80rpx;
   text-align: center;
   font-size: 30rpx;
-  background: #ff5102;
+  background: #fd914c;
   color: #fff;
   margin: 40rpx 20rpx;
   border-radius: 10rpx;
@@ -469,36 +459,33 @@ button::after {
 
 /**等级图片**/
 .vip-level {
-width: 170rpx;
-height: 32rpx;
-overflow: hidden;
-font-size: 0;
-margin-left: 20rpx;
+  width: 170rpx;
+  height: 32rpx;
+  overflow: hidden;
+  font-size: 0;
+  margin-left: 20rpx;
 }
 
 .vip-level.level-4 {
-width: 136rpx;
+  width: 136rpx;
 }
 
 .vip-level.level-3 {
-width: 102rpx;
+  width: 102rpx;
 }
 
 .vip-level.level-2 {
-width: 68rpx;
+  width: 68rpx;
 }
 
 .vip-level.level-1 {
-width: 34rpx;
-}
-.vip-level.level-0 {
-width: 0rpx;
+  width: 34rpx;
 }
 
 .vip-level image {
-display: block;
-float: left;
-width: 32rpx;
-height: 32rpx;
-margin: 0 1rpx;
+  display: block;
+  float: left;
+  width: 32rpx;
+  height: 32rpx;
+  margin: 0 1rpx;
 }

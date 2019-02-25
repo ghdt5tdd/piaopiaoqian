@@ -34,10 +34,12 @@
 
 .notice-item-time {
   font-size: 26rpx;
+  width: 230rpx;
+  text-align: right;
 }
 
 .notice-item-title {
-  width: calc(100% - 240rpx);
+  width: calc(100% - 250rpx);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

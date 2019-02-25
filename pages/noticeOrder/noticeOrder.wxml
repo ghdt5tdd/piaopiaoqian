@@ -2,7 +2,7 @@
 <scroll-view scroll-y="true" style="height:calc(100%);position:fixed;" bindscrolltolower="lower">
 <view class='notice'>
   <view class='notice-item' wx:for="{{noticeItem}}" wx:key="id" bindtap='toInfo' data-id="{{item.id}}">
-    <image class='notice-item-icon' src="../../images/model8.png"></image>
+    <image class='notice-item-icon' src="{{typeImg}}"></image>
     <view class='notice-item-head'> 
       <view class='notice-item-title'>
         <text class='notice-read' wx:if="{{item.is_read === 0}}"></text>
