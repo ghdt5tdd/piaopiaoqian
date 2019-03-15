@@ -85,7 +85,7 @@ Page({
       this.setData({
         page
       }, () => {
-        this.getMySellerOrderMessageList(() => {
+        this.getMyMessageList(() => {
           wx.hideLoading()
         })
       })

@@ -1,0 +1,74 @@
+<!--pages/dispatch/dispatch.wxml-->
+
+<view class="order-table-items">
+  <view class='order-table-head'>
+    <view class='order-table-id'>预约单号：{{orderId}}</view>
+    <view class='order-table-time'>{{orderTime}}</view>
+  </view>
+  <view class='order-table-content' bindtap='toInfo'>
+    <view class='order-table-line'>
+      <view class='order-line-route'>
+        <view class='order-route-point'>{{orderStart}}</view>
+        <image mode="widthFix" src="../../images/arrow.png"></image>
+        <view class='order-route-point'>{{orderEnd}}</view>
+      </view>
+      <view class='order-line-cargo'>
+        <view class='order-cargo-receive'>
+          <image src="../../images/person.png"></image>
+          <view>{{orderReceive}}收</view>
+        </view>
+        <view class='order-cargo-num'>
+          <image src="../../images/cargo.png"></image>
+          <view>{{orderNum}}件</view>
+        </view>
+      </view>
+    </view>
+    <image class='order-table-to' src='../../images/next.png'></image>
+  </view>
+</view>
+
+
+
+<view class='send-bar'>
+  <view class='send-bar-label'>指派司机</view>
+  <view class='send-bar-info' bindtap='toDriver'>{{sendDriver}}</view>
+  <image class='send-bar-next' src='../../images/w_next.png'></image>
+</view>
+<view class='send-bar'>
+  <view class='send-bar-label'>指派车辆</view>
+  <view class='send-bar-info'>{{sendCar}}</view>
+  <image class='send-bar-next' src='../../images/w_next.png'></image>
+</view>
+<view class='send-bar'>
+  <view class='send-bar-label'>取货时间</view>
+  <view class='send-bar-info' bindtap='showTime'>{{sendDate}} {{sendTime}}</view>
+  <image class='send-bar-next' src='../../images/w_next.png'></image>
+</view>
+<view class='send-remark'>
+  <view class='send-remark-label'>备注信息</view>
+  <textarea placeholder='例：请开大车提货'></textarea>
+</view>
+
+
+
+<view class='pop-shadow' bindtap="hide" hidden="{{hideShadow}}"></view>
+<view class='pop-up pop-time' hidden="{{hideTime}}">
+  <view class='pop-head'>
+    <view bindtap="hideTime">关闭</view>
+    <view class='save' bindtap="chooseTime">确认</view>
+  </view>
+
+  <view class='datelist'>
+    <view bindtap="select" wx:for="{{ calendar }}" wx:for-item="item" wx:for-index="index" data-index="{{ index }}" class='listItem {{index==currentIndex? "current":""}}'>
+      <view class='name'>{{ item.week }}</view>
+      <view class='date'>{{ item.date }}</view>
+    </view>
+  </view>
+
+  <view class='timelist'>
+    <view wx:for="{{ timeArr }}" wx:for-item="timeItem" wx:for-index="timeIndex" data-Tindex="{{ timeIndex }}" bindtap='selectTime' class='listItem {{ currentTime==timeIndex? "current":"" }} {{ timeItem.overtime? "over":"" }}'>
+      <view>{{ timeItem.timeBegin }}-{{ timeItem.timeEnd }}</view>
+    </view>
+  </view>
+
+</view>

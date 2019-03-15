@@ -1,0 +1,41 @@
+<!--pages/driver/driver.wxml-->
+<view class='driver-list'>
+  <view class='driver-item' wx:for="{{driver}}" wx:key="key">
+    <view class='driver-item-info' bindtap='checkDriver' data-index="{{index}}">
+      <view class='driver-item-name'>
+        <view>{{item.name}}</view>
+        <view>{{item.tel}}</view>
+      </view>
+      <view class='driver-item-block'>
+        <view class='driver-item-bar'>
+          <view class='driver-item-label'>配送区域:</view>
+          <view>{{item.area}}</view>
+        </view>
+        <view class='driver-item-bar'>
+          <view class='driver-item-label'>常用车辆:</view>
+          <view>{{item.car}}</view>
+        </view>
+        <view class='driver-item-bar'>
+          <view class='driver-item-label'>车辆类型:</view>
+          <view>{{item.carType}}</view>
+        </view>
+        <view class='driver-item-bar'>
+          <view class='driver-item-label'>车长:</view>
+          <view>{{item.carLength}}m</view>
+        </view>
+        <view class='driver-item-bar'>
+          <view class='driver-item-label'>载重:</view>
+          <view>{{item.carWeight}}kg</view>
+        </view>
+      </view>
+    </view>
+    
+    <view class='driver-item-opt'>
+      <view class='driver-item-button' bindtap='defaultSet' data-index="{{index}}">
+        <image wx:if="{{item.button}}" src='../../images/uncheck.png'></image>
+        <image wx:else src='../../images/check.png'></image>
+        <view>设为常派</view>
+      </view>
+    </view>
+  </view>
+</view>

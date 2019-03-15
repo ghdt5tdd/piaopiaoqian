@@ -73,6 +73,10 @@
     "pages/addList/addList",
     "pages/level/level",
     "pages/noticeOrder/noticeOrder",
+    "pages/booking/booking",
+    "pages/dispatch/dispatch",
+    "pages/driver/driver",
+    "pages/appointInfo/appointInfo",
     "pages/noticeInfo/noticeInfo"
   ],
   "window": {

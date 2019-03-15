@@ -86,6 +86,8 @@
   position: relative;
 }
 
+
+
 .order-opt-item {
   display: inline-block;
   line-height: 60rpx;
@@ -134,4 +136,72 @@
   text-align: left;
   line-height: 40rpx;
   color: #fd7c29;
+}
+
+.pop-pickup {
+  background: #fff;
+  width: 80%;
+  height: 712rpx;
+  left: 10%;
+  top: 50%;
+  margin-top: -356rpx;
+  border-radius: 10rpx;
+  overflow-x: hidden;
+}
+
+.pop-head-left {
+  font-size: 34rpx;
+  padding: 30rpx 30rpx 10rpx;
+  line-height: 60rpx;
+}
+
+.pop-pickup-content {
+  font-size: 30rpx;
+  padding: 0 30rpx;
+  height: 530rpx;
+}
+
+.pop-pickup-item {
+  border-bottom: 2rpx solid #e7e7e7;
+  line-height: 40rpx;
+  padding: 20rpx 0;
+  display: flex;
+}
+
+.pop-pickup-item:last-child {
+  border: none;
+}
+
+.pop-pickup-label {
+  width: 130rpx;
+}
+
+.pop-pickup-name {
+  width: calc(100% - 130rpx);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pop-pickup-item textarea {
+  width: calc(100% - 130rpx);
+  height: 80rpx;
+  line-height: 40rpx;
+}
+
+.pop-bottom-half {
+  border-top: 2rpx solid #e7e7e7e7;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #000;
+  background: none;
+  margin-right: -2rpx;
+}
+
+.pop-bottom-half .pop-bottom-opt {
+  float: left;
+  width: calc(50% - 4rpx);
+  border-right: 2rpx solid #e7e7e7;
 }

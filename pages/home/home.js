@@ -277,7 +277,9 @@ Page({
         const messages = res.data
         let unReadNum = 0
         messages.forEach(v => {
-          unReadNum += v.unread_message_count
+          if (v.unread_message_count) {
+            unReadNum += v.unread_message_count
+          }
         })
         // const unReadNum = res.data.exceptionMessageCount +
         //   res.data.noticeCount +

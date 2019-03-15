@@ -1,68 +1,44 @@
-<!--pages/appoint/appoint.wxml-->
-<scroll-view class="order-status" scroll-x="true" >
-  <view style='width:{{statusWidth}}'>
-    <block wx:for="{{status}}" wx:key="{{index}}">
-      <view class="order-status-items  {{select == item.value?'on':''}}" bindtap='selectStatus' data-index="{{item.value}}">
-        {{item.name}}
-      </view>
-    </block>
-  </view>
-</scroll-view>
-
-<scroll-view scroll-y="true" style="height:calc(100%- 186rpx);position:fixed;top:106rpx;bottom:80rpx">
+<!--pages/booking/booking.wxml-->
+<view class='order-status {{ul}}'>
+  <block wx:for="{{orderStatus}}" wx:key="key">
+    <view class="order-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+      {{item.name}}
+    </view>
+  </block>
+</view>
+<scroll-view scroll-y="true" style="height:calc(100% - 106rpx);position:fixed;top:106rpx;">
   <view class='order-table'>
-
-    <block wx:for="{{bookingOrders}}" wx:key="id">
+    <block wx:for="{{orderTable}}" wx:key="key">
       <view class="order-table-items">
         <view class='order-table-head'>
-          <view class='order-table-id'>订单号：{{item.code}}</view>
-          <view class='order-table-time'>{{item.booking_time}}</view>
+          <view class='order-table-id'>预约单号：{{item.id}}</view>
+          <view class='order-table-time'>{{item.time}}</view>
         </view>
-        <view class='order-table-content'>
-
+        <view class='order-table-content' bindtap='toInfo'>
           <view class='order-table-line'>
             <view class='order-line-route'>
-              <view class='order-route-point'>{{item.consigner_province_name + item.consigner_city_name}}</view>
+              <view class='order-route-point'>{{item.start}}</view>
               <image mode="widthFix" src="../../images/arrow.png"></image>
-              <view class='order-route-point'>{{item.consignee_province_name + item.consignee_city_name}}</view>
+              <view class='order-route-point'>{{item.end}}</view>
             </view>
             <view class='order-line-cargo'>
               <view class='order-cargo-receive'>
                 <image src="../../images/person.png"></image>
-                <view>{{item.consignee_man}}收</view>
+                <view>{{item.receive}}收</view>
               </view>
               <view class='order-cargo-num'>
                 <image src="../../images/cargo.png"></image>
-                <view>{{item.total_packing_quantity}}件</view>
+                <view>{{item.num}}件</view>
               </view>
             </view>
           </view>
-
           <image class='order-table-to' src='../../images/next.png'></image>
         </view>
 
         <view class='order-table-opt'>
-          <view class="order-opt-item active"  bindtap='toInfo' data-id="{{item.id}}">
-            查看
+          <view class="order-opt-item {{item.style ==2 ?'active':''}} {{item.style ==3 ?'on':''}}" wx:for="{{item.opt}}" wx:key="*item" bindtap='{{item.to}}'>
+            {{item.name}}
           </view>
-          <view class="order-opt-item on" wx:for="{{item.command_list}}" wx:for-item="command"wx:for-index="commandindex"  bindtap='handCommand' data-id="{{item.id}}" data-code="{{item.code}}" data-command="{{command.command}}" data-command-text="{{command.command_text}}">
-            {{command.command_text}}
-          </view>
-          <!-- <view class="order-opt-item" wx:if="{{roleType === 3}}"  bindtap='refuse' data-id="{{item.id}}">
-            拒绝
-          </view>
-          <view class="order-opt-item active"  bindtap='toDetail' data-id="{{item.id}}">
-            查看
-          </view>
-          <view class="order-opt-item on" wx:if="{{roleType === 3}}"   bindtap='consent' data-id="{{item.id}}">
-            接单
-          </view>
-          <view class="order-opt-item on"  bindtap='toDispatch' data-id="{{item.id}}">
-            派车
-          </view>
-          <view class="order-opt-item on"  bindtap='pickup' data-id="{{item.id}}" data-index="{{index}}">
-            取货
-          </view> -->
         </view>
 
       </view>
@@ -70,7 +46,6 @@
 
   </view>
 </scroll-view>
-<view class='fixed-bottom' bindtap='toSend'>下单</view>
 
 <view class='pop-shadow' bindtap="hide" hidden="{{hideShadow}}"></view>
 <view class='pop-up pop-pickup' hidden="{{hidePickup}}">

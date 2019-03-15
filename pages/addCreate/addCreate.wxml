@@ -1,18 +1,17 @@
 <!--pages/addCreate/addCreate.wxml-->
-<form bindsubmit="formSubmit" report-submit="true">
   <view class='form-content'>
     <view class='section'>
 
       <view class="section-bar">
         <view class="section-title">联系人：</view>
         <view class="section-info">
-          <input name="name" placeholder='请输入联系人姓名' value="{{name}}"></input>
+          <input name="name" placeholder='请输入联系人姓名' value="{{name}}" bindinput='bindinput' data-key='name'></input>
         </view>
       </view>  
       <view class="section-bar">
         <view class="section-title">联系方式：</view>
         <view class="section-info">
-          <input name="tel" placeholder='请输入联系人手机号' value="{{tel}}"></input>
+          <input name="tel" placeholder='请输入联系人手机号' value="{{tel}}" bindinput='bindinput' data-key='tel'></input>
         </view>
       </view>          
       <view class="section-bar">
@@ -36,6 +35,4 @@
 
     </view>
   </view>
-  <button class='button-bottom' formType="submit">保存</button>
-
-</form>
+  <button class='button-bottom' bindtap="formSubmit">保存</button>

@@ -92,23 +92,23 @@
 
 .cargo-pay {
   display: flex;
-  align-items: center;
   font-size: 30rpx;
   background: #fff;
-  padding: 40rpx 20rpx 40rpx 40rpx;
+  padding: 40rpx 40rpx 20rpx;
   margin-top: 20rpx;
 }
 
-.cargo-pay-info{
-  display: flex;
-  width: calc(100% - 120rpx)
+.cargo-pay-info {
+  overflow: hidden;
+  width: calc(100% - 120rpx);
 }
 
 .cargo-pay-item {
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 33.33333%
+  float: left;
+  margin: 0 0 20rpx 20rpx;
+  width: calc(50% - 20rpx);
 }
 
 .cargo-pay-item image {

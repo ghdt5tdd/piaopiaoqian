@@ -1,7 +1,7 @@
 const util = require('util.js')
 const _config = {
-  // serverUrl: 'https://fall.wlhn.com/fallapp-main-wlhn/'
-  serverUrl: 'https://fall.wlhn.com/fallapp-child-dlxapp-userlla/'
+  serverUrl: 'https://fall.wlhn.com/fallapp-main-wlhn/'
+  // serverUrl: 'https://fall.wlhn.com/fallapp-child-dlxapp-userlla/'
 }
 
 function getApi(apiName, params, cb, isOwnAddress) {
@@ -19,7 +19,7 @@ function getApi(apiName, params, cb, isOwnAddress) {
     fail: function (err) {
       typeof cb == "function" && cb(err)
     }
-  }) 
+  })
 }
 
 function postApi(apiName, params, cb, isOwnAddress) {
@@ -40,17 +40,19 @@ function postApi(apiName, params, cb, isOwnAddress) {
   })
 }
 function request(requestSetting) {
+
   let JSSESSIONID = wx.getStorageSync('JSSESSIONID')
   if (JSSESSIONID === '') {
     JSSESSIONID = util.RandomUUID()
     wx.setStorageSync('JSSESSIONID', JSSESSIONID)
   }
   requestSetting.header['cookie'] = 'JSESSIONID=' + JSSESSIONID
+  requestSetting.header['Platform-Area'] = 'wlhn'
   wx.request(requestSetting)
 }
 
 
 module.exports = {
   getApi: getApi,
-  postApi: postApi 
+  postApi: postApi
 }

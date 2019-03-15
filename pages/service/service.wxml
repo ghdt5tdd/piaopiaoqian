@@ -1,42 +1,20 @@
 <!--pages/service/service.wxml-->
-<form bindsubmit="formSubmit" report-submit="true">
-
   <view class='section'>
-    <view class="section-bar">
-      <view class="section-title">保价声明</view>
+    <view class="section-bar" wx:for="{{myServices}}"  wx:key="set_id">
+      <view class="section-title">{{item.name}}</view>
       <view class="section-info">
-        <input name="support" type='number' placeholder='请填写货物实际价值'></input>
-      </view>
-      <text>元</text>
-    </view>
-    <view class="section-bar"  wx:if="{{!showCollect}}">
-      <view class="section-title">是否有代收款</view>
-      <view class="section-info gray">
-        暂未开通代收款业务
-      </view>
-    </view>
-    <view class="section-bar" wx:if="{{showCollect}}">
-      <view class="section-title">代收货款</view>
-      <view class="section-info">
-        <input name="collect" type='number' placeholder='请填写代收货款'></input>
-      </view>
-      <text>元</text>
-    </view>
-
-    <view class="section-bar">
-      <view class="section-title">回单</view>
-      <view class="section-info">
-        <picker bindchange="bindBill" data-bill="{{bill}}" value="{{index}}" range="{{array}}">
+        <block wx:if="{{item.html_items === 'radio'}}">
+          <picker bindchange="selectRadio" data-index="{{index}}" data-text="{{item.html_items_dic[item.value].itemText}}" range-key="itemText"  value="item.html_items_dic[item.value].itemKey" 
+          range="{{item.html_items_dic}}">
           <view class="picker">
-            {{array[index]}}
+            {{item.html_items_dic[item.value].itemText}}
           </view>
-        </picker>
+          </picker>
+        </block>
+        <block wx:else>
+          <input name="support" type='text' bindinput='bindInput' value="{{item.value}}" data-index="{{index}}"></input>
+        </block>
       </view>
-    </view>
-
+    </view> 
   </view>
-
-
-  <button class='button-bottom' formType="submit">确认</button>
-
-</form>
+  <button class='button-bottom' bindtap='formSubmit'>确认</button>

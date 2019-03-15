@@ -1,0 +1,99 @@
+/* pages/dispatch/dispatch.wxss */
+@import '../appoint/appoint.wxss';
+.order-table-items{
+  margin: 20rpx 0
+}
+
+.send-bar {
+  padding: 20rpx;
+  display: flex;
+  align-items: center;
+  line-height: 50rpx;
+  font-size: 30rpx;
+  background: #fff;
+  border-bottom:1px solid #e7e7e7
+}
+
+.send-bar-info {
+  width: calc(100% - 200rpx);
+  margin: 0 20rpx;
+  color: #666;
+}
+
+.send-bar-next {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.send-remark {
+  display: flex;
+  align-items: flex-start;
+  padding: 20rpx;
+  background: #fff;
+  font-size: 30rpx;
+  line-height: 48rpx;
+  height: 192rpx;
+}
+
+.send-remark textarea {
+  width: calc(100% - 160rpx);
+  margin: 0 20rpx;
+  color: #666;
+  height: 192rpx;
+}
+
+/*配送时间弹窗*/
+
+.pop-time {
+  bottom: 0;
+  width: 100%;
+}
+
+.pop-time .datelist {
+  width: calc(100% - 20rpx);
+  padding: 0 10rpx;
+  display: flex;
+  margin-top: 20rpx;
+}
+
+.pop-time .listItem {
+  text-align: center;
+  width: calc(33.3333% - 20rpx);
+  margin: 15rpx 10rpx;
+  height: 100rpx;
+  padding: 10rpx 0;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  border-radius: 6rpx;
+  border: 1px solid #999;
+  line-height: 40rpx;
+}
+
+.pop-time .listItem .date {
+  font-size: 26rpx;
+}
+
+.pop-time  .datelist .current, .pop-time  .timelist .current {
+  border: 1px solid #faaf18;
+  color: #faaf18;
+}
+
+.pop-time .timelist {
+  width: calc(100% - 20rpx);
+  padding: 0 10rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 20rpx;
+}
+
+.timelist .listItem {
+  padding: 0;
+  line-height: 80rpx;
+  height: 80rpx;
+}
+
+.timelist .over {
+  border: 1px solid #c3c3c3;
+  color: #c3c3c3;
+}

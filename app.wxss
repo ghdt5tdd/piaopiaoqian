@@ -288,8 +288,14 @@ button::after {
 .order-table-head {
   display: flex;
   justify-content: space-between;
-  font-size: 32rpx;
+  font-size: 30rpx;
   line-height: 80rpx;
+}
+
+.order-table-id{
+  width: calc(100% - 166rpx );
+  overflow: hidden;
+  white-space: nowrap
 }
 
 .order-table-time {
