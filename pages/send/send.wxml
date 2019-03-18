@@ -38,9 +38,9 @@
     <image class='send-bar-next' src='../../images/w_next.png'></image>
   </view>
 
-  <view class='send-bar'>
+  <view class='send-bar' bindtap='showTime'>
     <view class='send-bar-label'>预约提货时间</view>
-    <view class='send-bar-info' bindtap='showTime'>{{sendDate}} {{sendTime}}</view>
+    <view class='send-bar-info'>{{sendDate}} {{sendTime}}</view>
     <image class='send-bar-next' src='../../images/w_next.png'></image>
   </view>
 </view>

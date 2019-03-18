@@ -5,13 +5,13 @@ const storage = require('../../utils/storage.js')
 const app = getApp()
 const roleMap = new Map() 
 roleMap.set('ownLogistCenter', 1)
-roleMap.set('ownLogistArea', 1)
+roleMap.set('ownLogistArea', 2)
 
-roleMap.set('bigCustomer', 2)
-roleMap.set('franchiser', 2)
+roleMap.set('bigCustomer', 3)
+roleMap.set('franchiser', 4)
 
-roleMap.set('carrier', 3)
-roleMap.set('cartDriver', 3)
+roleMap.set('carrier', 5)
+roleMap.set('cartDriver', 6)
 Page({
 
   /**

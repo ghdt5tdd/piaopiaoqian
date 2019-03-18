@@ -3,7 +3,8 @@
 const app = getApp()
 var QQMapWX = require('../qqmap/qqmap-wx-jssdk.js');
 var demo = new QQMapWX({
-  key: app.globalData.qqMapKey // 必填 换成自己申请到的
+  // key: 'I5GBZ-ZQULP-6MTD5-L4RVA-XAPAJ-DKB4G' // 必填 换成自己申请到的
+  key: app.globalData.qqMapKey
 });
 
 Page({
@@ -33,45 +34,42 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  regionchange(e) {
+    if (e.type === 'end') {
+      const mapCtx = wx.createMapContext("myMap");
+      mapCtx.getCenterLocation({
+        success: (res) => {
+          this.setData({
+            markers: [{
+              id: 0,
+              iconPath: "../../images/marker.png",
+              longitude: res.longitude,
+              latitude: res.latitude,
+              width: 30,
+              height: 30
+            }]
+          })
+          this.getPoiList(res.longitude, res.latitude)
+        }
+      })
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+  getPoiList(longitude, latitude) {
+    demo.reverseGeocoder({
+      location: {
+        latitude,
+        longitude
+      },
+      get_poi: 1,
+      poi_options: 'policy=2;radius=3000;page_size=2;page_index=1',
+      success: res => {
+        const pois = res.result.pois
+        this.setData({
+          addressList: pois
+        })
+      }
+    })
 
   },
 
@@ -81,6 +79,7 @@ Page({
   getCurrentLocation: function () {
     var that = this;
     wx.getLocation({
+      type: 'gcj02',
       success: function (res) {
         var latitude = res.latitude
         var longitude = res.longitude
@@ -90,7 +89,7 @@ Page({
           currentLon: longitude,
           markers: [{ latitude: latitude, longitude: longitude }]
         })
-        that.configMap();
+        // that.configMap();
       },
     })
   },
@@ -99,10 +98,9 @@ Page({
     var that = this;
 
     var qqmapsdk = new QQMapWX({
-      key: app.globalData.qqMapKey // 必填 换成自己申请到的
+      key: app.globalData.qqMapKey
     });
     // 调用接口
-    console.log('---讲纬度', that.data.currentLat);
     qqmapsdk.search({
       keyword: '超市',
       location: {
@@ -138,19 +136,25 @@ Page({
     var longitude = locationData.location.lng;//locationStr.split(',')[1]
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2];
+
+    const province = locationData.ad_info.province || ''
+    const city = locationData.ad_info.city || ''
+    const district = locationData.ad_info.district || ''
+    const title = locationData.title || ''
+    let door = locationData.address.replace(province, '').replace(city, '').replace(district, '')
+    door += title
     prevPage.setData({
 
       //将要传递给新增地址或者编辑地址页面的参数
-      province: locationData.ad_info.province,
-      city: locationData.ad_info.city,
-      district: locationData.ad_info.district,
-      door: locationData.title,
+      // province: locationData.ad_info.province,
+      // city: locationData.ad_info.city,
+      // district: locationData.ad_info.district,
+      door: door,
       sign: 1,
 
       sendAddress: locationData.ad_info.province + ',' + locationData.ad_info.city + ',' + locationData.ad_info.district,
       address: locationData.ad_info.province + '/' + locationData.ad_info.city + '/' + locationData.ad_info.district,
-      location: longitude + ',' + latitude,
-      locationIndex: longitude + ',' + latitude
+      location: longitude + ',' + latitude
     })
 
     var locationDic = { 'latitude': latitude, 'longitude': longitude };

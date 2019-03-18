@@ -481,14 +481,59 @@ Page({
       }
     })
   },
+
+  getDefaultPubAddress() {
+    ajax.getApi('app/member/getDefaultPubAddress', {
+
+    }, (err, res) => {
+      if (res && res.success) {
+        if (res.data.receiveAddress) {
+          const data = res.data.receiveAddress
+          this.setData({
+            receiveAddr: {
+              receiveName: data.contact_name,
+              receiveTel: data.contact_way,
+              receiveProvince: data.province_id,
+              receiveCity: data.city_id,
+              receiveDistrict: data.district_id,
+              receiveAddress: data.address,
+              receiveLocation: data.province + data.city + data.district + data.address
+            },
+            WReceive: false,
+          })
+        }
+        if (res.data.sendAddress) {
+          const data = res.data.sendAddress
+          this.setData({
+            sendAddr: {
+              sendName: data.contact_name,
+              sendTel: data.contact_way,
+              sendProvince: data.province_id,
+              sendCity: data.city_id,
+              sendDistrict: data.district_id,
+              sendAddress: data.address,
+              sendLocation: data.province + data.city + data.district + data.address
+            },
+            WSend: false,
+          })
+        }
+      } else {
+        if (res.text) {
+          wx.showToast({
+            title: res.text,
+            duration: 1000
+          })
+        }
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.getOrderAgreement()
-    // this.getHedgingService()
-    // this.getOrderAgreement()
-
+    this.getDefaultPubAddress()
   },
 
   /**

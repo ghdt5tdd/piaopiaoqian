@@ -4,6 +4,7 @@ const app = getApp()
 var QQMapWX = require('../../qqmap/qqmap-wx-jssdk.js');
 var demo = new QQMapWX({
   key: app.globalData.qqMapKey // 必填 换成自己申请到的
+  // key: 'I5GBZ-ZQULP-6MTD5-L4RVA-XAPAJ-DKB4G' // 必填 换成自己申请到的
 });
 Page({
 
@@ -12,7 +13,6 @@ Page({
    */
   data: {
     tips: [],
-    istext: false,
     searchKey: ''
   },
 
@@ -72,32 +72,28 @@ Page({
 
   },
 
-  clickSearchView: function () {
-    this.setData({
-      istext: true,
-    });
-  },
 
   bindKeyInput: function (e) {
-
     this.setData({
       searchKey: e.detail.value
     })
   },
 
+
   clickSearch: function (e) {
     var that = this;
     var keywords = that.data.searchKey;
     if (keywords == "") {
-      wx.showModal({
+      wx.showToast({
         title: '请输入搜索内容',
-        confirmColor: '#e75858',
-        showCancel: false,
+        icon: 'none',
+        duration: 1000
       })
-      return;
+      return false;
     }
     var qqmapsdk = new QQMapWX({
-      key: 'I5GBZ-ZQULP-6MTD5-L4RVA-XAPAJ-DKB4G'
+      key: app.globalData.qqMapKey
+      // key: 'I5GBZ-ZQULP-6MTD5-L4RVA-XAPAJ-DKB4G'
     });
     console.log(e);
     qqmapsdk.getSuggestion({
@@ -134,13 +130,20 @@ Page({
     var locationData = this.data.tips[index];
     var latitude = locationData.location.lat//locationStr.split(',')[0]
     var longitude = locationData.location.lng;//locationStr.split(',')[1]
-    prevPage.setData({
 
+    const province = locationData.province || ''
+    const city = locationData.city || ''
+    const district = locationData.district || ''
+    const title = locationData.title || ''
+    let door = locationData.address.replace(province, '').replace(city, '').replace(district, '')
+    door += title
+
+    prevPage.setData({
       //将要传递给新增地址或者编辑地址页面的参数
-      province: locationData.province,
-      city: locationData.city,
-      district: locationData.district,
-      door: locationData.title,
+      // province: locationData.province,
+      // city: locationData.city,
+      // district: locationData.district,
+      door: door,
       sign: 1,
 
       sendAddress: locationData.province + ',' + locationData.city + ',' + (locationData.district == undefined ? '' : locationData.district),

@@ -11,7 +11,7 @@
       <view class="section-bar">
         <view class="section-title">联系方式：</view>
         <view class="section-info">
-          <input name="tel" placeholder='请输入联系人手机号' value="{{tel}}" bindinput='bindinput' data-key='tel'></input>
+          <input name="tel" type="number" placeholder='请输入联系人手机号' value="{{tel}}" bindinput='bindinput' data-key='tel'></input>
         </view>
       </view>          
       <view class="section-bar">
@@ -33,6 +33,19 @@
         <view class='section-location red' data-map="{{door}}" bindtap="location">定位</view>
       </view>
 
+      <view class="section-bar">
+        <view class="section-title">客户卡号：</view>
+        <view class="section-info">
+          <input name="customCard" placeholder='选填' value="{{company_code}}" bindinput='bindinput' data-key='company_code'></input>
+        </view>
+      </view>  
+
+      <view class="section-bar">
+        <view class="section-title">客户名称：</view>
+        <view class="section-info">
+          <input name="customName" placeholder='选填' value="{{contact_company}}" bindinput='bindinput' data-key='contact_company'></input>
+        </view>
+      </view>  
     </view>
   </view>
   <button class='button-bottom' bindtap="formSubmit">保存</button>

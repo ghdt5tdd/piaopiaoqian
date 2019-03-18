@@ -82,9 +82,9 @@ Page({
   formSubmit: function (e) {
     const cargo = this.data.cargo
     const count = this.data.count
-    const volumn = this.data.volumn
-    const packaged = this.data.packaged
-    const weight = this.data.weight
+    const volumn = this.data.volumn || 0
+    const packaged = this.data.packaged || ''
+    const weight = this.data.weight || 0
     const selectMode = this.data.selectMode
     if (!cargo) {
       wx.showToast({
@@ -95,24 +95,6 @@ Page({
     } else if (!count) {
       wx.showToast({
         title: '请输入货物件数！',
-        icon: 'none',
-        duration: 2000,
-      })
-    } else if (!volumn) {
-      wx.showToast({
-        title: '请输入货物体积！',
-        icon: 'none',
-        duration: 2000,
-      })
-    } else if (!packaged) {
-      wx.showToast({
-        title: '请输入货物包装！',
-        icon: 'none',
-        duration: 2000,
-      })
-    } else if (!weight) {
-      wx.showToast({
-        title: '请输入货物重量！',
         icon: 'none',
         duration: 2000,
       })

@@ -16,7 +16,7 @@
       <view class="order-table-items">
         <view class='order-table-head'>
           <view class='order-table-id'>订单号：{{item.code}}</view>
-          <view class='order-table-time'>{{item.booking_time}}</view>
+          <view class='order-table-time'>{{item.create_date}}</view>
         </view>
         <view class='order-table-content'>
 
@@ -44,6 +44,9 @@
         <view class='order-table-opt'>
           <view class="order-opt-item active"  bindtap='toInfo' data-id="{{item.id}}">
             查看
+          </view>
+          <view class="order-opt-item active"  wx:if="{{roleType === 5}}"  bindtap='toDispatch' data-id="{{item.id}}">
+            指派司机
           </view>
           <view class="order-opt-item on" wx:for="{{item.command_list}}" wx:for-item="command"wx:for-index="commandindex"  bindtap='handCommand' data-id="{{item.id}}" data-code="{{item.code}}" data-command="{{command.command}}" data-command-text="{{command.command_text}}">
             {{command.command_text}}

@@ -62,7 +62,6 @@ Page({
         WSend: false,
       })
     } else if (this.data.select == 2) {
-      console.log(name)
       prevPage.setData({
         receiveAddr: {
           receiveName: name,
@@ -213,10 +212,6 @@ Page({
           duration: 1000
         })
       }
-    })
-
-    this.setData({
-      addressList: addressList
     })
   },
 
