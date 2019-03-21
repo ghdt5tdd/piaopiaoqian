@@ -1,29 +1,18 @@
 // pages/driver/driver.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const storage = require('../../utils/storage.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    driver: [{
-      name: "章纵",
-      tel: "15822635463",
-      area: "浙江省",
-      car: "浙C18526",
-      carType: "中货车",
-      carLength: "1.5",
-      carWeight: "5000",
-      button: true
-    }, {
-      name: "黎旭",
-      tel: "13622636688",
-      area: "浙江省",
-      car: "浙C34267",
-      carType: "大卡车",
-      carLength: "4.5",
-      carWeight: "9000",
-      button: true
-    }]
+    page: 1,
+    pageSize: 10,
+    loadCompleted: false,
+    drivers: []
   },
   
 
@@ -32,15 +21,15 @@ Page({
     wx.navigateBack({ //返回
       delta: 1
     })
-    var pages = getCurrentPages();
-    var prevPage = pages[pages.length - 2]; //上一个页面
+    const pages = getCurrentPages();
+    const prevPage = pages[pages.length - 2]; //上一个页面
     //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
 
-    var driver = this.data.driver
-    var index = e.currentTarget.dataset.index
+    const drivers = this.data.drivers
+    const index = e.currentTarget.dataset.index
     prevPage.setData({
-      sendDriver: driver[index].name,
-      sendCar: driver[index].car,
+      sendDriver: drivers[index],
+      sendCar: drivers[index].remark,
     })
   },
 
@@ -64,12 +53,70 @@ Page({
     })
   },
 
+  lower: function (e) {
+    let page = this.data.page
+    const pageSize = this.data.pageSize
+    const loadCompleted = this.data.loadCompleted
+    if (!loadCompleted) {
+      page++
+      this.setData({
+        page
+      }, () => {
+        this.getDrivers()
+      })
+    } else {
+      wx.showToast({
+        title: '数据已全部加载完毕',
+        duration: 1000
+      })
+    }
+  },
+
+  getDrivers() {
+    wx.showLoading({
+      title: '获取中...',
+    })
+    const page = this.data.page
+    const pageSize = this.data.pageSize
+    const params = {
+      page,
+      pageSize,
+    }  
+    ajax.getApi('app/member/findSubAccount', params, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.hideLoading()
+        if (res.data.length > 0) {
+          const drivers = this.data.drivers
+          Array.prototype.push.apply(drivers, res.data)
+          this.setData({
+            drivers
+          })
+        } else {
+          this.setData({
+            loadCompleted: true
+          })
+          wx.showToast({
+            title: '数据已全部加载完毕',
+            duration: 1000
+          })
+        }
+      } else {
+        if (res.text) {
+          wx.showToast({
+            title: res.text,
+            duration: 1000
+          })
+        }
+      }
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getDrivers()
   },
 
   /**

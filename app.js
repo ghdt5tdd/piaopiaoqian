@@ -1,6 +1,7 @@
 //app.js
 const ajax = require('utils/ajax.js')
 const util = require('utils/util.js')
+const appData = require('utils/app-data.js')
 App({
   onLaunch: function (e) {
     // 展示本地存储能力
@@ -68,8 +69,8 @@ App({
     platformAppArea: 'wlhn',
     piaopiaoQianAppArea: 'def2dbc9fddf415e8b96dc167ccea5dc',
     piaopiaoQianMemberId: 'ba154b8a17d94b298e3fb6feb3593a39',
-    qqMapKey: 'NUTBZ-GQQK3-2HX3Q-YBQRB-MCEWK-V5BW3',
-    appId: 'wx25262e4c892d549e',
+    qqMapKey: appData.QQ_Map_KEY,
+    appId: appData.APP_ID,
     openId: '',
     sessionKey: '',
     unionId: '',

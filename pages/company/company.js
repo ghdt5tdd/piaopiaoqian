@@ -34,6 +34,7 @@ Page({
   //拨打电话
   bookTel: function(e) {
     var tel = e.currentTarget.dataset.tel
+    
     wx.makePhoneCall({
       phoneNumber: tel
     })
@@ -94,7 +95,7 @@ Page({
    */
   onLoad: function(options) {
 
-    ajax.getApi('app/common/getShopListByGrant', {
+    ajax.getApi('app/common/getShopListByGrant', { 
       page: this.data.page,
       pageSize: this.data.pageSize,
       app_area: app.globalData.piaopiaoQianAppArea

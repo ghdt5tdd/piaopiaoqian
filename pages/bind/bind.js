@@ -1,16 +1,18 @@
 // pages/bind/bind.js
 var timer; // 计时器
 const ajax = require('../../utils/ajax.js')
+const appData = require('../../utils/app-data.js')
 const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: { 
-    logo: "../../images/logo.jpg",
-    title: "德力西电气物流信息系统",
-    area: "delixiarea",
+  data: {
+    logo: appData.APP_LOGO,
+    title: appData.APP_NAME,
+    area: appData.APP_APP_AREA,
+    isPrivate: appData.APP_IS_PRIVATE,
     name: "请输入账号",
     password: "请输入登录密码",
     loginUsername:'',
@@ -18,6 +20,9 @@ Page({
   },
 
   toCompany: function(e) {
+    if (this.data.isPrivate) {
+      return;
+    }
     wx.navigateTo({
       url: '../company/company',
     })

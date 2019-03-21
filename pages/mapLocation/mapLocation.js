@@ -45,7 +45,7 @@ Page({
               iconPath: "../../images/marker.png",
               longitude: res.longitude,
               latitude: res.latitude,
-              width: 30,
+              width: 20,
               height: 30
             }]
           })

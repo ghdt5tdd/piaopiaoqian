@@ -33,7 +33,7 @@
 <view class='send-block'>
   <view class='send-bar send-bar-forwarder'>
     <view class='send-bar-label'>承运商</view>
-    <view wx:if="{{carrier}}" class='send-bar-info' bindtap='toforwarder'>{{carrier.contact_man}}</view>
+    <view wx:if="{{carrier}}" class='send-bar-info' bindtap='toforwarder'>{{carrier.client_name + " " + carrier.contact_man}}</view>
     <view wx:else class='send-bar-info' bindtap='toforwarder'>请选择承运商</view>
     <image class='send-bar-next' src='../../images/w_next.png'></image>
   </view>

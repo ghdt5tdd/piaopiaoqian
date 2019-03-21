@@ -6,12 +6,85 @@ const app = getApp()
 const roleMap = new Map() 
 roleMap.set('ownLogistCenter', 1)
 roleMap.set('ownLogistArea', 2)
-
 roleMap.set('bigCustomer', 3)
 roleMap.set('franchiser', 4)
-
 roleMap.set('carrier', 5)
 roleMap.set('cartDriver', 6)
+
+const orderInterface = new Map()
+orderInterface.set('ownLogistCenter', 'app/order/listBookingOrder')
+orderInterface.set('ownLogistArea', 'app/order/listBookingOrder')
+orderInterface.set('bigCustomer', 'app/order/listBookingOrder')
+orderInterface.set('franchiser', 'app/order/listBookingOrder')
+orderInterface.set('carrier', 'app/order/listCarrierBookingOrder')
+orderInterface.set('cartDriver', 'app/order/listDriverBookingOrder')
+
+const customerStatus = [{
+  name: '全部',
+  value: 0
+}, {
+  name: '待发布',
+  value: 1
+}, {
+  name: '待接单',
+  value: 2
+}, {
+  name: '待取货',
+  value: 3
+}, {
+  name: '待收货',
+  value: 4
+}, {
+  name: '待评价',
+  value: 5
+}]
+const carrierStatus = [{
+  name: '全部',
+  value: 0
+}, {
+  name: '待接单',
+  value: 1
+}, {
+  name: '待指派',
+  value: 2
+}, {
+  name: '待取货',
+  value: 3
+}, {
+  name: '待收货',
+  value: 4
+}, {
+  name: '已完成',
+  value: 5
+}]
+const driverStatus = [{
+  name: '全部',
+  value: 0
+}, {
+  name: '待接听',
+  value: 1
+}, {
+  name: '待取货',
+  value: 2
+}, {
+  name: '待收货',
+  value: 3
+}, {
+  name: '待回单',
+  value: 4
+}, {
+  name: '已完成',
+  value: 5
+}]
+const roleStatus = new Map()
+roleStatus.set('ownLogistCenter', customerStatus)
+roleStatus.set('ownLogistArea', customerStatus)
+roleStatus.set('bigCustomer', customerStatus)
+roleStatus.set('franchiser', customerStatus)
+roleStatus.set('carrier', carrierStatus)
+roleStatus.set('cartDriver', driverStatus)
+
+
 Page({
 
   /**
@@ -110,46 +183,67 @@ Page({
 
   },
 
+  bindinput: function (e) {
+    const key = e.currentTarget.dataset.key
+    this.setData({
+      [key]: e.detail.value
+    })
+  },
+  
   handCommand(e){
     const id = e.currentTarget.dataset.id
     const code = e.currentTarget.dataset.code
     const command = e.currentTarget.dataset.command
     const commandText = e.currentTarget.dataset.commandText
-    wx.showModal({
-      title: '操作确认',
-      content: '您确定要对订单号为' + code + '的订单进行' + commandText +'操作吗?',
-      success(res) {
-        if (res.confirm) {
-          ajax.getApi('app/order/bookingOrderCommand', {
-            id,
-            command
-          }, (err, res) => {
-            if (res && res.success) {
-              wx.showLoading({
-                title: '操作成功',
-              })
-              // this.setData({
-              //   page: 1,
-              //   bookingOrders: [],
-              //   loadCompleted: false
-              // }, () => {
-              //   this.getListBookingOrder()
-              // })
-            } else {
-              if (res.text) {
-                wx.showToast({
-                  title: res.text,
-                  duration: 1000
-                })
-              }
-            }
-          })
-        }
-      },
-    })
-    
+    const _this = this
 
-	
+    if (command === 'assign') {
+      //指派司机
+      wx.navigateTo({
+        url: '../dispatch/dispatch?id=' + id
+      })
+      return;
+    } else if (command === 'pickup') {
+      this.pickup()
+      return;
+    } else {
+      wx.showModal({
+        title: '操作确认',
+        content: '您确定要对订单号为' + code + '的订单进行' + commandText + '操作吗?',
+        success(res) {
+          if (res.confirm) {
+            wx.showLoading({
+              title: '操作中...',
+            })
+            ajax.postApi('app/order/bookingOrderCommand', {
+              id,
+              command
+            }, (err, res) => {
+              wx.hideLoading()
+              if (res && res.success) {
+                wx.showToast({
+                  title: '操作成功',
+                })
+                _this.setData({
+                  page: 1,
+                  bookingOrders: [],
+                  loadCompleted: false
+                }, () => {
+                  _this.getListBookingOrder()
+                })
+              } else {
+                if (res.text) {
+                  wx.showToast({
+                    title: res.text,
+                    duration: 1000
+                  })
+                }
+              }
+            })
+          }
+        },
+      })
+    }
   },
 
 
@@ -161,12 +255,6 @@ Page({
       hideShadow: false,
       hidePickup: false,
       selectOrder,
-
-      pickupName: "普货",  //货物信息
-      pickupWeight: "2637",
-      pickupCube: "4.8",
-      pickupNum: "180",
-      pickupTotal: "360",
     })
   },
 
@@ -206,13 +294,6 @@ Page({
     })
   },
 
-  toDispatch: function (e) {
-    var index = e.currentTarget.dataset.index
-    var id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: '../dispatch/dispatch?id=' + id
-    })
-  },
 
   //选择订单状态
   select: function (e) {
@@ -230,7 +311,14 @@ Page({
     wx.showLoading({
       title: '查询中',
     })
-    ajax.getApi('app/order/listBookingOrder', {
+    const partnerTypeCode = app.globalData.memberInfo.partnerTypeCode
+    console.log(partnerTypeCode)
+    let api = orderInterface.get(partnerTypeCode)
+    //暂时加一层判断，根据个人角色来决定是司机还是承运商身份
+    if (app.globalData.memberInfo.talent_type === 'driver' || app.globalData.memberInfo.talent_type === 'bigdriver') {
+      api = 'app/order/listDriverBookingOrder'
+    }
+    ajax.getApi(api, {
       page,
       pageSize,
       state
@@ -291,8 +379,10 @@ Page({
   setRole(){
     const partnerTypeCode = app.globalData.memberInfo.partnerTypeCode
     const roleType = roleMap.get(partnerTypeCode)
+    const status = roleStatus.get(partnerTypeCode)
     this.setData({
-      roleType
+      roleType,
+      status
     })
   },
 

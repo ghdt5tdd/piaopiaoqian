@@ -14,7 +14,7 @@ moduleItemImgs.set('6', { img: '../../images/model5.png', to: 'toForm' })//统�
 moduleItemImgs.set('9', { img: '../../images/model3.png', to: 'toSign' })//货运单签收
 
 //这两个暂时还没有
-moduleItemImgs.set('7', { img: '../../images/model3.png', to: '' })//预约订单
+moduleItemImgs.set('7', { img: '../../images/model3.png', to: 'toAppoint' })//预约订单
 moduleItemImgs.set('8', { img: '../../images/model3.png', to: 'toReceive' })//货运单接受
 
 //新加的，还没确定

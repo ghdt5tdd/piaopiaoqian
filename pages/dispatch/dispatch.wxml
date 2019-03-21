@@ -2,24 +2,24 @@
 
 <view class="order-table-items">
   <view class='order-table-head'>
-    <view class='order-table-id'>预约单号：{{orderId}}</view>
-    <view class='order-table-time'>{{orderTime}}</view>
+    <view class='order-table-id'>订单号：{{bookingOrder.code}}</view>
+    <view class='order-table-time'>{{bookingOrder.create_date}}</view>
   </view>
-  <view class='order-table-content' bindtap='toInfo'>
+  <view class='order-table-content' bindtap='toInfo' data-id="{{bookingOrder.id}}">
     <view class='order-table-line'>
       <view class='order-line-route'>
-        <view class='order-route-point'>{{orderStart}}</view>
+        <view class='order-route-point'>{{bookingOrder.consigner_province_name + bookingOrder.consigner_city_name}}</view>
         <image mode="widthFix" src="../../images/arrow.png"></image>
-        <view class='order-route-point'>{{orderEnd}}</view>
+        <view class='order-route-point'>{{bookingOrder.consignee_province_name + bookingOrder.consignee_city_name}}</view>
       </view>
       <view class='order-line-cargo'>
         <view class='order-cargo-receive'>
           <image src="../../images/person.png"></image>
-          <view>{{orderReceive}}收</view>
+          <view>{{bookingOrder.consignee_man}}收</view>
         </view>
         <view class='order-cargo-num'>
           <image src="../../images/cargo.png"></image>
-          <view>{{orderNum}}件</view>
+          <view>{{bookingOrder.total_packing_quantity}}件</view>
         </view>
       </view>
     </view>
@@ -31,25 +31,31 @@
 
 <view class='send-bar'>
   <view class='send-bar-label'>指派司机</view>
-  <view class='send-bar-info' bindtap='toDriver'>{{sendDriver}}</view>
+  <view class='send-bar-info' bindtap='toDriver'>
+    <block wx:if="{{sendDriver}}">{{sendDriver.full_name}}</block>
+    <block wx:else>请指派司机</block>
+  </view>
   <image class='send-bar-next' src='../../images/w_next.png'></image>
 </view>
 <view class='send-bar'>
   <view class='send-bar-label'>指派车辆</view>
-  <view class='send-bar-info'>{{sendCar}}</view>
+  <view class='send-bar-info'>
+    <block wx:if="{{sendCar}}">{{sendCar}}</block>
+    <block wx:else>根据指派司机自动获取</block>
+  </view>
   <image class='send-bar-next' src='../../images/w_next.png'></image>
 </view>
 <view class='send-bar'>
   <view class='send-bar-label'>取货时间</view>
-  <view class='send-bar-info' bindtap='showTime'>{{sendDate}} {{sendTime}}</view>
+  <view class='send-bar-info'>{{bookingOrder.booking_time}}</view>
   <image class='send-bar-next' src='../../images/w_next.png'></image>
 </view>
 <view class='send-remark'>
   <view class='send-remark-label'>备注信息</view>
-  <textarea placeholder='例：请开大车提货'></textarea>
+  <textarea placeholder='例：请开大车提货' bindinput='bindinput' data-key='remark'></textarea>
 </view>
 
-
+<view class='fixed-bottom' bindtap='dispatch'>确认</view>
 
 <view class='pop-shadow' bindtap="hide" hidden="{{hideShadow}}"></view>
 <view class='pop-up pop-time' hidden="{{hideTime}}">

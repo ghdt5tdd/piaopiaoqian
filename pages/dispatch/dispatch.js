@@ -1,16 +1,21 @@
 // pages/dispatch/dispatch.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const storage = require('../../utils/storage.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    sendDriver: "请指派司机",
-    sendCar: "根据指派司机获取",
-
+    bookingOrder: undefined,
+    sendDriver: undefined,
+    sendCar: undefined,
+    remark:'',
     hideShadow: true,
     hideTime: true,
-    sendTime: "请选择上门取货时间",
+    sendTime: "",
     //预约时间
     calendar: [],
     width: 0,
@@ -43,11 +48,17 @@ Page({
     }, ],
   },
 
+  bindinput: function (e) {
+    const key = e.currentTarget.dataset.key
+    this.setData({
+      [key]: e.detail.value
+    })
+  },
 
   //跳转到货运单详情页面
   toInfo: function(e) {
     wx.navigateTo({
-      url: '../transportdetail/transportdetail'
+      url: '../transportdetail/transportdetail?id=' + e.currentTarget.dataset.id
     })
   },
 
@@ -189,19 +200,74 @@ Page({
     })
   },
 
+  dispatch() {
+    const id = this.data.bookingOrder.id
+    const driver_id = this.data.sendDriver.id
+    const remark = this.data.remark
+
+    wx.showLoading({
+      title: '请稍等...',
+    })
+    ajax.postApi('app/order/carrierAssignDriverBookingOrderCommand', {
+      id,
+      driver_id,
+      // vehicle_number,
+      remark
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.showToast({
+          title: '指派成功!',
+          success () {
+            wx.navigateBack({
+              delta: 1
+            })
+          },
+        })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
+        })
+      }
+    })	
+  },
+
+  getBookingOrderById(id) {
+    wx.showLoading({
+      title: '加载中...',
+    })
+
+    ajax.getApi('app/order/getBookingOrderById', {
+      id
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        const bookingOrder = res.data
+        const add_services = bookingOrder.add_services
+        if (add_services) {
+          bookingOrder.add_services = JSON.parse(add_services)
+        }
+        this.setData({
+          bookingOrder
+        })
+      } else {
+        if (res.text) {
+          wx.showToast({
+            title: res.text,
+            duration: 1000
+          })
+        }
+      }
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({
-      orderId: options.id,
-      orderTime: options.time,
-      orderStart: options.start,
-      orderEnd: options.end,
-      orderReceive: options.receive,
-      orderNum: options.num
-    })
+    const id = options.id
+    this.getBookingOrderById(id)
   },
 
 
