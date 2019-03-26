@@ -55,7 +55,7 @@
   <textarea placeholder='例：请开大车提货' bindinput='bindinput' data-key='remark'></textarea>
 </view>
 
-<view class='fixed-bottom' bindtap='dispatch'>确认</view>
+<view class='button-bottom' bindtap='dispatch'>确认</view>
 
 <view class='pop-shadow' bindtap="hide" hidden="{{hideShadow}}"></view>
 <view class='pop-up pop-time' hidden="{{hideTime}}">

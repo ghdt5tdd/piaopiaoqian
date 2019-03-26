@@ -32,6 +32,14 @@
   font-size: 26rpx;
 }
 
+.orderinfo-bar-id {
+  width: calc(100% - 230rpx);
+}
+
+.orderinfo-bar-time {
+  width: 220rpx;
+}
+
 .orderinfo-receive {
   padding-bottom: 10rpx;
 }

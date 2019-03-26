@@ -9,7 +9,7 @@
   </view>
 </scroll-view>
 
-<scroll-view scroll-y="true" style="height:calc(100%- 186rpx);position:fixed;top:106rpx;bottom:80rpx">
+<scroll-view scroll-y="true" style="height:calc(100%- 186rpx);position:fixed;top:106rpx;bottom:80rpx" bindscrolltolower="lower">
   <view class='order-table'>
 
     <block wx:for="{{bookingOrders}}" wx:key="id">
@@ -36,33 +36,37 @@
                 <view>{{item.total_packing_quantity}}件</view>
               </view>
             </view>
+            <view class='order-line-cargo' wx:if="{{item.carrier_name}}">
+              <view class='order-cargo-receive'>
+                <image src="../../images/send-by.png"></image>
+                <view>{{item.carrier_name}}承运</view>
+              </view>
+            </view>
           </view>
 
           <image class='order-table-to' src='../../images/next.png'></image>
         </view>
 
-        <view class='order-table-opt'>
-          <!-- <view class="order-opt-item active"  bindtap='toInfo' data-id="{{item.id}}">
-            查看
-          </view> -->
-          <view class="order-opt-item on" wx:for="{{item.command_list}}" wx:for-item="command"wx:for-index="commandindex"  bindtap='handCommand' data-id="{{item.id}}" data-code="{{item.code}}" data-command="{{command.command}}" data-command-text="{{command.command_text}}">
-            {{command.command_text}}
+        <view class='order-appoint-other'>
+          <!-- <image class='order-appoint-code' bindtap='showCode' data-id="{{item.id}}" data-code="{{item.code}}" src='../../images/code.png'></image> -->
+          <view class='order-appoint-opt'>
+
+            <view class='order-opt-more' wx:if="{{item.hide_command_list && item.hide_command_list.length > 0}}" data-index="{{index}}" bindtap="optmore">更多</view>
+
+            <view>
+              <view class="order-opt-item on" wx:for="{{item.show_command_list}}" wx:for-item="showCommand" wx:for-index="showCommandIndex"  bindtap='handCommand' data-id="{{item.id}}" data-index="{{index}}" data-code="{{item.code}}" data-command="{{showCommand.command}}" data-command-text="{{showCommand.command_text}}">
+                {{showCommand.command_text}}
+              </view>
+            </view>
+
+            <view wx:if="{{item.showMore}}" class='order-opt-float'>
+              <view class="order-opt-item on" wx:for="{{item.hide_command_list}}" wx:for-item="hideCommand" wx:for-index="hideCommandIndex"  bindtap='handCommand' data-id="{{item.id}}" data-index="{{index}}" data-code="{{item.code}}" data-command="{{hideCommand.command}}" data-command-text="{{hideCommand.command_text}}">
+                {{hideCommand.command_text}}
+              </view>
+            </view>
+
           </view>
-          <!-- <view class="order-opt-item" wx:if="{{roleType === 3}}"  bindtap='refuse' data-id="{{item.id}}">
-            拒绝
-          </view>
-          <view class="order-opt-item active"  bindtap='toDetail' data-id="{{item.id}}">
-            查看
-          </view>
-          <view class="order-opt-item on" wx:if="{{roleType === 3}}"   bindtap='consent' data-id="{{item.id}}">
-            接单
-          </view>
-          <view class="order-opt-item on"  bindtap='toDispatch' data-id="{{item.id}}">
-            派车
-          </view>
-          <view class="order-opt-item on"  bindtap='pickup' data-id="{{item.id}}" data-index="{{index}}">
-            取货
-          </view> -->
+
         </view>
 
       </view>
@@ -71,6 +75,13 @@
   </view>
 </scroll-view>
 <view class='fixed-bottom' bindtap='toSend'>下单</view>
+
+<view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
+<view class='popup-code' hidden='{{hide}}'>
+  <view class='popup-code-head'>二维码查看</view>
+  <view class='popup-code-id'>预约单号：{{codeId}}</view>
+  <image class='popup-code-pic' src='{{codePic}}'></image>
+</view>
 
 <view class='pop-shadow' bindtap="hide" hidden="{{hideShadow}}"></view>
 <view class='pop-up pop-pickup' hidden="{{hidePickup}}">

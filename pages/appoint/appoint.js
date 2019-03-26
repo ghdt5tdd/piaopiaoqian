@@ -92,26 +92,7 @@ Page({
    */
   data: {
     roleType: undefined,
-    status: [{
-      name: '全部',
-      value: 0
-    }, {
-      name: '待发布',
-      value: 1
-    }, {
-      name: '待接单',
-      value: 2
-    }, {
-      name: '待指派',
-      value: 3
-    }, {
-      name: '待取件',
-      value: 4
-    }, {
-      name: '已完成',
-      value: 5
-    }],
-
+    status: [],
     selectStatus: 0,
     page: 1,
     pageSize: 10,
@@ -120,67 +101,10 @@ Page({
     select: 0,
     bookingOrders: [],
     selectOrder: undefined,
-
-    orderTable: [{
-      id: "18352790283072",
-      time: "2018-01-10",
-      start: "浙江温州",
-      end: "湖北武汉",
-      receive: "武汉恒望科技有限公司",
-      num: "210",
-      opt: [{
-        name: "拒绝",
-        to: "refuse",
-        style: 1,
-      }, {
-        name: "查看",
-        to: "toDetail",
-        style: 2,
-      }, {
-        name: "接单",
-        to: "consent",
-        style: 3,
-      }],
-    }, {
-      id: "18352790280265",
-      time: "2018-01-02",
-      start: "浙江温州",
-      end: "北京市",
-      receive: "北京海淀雷蒙赛博机电技术有限公司",
-      num: "150",
-      opt: [{
-        name: "查看",
-        to: "toDetail",
-        style: 2,
-      }, {
-        name: "派车",
-        to: "toDispatch",
-        style: 3,
-      }, {
-        name: "取货",
-        to: "pickup",
-        style: 3,
-      }],
-    }, {
-      id: "18352790283072",
-      time: "2018-01-01",
-      start: "浙江温州",
-      end: "湖北武汉",
-      receive: "武汉恒望科技有限公司",
-      num: "210",
-      opt: [{
-        name: "查看",
-        to: "toDetail",
-        style: 2,
-      }, {
-        name: "派车",
-        to: "toDispatch",
-        style: 3,
-      }],
-    }, ],
     hideShadow: true,
     hidePickup: true,
-
+    hide: true,
+    hideCode: true,
   },
 
   bindinput: function (e) {
@@ -192,6 +116,7 @@ Page({
   
   handCommand(e){
     const id = e.currentTarget.dataset.id
+    const index = e.currentTarget.dataset.index
     const code = e.currentTarget.dataset.code
     const command = e.currentTarget.dataset.command
     const commandText = e.currentTarget.dataset.commandText
@@ -203,13 +128,13 @@ Page({
         url: '../dispatch/dispatch?id=' + id
       })
       return;
-    } else if (command === 'pickup') {
-      this.pickup()
+    } else if (command === 'pickup') { 
+      this.pickup(index)
       return;
     } else {
       wx.showModal({
         title: '操作确认',
-        content: '您确定要对订单号为' + code + '的订单进行' + commandText + '操作吗?',
+        content: '您确定要对此订单进行' + commandText + '吗?(订单号:' + code +')',
         success(res) {
           if (res.confirm) {
             wx.showLoading({
@@ -248,8 +173,7 @@ Page({
 
 
   //取货
-  pickup: function (e) {
-    var index = e.target.dataset.index;
+  pickup(index) {
     const selectOrder = this.data.bookingOrders[index]
     this.setData({
       hideShadow: false,
@@ -258,12 +182,72 @@ Page({
     })
   },
 
+  surePick() {
+    const id = this.data.selectOrder.id
+    wx.showLoading({
+      title: '操作中...',
+    })
+    ajax.postApi('app/order/bookingOrderCommand', {
+      id,
+      command: 'pickup'
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.showToast({
+          title: '操作成功',
+        })
+        _this.setData({
+          page: 1,
+          bookingOrders: [],
+          loadCompleted: false
+        }, () => {
+          _this.getListBookingOrder()
+        })
+      } else {
+        if (res.text) {
+          wx.showToast({
+            title: res.text,
+            duration: 1000
+          })
+        }
+      }
+    })
+  },
+
+  //打开二维码弹窗
+  showCode: function (e) {
+    var codeId = e.currentTarget.dataset.id
+    var codePic = e.currentTarget.dataset.code
+    this.setData({
+      hide: false,
+      hideCode: false,
+      codeId: codeId,
+      codePic: codePic
+    })
+  },
 
   hide: function (e) {
     this.setData({
       hideShadow: true,
       hidePickup: true,
     })
+  },
+
+  //更多按钮
+  optmore: function (e) {
+    const index = e.currentTarget.dataset.index
+    const bookingOrders = this.data.bookingOrders
+    const order = bookingOrders[index]
+
+    if (order.showMore) {
+      order.showMore = !order.showMore 
+    } else {
+      order.showMore = true
+    }
+
+    this.setData({
+      bookingOrders,
+    });
   },
 
   //选择状态
@@ -294,6 +278,13 @@ Page({
     })
   },
 
+  //去节点状态
+  toNode: function (e) {
+    wx.navigateTo({ //随便写的URL
+      url: '../node/node'
+    })
+  }, 
+
 
   //选择订单状态
   select: function (e) {
@@ -312,10 +303,10 @@ Page({
       title: '查询中',
     })
     const partnerTypeCode = app.globalData.memberInfo.partnerTypeCode
-    console.log(partnerTypeCode)
+
     let api = orderInterface.get(partnerTypeCode)
     //暂时加一层判断，根据个人角色来决定是司机还是承运商身份
-    if (app.globalData.memberInfo.talent_type === 'driver' || app.globalData.memberInfo.talent_type === 'bigdriver') {
+    if (app.globalData.memberInfo.talent_type_code === 'driver' || app.globalData.memberInfo.talent_type_code === 'bigdriver') {
       api = 'app/order/listDriverBookingOrder'
     }
     ajax.getApi(api, {
@@ -327,7 +318,25 @@ Page({
       if (res && res.success) {
         if (res.data.length > 0) {
           const bookingOrders = this.data.bookingOrders
-          Array.prototype.push.apply(bookingOrders, res.data)
+          const newBookingOrders = res.data
+
+          newBookingOrders.forEach(v => {
+            const command_list = v.command_list
+            if (command_list instanceof Array && command_list.length > 0) {
+              let hide_command_list, show_command_list
+              if (command_list.length > 3) {
+                show_command_list = command_list.slice(0, 3)
+                hide_command_list = command_list.slice(3)
+              } else {
+                show_command_list = command_list
+                hide_command_list = []
+              }
+              v.hide_command_list = hide_command_list
+              v.show_command_list = show_command_list
+            }
+          })
+
+          Array.prototype.push.apply(bookingOrders, newBookingOrders)
           this.setData({
             bookingOrders
           })
@@ -379,7 +388,10 @@ Page({
   setRole(){
     const partnerTypeCode = app.globalData.memberInfo.partnerTypeCode
     const roleType = roleMap.get(partnerTypeCode)
-    const status = roleStatus.get(partnerTypeCode)
+    let status = roleStatus.get(partnerTypeCode)
+    if (app.globalData.memberInfo.talent_type_code === 'driver' || app.globalData.memberInfo.talent_type_code === 'bigdriver') {
+      status = roleStatus.get('cartDriver')
+    }
     this.setData({
       roleType,
       status

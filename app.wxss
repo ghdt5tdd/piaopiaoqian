@@ -72,6 +72,7 @@ page {
   margin-bottom: 80rpx;
 }
 
+
 input {
   min-height: 0;
   height: auto;
@@ -292,14 +293,19 @@ button::after {
   line-height: 80rpx;
 }
 
-.order-table-id{
-  width: calc(100% - 166rpx );
+.order-table-id {
+  width: calc(100% - 226rpx);
   overflow: hidden;
-  white-space: nowrap
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+
+.order-table-id text {
+  font-size: 26rpx;
 }
 
 .order-table-time {
-  font-size: 28rpx;
+  font-size: 26rpx;
 }
 
 .order-table-bar {
@@ -413,7 +419,6 @@ button::after {
   margin-top: 40rpx;
 }
 
-
 .fixed-bottom {
   position: fixed;
   line-height: 80rpx;
@@ -464,6 +469,7 @@ button::after {
 }
 
 /**等级图片**/
+
 .vip-level {
   width: 170rpx;
   height: 32rpx;

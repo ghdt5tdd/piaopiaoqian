@@ -9,19 +9,19 @@
       <view class='order-table-content'>
         <view class='order-table-row'>
           <view class='order-row-bar'>
-            <view class='order-bar-label'>异常类型：</view>
+            <view class='order-bar-label'>类型：</view>
             <view class='order-bar-name'>{{exceptionInfo.type}}</view>
           </view>
           <view class='order-row-bar'>
-            <view class='order-bar-label'>发生环节：</view>
+            <view class='order-bar-label'>环节：</view>
             <view class='order-bar-name'>{{exceptionInfo.link}}</view>
           </view>
           <view class='order-row-bar'>
-            <view class='order-bar-label'>异常内容：</view>
+            <view class='order-bar-label'>内容：</view>
             <view class='order-bar-name'>{{exceptionInfo.report_content}}</view>
           </view>
           <view class='order-row-bar'>
-            <view class='order-bar-label'>发生地点：</view>
+            <view class='order-bar-label'>地点：</view>
             <view class='order-bar-name'>{{exceptionInfo.address}}</view>
           </view>
         </view>
