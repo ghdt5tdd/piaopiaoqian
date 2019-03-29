@@ -9,9 +9,13 @@
       <view class='forwarder-item-head'>
         <image class='forwarder-item-logo'src='{{item.logo_img}}'></image>
         <view class='forwarder-item-name'>{{item.contact_man}}</view>
-        <view class='forwarder-item-spec'>{{item.about_introduce}}</view>
+        <view class='forwarder-item-spec'>{{item.client_name}}</view>
       </view>
       <view class='forwarder-item-info'>
+        <view class='forwarder-item-bar'>
+          <image src='../../images/send-tel.png'></image>
+           <view>{{item.about_introduce}}</view>
+        </view>
         <view class='forwarder-item-bar'>
           <image src='../../images/send-tel.png'></image>
            <view>{{item.contact_way}}</view>

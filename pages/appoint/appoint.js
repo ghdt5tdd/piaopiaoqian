@@ -392,6 +392,7 @@ Page({
     if (app.globalData.memberInfo.talent_type_code === 'driver' || app.globalData.memberInfo.talent_type_code === 'bigdriver') {
       status = roleStatus.get('cartDriver')
     }
+    console.log(roleType)
     this.setData({
       roleType,
       status

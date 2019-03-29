@@ -74,7 +74,7 @@
 
   </view>
 </scroll-view>
-<view class='fixed-bottom' bindtap='toSend'>下单</view>
+<view class='fixed-bottom' bindtap='toSend' wx:if="{{roleType !== 5 && roleType !== 6}}">下单</view>
 
 <view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
 <view class='popup-code' hidden='{{hide}}'>
@@ -103,10 +103,10 @@
       <view class='pop-pickup-label'>件数</view>
       <view class='pop-pickup-name'>{{selectOrder.total_packing_quantity}}</view>
     </view>
-    <!-- <view class='pop-pickup-item'>
-      <view class='pop-pickup-label'>订单金额</view>
-      <view class='pop-pickup-name'>{{pickupTotal}}</view>
-    </view> -->
+    <view class='pop-pickup-item'>
+      <view class='pop-pickup-label'>用户留言</view>
+      <view class='pop-pickup-name'>{{selectOrder.remark}}</view>
+    </view> 
     <view class='pop-pickup-item'>
       <view class='pop-pickup-label'>备注</view>
       <textarea placeholder='选填'  bindinput='bindinput' data-key='remark'></textarea>
@@ -115,7 +115,7 @@
   <view class='pop-bottom-half'>
     <view class='pop-bottom-opt'  bindtap="hide">
       取消
-    </view>
+    </view> 
     <view class='pop-bottom-opt orange'  bindtap="surePick">
       确认
     </view>
