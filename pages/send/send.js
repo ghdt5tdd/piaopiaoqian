@@ -356,14 +356,16 @@ Page({
       })
       return false;
 
-    } else if (!this.data.sendDate) {
-      wx.showToast({
-        title: '请选择大概提货时间！',
-        icon: 'none',
-        duration: 3000,
-      })
-      return false;
-    } else {
+    } 
+    // else if (!this.data.sendDate) {
+    //   wx.showToast({
+    //     title: '请选择大概提货时间！',
+    //     icon: 'none',
+    //     duration: 3000,
+    //   })
+    //   return false;
+    // } 
+    else {
       wx.showLoading({
         title: '提交中...',
       })
@@ -373,7 +375,6 @@ Page({
       const sendAddr = this.data.sendAddr
       const receiveAddr = this.data.receiveAddr
       const carrier = this.data.carrier
-      const bookingTime = this.data.sendDate + ' ' + this.data.sendTime
       const remark = this.data.remark
 
       const params = {
@@ -385,6 +386,8 @@ Page({
         consignerCity: sendAddr.sendCity,
         consignerDistrict: sendAddr.sendDistrict,
         consignerAddress: sendAddr.sendAddress,
+        consigner_client_account: sendAddr.sendCode,
+        consigner_name: sendAddr.sendCompany,
 
         consigneeMan: receiveAddr.receiveName,
         consigneeWay: receiveAddr.receiveTel,
@@ -392,12 +395,13 @@ Page({
         consigneeCity: receiveAddr.receiveCity,
         consigneeDistrict: receiveAddr.receiveDistrict,
         consigneeAddress: receiveAddr.receiveAddress,
+        consignee_client_account: receiveAddr.receiveCode,
+        consignee_name: receiveAddr.receiveCompany,
 
         volume: cargo.cargoVolumn,
         weight: cargo.cargoWeight,
         goodsPack: cargo.cargoPack,
         packingAmount: cargo.cargoNum,
-        bookingTime: bookingTime,
         settlementMode: cargo.cargoSelectMode.itemKey,
         carrierId: carrier.id,
         remark: remark,
@@ -405,6 +409,11 @@ Page({
       
       if (tServices) {
         params.sendservice = JSON.stringify(tServices)
+      }
+
+      if (this.data.sendDate) {
+        const bookingTime = this.data.sendDate + ' ' + this.data.sendTime
+        params.bookingTime = bookingTime
       }
 
 

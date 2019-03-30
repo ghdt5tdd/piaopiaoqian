@@ -55,14 +55,6 @@ Page({
     })
   },
 
-  //跳转到货运单详情页面
-  toInfo: function(e) {
-    wx.navigateTo({
-      url: '../transportdetail/transportdetail?id=' + e.currentTarget.dataset.id
-    })
-  },
-
-
   //跳转到司机
   toDriver: function(e) {
     wx.navigateTo({

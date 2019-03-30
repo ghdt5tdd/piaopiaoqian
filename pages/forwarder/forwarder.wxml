@@ -8,25 +8,25 @@
     <view class='forwarder-item' wx:for="{{forwarderList}}" wx:key="id" bindtap='toSend' data-index="{{index}}">
       <view class='forwarder-item-head'>
         <image class='forwarder-item-logo'src='{{item.logo_img}}'></image>
-        <view class='forwarder-item-name'>{{item.contact_man}}</view>
-        <view class='forwarder-item-spec'>{{item.client_name}}</view>
+        <view class='forwarder-item-name'>{{item.client_name}}</view>
+        <!-- <view class='forwarder-item-spec'>{{item.contact_man}}</view> -->
       </view>
       <view class='forwarder-item-info'>
         <view class='forwarder-item-bar'>
-          <image src='../../images/send-tel.png'></image>
-           <view>{{item.about_introduce}}</view>
+          <image src='../../images/send-company.png'></image>
+          <view>{{item.contact_man}}</view>
         </view>
         <view class='forwarder-item-bar'>
           <image src='../../images/send-tel.png'></image>
-           <view>{{item.contact_way}}</view>
-        </view>
-        <view class='forwarder-item-bar'>
-          <image src='../../images/send-by.png'></image>
-          <view>{{item.business_scope}}</view>
+          <view catchtap='call' data-tel="{{item.contact_way}}" class="orange">{{item.contact_way}}</view>
         </view>
         <view class='forwarder-item-bar'>
           <image src='../../images/send-location.png'></image>
           <view>{{item.address}}</view>
+        </view>
+        <view class='forwarder-item-bar'>
+          <image src='../../images/send-note.png'></image>
+          <view>{{item.about_introduce}}</view>
         </view>
       </view>
     </view>

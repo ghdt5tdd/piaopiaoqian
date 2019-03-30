@@ -20,9 +20,6 @@ orderInterface.set('carrier', 'app/order/listCarrierBookingOrder')
 orderInterface.set('cartDriver', 'app/order/listDriverBookingOrder')
 
 const customerStatus = [{
-  name: '全部',
-  value: 0
-}, {
   name: '待发布',
   value: 1
 }, {
@@ -37,11 +34,11 @@ const customerStatus = [{
 }, {
   name: '待评价',
   value: 5
-}]
-const carrierStatus = [{
+}, {
   name: '全部',
   value: 0
-}, {
+}]
+const carrierStatus = [ {
   name: '待接单',
   value: 1
 }, {
@@ -56,11 +53,11 @@ const carrierStatus = [{
 }, {
   name: '已完成',
   value: 5
-}]
-const driverStatus = [{
+}, {  
   name: '全部',
   value: 0
-}, {
+}]
+const driverStatus = [{
   name: '待接听',
   value: 1
 }, {
@@ -75,6 +72,9 @@ const driverStatus = [{
 }, {
   name: '已完成',
   value: 5
+}, {
+  name: '全部',
+  value: 0
 }]
 const roleStatus = new Map()
 roleStatus.set('ownLogistCenter', customerStatus)
@@ -93,16 +93,17 @@ Page({
   data: {
     roleType: undefined,
     status: [],
-    selectStatus: 0,
+    selectStatus: 1,
     page: 1,
     pageSize: 10,
     count: 0,
     loadCompleted: false,
-    select: 0,
+    select: 1,
     bookingOrders: [],
     selectOrder: undefined,
     hideShadow: true,
     hidePickup: true,
+    hideOrdering: true,
     hide: true,
     hideCode: true,
   },
@@ -128,6 +129,9 @@ Page({
         url: '../dispatch/dispatch?id=' + id
       })
       return;
+    } else if (command === 'order') {
+      this.order(index)
+      return;
     } else if (command === 'pickup') { 
       this.pickup(index)
       return;
@@ -137,71 +141,32 @@ Page({
         content: '您确定要对此订单进行' + commandText + '吗?(订单号:' + code +')',
         success(res) {
           if (res.confirm) {
-            wx.showLoading({
-              title: '操作中...',
-            })
-            ajax.postApi('app/order/bookingOrderCommand', {
-              id,
-              command
-            }, (err, res) => {
-              wx.hideLoading()
-              if (res && res.success) {
-                wx.showToast({
-                  title: '操作成功',
-                })
-                _this.setData({
-                  page: 1,
-                  bookingOrders: [],
-                  loadCompleted: false
-                }, () => {
-                  _this.getListBookingOrder()
-                })
-              } else {
-                if (res.text) {
-                  wx.showToast({
-                    title: res.text,
-                    duration: 1000
-                  })
-                }
-              }
-            })
+            _this.postCommand(id, command)
           }
         },
       })
     }
   },
 
-
-  //取货
-  pickup(index) {
-    const selectOrder = this.data.bookingOrders[index]
-    this.setData({
-      hideShadow: false,
-      hidePickup: false,
-      selectOrder,
-    })
-  },
-
-  surePick() {
-    const id = this.data.selectOrder.id
+  postCommand(id, command) {
     wx.showLoading({
       title: '操作中...',
     })
     ajax.postApi('app/order/bookingOrderCommand', {
       id,
-      command: 'pickup'
+      command
     }, (err, res) => {
       wx.hideLoading()
       if (res && res.success) {
         wx.showToast({
           title: '操作成功',
         })
-        _this.setData({
+        this.setData({
           page: 1,
           bookingOrders: [],
           loadCompleted: false
         }, () => {
-          _this.getListBookingOrder()
+          this.getListBookingOrder()
         })
       } else {
         if (res.text) {
@@ -212,6 +177,45 @@ Page({
         }
       }
     })
+  },
+
+
+  //弹出取货窗口
+  pickup(index) {
+    const selectOrder = this.data.bookingOrders[index]
+    this.setData({
+      hideShadow: false,
+      hidePickup: false,
+      selectOrder,
+    })
+  },
+
+  //弹出订单信息窗口
+  order(index) {
+    const selectOrder = this.data.bookingOrders[index]
+    this.setData({
+      hideShadow: false,
+      hideOrdering: false,
+      selectOrder,
+    })
+  },
+
+  surePick() {
+    const id = this.data.selectOrder.id
+    this.setData({
+      hideShadow: true,
+      hidePickup: true,
+    })
+    this.postCommand(id, 'pickup')
+  },
+
+  sureOrder() {
+    const id = this.data.selectOrder.id
+    this.setData({
+      hideShadow: true,
+      hideOrdering: true,
+    })
+    this.postCommand(id, 'order')
   },
 
   //打开二维码弹窗
@@ -230,6 +234,7 @@ Page({
     this.setData({
       hideShadow: true,
       hidePickup: true,
+      hideOrdering: true,
     })
   },
 
@@ -387,14 +392,16 @@ Page({
 
   setRole(){
     const partnerTypeCode = app.globalData.memberInfo.partnerTypeCode
+    const talent_type_code = app.globalData.memberInfo.talent_type_code
     const roleType = roleMap.get(partnerTypeCode)
     let status = roleStatus.get(partnerTypeCode)
-    if (app.globalData.memberInfo.talent_type_code === 'driver' || app.globalData.memberInfo.talent_type_code === 'bigdriver') {
+    if (talent_type_code === 'driver' || talent_type_code === 'bigdriver') {
       status = roleStatus.get('cartDriver')
     }
     console.log(roleType)
     this.setData({
       roleType,
+      talent_type_code,
       status
     })
   },

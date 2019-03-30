@@ -43,6 +43,8 @@ Page({
     var district = addressList[index].district
     var district_id = addressList[index].district_id
     var address = addressList[index].address
+    var company_code = addressList[index].company_code
+    var contact_company = addressList[index].contact_company
     var location = province
       + city
       + district
@@ -57,7 +59,9 @@ Page({
           sendCity: city_id,
           sendDistrict: district_id,
           sendAddress: address,
-          sendLocation: location
+          sendLocation: location,
+          sendCode: company_code,
+          sendCompany: contact_company
         },
         WSend: false,
       })
@@ -71,6 +75,8 @@ Page({
           receiveDistrict: district_id,
           receiveAddress: address,
           receiveLocation: location,
+          receiveCode: company_code,
+          receiveCompany: contact_company
         },
         WReceive: false,
       })
