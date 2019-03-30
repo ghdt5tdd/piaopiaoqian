@@ -48,7 +48,7 @@ Page({
     }],
     memberServiceRate:{},
     memberInfo: null,
-    banner: "../../images/banner.jpg",
+    banner: "../../images/banner.png",
     newsList: [],
     newsUrls: [{
         index: 0,

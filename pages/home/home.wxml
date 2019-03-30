@@ -15,12 +15,12 @@
       <!-- <text>({{vipSpec}})</text>,您好 -->
     </view>
   </view>
-  <view class='top-bar-opt'>
+  <!-- <view class='top-bar-opt'> -->
     <!-- <image class='top-opt-scan' src='{{optScan}}'></image> -->
-    <image bindtap='showList' data-param="1"  class='top-opt-func' src='{{optFunc}}'></image>
-  </view>
-  <view class='top-list' hidden='{{hideList}}'>
-    <block>
+    <!-- <image bindtap='showList' data-param="1"  class='top-opt-func' src='{{optFunc}}'></image>
+  </view> -->
+  <!-- <view class='top-list' hidden='{{hideList}}'> -->
+    <!-- <block>
       <view class="top-list-items" bindtap='toAbnormal'>
         <image src="../../images/abnormal.png"></image>
         <view>异常上报</view>
@@ -31,8 +31,8 @@
         <image src="../../images/abnormal.png"></image>
         <view>预约下单</view>
       </view>
-    </block>
-  </view>
+    </block> -->
+  <!-- </view> -->
 </view>
 
 
