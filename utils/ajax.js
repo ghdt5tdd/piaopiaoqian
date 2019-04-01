@@ -5,6 +5,9 @@ const _config = {
 }
 
 function getApi(apiName, params, cb, isOwnAddress) {
+  if (params) {
+    params = filterNull(params)
+  }
   request({
     url: isOwnAddress ? apiName : _config.serverUrl + apiName,
     data: params,
@@ -23,6 +26,9 @@ function getApi(apiName, params, cb, isOwnAddress) {
 }
 
 function postApi(apiName, params, cb, isOwnAddress) {
+  if (params) {
+    params = filterNull(params)
+  }
   request({
     url: isOwnAddress ? apiName : _config.serverUrl + apiName,
     data: params,
@@ -39,8 +45,8 @@ function postApi(apiName, params, cb, isOwnAddress) {
     }
   })
 }
-function request(requestSetting) {
 
+function request(requestSetting) {
   let JSSESSIONID = wx.getStorageSync('JSSESSIONID')
   if (JSSESSIONID === '') {
     JSSESSIONID = util.RandomUUID()
@@ -51,6 +57,27 @@ function request(requestSetting) {
   wx.request(requestSetting)
 }
 
+//自定义判断元素类型JS
+function toType(obj) {
+  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+}
+
+// 参数过滤函数
+function filterNull(o) {
+  for (let key in o) {
+    if (o[key] === null || o[key] === undefined) {
+      delete o[key]
+    }
+    if (toType(o[key]) === 'string') {
+      o[key] = o[key].trim()
+    } else if (toType(o[key]) === 'object') {
+      o[key] = filterNull(o[key])
+    } else if (toType(o[key]) === 'array') {
+      o[key] = filterNull(o[key])
+    }
+  }
+  return o
+}
 
 module.exports = {
   getApi: getApi,
