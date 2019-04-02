@@ -8,6 +8,19 @@
     <view class='orderinfo-bar-time'>{{bookingOrder.create_date}}</view>
   </view>
   <view class='orderinfo-receive'>
+
+    <view class='orderinfo-receive-line'>
+      <view class='orderinfo-line-label'>预约时间</view>
+      <view class='orderinfo-line-info'>{{bookingOrder.booking_time}}</view>
+    </view>
+  </view>
+</view>
+
+<view class='orderinfo-bar'>
+  <view class='orderinfo-bar-head'>
+    收货人信息
+  </view>
+  <view class='orderinfo-receive'>
     <view class='orderinfo-receive-line'>
       <view class='orderinfo-line-label'>收货人</view>
       <view class='orderinfo-line-info'>{{bookingOrder.consignee_man}}</view>
@@ -21,10 +34,6 @@
     <view class='orderinfo-receive-line'>
       <view class='orderinfo-line-label'>收货地址</view>
       <view class='orderinfo-line-info'>{{bookingOrder.consignee_province_name + bookingOrder.consignee_city_name + bookingOrder.consignee_district_name + bookingOrder.consignee_address}}</view>
-    </view>
-    <view class='orderinfo-receive-line'>
-      <view class='orderinfo-line-label'>预约时间</view>
-      <view class='orderinfo-line-info'>{{bookingOrder.booking_time}}</view>
     </view>
   </view>
 </view>
