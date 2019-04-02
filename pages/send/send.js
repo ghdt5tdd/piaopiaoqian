@@ -206,7 +206,9 @@ Page({
     let timeArr = this.data.timeArr
     for (var i = 0; i < timeArr.length; i++) {
       if (this.data.currentIndex == 0) {
-        if (cur_hour > timeArr[i].timeBegin) {
+        const c_h = date.getHours()
+        const e_h = timeArr[i].timeEnd.slice(0, 2)
+        if (c_h >= e_h) {
           timeArr[i].overtime = true
         }
       } else {
