@@ -26,4 +26,4 @@ export const APP_LOGO = '../../images/logo.jpg'
 /**
  * 是否为独立部署：  true 为是   false 为否
  */
-export const APP_IS_PRIVATE = true
+export const APP_IS_PRIVATE = false

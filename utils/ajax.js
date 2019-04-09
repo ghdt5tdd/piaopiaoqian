@@ -70,6 +70,9 @@ function filterNull(o) {
     }
     if (toType(o[key]) === 'string') {
       o[key] = o[key].trim()
+      if (o[key] === '') {
+        delete o[key]
+      }
     } else if (toType(o[key]) === 'object') {
       o[key] = filterNull(o[key])
     } else if (toType(o[key]) === 'array') {
