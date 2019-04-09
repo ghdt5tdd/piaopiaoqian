@@ -2,6 +2,7 @@
 const ajax = require('../../utils/ajax.js')
 const util = require('../../utils/util.js') 
 const storage = require('../../utils/storage.js') 
+const appData = require('../../utils/app-data.js')
 const app = getApp()
 const moduleItemImgs = new Map()
 moduleItemImgs.set('0', { img: '../../images/model1.png', to: 'toOrder' })//订单查询
@@ -256,12 +257,19 @@ Page({
     })
   },
 
-
+  setTitle(){
+    if (appData.APP_IS_PRIVATE) {
+      wx.setNavigationBarTitle({
+        title: appData.APP_NAME//页面标题为路由参数
+      })
+    }
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setTitle()
     this.getUnreadMessageCount()
     this.getServiceRating()
     this.getMemberInfo()

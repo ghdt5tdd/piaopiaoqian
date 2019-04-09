@@ -126,7 +126,7 @@ Page({
   //承运商选择
   toforwarder: function (e) {
     wx.navigateTo({
-      url: '../forwarder/forwarder'
+      url: '../forwarder/forwarder?check=0'
     })
   },
 

@@ -1,0 +1,86 @@
+/* pages/forwarderLevel/forwarderLevel.wxss */
+
+.level-count {
+  padding: 20rpx;
+}
+
+.level-count-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30rpx;
+  line-height: 60rpx;
+}
+
+.level-count-item> view {
+  display: flex;
+  align-items: center;
+}
+
+.level-count-item  text {
+  margin-left: 10rpx;
+}
+
+.table {
+  display: table;
+  width: 100%
+}
+
+.goodsTable{
+  padding: 0 20rpx
+}
+
+.goodsTable .tr {
+  display: table-row;
+  width: 100%;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.goodsTable .th, .goodsTable .td {
+  display: table-cell;
+  line-height: 80rpx;
+  white-space: nowrap;
+  padding: 0 10rpx;
+  background: #fff;
+  border-bottom: 1px solid #e7e7e7;
+  border-right: 1px solid #e7e7e7;
+}
+
+.goodsTable .th:last-child, .goodsTable .td:last-child {
+  border-right: none;
+}
+
+/**等级图片**/
+
+.vip-level {
+  width: 170rpx;
+  height: 32rpx;
+  overflow: hidden;
+  font-size: 0;
+  margin: 0;
+}
+
+.vip-level.level-4 {
+  width: 136rpx;
+}
+
+.vip-level.level-3 {
+  width: 102rpx;
+}
+
+.vip-level.level-2 {
+  width: 68rpx;
+}
+
+.vip-level.level-1 {
+  width: 34rpx;
+}
+
+.vip-level image {
+  display: block;
+  float: left;
+  width: 32rpx;
+  height: 32rpx;
+  margin: 0 1rpx;
+}

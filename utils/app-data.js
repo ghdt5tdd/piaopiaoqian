@@ -24,6 +24,6 @@ export const APP_NAME = '德力西电气物流信息系统'
 export const APP_LOGO = '../../images/logo.jpg'
 
 /**
- * 是否为独立部署：  true为是   false为否 test git
+ * 是否为独立部署：  true 为是   false 为否
  */
-export const APP_IS_PRIVATE = false
+export const APP_IS_PRIVATE = true

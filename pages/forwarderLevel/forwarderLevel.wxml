@@ -1,0 +1,60 @@
+<!--pages/forwarderLevel/forwarderLevel.wxml-->
+<view class='level-count'>
+  <view class='level-count-item'>
+    <view>等级：
+      <view class='vip-level  level-{{levelNum}}'>
+        <image src='{{levelPic}}'></image>
+        <image src='{{levelPic}}'></image>
+        <image src='{{levelPic}}'></image>
+        <image src='{{levelPic}}'></image>
+        <image src='{{levelPic}}'></image>
+      </view>
+    </view>
+    <view>好评:
+      <text class='orange'>{{levelGood}}</text>
+    </view>
+    <view>好评率:
+      <text class='orange'>{{levelRate}}</text>
+    </view>
+
+  </view>
+
+  <view class='level-count-item'>
+
+    <view>中评:
+      <text>{{levelMedium}}</text>
+    </view>
+    <view>差评:
+      <text>{{levelNegative}}</text>
+    </view>
+    <view>总评:
+      <text>{{levelTotal}}</text>
+    </view>
+
+  </view>
+</view>
+
+
+<scroll-view scroll-x="true">
+  <view class='goodsTable' style='width:{{goodsWidth}}'>
+    <view class="table">
+      <view class="tr">
+        <view class='th' wx:for="{{tableTh}}">
+          {{item.title}}
+        </view>
+      </view>
+      <view class="tr" wx:for="{{tableTr}}">
+        <view class='td' wx:for="{{item.td}}">
+          <view class='vip-level  level-{{item.levelNum}}' wx:if="{{item.levelNum != undefined}}">
+            <image src='{{item.levelPic}}'></image>
+            <image src='{{item.levelPic}}'></image>
+            <image src='{{item.levelPic}}'></image>
+            <image src='{{item.levelPic}}'></image>
+            <image src='{{item.levelPic}}'></image>
+          </view>
+          <view wx:else>{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

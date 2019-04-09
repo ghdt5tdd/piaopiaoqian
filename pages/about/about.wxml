@@ -1,0 +1,28 @@
+<!--pages/about/about.wxml-->
+<view class='forwarder-about'>
+  <view class='forwarder-about-head'>
+    <image class='forwarder-about-logo' src='{{logo}}'></image>
+    <view class='forwarder-about-name'>{{name}}</view>
+    <view class='forwarder-about-spec'>{{spec}}</view>
+  </view>
+  <view class='forwarder-about-introduce'>
+    <view wx:for="{{introduce}}" wx:key="key">
+      {{item.info}}
+    </view>
+  </view>
+</view>
+
+<view class='forwarder-about-info'>
+  <view class='forwarder-about-bar' bindtap='bookTel'>
+    <image src='../../images/send-tel.png'></image>
+    <view>{{tel}}</view>
+  </view>
+  <view class='forwarder-about-bar'>
+    <image src='../../images/send-by.png'></image>
+    <view>{{by}}</view>
+  </view>
+  <view class='forwarder-about-bar' bindtap='networkMap' data-name="{{location}}">
+    <image src='../../images/send-location.png'></image>
+    <view>{{location}}</view>
+  </view>
+</view>

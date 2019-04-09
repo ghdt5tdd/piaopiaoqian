@@ -3,6 +3,7 @@
 const app = getApp()
 const ajax = require('../../utils/ajax.js')
 const util = require('../../utils/util.js')
+const appData = require('../../utils/app-data.js')
 Page({
   data: {
     motto: '开启快运之旅',
@@ -12,6 +13,11 @@ Page({
   },
 
   onLoad: function (options) {
+    if (appData.APP_IS_PRIVATE) {
+      wx.setNavigationBarTitle({
+        title: appData.APP_NAME//页面标题为路由参数
+      })
+    }
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

@@ -77,6 +77,8 @@
     "pages/dispatch/dispatch",
     "pages/driver/driver",
     "pages/appointInfo/appointInfo",
+    "pages/about/about",
+    "pages/forwarderLevel/forwarderLevel",
     "pages/noticeInfo/noticeInfo"
   ],
   "window": {

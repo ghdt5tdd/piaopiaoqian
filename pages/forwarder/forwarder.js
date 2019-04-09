@@ -3,6 +3,10 @@ const ajax = require('../../utils/ajax.js')
 const util = require('../../utils/util.js')
 const storage = require('../../utils/storage.js')
 const app = getApp()
+const QQMapWX = require('../qqmap/qqmap-wx-jssdk.js');
+const demo = new QQMapWX({
+  key: app.globalData.qqMapKey // 必填 换成自己申请到的
+});
 Page({
 
   /**
@@ -10,7 +14,7 @@ Page({
    */
   data: {
     page: 1,
-    pageSize: 10,
+    pageSize: 10, 
     loadCompleted: false,
     forwarderList: []
   },
@@ -51,6 +55,53 @@ Page({
       phoneNumber: e.currentTarget.dataset.tel
     })
   },
+
+  //地址导航
+  networkMap: function (e) {
+    console.log(e.currentTarget.dataset.name)
+    
+    //地址解析(地址转坐标)     
+    demo.geocoder({
+
+      address: e.currentTarget.dataset.name,
+      success: function (res) {
+        var latitude = res.result.location.lat
+        var longitude = res.result.location.lng
+        // 取到坐标并打开地图
+        wx.openLocation({
+          latitude: latitude,
+          longitude: longitude,
+          address: e.currentTarget.dataset.name,
+          scale: 28
+        })
+
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: res.message,
+        })
+      },
+      complete: function (res) {
+        console.log(res);
+      }
+    });
+  },
+
+  //承运商详情
+  toAbout: function (e) {
+    wx.navigateTo({
+      url: '../about/about'
+    })
+  },
+
+  //等级详情
+  toLevel: function (e) {
+    wx.navigateTo({
+      url: '../forwarderLevel/forwarderLevel?level=' + e.currentTarget.dataset.level + "&pic=" + e.currentTarget.dataset.pic
+    })
+  },
+
+
 
   search(e) {
     this.setData({
@@ -133,6 +184,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // if (options.check != 0) { //是否是从预约下单页面过来的
+    //   this.setData({
+    //     checkList: false
+    //   })
+    // } else {
+
+      // var forwarderList = this.data.forwarderList
+      // var index = wx.getStorageSync('checkList')
+
+      // if (options.checkName != '请选择承运商') { //是否选择过承运商
+      //   forwarderList[index].check = "../../images/check.png"
+      // }
+
+    //   this.setData({
+    //     checkList: true,
+    //   })
+    // }
     this.getBookingOrderCarrier()
   },
 
