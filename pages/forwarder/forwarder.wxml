@@ -12,12 +12,12 @@
       <view class='forwarder-item-head'>
         <image class='forwarder-item-logo'src='{{item.logo_img}}'></image>
         <view class='forwarder-item-name'>{{item.client_name}}</view>
-        <view class='forwarder-item-level level-{{item.level}}' bindtap='toLevel' data-level="{{item.level}}" data-pic="{{item.levelpic}}">
-          <image src='{{item.levelpic}}'></image>
-          <image src='{{item.levelpic}}'></image>
-          <image src='{{item.levelpic}}'></image>
-          <image src='{{item.levelpic}}'></image>
-          <image src='{{item.levelpic}}'></image>
+        <view class='forwarder-item-level level-{{item.icon_number}}' catchtap='toLevel' data-level="{{item.icon_number}}" data-pic="{{item.icon_file}}">
+          <image src='{{item.icon_file}}'></image>
+          <image src='{{item.icon_file}}'></image>
+          <image src='{{item.icon_file}}'></image>
+          <image src='{{item.icon_file}}'></image>
+          <image src='{{item.icon_file}}'></image>
         </view>
         <!-- <view class='forwarder-item-spec'>{{item.contact_man}}</view> -->
       </view> 

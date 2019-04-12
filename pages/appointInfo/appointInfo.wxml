@@ -22,8 +22,12 @@
   </view>
   <view class='orderinfo-receive'>
     <view class='orderinfo-receive-line'>
-      <view class='orderinfo-line-label'>收货人</view>
+      <view class='orderinfo-line-label'>联系人</view>
       <view class='orderinfo-line-info'>{{bookingOrder.consignee_man}}</view>
+    </view>
+    <view class='orderinfo-receive-line'>
+      <view class='orderinfo-line-label'>收货单位</view>
+      <view class='orderinfo-line-info'>{{bookingOrder.consignee_name}}</view>
     </view>
     <view class='orderinfo-receive-line'>
       <view class='orderinfo-line-label'>联系电话</view>
@@ -44,8 +48,12 @@
   </view>
   <view class='orderinfo-receive'>
     <view class='orderinfo-receive-line'>
-      <view class='orderinfo-line-label'>发货人</view>
+      <view class='orderinfo-line-label'>联系人</view>
       <view class='orderinfo-line-info'>{{bookingOrder.consigner_man}}</view>
+    </view>
+    <view class='orderinfo-receive-line'>
+      <view class='orderinfo-line-label'>发货单位</view>
+      <view class='orderinfo-line-info'>{{bookingOrder.consigner_name}}</view>
     </view>
     <view class='orderinfo-receive-line'>
       <view class='orderinfo-line-label'>联系电话</view>
@@ -149,6 +157,19 @@
     </view>
   </view>
 </view>
+
+<view class='orderinfo-bar' wx:if="{{bookingOrder.node_line && bookingOrder.node_line.length > 0}}">
+  <view class='orderinfo-bar-head'>
+    节点日志
+  </view>
+  <view class='orderinfo-receive'>
+    <view class='orderinfo-receive-line' wx:for="{{bookingOrder.node_line}}">
+      <view class='orderinfo-line-label'>{{item.create_date}}</view>
+      <view class='orderinfo-line-info'>{{item.node_content}}</view>
+    </view>
+  </view>
+</view>
+
 <!-- <view class='orderinfo-bar'>
   <view class='orderinfo-bar-head'>
     预计费用

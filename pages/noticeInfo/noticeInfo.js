@@ -12,7 +12,7 @@ Page({
     messageInfo: {}
   },
 
-  getMessageInfo(id) {
+  getMessageInfo(id, index) {
     wx.showLoading({
       title: '读取中...',
     })
@@ -25,6 +25,14 @@ Page({
         this.setData({
           messageInfo: res.data
         })
+        const pages = getCurrentPages();
+        const prevPage = pages[pages.length - 2]; //上一个页面
+        const noticeItem = prevPage.data.noticeItem
+        noticeItem[index].is_read = 1
+        prevPage.setData({
+          noticeItem
+        })
+          // is_read
       } else {
         if (res.text) {
           wx.showToast({
@@ -41,7 +49,8 @@ Page({
    */
   onLoad: function(options) {
     const id = options.id
-    this.getMessageInfo(id)
+    const index = options.index
+    this.getMessageInfo(id, index)
   },
 
   /**

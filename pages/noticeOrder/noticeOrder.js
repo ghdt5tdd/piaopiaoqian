@@ -34,8 +34,9 @@ Page({
   //去消息详情
   toInfo: function (e) {
     const id = e.currentTarget.dataset.id
+    const index = e.currentTarget.dataset.index
     wx.navigateTo({
-      url: '../noticeInfo/noticeInfo?id=' + id
+      url: '../noticeInfo/noticeInfo?id=' + id + '&index=' + index
     })
   },
   
@@ -106,7 +107,12 @@ Page({
 
     this.setData({
       typeId,
-      typeImg
+      typeImg,
+      page: 1,
+      noticeItem: [],
+      loadCompleted: false
+    }, () => {
+      this.getMyMessageList()
     })
   },
 
@@ -121,13 +127,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.setData({
-      page: 1,
-      noticeItem: [],
-      loadCompleted: false
-    }, () => {
-      this.getMyMessageList()
-    })
+    // this.setData({
+    //   page: 1,
+    //   noticeItem: [],
+    //   loadCompleted: false
+    // }, () => {
+    //   this.getMyMessageList()
+    // })
   },
 
   /**

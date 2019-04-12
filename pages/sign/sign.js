@@ -4,7 +4,7 @@ const util = require('../../utils/util.js')
 const app = getApp()
 Page({
 
-  /**
+  /** 
    * 页面的初始数据
    */
   data: {
@@ -382,7 +382,6 @@ Page({
       comment: "",
       imgs: [],
       starSelect: 5,
-
     })
   },
 

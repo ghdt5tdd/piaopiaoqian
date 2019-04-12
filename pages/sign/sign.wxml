@@ -283,7 +283,7 @@
     </view>
 
 
-    <textarea class='comment-text' placeholder='写下您对货运单的评价吧' bindinput='inputComment'></textarea>
+    <textarea class='comment-text' value="{{comment}}" placeholder='写下您对货运单的评价吧' bindinput='inputComment'></textarea>
 
     <view class='comment-gallery'>
       <view class='comment-gallery-info'>
