@@ -84,6 +84,7 @@ Page({
       flag = true;
       wx.showLoading({
         title: '提交中...',
+        mask: true
       })
       ajax.postApi('app/member/createSubAccount', {
         ...this.data

@@ -199,6 +199,7 @@ Page({
 
     wx.showLoading({
       title: '请稍等...',
+      mask: true
     })
     ajax.postApi('app/order/carrierAssignDriverBookingOrderCommand', {
       id,

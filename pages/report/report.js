@@ -118,6 +118,7 @@ Page({
   reportException: function() {
     wx.showLoading({
       title: '提交中...',
+      mask: true
     })
     const type = this.data.abnormalType[this.data.indexType].itemKey
     const link = this.data.abnormalNode[this.data.indexNode].itemKey

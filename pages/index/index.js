@@ -76,6 +76,7 @@ Page({
   off: function() {
     wx.showLoading({
       title: '正在退出...',
+      mask: true
     })
     ajax.postApi('app/member/clearSession', {
 

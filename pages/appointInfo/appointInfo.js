@@ -47,6 +47,7 @@ Page({
   cancel: function (e) {
     wx.showLoading({
       title: '取消中..',
+      mask: true
     })
 
     ajax.postApi('app/order/cancelBookingOrder', {

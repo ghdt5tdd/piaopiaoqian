@@ -157,6 +157,7 @@ Page({
 
     wx.showLoading({
       title: '请稍后...',
+      mask: true
     })
 
     ajax.postApi('app/member/deleteTelbookById', {

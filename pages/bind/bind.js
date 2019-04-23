@@ -59,6 +59,7 @@ Page({
       flag = true;
       wx.showLoading({
         title: '登录中...',
+        mask: true
       })
       ajax.postApi('app/member/appLogin', {
         account: loginUsername,

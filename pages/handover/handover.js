@@ -230,6 +230,7 @@ Page({
           }
           wx.showLoading({
             title: loadingText,
+            mask: true
           })
           ajax.postApi('app/order/scanReceiptAndTransferShopOrder', {
             id,

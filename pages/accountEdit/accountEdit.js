@@ -65,6 +65,7 @@ Page({
       flag = true;
       wx.showLoading({
         title: '提交中...',
+        mask: true
       })
       ajax.postApi('app/member/modifySubAccount', {
         ...this.data
@@ -98,6 +99,7 @@ Page({
     if(id) {
       wx.showLoading({
         title: '获取中...',
+        mask: true
       })
       ajax.postApi('app/member/getSubAccount', {
         id

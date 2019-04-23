@@ -126,6 +126,7 @@ Page({
     if (this.data.getlocation) {
       wx.showLoading({
         title: '正在签收中...',
+        mask: true
       })
       ajax.postApi('app/order/receiptShopOrder', {
         idList,
@@ -174,6 +175,7 @@ Page({
     }
     wx.showLoading({
       title: '评价提交中...',
+      mask: true
     })
     ajax.postApi('app/order/evaluateShopOrder', {
       id,
@@ -574,6 +576,7 @@ Page({
           }
           wx.showLoading({
             title: loadingText,
+            mask: true
           })
           ajax.postApi('app/order/scanReceiptAndTransferShopOrder', {
             id,

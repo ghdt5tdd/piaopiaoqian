@@ -76,6 +76,7 @@ Page({
     const feedback_content = this.data.suggest
     wx.showLoading({
       title: '提交中...',
+      mask: true
     })
 
     ajax.postApi('app/member/feedback', {

@@ -151,6 +151,7 @@ Page({
   postCommand(id, command) {
     wx.showLoading({
       title: '操作中...',
+      mask: true
     })
     ajax.postApi('app/order/bookingOrderCommand', {
       id,

@@ -89,6 +89,7 @@ Page({
     this.hide()
     wx.showLoading({
       title: '提交中...',
+      mask: true
     })
     ajax.postApi('app/member/shopNewsComment', {
       newsId,

@@ -120,6 +120,7 @@ Page({
     const user_account = this.data.account[this.data.longClickIndex].user_account
     wx.showLoading({
       title: '绑定网点中...',
+      mask: true
     })
     ajax.postApi('app/member/subAccountBindBranch', {
       subAccountId: id,
@@ -152,6 +153,7 @@ Page({
     const user_account = this.data.account[this.data.longClickIndex].user_account
     wx.showLoading({
       title: '绑定车辆中...',
+      mask: true
     })
     ajax.postApi('app/member/subAccountBindVehicle', {
       subAccountId: id,
@@ -176,6 +178,7 @@ Page({
     const user_account = this.data.account[this.data.longClickIndex].user_account
     wx.showLoading({
       title: '重置中...',
+      mask: true
     })
     ajax.postApi('app/member/resetSubAccountPassword', {
       id
@@ -207,6 +210,7 @@ Page({
     const id = this.data.account[this.data.longClickIndex].id
     wx.showLoading({
       title: '删除中...',
+      mask: true
     })
     ajax.postApi('app/member/deleteSubAccount', {
       id
@@ -278,6 +282,7 @@ Page({
 
     wx.showLoading({
       title: '修改状态中...',
+      mask: true
     })
 
     ajax.postApi('app/member/setSubAccountState', {

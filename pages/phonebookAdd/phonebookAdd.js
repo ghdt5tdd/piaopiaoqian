@@ -63,6 +63,7 @@ Page({
     const now = util.getFormatDate()
     wx.showLoading({
       title: '保存中...',
+      mask: true
     })
     ajax.postApi('app/member/telbookSaveOrUpdate', {
       ...this.data
