@@ -373,6 +373,7 @@ Page({
     else {
       wx.showLoading({
         title: '提交中...',
+        mask: true
       })
 
       const cargo = this.data.cargo
