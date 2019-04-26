@@ -32,7 +32,7 @@ Page({
   data: {
     vipAvatar: "../../images/avatar-sy.png",
     vipLevel: "0",
-    vipNum: "../../images/b_blue_4.gif",
+    vipNum: "",
     vipName: "长安物流",
     vipSpec: "LV1",
     optScan: "../../images/scan-m.png",
@@ -318,6 +318,12 @@ Page({
             vipLevel: res.data.icon_number,
             // vipNum: '../../images/b_blue_' + res.data.icon_number +'.gif' 
             vipNum: res.data.icon_file
+          })
+        } else {
+            this.setData({
+              memberServiceRate: {},
+              vipLevel: 0,
+              vipNum: '',
           })
         }
       })
