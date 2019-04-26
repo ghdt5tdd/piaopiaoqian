@@ -19,6 +19,11 @@ Page({
     commentContent: ''
   },
 
+  formatRichText :function(html){ 
+    let newContent = html.replace(/\<img/gi, '<img style="max-width:100%;height:auto;display:block;"');
+    return newContent; 
+  },
+
   //点赞
   zan: function(e) {
     const isZan = e.target.dataset.isZan
@@ -229,6 +234,10 @@ Page({
       }, (err, res) => {
         wx.hideLoading()
         if (res && res.success) {
+          const newsInfo = res.data
+          if (newsInfo.content) {
+            newsInfo.content = this.formatRichText(newsInfo.content)
+          }
           this.setData({
             newsInfo: res.data
           })
