@@ -75,7 +75,7 @@
         <view class='order-table-opt'>
           <view class='order-opt-status'>{{item.order_state}}</view>
           <view class='order-opt-item on' wx:if="{{item.order_state_dic == '155' || item.order_state_dic == '160' ||item.order_state_dic == '310' ||item.order_state_dic == '320' ||item.order_state_dic == '330' }}" bindtap='showSign' data-shoporder-id="{{item.id}}" data-index="{{index}}">一键签收</view>
-          <view class='order-opt-item on' wx:if="{{item.order_state_dic == '425' ||item.order_state_dic == '430' ||item.order_state_dic == '440'}}" bindtap='showComment' data-shoporder-id="{{item.id}}" data-index="{{index}}">去评价</view>
+          <view class='order-opt-item on' wx:if="{{item.order_state_dic == '425' ||item.order_state_dic == '430'}}" bindtap='showComment' data-shoporder-id="{{item.id}}" data-index="{{index}}">去评价</view>
         </view>
 
       </view>
