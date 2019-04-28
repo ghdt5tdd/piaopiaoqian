@@ -60,7 +60,6 @@
     "pages/visitorRegister/visitorRegister",
     "pages/visitorForm/visitorForm",
     "pages/visitorCode/visitorCode",
-
     "pages/receive/receive",
     "pages/send/send",
     "pages/addSend/addSend",
@@ -123,5 +122,6 @@
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
