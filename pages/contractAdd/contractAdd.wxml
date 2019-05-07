@@ -1,0 +1,286 @@
+<!--pages/contractAdd/contractAdd.wxml-->
+<view class='my-list'>
+  <view class='my-bar'>
+    <view class='my-bar-label'>单据编号</view>
+    <view class='my-bar-input'>
+      <input type="text" name="id" disabled placeholder='自动生成' value="{{id}}"></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>日期</view>
+    <view class='my-bar-input'>
+      <input type="text" name="date" bindtap='showDate' placeholder='请选择日期,必填' value='{{dateValue}}' data-name="submit"></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>类型</view>
+    <view class='my-bar-input'>
+      <input type="text" name="type" value='{{type}}'></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>客户名称</view>
+    <view class='my-bar-input'>
+      <input type="text" name="company" placeholder='请输入或选择客户名称，必填' value='{{company}}'></input>
+    </view>
+    <image src='../../images/bottom2-on.png' bindtap='toClient' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>客户代码</view>
+    <view class='my-bar-input'>
+      <input type="text" name="code" placeholder='请输入客户代码' value='{{code}}'></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>客户卡号</view>
+    <view class='my-bar-input'>
+      <input type="text" name="card" placeholder='请输入客户卡号' value='{{card}}'></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>联系人</view>
+    <view class='my-bar-input'>
+      <input type="text" name="contacts" placeholder='请输入联系人' value='{{contacts}}'></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>联系方式</view>
+    <view class='my-bar-input'>
+      <input type="number" name="tel" placeholder='请输入联系方式' value='{{tel}}'></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>商品总额</view>
+    <view class='my-bar-input'>
+      <input type="number" name="goodsSum" value='{{goodsSum}}'></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>续费总额</view>
+    <view class='my-bar-input'>
+      <input type="number" name="renewSum" value='{{renewSum}}'></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>备注</view>
+    <textarea></textarea>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>上传</view>
+    <view class='abnormal-gallery-info'>
+      <view class='abnormal-gallery-content'>
+        <view class="abnormal-gallery-img" wx:for="{{imgs}}" wx:for-item="item" wx:key="*this">
+          <image src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
+          <icon class="delete-btn" type="clear" data-index="{{index}}" catchtap="deleteImg" />
+        </view>
+      </view>
+      <view class='abnormal-gallery-upload' bindtap="changePic">
+        <image src='../../images/picture1.png' mode="widthFix"></image>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+
+<view class='contractBtn'>
+  <view bindtap='addContract'>添加合同项</view>
+  <view class='bg-gray' bindtap='clearContract'>移除合同项</view>
+</view>
+
+
+<scroll-view scroll-x="true">
+  <view class='goodsTable' style='width:{{goodsWidth}}'>
+    <view class="table">
+      <view class="tr">
+        <view class='th' wx:for="{{tableTh}}" wx:key="key">
+          {{item.title}}
+        </view>
+      </view>
+      <view class="tr" wx:for="{{tableTr}}" wx:key="key">
+        <view class='td' wx:for="{{item.td}}" wx:key="key" wx:for-index="indexTd">
+          <view class='table-select' bindtap='remove' data-index="{{index}}" wx:if="{{item.select != undefined}}">
+            <image wx:if="{{item.select}}" src='../../images/uncheck.png'></image>
+            <image wx:else src='../../images/check.png'></image>
+          </view>
+          <view wx:else bindtap='openContract'>{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<view class='button-bottom-half'>
+  <button>保存草稿</button>
+  <button class='bg-red'>创建合同</button>
+</view>
+
+
+<view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
+<view class='popup-contract' hidden="{{hideContract}}">
+  <view class='popup-head'>添加合同项</view>
+  <scroll-view scroll-y="true" class='popup-contract-content'>
+    <view class='my-list'>
+      <view class='my-bar'>
+        <view class='my-bar-label'>序号</view>
+        <view class='my-bar-input'>
+          <input type="text" name="goodSerial" disabled placeholder='自动生成' value="{{goodSerial}}"></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>商品编码</view>
+        <view class='my-bar-input'>
+          <input type="text" name="goodId" placeholder='请输入商品编码' value="{{goodId}}"></input>
+        </view>
+        <image src='../../images/code.png' bindtap="scanCode" class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>商品名称</view>
+        <view class='my-bar-input'>
+          <input type="text" name="goodName" placeholder='请输入商品名称' value="{{goodName}}"></input>
+        </view>
+        <image src='../../images/cart.png'  bindtap="toGoods"  class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>交付时间</view>
+        <view class='my-bar-input'>
+          <input type="text" name="date" bindtap='showDate' placeholder='请选择日期,必填' value='{{dateStart}}' data-name="start"></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>到期时间</view>
+        <view class='my-bar-input'>
+          <input type="text" name="date" bindtap='showDate' placeholder='请选择日期,必填' value='{{dateEnd}}' data-name="end"></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>商品金额</view>
+        <view class='my-bar-input'>
+          <input type="number" name="goodNum" value='{{goodNum}}'></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>续费金额</view>
+        <view class='my-bar-input'>
+          <input type="number" name="renewNum" value='{{renewNum}}'></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>备注</view>
+        <textarea value='{{goodMark}}'></textarea>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class='popup-bottom'>
+    <view class='popup-bottom-opt bg-orange'>确认</view>
+    <view class='popup-bottom-opt' bindtap='hide'>取消</view>
+  </view>
+</view>
+
+
+
+<view class='popup-contract' hidden="{{editContract}}">
+  <view class='popup-head'>编辑合同项</view>
+  <scroll-view scroll-y="true" class='popup-contract-content'>
+    <view class='my-list'>
+      <view class='my-bar'>
+        <view class='my-bar-label'>序号</view>
+        <view class='my-bar-input'>
+          <input type="text" name="goodSerialedit" disabled placeholder='自动生成' value="{{goodSerialedit}}"></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>商品编码</view>
+        <view class='my-bar-input'>
+          <input type="text" name="goodIdedit" placeholder='请输入商品编码' value="{{goodIdedit}}"></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>商品名称</view>
+        <view class='my-bar-input'>
+          <input type="text" name="goodNameedit" placeholder='请输入商品名称' value="{{goodNameedit}}"></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>交付时间</view>
+        <view class='my-bar-input'>
+          <input type="text" name="date" bindtap='showDate' placeholder='请选择日期,必填' value='{{dateStartedit}}' data-name="startedit"></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>到期时间</view>
+        <view class='my-bar-input'>
+          <input type="text" name="date" bindtap='showDate' placeholder='请选择日期,必填' value='{{dateEndedit}}' data-name="endedit"></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>商品金额</view>
+        <view class='my-bar-input'>
+          <input type="number" name="goodNumedit" value='{{goodNumedit}}'></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>续费金额</view>
+        <view class='my-bar-input'>
+          <input type="number" name="renewNumedit" value='{{renewNumedit}}'></input>
+        </view>
+        <image src='../../images/next.png' class='my-bar-next'></image>
+      </view>
+      <view class='my-bar'>
+        <view class='my-bar-label'>备注</view>
+        <textarea value='{{goodMarkedit}}'></textarea>
+      </view>
+
+    </view>
+  </scroll-view>
+
+  <view class='popup-bottom'>
+    <view class='popup-bottom-opt bg-orange'>修改</view>
+    <view class='popup-bottom-opt' bindtap='hide'>取消</view>
+  </view>
+</view>
+
+<view class="canlendarBgView" wx:if="{{showDate}}">
+  <view class="canlendarView">
+    <view class="canlendarTopView">
+      <view class="leftBgView" bindtap="handleCalendar" data-handle="prev">
+        <view class="leftView">《</view>
+      </view>
+      <view class="centerView">{{cur_year || "--"}} 年 {{cur_month || "--"}} 月</view>
+      <view class="rightBgView" bindtap="handleCalendar" data-handle="next">
+        <view class="rightView">》</view>
+      </view>
+    </view>
+    <view class="weekBgView">
+      <view class="weekView" wx:for="{{weeks_ch}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
+    </view>
+    <view class="dateBgView">
+      <view wx:if="{{hasEmptyGrid}}" class="dateEmptyView" wx:for="{{empytGrids}}" wx:key="{{index}}" data-idx="{{index}}"> </view>
+      <view class="dateView" wx:for="{{days}}" wx:key="{{index}}" data-idx="{{index}}" bindtap="dateSelectAction">
+        <view class="datesView {{index == todayIndex ? 'dateSelectView' : ''}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>

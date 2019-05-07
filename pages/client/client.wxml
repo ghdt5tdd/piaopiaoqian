@@ -1,0 +1,41 @@
+<!--pages/client/client.wxml-->
+<view class="top-box">
+  <view class="search-box">
+    <image class='search-icon' src="../../images/search.png"></image>
+    <input placeholder="请输入关键字搜索" class='search-input' bindinput='bindSarchInput' value='{{searchVal}}' />
+    <image hidden='{{searchClear}}' class='search-clear' src="../../images/clear.png" bindtap='searchClear'></image>
+  </view>
+</view>
+
+<scroll-view scroll-y style='height:calc(100vh - 270rpx)' class='address-content'>
+  <view class='address-list'>
+    <view class='address-item' wx:for="{{addressList}}">
+      <view class='address-item-info' bindtap='toSend' data-index="{{index}}">
+        <view class='address-item-company'>{{item.company}}</view>
+        <view class='address-item-code'>客户代码：{{item.code}}</view>
+        <view class='address-item-card'>客户卡号：{{item.card}}</view>
+        <view class='address-item-line'>
+          <view>联系人：{{item.name}}</view>
+          <view>{{item.tel}}</view>
+        </view>
+      </view>
+      <view class='address-item-opt'>
+        <view class='address-opt-list'>
+          <view bindtap='toEdit' data-company="{{item.company}}" data-code="{{item.code}}" data-card="{{item.card}}" data-name="{{item.name}}" data-tel="{{item.tel}}" data-index="{{index}}">
+            <image src='../../images/w_edit.png'></image>
+            <text>编辑</text>
+          </view>
+          <view bindtap='delete' data-index="{{index}}">
+            <image src='../../images/w_delete.png'></image>
+            <text>删除</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+
+<view class='button-bottom ' bindtap='toCreate'>
+  <view>新增客户</view>
+</view>

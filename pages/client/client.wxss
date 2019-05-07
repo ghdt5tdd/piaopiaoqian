@@ -1,0 +1,109 @@
+/* pages/client/client.wxss */
+
+.top-box {
+  width: 100%;
+  height: 110rpx;
+  font-size: 30rpx;
+  display: flex;
+  z-index: 8;
+  background: #f3f4f5;
+}
+
+.search-box {
+  width: calc(100% - 40rpx);
+  display: flex;
+  height: 70rpx;
+  border-radius: 20rpx;
+  background: #fff;
+  margin: 20rpx;
+  position: relative;
+}
+
+.search-box image {
+  width: 40rpx;
+  height: 40rpx;
+  margin: 15rpx 20rpx;
+}
+
+.search-input {
+  height: 70rpx;
+  line-height: 70rpx;
+  width: calc(100% - 90rpx);
+}
+
+.search-clear {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.address-list {
+  padding: 0 20rpx;
+}
+
+.address-item {
+  margin-bottom: 20rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  line-height: 48rpx;
+}
+
+.address-item:last-child {
+  margin-bottom: 0;
+}
+
+.address-item-info {
+  border-bottom: 1px solid #e7e7e7;
+  padding: 20rpx 30rpx;
+  color: #666;
+}
+
+.address-item-company {
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 10rpx;
+  line-height: 40rpx
+}
+
+.address-item-code, .address-item-card, .address-item-line {
+  line-height: 60rpx;
+}
+
+.address-item-line {
+  display: flex;
+}
+
+.address-item-line view{
+  margin-right: 20rpx
+}
+
+.address-item-opt {
+  padding: 20rpx 30rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  line-height: 40rpx;
+}
+
+.address-item-opt image {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.address-item-button, .address-opt-list {
+  display: flex;
+  align-items: center;
+}
+
+.address-opt-list  view {
+  margin-left: 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.address-opt-list  image {
+  width: 36rpx;
+  height: 36rpx;
+}

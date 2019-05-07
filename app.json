@@ -78,7 +78,22 @@
     "pages/appointInfo/appointInfo",
     "pages/about/about",
     "pages/forwarderLevel/forwarderLevel",
-    "pages/noticeInfo/noticeInfo"
+    "pages/noticeInfo/noticeInfo",
+    "pages/contract/contract",
+    "pages/contractEdit/contractEdit",
+    "pages/contractInfo/contractInfo",
+    "pages/contractAdd/contractAdd",
+    "pages/contractGoods/contractGoods",
+    "pages/client/client",
+    "pages/clientCreate/clientCreate",
+    "pages/clientEdit/clientEdit",
+    "pages/contractRenew/contractRenew",
+    "pages/act/act",
+    "pages/actAdd/actAdd",
+    "pages/formCustomer/formCustomer",
+    "pages/formCustomerinfo/formCustomerinfo",
+    "pages/formSheet/formSheet"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

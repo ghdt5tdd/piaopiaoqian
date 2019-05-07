@@ -1,0 +1,79 @@
+<!--pages/act/act.wxml-->
+<view class='query'>
+  <view class='query-condition'>
+    <block wx:for="{{queryItems}}">
+      <view class="query-condition-items  {{item.status?'active':''}}">
+        <view hidden="{{!item.status}}" class='query-conditions-name'>{{item.name}}</view>
+        <picker wx:if="{{item.picker == true}}" bindchange="bindPickerChange" value="{{Index}}" range="{{orderStatus}}" range-key="name" data-index="{{index}}">
+          {{orderStatus[Index].name}}
+        </picker>
+        <input wx:else placeholder="{{item.name}}" bindinput='bindInput' value='{{item.val}}' data-index="{{index}}" />
+        <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-index="{{index}}"></image>
+      </view>
+    </block>
+  </view>
+  <view class='query-date'>
+    <block wx:for="{{queryDate}}">
+      <view class="query-date-items  {{item.status?'active':''}}">
+        <view hidden="{{!item.status}}" class='query-date-name'>{{item.name}}</view>
+        <view class='query-date-val' bindtap='showDate' data-index="{{index}}">{{item.val}}</view>
+        <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='DateClear' data-index="{{index}}"></image>
+      </view>
+      <view class="query-date-items" wx:if="{{0 == index}}">至</view>
+    </block>
+  </view>
+
+  <image class='query-search' src='../../images/search-big.png'></image>
+  <view class='query-add' bindtap='addAct'>汇报</view>
+</view>
+
+
+<scroll-view scroll-y="true" style="height:calc(100vh - 216rpx);position:fixed;top:216rpx;bottom:0">
+  <view class='order-table'>
+    <block wx:for="{{abnormalItems}}">
+      <view class="order-table-items">
+        <view class='order-table-head'>
+          <view class='order-table-name'>{{item.name}}的汇报</view>
+          <view class='order-table-time'>{{item.time}}</view>
+        </view>
+        <view class='order-table-content'>
+          <view class='order-table-row'>
+            {{item.info}}
+          </view>
+        </view>
+        <view class='order-table-opt'>
+          <view class='order-opt-status orange'>{{item.status}}</view>
+          <view class='order-opt-revise' bindtap='toRevise'>修改</view>
+        </view>
+      </view>
+    </block>
+  </view>
+</scroll-view>
+
+
+
+<view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
+
+<view class="canlendarBgView" wx:if="{{showDate}}">
+  <view class="canlendarView">
+    <view class="canlendarTopView">
+      <view class="leftBgView" bindtap="handleCalendar" data-handle="prev">
+        <view class="leftView">《</view>
+      </view>
+      <view class="centerView">{{cur_year || "--"}} 年 {{cur_month || "--"}} 月</view>
+      <view class="rightBgView" bindtap="handleCalendar" data-handle="next">
+        <view class="rightView">》</view>
+      </view>
+    </view>
+    <view class="weekBgView">
+      <view class="weekView" wx:for="{{weeks_ch}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
+    </view>
+    <view class="dateBgView">
+      <view wx:if="{{hasEmptyGrid}}" class="dateEmptyView" wx:for="{{empytGrids}}" wx:key="{{index}}" data-idx="{{index}}"> </view>
+      <view class="dateView" wx:for="{{days}}" wx:key="{{index}}" data-idx="{{index}}" bindtap="dateSelectAction">
+        <view class="datesView {{index == todayIndex ? 'dateSelectView' : ''}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>

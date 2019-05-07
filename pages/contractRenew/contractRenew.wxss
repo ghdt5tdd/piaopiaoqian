@@ -1,0 +1,135 @@
+/* pages/contractRenew/contractRenew.wxss */
+
+.query {
+  padding-right: 60rpx;
+}
+
+.query-search {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  top: 30rpx;
+  right: 20rpx;
+}
+
+.query-add {
+  position: absolute;
+  bottom: 30rpx;
+  right: 20rpx;
+  font-size: 0.7rem;
+  line-height: 42rpx;
+}
+
+.renew-content {
+  height: calc(100vh - 302rpx);
+}
+
+.renew-content.on {
+  height: calc(100vh - 422rpx);
+}
+
+.table {
+  display: table;
+  width: 100%;
+}
+
+.goodsTable .tr {
+  display: table-row;
+  width: 100%;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.goodsTable .th, .goodsTable .td {
+  display: table-cell;
+  line-height: 40rpx;
+  white-space: nowrap;
+  padding: 20rpx;
+  background: #fff;
+  border-right: 1px solid #e7e7e7;
+}
+
+.goodsTable .th {
+  background: #fcf3ea;
+}
+
+.goodsTable .td {
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid #e7e7e7;
+  line-height: 80rpx;
+  padding: 0 20rpx;
+  vertical-align: middle;
+}
+
+.goodsTable .th:last-child, .goodsTable .td:last-child,
+.goodsTable .th:first-child, .goodsTable .td:first-child {
+  border-right: none;
+}
+
+.table-select {
+  width: 40rpx;
+  height: 40rpx;
+  padding: 20rpx;
+  line-height: 0;
+  font-size: 0;
+}
+
+.table-select image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.fixd-bottom-half {
+  display: flex;
+  padding: 20rpx 10rpx;
+  background: #f3f4f5;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.fixd-bottom-half view {
+  line-height: 80rpx;
+  height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  background: #ccc;
+  color: #fff;
+  width: calc(100% - 20rpx);
+  margin: 0 10rpx;
+}
+
+.order-table-bar {
+  margin-right: -20rpx;
+}
+
+.order-bar-info {
+  float: left;
+  margin-right: 20rpx;
+  display: flex;
+}
+
+.order-bar-label {
+  color: #999;
+}
+
+.order-bar-name {
+  max-width: calc(50vw - 180rpx);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.order-bar-info.oneline {
+  width: calc(100% - 20rpx);
+  max-width: none;
+}
+
+.order-bar-info.oneline .order-bar-name {
+  max-width: none;
+  width: calc(100% - 160rpx);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

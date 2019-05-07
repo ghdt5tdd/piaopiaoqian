@@ -1,0 +1,15 @@
+<!--pages/formCustomerinfo/formCustomerinfo.wxml-->
+<scroll-view class='goodsTable' scroll-x="true">
+  <view class="table" style="width:{{goodsWidth}}">
+    <view class="tr">
+      <view class='th' wx:for="{{tableTh}}" wx:key="key">
+        {{item.title}}
+      </view>
+    </view>
+    <view class="tr" wx:for="{{tableTr}}" wx:key="key" wx:for-index="indexTr">
+      <view class='td' wx:for="{{item.td}}" wx:key="key" wx:for-index="indexTd">
+        {{item.name}}
+      </view>
+    </view>
+  </view>
+</scroll-view>

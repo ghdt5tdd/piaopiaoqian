@@ -1,0 +1,37 @@
+<!--pages/contractInfo/contractInfo.wxml-->
+  <view class='order-table'>
+      <view class="order-table-items">
+        <view class="order-table-head">
+          <view class='order-table-id'>单据编号：{{id}}</view>
+          <view class='order-table-time'>{{time}}</view>
+        </view>
+        <view class='order-table-content'>
+          <view class='order-table-bar'>
+            <view class="order-bar-info {{item.one ?'oneline':'' }}" wx:for="{{info}}">
+              <view class='order-bar-label' wx:if="{{item.label != ''}}">{{item.label}}：</view>
+              <view class='order-bar-name'>{{item.name}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+  </view>
+
+
+
+<scroll-view scroll-x="true">
+  <view class='goodsTable' style='width:{{goodsWidth}}'>
+    <view class="table">
+      <view class="tr">
+        <view class='th' wx:for="{{tableTh}}" wx:key="key">
+          {{item.title}}
+        </view>
+      </view>
+      <view class="tr" wx:for="{{tableTr}}" wx:key="key">
+        <view class='td' wx:for="{{item.td}}" wx:key="key" wx:for-index="indexTd">
+          <view >{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+

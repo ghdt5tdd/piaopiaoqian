@@ -1,0 +1,113 @@
+<!--pages/goods/goods.wxml-->
+
+<scroll-view scroll-y class="left-wrapper" id="left">
+  <view class="left-item {{checkIndex == index?'on':''}}" wx:for="{{types}}" wx:key="key" bindtap="toRight" data-index="{{index}}">
+    <view>{{item.name}}</view>
+    <view wx:if="{{item.num > 0}}" class='left-item-num'>{{item.num}}</view>
+  </view>
+</scroll-view>
+
+<scroll-view scroll-y class="right-wrapper" bindscroll="onScroll" scroll-into-view="{{toView}}" id="right">
+  <view wx:for="{{items}}" wx:key="key" wx-for-item="item" class="lists" id="group{{index}}">
+    <view class="right-title" style="{{style}}">
+      {{item.title}}
+    </view>
+    <view class="right-content">
+      <view wx:for="{{item.child}}" wx:key="key" class="right-item" wx:for-index="goodsindex">
+        <image bindtap='enlarge' data-index="{{index}}" data-goodsindex="{{goodsindex}}" class='cart-pic' src='{{item.pic}}'></image>
+        <view class='cart-name'>{{item.name}}</view>
+        <view class='cart-code'>{{item.code}}</view>
+        <view class='cart-sale'>月售{{item.sale}}份</view>
+        <view class='cart-price'>
+          ¥
+          <view class='cart-price-now'>{{item.price}}</view>
+        </view>
+        <view class="cart-count-box">
+          <text class="cart-count-down" wx:if="{{item.show}}" bindtap="subtractCount" data-specs="{{item.has}}"  data-index="{{index}}" data-goodsindex="{{goodsindex}}">-</text>
+          <text class="cart-count-num" wx:if="{{item.show}}">{{item.num}}</text>
+          <text class="cart-count-add" bindtap="addCount" data-specs="{{item.has}}" data-index="{{index}}" data-goodsindex="{{goodsindex}}">+</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+
+<view class="cart-footer">
+  <view class="goods-cart {{scaleCart?'on':''}} {{hasCarts?'check':''}} " bindtap='showCart'>
+    <view class="cart-icon iconfont icon-cart">
+    </view>
+    <text class="cart-num" wx:if="{{hasCarts}}">{{totalNum}}</text>
+  </view>
+  <view class="cart-spec" wx:if="{{totalNum ==0}}">未选购商品</view>
+  <view class='cart-opt' wx:else>
+    <view class="cart-total">￥{{totalPrice}}</view>
+    <view class="to-pay bg-red " bindtap='toConfirm'>
+      确认
+    </view>
+  </view>
+</view>
+
+<view class='pop-shadow' hidden='{{hideShadow}}' bindtap='hideCart'></view>
+<view class='pop-up pop-cart' animation="{{animation}}" style="height: calc({{cartHeight}}px); bottom:calc(-{{cartHeight}}px + 90rpx);">
+  <view class='pop-cart-head'>
+    <view>已选商品</view>
+    <view class='pop-cart-empty' bindtap='modal'>
+      <view class='iconfont icon-delete'></view>清空</view>
+  </view>
+  <scroll-view scroll-y="true" class='pop-cart-body' style="height: {{scrollHeight}}px;">
+    <view wx:for="{{carts}}" wx:key="key" class='cart-body-item'>
+      <view class='cart-body-call'>
+        <view class='cart-body-name' data-code="{{item.code}}">{{item.name}}</view>
+        <view class='cart-body-spec'>{{item.spec}}</view>
+      </view>
+      <view class='cart-body-price'>¥
+        <text>{{item.pay}}</text>
+      </view>
+      <view class="cart-count-box">
+        <text class="cart-count-down" wx:if="{{item.show}}" bindtap="minusCount" data-index="{{index}}">-</text>
+        <text class="cart-count-num" wx:if="{{item.show}}">{{item.num}}</text>
+        <text class="cart-count-add" bindtap="plusCount" data-index="{{index}}">+</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<scroll-view scroll-y class='pop-up pop-enlarge' hidden='{{hideEnlarge}}'>
+  <view class='enlarge-close iconfont icon-roundclose' bindtap='hideEnlarge'></view>
+  <image class='enlarge-pic' src="{{enlargePic}}" mode='widthFix'></image>
+  <view class='enlarge-info'>
+    <view class='cart-name'>{{enlargeName}}</view>
+    <view class='cart-sale'>月售{{enlargeSale}}份</view>
+    <view class='cart-price'>
+      ¥
+      <view class='cart-price-now'>{{enlargePrice}}</view>
+    </view>
+    <view class='cart-profile'>{{enlargeCode}}</view>
+  </view>
+</scroll-view>
+
+
+<view class='pop-up pop-specs' hidden='{{hideSpecs}}'>
+  <view class='pop-specs-head'>
+    <image src='{{specsPic}}'></image>
+    <view class='pop-specs-name'>{{specsName}}</view>
+    <view class='pop-specs-select'>已选：
+      <text wx:for="{{specsOn}}" wx:key="key">{{item.name}}</text>
+    </view>
+    <view class='pop-specs-price'>
+      ¥
+      <view class='pop-specs-priceNow'>{{specsPrice}}</view>
+      <view class='pop-specs-priceOnce'>{{specsPrime}}</view>
+    </view>
+  </view>
+  <scroll-view scroll-y class='pop-specs-list'>
+    <view class='pop-specs-item' wx:for="{{specsItem}}" wx:key="key" wx:for-index="specsindex">
+      <view class='pop-specs-label'>{{item.label}}</view>
+      <view class='pop-specs-info'>
+        <view class="pop-specs-infoName {{item.select == index?'selected':''}}" bindtap='selectSpecs' wx:for="{{item.info}}" wx:key="key" wx:for-item="specs" data-index="{{index}}" data-specsindex="{{specsindex}}">{{specs.name}}</view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class='pop-bottom' data-item="{{index}}" data-good="{{goodsindex}}" bindtap='addSpecs'>选好了</view>
+</view>

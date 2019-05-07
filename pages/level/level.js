@@ -12,7 +12,7 @@ Page({
   data: {
     levelTotal: "0",
     vipLevel: "0",
-    levelPic: "../../images/b_blue_4.gif",
+    levelPic: "",
     levelRate: "0",
     levelDatas:[],
     memberServiceRate: {
@@ -180,6 +180,13 @@ Page({
             levelTotal: serviceRate.total_order_number,
             levelRate: serviceRate.favorable_rating,
             levelPic: serviceRate.res.data.icon_file
+          })
+        } else {
+          this.setData({
+            memberServiceRate: {},
+            vipLevel: 0,
+            levelTotal: 0,
+            levelRate: 0
           })
         }
       })

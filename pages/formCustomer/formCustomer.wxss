@@ -1,0 +1,2 @@
+/* pages/formCustomer/formCustomer.wxss */
+@import '../form/form.wxss';

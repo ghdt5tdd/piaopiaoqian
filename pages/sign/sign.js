@@ -317,10 +317,10 @@ Page({
       selectIndex: index,
       now: util.getFormatDate(1)
     }, () => {
-      const isTimely = util.compareDate(this.data.selectOrder.estimated_arrive_date, this.data.now)
-      console.log(this.data.selectOrder.estimated_arrive_date)
-      console.log(this.data.now)
-      console.log(isTimely)
+      let isTimely = 1
+      if (this.data.selectOrder.estimated_arrive_date) {
+        isTimely = util.compareDate(this.data.selectOrder.estimated_arrive_date, this.data.now)
+      }
       this.setData({
         actualNumber: this.data.selectOrder.total_packing_quantity,
         actualDate: this.data.now.substring(0, 10),

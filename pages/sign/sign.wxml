@@ -130,11 +130,11 @@
           </view>
           <view class='order-other-bar'>
             <text>起运时间：</text>
-            <view>{{selectOrder.start_departing_date}}</view>
+            <view>{{selectOrder.start_departing_date || '无'}}</view>
           </view>
           <view class='order-other-bar'>
             <text>预计到达时间：</text>
-            <view>{{selectOrder.estimated_arrive_date}}</view>
+            <view>{{selectOrder.estimated_arrive_date || '无'}}</view>
           </view>
           <view class='order-table-content'>
 
@@ -182,7 +182,7 @@
       <view class='order-other-bar'>
         <text>是否及时：</text>
         <view class='order-other-radio'>
-          <block wx:if="{{isHideTimeLy}}">
+          <block wx:if="{{isHideTimeLy || !selectOrder.estimated_arrive_date}}">
             <view>
               <image src="../../images/check.png"></image>
               <text>{{timelyArray[0].text}}</text>

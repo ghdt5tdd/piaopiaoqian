@@ -1,0 +1,59 @@
+/* pages/act/act.wxss */
+
+.query-condition-items picker {
+  font-size: 36rpx;
+  line-height: 78rpx;
+  height: 78rpx;
+}
+
+.query-condition-items.active picker {
+  font-size: 32rpx;
+  line-height: 42rpx;
+  height: 42rpx;
+  margin-top: 6rpx;
+  min-height: 0;
+}
+
+.query-search {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  top: 30rpx;
+  right: 20rpx;
+}
+
+.query-add {
+  position: absolute;
+  bottom: 30rpx;
+  right: 20rpx;
+  font-size: 0.7rem;
+  line-height: 42rpx;
+}
+
+.order-table-row {
+  padding: 30rpx 0;
+  border-top: 1px solid #e7e7e7;
+  font-size: 30rpx;
+  line-height: 42rpx;
+}
+
+.order-table-opt {
+  border-top: 1px solid #e7e7e7;
+  padding: 20rpx 0;
+  position: relative;
+}
+
+.order-opt-status {
+  font-size: 32rpx;
+  text-align: left;
+  line-height: 40rpx;
+}
+
+.order-opt-revise {
+  font-size: 30rpx;
+  position: absolute;
+  line-height: 40rpx;
+  right: 0rpx;
+  top: 20rpx;
+  color: #999
+}

@@ -24,6 +24,14 @@ moduleItemImgs.set('11', { img: '../../images/model11.png', to: 'toDaily' })//�
 moduleItemImgs.set('12', { img: '../../images/model12.png', to: 'toVisitor' })//访客邀约
 moduleItemImgs.set('13', { img: '../../images/model13.png', to: 'toRegister' })//访客登记
 
+moduleItemImgs.set('14', { img: '../../images/model14.png', to: 'toContract' })//合同管理
+moduleItemImgs.set('15', { img: '../../images/model16.png', to: 'toRenew' })//合同续费
+moduleItemImgs.set('16', { img: '../../images/model15.png', to: 'toAct' })//行动汇报
+moduleItemImgs.set('17', { img: '../../images/notice5.png', to: 'toHouse' })//物流仓及时率
+moduleItemImgs.set('18', { img: '../../images/list1.png', to: 'toRenew' })//客户及时率
+moduleItemImgs.set('19', { img: '../../images/notice2.png', to: 'toAct' })//承运商及时率
+moduleItemImgs.set('20', { img: '../../images/notice6.png', to: 'toSheet' })//承运商结算单
+
 Page({
 
   /**
@@ -254,6 +262,56 @@ Page({
   toForm: function(e) {
     wx.navigateTo({
       url: '../form/form'
+    })
+  },
+
+  //跳转到合同管理页面
+  toContract: function (e) {
+    wx.navigateTo({
+      url: '../contract/contract'
+    })
+  },
+
+  //跳转到合同续费页面
+  toRenew: function (e) {
+    wx.navigateTo({
+      url: '../contractRenew/contractRenew'
+    })
+  },
+
+  //跳转到行动汇报页面
+  toAct: function (e) {
+    wx.navigateTo({
+      url: '../act/act'
+    })
+  },
+
+
+  //跳转到客户及时率
+  toCustomer: function (e) {
+    wx.navigateTo({
+      url: '../formCustomer/formCustomer'
+    })
+  },
+
+  //跳转到承运商及时率
+  toForwarder: function (e) {
+    wx.navigateTo({
+      url: '../formForwarder/formForwarder'
+    })
+  },
+
+  //跳转到物流仓及时率
+  toHouse: function (e) {
+    wx.navigateTo({
+      url: '../formHouse/formHouse'
+    })
+  },
+
+  //跳转到承运商结算单
+  toSheet: function (e) {
+    wx.navigateTo({
+      url: '../formSheet/formSheet'
     })
   },
 

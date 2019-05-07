@@ -1,0 +1,162 @@
+/* pages/contractAdd/contractAdd.wxss */
+
+.table {
+  display: table;
+  width: 100%;
+}
+
+.goodsTable .tr {
+  display: table-row;
+  width: 100%;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.goodsTable .th, .goodsTable .td {
+  display: table-cell;
+  white-space: nowrap;
+  line-height: 80rpx;
+  vertical-align: middle;
+  padding: 0 10rpx;
+  background: #fff;
+  border-bottom: 1px solid #e7e7e7;
+  border-right: 1px solid #e7e7e7;
+}
+
+
+
+.goodsTable .th:last-child, .goodsTable .td:last-child {
+  border-right: none;
+}
+
+.table-select {
+  width: 40rpx;
+  height: 40rpx;
+  padding: 20rpx;
+  line-height: 0;
+  font-size: 0
+}
+
+.table-select image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.my-list {
+  margin-top: 20rpx;
+  background: #fff;
+}
+
+.my-bar {
+  display: flex;
+  border-top: 1px solid #e7e7e7;
+  justify-content: space-between;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  padding: 20rpx 70rpx 20rpx 20rpx;
+  background: #fff;
+  position: relative;
+}
+
+.my-bar-img {
+  position: absolute;
+  width: 60rpx;
+  height: 60rpx;
+  top: 20rpx;
+  left: 20rpx;
+}
+
+.my-bar-next {
+  position: absolute;
+  width: 30rpx;
+  height: 30rpx;
+  right: 20rpx;
+  top: 35rpx;
+  z-index: 22
+}
+
+.my-bar-input {
+  width: calc(100% - 160rpx);
+  text-align: right;
+}
+
+.my-bar-input input {
+  height: 60rpx;
+}
+
+.my-bar-input {
+  text-align: left;
+}
+
+.my-bar textarea {
+  width: calc(100% - 160rpx);
+  line-height: 40rpx;
+  height: 160rpx;
+  padding: 10rpx 0
+}
+
+.abnormal-gallery-info {
+  width: calc(100% - 160rpx);
+  overflow: hidden;
+}
+
+.abnormal-gallery-img, .abnormal-gallery-upload {
+  float: left;
+  padding: 10rpx;
+  position: relative;
+}
+
+.abnormal-gallery-img image, .abnormal-gallery-upload image {
+  width: 140rpx;
+  height: 140rpx;
+}
+
+.abnormal-gallery-img .delete-btn {
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  font-size: 30rpx;
+}
+
+.contractBtn {
+  margin: 30rpx 0;
+  display: flex;
+  padding: 0 20rpx;
+  align-items: center;
+}
+
+.contractBtn  view {
+  line-height: 80rpx;
+  height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  background: #fd8436;
+  color: #fff;
+  padding: 0 40rpx;
+  margin-right: 20rpx;
+}
+
+.popup-contract{
+  position: fixed;
+  width: 90%;
+  left: 5%;
+  height: 900rpx;
+  top:50%;
+  margin-top: -450rpx;
+  background: #fff;
+  z-index: 999
+}
+
+.popup-head{
+  font-size: 32rpx;
+  line-height: 80rpx;
+  text-align: center
+}
+
+.popup-contract-content{
+  height: calc(100% - 160rpx)
+}
+
+.popup-contract .my-list {
+  margin-top: 0
+}

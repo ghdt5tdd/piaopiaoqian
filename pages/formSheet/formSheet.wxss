@@ -1,0 +1,37 @@
+/* pages/formSheet/formSheet.wxss */
+@import '../form/form.wxss';
+
+.sheet {
+  background: #fff;
+  margin-top: 2px;
+  height: calc(100vh - 2px)
+}
+
+.table {
+  border-top: 1px solid #e7e7e7;
+}
+
+.sheet-head {
+  padding: 40rpx 20rpx;
+}
+
+.sheet-company {
+  font-size: 36rpx;
+  text-align: center;
+}
+
+.sheet-text {
+  font-size: 30rpx;
+  text-align: center;
+  margin: 20rpx 0;
+}
+
+.sheet-name {
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.goodsTable .th {
+  background: #fff;
+  border-bottom: 1px solid #e7e7e7;
+}

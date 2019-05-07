@@ -1,0 +1,64 @@
+<!--pages/actAdd/actAdd.wxml-->
+<view class='my-list'>
+  <view class='my-bar'>
+    <view class='my-bar-label'>事务类型</view>
+    <view class='my-bar-input'>
+      <picker bindchange="bindPickerChange" value="{{Index}}" range="{{orderStatus}}" range-key="name" data-index="{{index}}">
+        {{orderStatus[Index].name}}
+      </picker>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>汇报时间</view>
+    <view class='my-bar-input'>
+      <input type="text" name="date" bindtap='showDate' placeholder='请选择日期,必填' value='{{dateValue}}'></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>汇报地点</view>
+    <view class='my-bar-input'>
+      <input type="text" name="address" value='办公室'></input>
+    </view>
+    <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
+  <view class='my-bar'>
+    <view class='my-bar-label'>汇报内容</view>
+    <textarea></textarea>
+  </view>
+
+
+
+</view>
+
+<view class='button-bottom'>
+  确认
+</view>
+
+
+<view class='popup-shadow' hidden="{{hide}}" bindtap='hide'></view>
+
+<view class="canlendarBgView" wx:if="{{showDate}}">
+  <view class="canlendarView">
+    <view class="canlendarTopView">
+      <view class="leftBgView" bindtap="handleCalendar" data-handle="prev">
+        <view class="leftView">《</view>
+      </view>
+      <view class="centerView">{{cur_year || "--"}} 年 {{cur_month || "--"}} 月</view>
+      <view class="rightBgView" bindtap="handleCalendar" data-handle="next">
+        <view class="rightView">》</view>
+      </view>
+    </view>
+    <view class="weekBgView">
+      <view class="weekView" wx:for="{{weeks_ch}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
+    </view>
+    <view class="dateBgView">
+      <view wx:if="{{hasEmptyGrid}}" class="dateEmptyView" wx:for="{{empytGrids}}" wx:key="{{index}}" data-idx="{{index}}"> </view>
+      <view class="dateView" wx:for="{{days}}" wx:key="{{index}}" data-idx="{{index}}" bindtap="dateSelectAction">
+        <view class="datesView {{index == todayIndex ? 'dateSelectView' : ''}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>
