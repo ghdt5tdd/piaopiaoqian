@@ -434,7 +434,8 @@ Page({
 
   getNewsList () {
     const now = util.getFormatDate()
-    const newsInfo = wx.getStorageSync('newsInfo')
+    console.log( app.globalData.memberInfo)
+    const newsInfo = wx.getStorageSync('newsInfo' + app.globalData.memberInfo.platform_app_area)
     if (newsInfo && newsInfo.expire === now) {
       this.setData({
         newsList: newsInfo.data
@@ -448,7 +449,7 @@ Page({
           this.setData({
             newsList: res.data
           })
-          wx.setStorageSync('newsInfo', {
+          wx.setStorageSync('newsInfo' + app.globalData.memberInfo.platform_app_area, {
             data: res.data,
             expire: now
           })
