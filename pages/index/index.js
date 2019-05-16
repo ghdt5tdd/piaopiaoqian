@@ -1,9 +1,11 @@
 //index.js
 //获取应用实例
 const app = getApp()
+const storage = require('../../utils/storage.js')
 const ajax = require('../../utils/ajax.js')
 Page({
   data: {
+    myBanner: '../../images/bg.jpg',
     userInfo: {},
     memberInfo: {},
     hasUserInfo: false,
@@ -155,9 +157,32 @@ Page({
       url: '../logs/logs'
     })
   },
+
+  setBackgroundImg() {
+    const myBanner = storage.get('appBackgroundIndexImg' + app.globalData.memberInfo.platform_app_area)
+    if (!myBanner) {
+      ajax.getApi('app/work/getBanner', {
+        banner_type: 2
+      }, (err, res) => {
+        if (res && res.success) {
+          const img = res.data.banner_img
+          storage.put('appBackgroundIndexImg' + app.globalData.memberInfo.platform_app_area, img, 12 * 60 * 60)
+          this.setData({
+            myBanner: img,
+          })
+        }
+      })
+    } else {
+      this.setData({
+        myBanner,
+      })
+    }
+  },
+
   onLoad: function() {
     this.initUserInfo()
     this.getMemberInfo()
+    this.setBackgroundImg()
     this.getNavByRole(this.getNavDataByRole)
   },
 
@@ -175,8 +200,8 @@ Page({
         
       }, (err, res) => {
         if (res && res.success) {
-          wx.setStorageSync('orderStatus' + app.globalData.memberInfo.id, res.data)
           if(res.data instanceof Array && res.data.length > 0) {
+            wx.setStorageSync('orderStatus' + app.globalData.memberInfo.id, res.data)
             this.setData({
               orderStatus: res.data,
               curCode: res.data[0].code
@@ -189,8 +214,12 @@ Page({
       callback(orderStatus)
       this.setData({
         orderStatus,
-        curCode: orderStatus[0].code
       })
+      if (orderStatus.length > 0) {
+        this.setData({
+          curCode: orderStatus[0].code
+        }) 
+      }
     }
   },
 

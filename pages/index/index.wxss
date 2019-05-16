@@ -9,10 +9,13 @@
 
 .my-head {
   position: relative;
+  overflow: hidden;
+  height: 320rpx;
 }
 
 .my-head-bg {
   width: 100%;
+  opacity: 0.5;
 }
 
 .my-head .userinfo {

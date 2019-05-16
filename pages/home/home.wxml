@@ -36,10 +36,13 @@
 </view>
 
 
-<view class='banner'>
-  <image src='{{banner}}' mode="widthFix"></image>
-</view>
-
+<swiper indicator-dots="true" autoplay="true" interval="5000" duration="300"  class='banner'>
+  <block wx:for="{{banner}}" wx:key="key" >
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" mode="widthFix" />
+    </swiper-item>
+  </block>
+</swiper>
 
 <view class='news'>
   <view class='newstit' bindtap='toNewslist'>

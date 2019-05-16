@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="my-head">
-  <image class='my-head-bg' src='../../images/bg.jpg' mode="widthFix"></image>
+  <image class='my-head-bg' src='{{myBanner}}' mode="widthFix"></image>
   <view class="userinfo">
     <block>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{memberInfo.head_img}}" mode="cover"></image>

@@ -57,7 +57,15 @@ Page({
     }],
     memberServiceRate:{},
     memberInfo: null,
-    banner: "../../images/banner.png",
+    banner: [
+      '../../images/banner.png',
+      '../../images/banner.png',
+    ],
+    indicatorDots: true,
+    autoplay: true,
+    interval: 5000,
+    duration: 300,
+
     newsList: [],
     newsUrls: [{
         index: 0,
@@ -323,11 +331,33 @@ Page({
     }
   },
 
+  setBackgroundImg(){
+    const banner = storage.get('appBackgroundImgs' + app.globalData.memberInfo.platform_app_area)
+    if (!banner) {
+      ajax.getApi('app/work/getBanner', {
+        banner_type: 1
+      }, (err, res) => {
+        if (res && res.success) {
+          const imgs = res.data.banner_img
+          storage.put('appBackgroundImgs' + app.globalData.memberInfo.platform_app_area, imgs, 12 * 60 * 60)
+          this.setData({
+            banner: imgs,
+          })
+        }
+      })
+    } else {
+      this.setData({
+        banner,
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     this.setTitle()
+    this.setBackgroundImg()
     this.getUnreadMessageCount()
     this.getServiceRating()
     this.getMemberInfo()
