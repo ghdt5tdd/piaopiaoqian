@@ -339,10 +339,12 @@ Page({
       }, (err, res) => {
         if (res && res.success) {
           const imgs = res.data.banner_img
-          storage.put('appBackgroundImgs' + app.globalData.memberInfo.platform_app_area, imgs, 12 * 60 * 60)
-          this.setData({
-            banner: imgs,
-          })
+          if(imgs && imgs.length > 0) {
+            storage.put('appBackgroundImgs' + app.globalData.memberInfo.platform_app_area, imgs, 12 * 60 * 60)
+            this.setData({
+              banner: imgs,
+            })
+          }
         }
       })
     } else {

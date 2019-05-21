@@ -9,6 +9,7 @@ roleMap.set('ownLogistArea', 2)
 roleMap.set('bigCustomer', 3)
 roleMap.set('franchiser', 4)
 roleMap.set('carrier', 5)
+roleMap.set('networkAgent', 5)
 roleMap.set('cartDriver', 6)
 
 const orderInterface = new Map()
@@ -17,6 +18,7 @@ orderInterface.set('ownLogistArea', 'app/order/listBookingOrder')
 orderInterface.set('bigCustomer', 'app/order/listBookingOrder')
 orderInterface.set('franchiser', 'app/order/listBookingOrder')
 orderInterface.set('carrier', 'app/order/listCarrierBookingOrder')
+orderInterface.set('networkAgent', 'app/order/listCarrierBookingOrder')
 orderInterface.set('cartDriver', 'app/order/listDriverBookingOrder')
 
 const customerStatus = [{
@@ -82,6 +84,7 @@ roleStatus.set('ownLogistArea', customerStatus)
 roleStatus.set('bigCustomer', customerStatus)
 roleStatus.set('franchiser', customerStatus)
 roleStatus.set('carrier', carrierStatus)
+roleStatus.set('networkAgent', carrierStatus)
 roleStatus.set('cartDriver', driverStatus)
 
 
@@ -312,7 +315,8 @@ Page({
 
     let api = orderInterface.get(partnerTypeCode)
     //暂时加一层判断，根据个人角色来决定是司机还是承运商身份
-    if (app.globalData.memberInfo.talent_type_code === 'driver' || app.globalData.memberInfo.talent_type_code === 'bigdriver') {
+    console.log(app.globalData.memberInfo.talent_type_code)
+    if (app.globalData.memberInfo.talent_type_code === 'driver' || app.globalData.memberInfo.talent_type_code === 'bigDriver') {
       api = 'app/order/listDriverBookingOrder'
     }
     ajax.getApi(api, {

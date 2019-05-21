@@ -166,10 +166,12 @@ Page({
       }, (err, res) => {
         if (res && res.success) {
           const img = res.data.banner_img
-          storage.put('appBackgroundIndexImg' + app.globalData.memberInfo.platform_app_area, img, 12 * 60 * 60)
-          this.setData({
-            myBanner: img,
-          })
+          if (img) {
+            storage.put('appBackgroundIndexImg' + app.globalData.memberInfo.platform_app_area, img, 12 * 60 * 60)
+            this.setData({
+              myBanner: img,
+            })
+          }
         }
       })
     } else {

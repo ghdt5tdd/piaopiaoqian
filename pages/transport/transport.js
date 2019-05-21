@@ -9,6 +9,7 @@ orderInterface.set('ownLogistArea', 'app/order/getLogistAreaShopOrderList')
 orderInterface.set('bigCustomer', 'app/order/getFranchiserShopOrderList')
 orderInterface.set('franchiser', 'app/order/getFranchiserShopOrderList')
 
+orderInterface.set('networkAgent', 'app/order/getCarrierShopOrderList')
 orderInterface.set('carrier', 'app/order/getCarrierShopOrderList')
 orderInterface.set('cartDriver', 'app/order/getCarrierShopOrderList')
 Page({
