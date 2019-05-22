@@ -400,7 +400,7 @@ Page({
     const talent_type_code = app.globalData.memberInfo.talent_type_code
     const roleType = roleMap.get(partnerTypeCode)
     let status = roleStatus.get(partnerTypeCode)
-    if (talent_type_code === 'driver' || talent_type_code === 'bigdriver') {
+    if (partnerTypeCode === 'carrier' && (talent_type_code === 'driver' || talent_type_code === 'bigDriver')) {
       status = roleStatus.get('cartDriver')
     }
     console.log(roleType)
