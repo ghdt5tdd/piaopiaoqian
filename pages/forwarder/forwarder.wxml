@@ -24,6 +24,10 @@
       <view class='forwarder-item-info'>
         <view class='forwarder-item-bar'>
           <image src='../../images/send-company.png'></image>
+          <view>{{item.client_code}}</view>
+        </view>
+        <view class='forwarder-item-bar'>
+          <image src='../../images/send-company.png'></image>
           <view>{{item.contact_man}}</view>
         </view>
         <view class='forwarder-item-bar'>

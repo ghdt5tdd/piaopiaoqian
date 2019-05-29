@@ -164,7 +164,7 @@ Page({
 
   commitComment: function () {
     const id = this.data.selectOrder.id
-    const comment_star = this.data.starSelect
+    const comment_star = this.data.starSelect || 5
     const comment = this.data.comment
     const imgs = JSON.stringify(this.data.imgs)
 

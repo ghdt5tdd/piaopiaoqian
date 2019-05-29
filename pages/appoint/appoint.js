@@ -403,6 +403,11 @@ Page({
     if (partnerTypeCode === 'carrier' && (talent_type_code === 'driver' || talent_type_code === 'bigDriver')) {
       status = roleStatus.get('cartDriver')
     }
+
+    if (partnerTypeCode === 'networkAgent' && (talent_type_code === 'driver' || talent_type_code === 'bigDriver')) {
+      status = roleStatus.get('cartDriver')
+    }
+    
     console.log(roleType)
     this.setData({
       roleType,
