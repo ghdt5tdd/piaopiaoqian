@@ -1,128 +1,165 @@
 // pages/formCustomer/formCustomer.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const storage = require('../../utils/storage.js')
+const app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    tableTh: [{
-      title: "序号"
-    }, {
-      title: "月份"
-    }, {
-      title: "承运商名称"
-    }, {
-      title: "收货单位"
-    }, {
-      title: "发货站"
-    }, {
-      title: "终点站"
-    }, {
-      title: "及时数"
-    }, {
-      title: "不及时数"
-    }, {
-      title: "总数"
-    }, {
-      title: "及时率"
-    }],
-
-    tableTr: [{
-      td: [{
-        name: "1"
-      }, {
-        name: "2018-02"
-      }, {
-        name: "河南路港综合运输有限公司"
-      }, {
-        name: "客户卡号（客户名）"
-      }, {
-        name: "郑州"
-      }, {
-        name: "长垣县"
-      }, {
-        name: "11"
-      }, {
-        name: "2"
-      }, {
-        name: "13"
-      }, {
-        name: "84.62%"
-      }, ]
-    }, {
-      td: [{
-        name: "2"
-      }, {
-        name: "2018-02"
-      }, {
-        name: "山东ABC有限公司"
-      }, {
-        name: "客户卡号（客户名）"
-      }, {
-        name: "郑州"
-      }, {
-        name: "洛阳"
-      }, {
-        name: "5"
-      }, {
-        name: "1"
-      }, {
-        name: "6"
-      }, {
-        name: "83.33%"
-      }, ]
-    }, {
-      td: [{
-        name: "汇总"
-      }, {
-        name: ""
-      }, {
-        name: ""
-      }, {
-        name: ""
-      }, {
-        name: ""
-      }, {
-        name: ""
-      }, {
-        name: "16"
-      }, {
-        name: "3"
-      }, {
-        name: "19"
-      }, {
-        name: "84.21%"
-      }, ]
-    }, ],
+    customerSendTh: ["序号", "月份", "承运商名称", "收货单位", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
+    customerReturnTh: ["序号", "月份", "承运商名称", "收货单位", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
+    areaSendTh: ["序号", "月份", "物流仓名称", "承运商名称", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
+    areaReturnTh: ["序号", "月份", "物流仓名称", "承运商名称", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
+    forwarderTh: ["序号", "月份", "承运商名称", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
+    analysisTh:[],
+    analysisData: [],
+    page: 1,
+    pageSize: 200,
+    loadCompleted: false,
+    type: undefined,
   },
 
   //详情页
   toInfo: function(e) {
+    const index = e.currentTarget.dataset.index
+    const type = this.data.type
+    const data = this.data.analysisData[index]
+    const month = data.month
+    const consignment_station_name = data.consignment_station_name
+    const receiving_station_name = data.receiving_station_name
+    const carrier_name = data.carrier_name
+    console.log(data)
     wx.navigateTo({
-      url: '../formCustomerinfo/formCustomerinfo'
+      url: '../formCustomerinfo/formCustomerinfo?type=' + type + '&month=' + month + "&consignment_station_name=" + consignment_station_name + "&receiving_station_name=" + receiving_station_name + "&carrier_name=" + carrier_name
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
+  setWidth() {
     //计算宽度
     var query = wx.createSelectorQuery();
     var that = this;
-    query.select('.table').boundingClientRect(function(rect) {
-      console.log(rect.width)
+    query.select('.table').boundingClientRect(function (rect) {
       that.setData({
         goodsWidth: rect.width + 'px'
       })
     }).exec();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
+  lower: function (e) {
+    let page = this.data.page
+    const pageSize = this.data.pageSize
+    const loadCompleted = this.data.loadCompleted
+    if (!loadCompleted) {
+      wx.showLoading({
+        title: '加载中...',
+      })
+      page++
+      this.setData({
+        page
+      }, () => {
+        this.getAnalysis(this.data.type)
+      })
+    } else {
+      wx.showToast({
+        title: '数据加载完毕',
+        duration: 1000
+      })
+    }
+  },
 
+  getAnalysis(type) {
+    console.log(type)
+    const api = this.getApi(type)
+    if(api) {
+      wx.showLoading({
+        title: '加载数据中...',
+      })
+      ajax.getApi(api, {
+        page: this.data.page,
+        pageSize: this.data.pageSize
+      }, (err, res) => {
+        wx.hideLoading()
+        if (res && res.success) {
+          if (res.data.length > 0) {
+            const analysisData = this.data.analysisData
+            Array.prototype.push.apply(analysisData, res.data);
+            this.setData({
+              analysisData
+            })
+          } else {
+            wx.hideLoading(() => {
+              wx.showToast({
+                title: '已全部加载',
+                duration: 1000
+              })
+            })
+            this.setData({
+              loadCompleted: true
+            })
+          }
+        }
+      })
+    }
+  },
+
+  getApi(type) {
+    this.setData({
+      type
+    })
+    switch(type) {
+      case 'forwarder':
+        this.setData({
+          analysisTh: this.data.forwarderTh
+        })
+        wx.setNavigationBarTitle({
+          title: '承运商及时率'
+        })
+        return 'app/order/getCarrierPunctualityAnalysis'
+      case 'areaSend':
+        this.setData({
+          analysisTh: this.data.areaSendTh
+        })
+        wx.setNavigationBarTitle({
+          title: '承运商及时率(区域仓发货)'
+        })
+        return 'app/order/getStartBranchPunctualityAnalysis'
+      case 'areaReturn':
+        this.setData({
+          analysisTh: this.data.areaReturnTh
+        })
+        wx.setNavigationBarTitle({
+          title: '承运商及时率(区域仓退货)'
+        })
+        return 'app/order/getFinalBranchPunctualityAnalysis'
+      case 'customerSend':
+        this.setData({
+          analysisTh: this.data.customerSendTh
+        })
+        wx.setNavigationBarTitle({
+          title: '承运商及时率(客户发货)'
+        })
+        return 'app/order/getConsigneePunctualityAnalysis'
+      case 'customerReturn':
+        this.setData({
+          analysisTh: this.data.customerReturnTh
+        })
+        wx.setNavigationBarTitle({
+          title: '承运商及时率(客户发退货)'
+        })
+        return 'app/order/getConsignerPunctualityAnalysis'
+      default:
+        wx.showToast({
+          title: '不支持的角色',
+        })
+        return;
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this.setWidth()
+    this.getAnalysis(options.type)
   },
 
   /**
@@ -132,38 +169,5 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  }
+ 
 })

@@ -1,8 +1,29 @@
 <!--pages/form/form.wxml-->
 <view class='notice-block'>
-  <view class='notice-bar' wx:for="{{noticeBar}}" bindtap='{{item.to}}'>
-    <image class='notice-bar-img' src='{{item.img}}'></image>
-    <view class='notice-bar-name' >{{item.name}}</view>
+  <view class='notice-bar' wx:if="{{partnerTypeCode === 'carrier'}}" bindtap="toDataList" data-type="forwarder">
+    <!-- <image class='notice-bar-img' src='{{item.img}}'></image> -->
+    <view class='notice-bar-name'>承运商及时率</view>
+    <image class='notice-bar-next' src='../../images/next.png'></image>
+  </view>
+  <view class='notice-bar' wx:if="{{partnerTypeCode === 'ownLogistCenter' || partnerTypeCode ==='ownLogistArea'}}" bindtap="toDataList" data-type="areaSend">
+    <!-- <image class='notice-bar-img' src='{{item.img}}'></image> -->
+    <view class='notice-bar-name'>承运商及时率(区域仓发货)</view>
+    <image class='notice-bar-next' src='../../images/next.png'></image>
+  </view>
+  <view class='notice-bar'  wx:if="{{partnerTypeCode === 'ownLogistCenter' || partnerTypeCode ==='ownLogistArea'}}" bindtap="toDataList" data-type="areaReturn">
+    <!-- <image class='notice-bar-img' src='{{item.img}}'></image> -->
+    <view class='notice-bar-name'>承运商及时率(区域仓退货)</view>
+    <image class='notice-bar-next' src='../../images/next.png'></image>
+  </view>
+
+  <view class='notice-bar' wx:if="{{partnerTypeCode === 'bigCustomer' || partnerTypeCode ==='franchiser'}}" bindtap="toDataList" data-type="customerSend">
+    <!-- <image class='notice-bar-img' src='{{item.img}}'></image> -->
+    <view class='notice-bar-name'>承运商及时率(客户发货)</view>
+    <image class='notice-bar-next' src='../../images/next.png'></image>
+  </view>
+  <view class='notice-bar'  wx:if="{{partnerTypeCode === 'bigCustomer' || partnerTypeCode ==='franchiser'}}" bindtap="toDataList" data-type="customerReturn">
+    <!-- <image class='notice-bar-img' src='{{item.img}}'></image> -->
+    <view class='notice-bar-name'>承运商及时率(客户退货)</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>
   </view>
 </view>

@@ -1,82 +1,157 @@
 // pages/formCustomerinfo/formCustomerinfo.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const storage = require('../../utils/storage.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    tableTh: [{
-      title: "序号"
-    }, {
-      title: "承运商名称"
-    }, {
-      title: "发货单位"
-    }, {
-      title: "收货单位"
-    }, {
-      title: "货运单号"
-    }, {
-      title: "发车时间"
-    }, {
-      title: "预计到达时间"
-    }, {
-      title: "到货时间"
-    }, {
-      title: "发货站"
-    }, {
-      title: "终点站"
-    }, {
-      title: "运输方式"
-    }, {
-      title: "运输及时性"
-    }, {
-      title: "备注"
-    }, ],
-
-    tableTr: [{
-      td: [{
-        name: "1"
-      }, {
-        name: "河南路港综合运输有限公司"
-      }, {
-        name: "河南物流"
-      }, {
-        name: "客户卡号（客户名）"
-      }, {
-        name: "HY201802270232"
-      }, {
-        name: "2018-02-27 17:07:31"
-      }, {
-        name: "2018-02-28 12:00:00"
-      }, {
-        name: "2018-03-01 09:30:00"
-      }, {
-        name: "郑州"
-      }, {
-        name: "长垣县"
-      }, {
-        name: "货车"
-      }, {
-        name: "不及时"
-      }, {
-        name: "下雪导致"
-      }, ]
-    }, ],
+    customerSendTh: ["序号", "承运商名称", "发货单位", "收货单位", "货运单号", "发车时间", "预计到达时间", "到货时间", "发货站", "终点站", "运输方式", "运输及时性", "备注"],
+    customerReturnTh: ["序号", "承运商名称", "发货单位", "收货单位", "货运单号", "发车时间", "预计到达时间", "到货时间", "发货站", "终点站", "运输方式", "运输及时性", "备注"],
+    areaSendTh: ["序号", "承运商名称", "物流仓名称", "发货单位", "收货单位", "货运单号", "发车时间", "预计到达时间", "到货时间", "发货站", "终点站", "运输方式", "运输及时性", "备注"],
+    areaReturnTh: ["序号", "承运商名称", "物流仓名称", "发货单位", "收货单位", "货运单号", "发车时间", "预计到达时间", "到货时间", "发货站", "终点站", "运输方式", "运输及时性", "备注"],
+    forwarderTh: ["序号", "承运商名称", "发货单位", "收货单位" , "货运单号", "发车时间", "预计到达时间", "到货时间", "发货站", "终点站", "运输方式", "运输及时性", "备注"],
+    analysisTh: [],
+    analysisData: [],
+    page: 1,
+    pageSize: 200,
+    loadCompleted: false,
+    type: undefined,
+    month: undefined,
+    consignment_station_name: undefined,
+    receiving_station_name: undefined,
+    carrier_name: undefined
   },
+
+  setWidth() {
+    //计算宽度
+    var query = wx.createSelectorQuery();
+    var that = this;
+    query.select('.table').boundingClientRect(function (rect) {
+      that.setData({
+        goodsWidth: rect.width + 'px'
+      })
+    }).exec();
+  },
+
+
+  lower: function (e) {
+    let page = this.data.page
+    const pageSize = this.data.pageSize
+    const loadCompleted = this.data.loadCompleted
+    if (!loadCompleted) {
+      wx.showLoading({
+        title: '加载中...',
+      })
+      page++
+      this.setData({
+        page
+      }, () => {
+        this.getAnalysisDetail()
+      })
+    } else {
+      wx.showToast({
+        title: '数据加载完毕',
+        duration: 1000
+      })
+    }
+  },
+
+  getAnalysisDetail() {
+    const type = this.data.type
+    const api = this.getApi(type)
+    if (api) {
+      wx.showLoading({
+        title: '加载数据中...',
+      })
+      ajax.getApi(api, {
+        page: this.data.page,
+        pageSize: this.data.pageSize,
+        month: this.data.month,
+        consignmentStationName: this.data.consignment_station_name,
+        receivingStationName: this.data.receiving_station_name,
+        carrierName: this.data.carrier_name
+      }, (err, res) => {
+        wx.hideLoading()
+        if (res && res.success) {
+          if (res.data.length > 0) {
+            const analysisData = this.data.analysisData
+            Array.prototype.push.apply(analysisData, res.data);
+            this.setData({
+              analysisData
+            })
+          } else {
+            wx.hideLoading(() => {
+              wx.showToast({
+                title: '已全部加载',
+                duration: 1000
+              })
+            })
+            this.setData({
+              loadCompleted: true
+            })
+          }
+        }
+      })
+    }
+  },
+
+  getApi(type) {
+    this.setData({
+      type
+    })
+    switch (type) {
+      case 'forwarder':
+        this.setData({
+          analysisTh: this.data.forwarderTh
+        })
+        return 'app/order/getCarrierPunctualityAnalysisDetail'
+      case 'areaSend':
+        this.setData({
+          analysisTh: this.data.areaSendTh
+        })
+        return 'app/order/getBranchPunctualityAnalysisDetail'
+      case 'areaReturn':
+        this.setData({
+          analysisTh: this.data.areaReturnTh
+        })
+        return 'app/order/getFinalBranchPunctualityAnalysisDetail'
+      case 'customerSend':
+        this.setData({
+          analysisTh: this.data.customerSendTh
+        })
+        return 'app/order/getConsigneePunctualityAnalysisDetail'
+      case 'customerReturn':
+        this.setData({
+          analysisTh: this.data.customerReturnTh
+        })
+        return 'app/order/getConsignerPunctualityAnalysisDetail'
+      default:
+        wx.showToast({
+          title: '不支持的角色',
+        })
+        return;
+    }
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    //计算宽度
-    var query = wx.createSelectorQuery();
-    var that = this;
-    query.select('.table').boundingClientRect(function(rect) {
-      console.log(rect.width)
-      that.setData({
-        goodsWidth: rect.width + 'px'
-      })
-    }).exec();
+    this.setWidth()
+    this.setData({
+      type: options.type,
+      month: options.month,
+      consignment_station_name: options.consignment_station_name,
+      receiving_station_name: options.receiving_station_name,
+      carrier_name: options.carrier_name
+    }, () => {
+      this.getAnalysisDetail()
+    })
   },
 
   /**

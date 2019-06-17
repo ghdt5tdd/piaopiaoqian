@@ -11,12 +11,10 @@ moduleItemImgs.set('2', { img: '../../images/model3.png', to: 'toHandover' })//�
 moduleItemImgs.set('3', { img: '../../images/model2.png', to: 'toTransport' })//物流跟踪
 moduleItemImgs.set('4', { img: '../../images/model4.png', to: 'toAbnormal' })//异常上报
 moduleItemImgs.set('5', { img: '../../images/model9.png', to: 'toWarn' })//预警提示
-moduleItemImgs.set('6', { img: '../../images/model5.png', to: 'toForm' })//统计报表
-moduleItemImgs.set('9', { img: '../../images/model3.png', to: 'toSign' })//货运单签收
-
-//这两个暂时还没有
+moduleItemImgs.set('6', { img: '../../images/model14.png', to: '' })//快捷查询
 moduleItemImgs.set('7', { img: '../../images/model3.png', to: 'toAppoint' })//预约订单
 moduleItemImgs.set('8', { img: '../../images/model3.png', to: 'toReceive' })//货运单接受
+moduleItemImgs.set('9', { img: '../../images/model3.png', to: 'toSign' })//货运单签收
 
 //新加的，还没确定
 moduleItemImgs.set('10', { img: '../../images/model10.png', to: 'toOut' })//外出报告
@@ -24,19 +22,16 @@ moduleItemImgs.set('11', { img: '../../images/model11.png', to: 'toDaily' })//�
 moduleItemImgs.set('12', { img: '../../images/model12.png', to: 'toVisitor' })//访客邀约
 moduleItemImgs.set('13', { img: '../../images/model13.png', to: 'toRegister' })//访客登记
 
-moduleItemImgs.set('14', { img: '../../images/model14.png', to: 'toContract' })//合同管理
-moduleItemImgs.set('15', { img: '../../images/model16.png', to: 'toRenew' })//合同续费
-moduleItemImgs.set('16', { img: '../../images/model15.png', to: 'toAct' })//行动汇报
-moduleItemImgs.set('17', { img: '../../images/notice5.png', to: 'toHouse' })//物流仓及时率
-moduleItemImgs.set('18', { img: '../../images/list1.png', to: 'toRenew' })//客户及时率
-moduleItemImgs.set('19', { img: '../../images/notice2.png', to: 'toAct' })//承运商及时率
-moduleItemImgs.set('20', { img: '../../images/notice6.png', to: 'toSheet' })//承运商结算单
+moduleItemImgs.set('14', { img: '../../images/model5.png', to: 'toForm' })//统计报表
+moduleItemImgs.set('15', { img: '../../images/notice6.png', to: 'toSheet' })//运费结算
+// moduleItemImgs.set('', { img: '../../images/model14.png', to: 'toContract' })//合同管理
+// moduleItemImgs.set('', { img: '../../images/model16.png', to: 'toRenew' })//合同续费
+// moduleItemImgs.set('', { img: '../../images/model15.png', to: 'toAct' })//行动汇报
+// moduleItemImgs.set('', { img: '../../images/notice5.png', to: 'toHouse' })//物流仓及时率
+// moduleItemImgs.set('', { img: '../../images/list1.png',   to: 'toCustomer' })//客户及时率
+// moduleItemImgs.set('', { img: '../../images/notice2.png', to: 'toForwarder' })//承运商及时率
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     vipAvatar: "../../images/avatar-sy.png",
     vipLevel: "0",
@@ -427,13 +422,15 @@ Page({
   },
 
   getModulesByRole () {
-    const moduleItems = wx.getStorageSync('moduleItems' + app.globalData.memberInfo.id)
-    if (moduleItems === '') {
+    const moduleItems = storage.get('moduleItems' + app.globalData.memberInfo.id)
+    if (!moduleItems) {
       ajax.getApi('app/member/getModulesByRole', {
 
       }, (err, res) => {
         if (res && res.success) {
-          wx.setStorageSync('moduleItems' + app.globalData.memberInfo.id, res.data)
+          if(res.data) {
+            storage.put('moduleItems' + app.globalData.memberInfo.id, res.data, 12 * 60 * 60)
+          }
           this.setData({
             moduleItems: res.data
           }, () => {
@@ -465,25 +462,20 @@ Page({
   },
 
   getNewsList () {
-    const now = util.getFormatDate()
-    console.log( app.globalData.memberInfo)
-    const newsInfo = wx.getStorageSync('newsInfo' + app.globalData.memberInfo.platform_app_area)
-    if (newsInfo && newsInfo.expire === now) {
+    const newsInfo = storage.get('newsInfo' + app.globalData.memberInfo.platform_app_area)
+    if (newsInfo) {
       this.setData({
-        newsList: newsInfo.data
+        newsList: newsInfo
       })
-    }else {
+    } else {
       ajax.getApi('app/member/getShopNewsList', {
         page: 0,
         pageSize: 10
       }, (err, res) => {
         if (res && res.success) {
+          storage.put('newsInfo' + app.globalData.memberInfo.platform_app_area, res.data, 12 * 60 * 60)
           this.setData({
             newsList: res.data
-          })
-          wx.setStorageSync('newsInfo' + app.globalData.memberInfo.platform_app_area, {
-            data: res.data,
-            expire: now
           })
         }
       })	

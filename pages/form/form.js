@@ -1,31 +1,31 @@
 // pages/form/form.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const storage = require('../../utils/storage.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    noticeBar: [{
-      img: "../../images/list1.png",
-      name: "客户报表",
-      to: ""
-    }, {
-      img: "../../images/notice2.png",
-      name: "承运商报表",
-      to: ""
-    }, {
-      img: "../../images/notice3.png",
-      name: "物流报表",
-      to: ""
-    }, ]
-
+    partnerTypeCode: undefined,
   },
 
+  toDataList(e){
+    const type = e.currentTarget.dataset.type
+    wx.navigateTo({
+      url: '../formCustomer/formCustomer?type=' + type,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    const partnerTypeCode = app.globalData.memberInfo.partnerTypeCode
+    this.setData({
+      partnerTypeCode
+    })
   },
 
   /**

@@ -1,5 +1,54 @@
 <!--pages/formCustomer/formCustomer.wxml-->
-<scroll-view class='goodsTable' scroll-x="true">
+<scroll-view  style="height:calc(100%);position:fixed;bottom:0" scroll-y="true" bindscrolltolower="lower">
+
+<scroll-view class='goodsTable' scroll-x="true" >
+  <view class="table" style="width:{{goodsWidth}}" wx:if="true">
+    <view class="tr">
+      <view class='th' wx:for="{{analysisTh}}" wx:key="item">
+        {{item}}
+      </view>
+    </view>
+    <view class="tr" wx:for="{{analysisData}}" wx:key="branch_id" bindtap='toInfo' data-index="{{index}}">
+      <block wx:if="{{type === 'areaSend' || type === 'areaReturn'}}">
+        <view class='td' >{{index}}</view>
+        <view class='td' >{{item.month}}</view>
+        <view class='td' >{{item.branch_name}}</view>
+        <view class='td' >{{item.carrier_name}}</view>
+        <view class='td' >{{item.consignment_station_name}}</view>
+        <view class='td' >{{item.receiving_station_name}}</view>
+        <view class='td' >{{item.timeliness_count}}</view>
+        <view class='td' >{{item.un_timeliness_count}}</view>
+        <view class='td' >{{item.shop_order_count}}</view>
+        <view class='td' >{{item.sign_timeliness_rate}}</view>
+      </block>
+
+      <block wx:if="{{type === 'customerSend' || type === 'customerReturn'}}">
+        <view class='td' >{{index}}</view>
+        <view class='td' >{{item.month}}</view>
+        <view class='td' >{{item.carrier_name}}</view>
+        <view class='td' >{{item.consignee_name}}</view>
+        <view class='td' >{{item.consignment_station_name}}</view>
+        <view class='td' >{{item.receiving_station_name}}</view>
+        <view class='td' >{{item.timeliness_count}}</view>
+        <view class='td' >{{item.un_timeliness_count}}</view>
+        <view class='td' >{{item.shop_order_count}}</view>
+        <view class='td' >{{item.sign_timeliness_rate}}</view>
+      </block>
+
+      <block wx:if="{{type === 'forwarder'}}">
+        <view class='td' >{{index}}</view>
+        <view class='td' >{{item.month}}</view>
+        <view class='td' >{{item.carrier_name}}</view>
+        <view class='td' >{{item.consignment_station_name}}</view>
+        <view class='td' >{{item.receiving_station_name}}</view>
+        <view class='td' >{{item.timeliness_count}}</view>
+        <view class='td' >{{item.un_timeliness_count}}</view>
+        <view class='td' >{{item.shop_order_count}}</view>
+        <view class='td' >{{item.sign_timeliness_rate}}</view>
+      </block>
+    </view>
+  </view>
+<!-- 
   <view class="table" style="width:{{goodsWidth}}">
     <view class="tr">
       <view class='th' wx:for="{{tableTh}}" wx:key="key">
@@ -11,5 +60,8 @@
         {{item.name}}
       </view>
     </view>
-  </view>
+  </view> -->
+
+</scroll-view>
+
 </scroll-view>

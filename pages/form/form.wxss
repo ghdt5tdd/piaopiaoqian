@@ -1,2 +1,88 @@
 /* pages/form/form.wxss */
-@import '../notice/notice.wxss';
+
+.notice-bar {
+  display: flex;
+  border-top: 1px solid #e7e7e7;
+  align-items: center;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  padding: 20rpx;
+  background: #fff;
+  position: relative;
+}
+
+.notice-bar-img {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+}
+
+.notice-bar-num {
+  position: absolute;
+  padding: 0 8rpx;
+  min-width: 26rpx;
+  text-align: center;
+  background: #e52019;
+  color: #fff;
+  font-size: 26rpx;
+  border-radius: 20rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  right: 70rpx;
+  top: 30rpx;
+}
+
+.notice-bar-next {
+  position: absolute;
+  width: 30rpx;
+  height: 30rpx;
+  right: 20rpx;
+  top: 35rpx;
+}
+
+.notice-bar-time {
+  margin: 0 20rpx;
+}
+
+/* 表格样式 */
+
+.goodsTable {
+  margin-top: 2rpx;
+}
+
+.table {
+  display: table;
+  width: 100%;
+}
+
+.goodsTable .tr {
+  display: table-row;
+  width: 100%;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.goodsTable .th, .goodsTable .td {
+  display: table-cell;
+  line-height: 40rpx;
+  white-space: nowrap;
+  padding: 20rpx;
+  background: #fff;
+  border-right: 1px solid #e7e7e7;
+}
+
+.goodsTable .th {
+  background: #f3f3f3;
+}
+
+.goodsTable .td {
+  border-right: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+  line-height: 80rpx;
+  padding: 0 20rpx;
+  vertical-align: middle;
+}
+
+.goodsTable .th:last-child, .goodsTable .td:last-child {
+  border-right: none;
+}

@@ -1,15 +1,62 @@
 <!--pages/formCustomerinfo/formCustomerinfo.wxml-->
-<scroll-view class='goodsTable' scroll-x="true">
-  <view class="table" style="width:{{goodsWidth}}">
-    <view class="tr">
-      <view class='th' wx:for="{{tableTh}}" wx:key="key">
-        {{item.title}}
+<scroll-view  style="height:calc(100%);position:fixed;bottom:0" scroll-y="true" bindscrolltolower="lower">
+  <scroll-view class='goodsTable' scroll-x="true" >
+    <view class="table" style="width:{{goodsWidth}}" wx:if="true">
+      <view class="tr">
+        <view class='th' wx:for="{{analysisTh}}" wx:key="item">
+          {{item}}
+        </view>
+      </view>
+      <view class="tr" wx:for="{{analysisData}}" wx:key="branch_id" bindtap='toInfo' data-index="{{index}}">
+        <block wx:if="{{type === 'areaSend' || type === 'areaReturn'}}">
+          <view class='td' >{{index}}</view>
+          <view class='td' >{{item.carrier_name}}</view>
+          <view class='td' >{{item.branch_name}}</view>
+          <view class='td' >{{item.consigner_name}}</view>
+          <view class='td' >{{item.consignee_name}}</view>
+          <view class='td' >{{item.bill_no}}</view>
+          <view class='td' >{{item.start_departing_date}}</view>
+          <view class='td' >{{item.estimated_arrive_date}}</view>
+          <view class='td' >{{item.actual_arrive_date}}</view>
+          <view class='td' >{{item.consignment_station_name}}</view>
+          <view class='td' >{{item.receiving_station_name}}</view>
+          <view class='td' >{{item.trans_mode}}</view>
+          <view class='td' >{{item.timeliness}}</view>
+          <view class='td' >{{item.remark}}</view>
+        </block>
+
+        <block wx:if="{{type === 'customerSend' || type === 'customerReturn'}}">
+          <view class='td' >{{index}}</view>
+          <view class='td' >{{item.carrier_name}}</view>
+          <view class='td' >{{item.consigner_name}}</view>
+          <view class='td' >{{item.consignee_name}}</view>
+          <view class='td' >{{item.bill_no}}</view>
+          <view class='td' >{{item.start_departing_date}}</view>
+          <view class='td' >{{item.estimated_arrive_date}}</view>
+          <view class='td' >{{item.actual_arrive_date}}</view>
+          <view class='td' >{{item.consignment_station_name}}</view>
+          <view class='td' >{{item.receiving_station_name}}</view>
+          <view class='td' >{{item.trans_mode}}</view>
+          <view class='td' >{{item.timeliness}}</view>
+          <view class='td' >{{item.remark}}</view>
+        </block>
+
+        <block wx:if="{{type === 'forwarder'}}">
+          <view class='td' >{{index}}</view>
+          <view class='td' >{{item.carrier_name}}</view>
+          <view class='td' >{{item.consigner_name}}</view>
+          <view class='td' >{{item.consignee_name}}</view>
+          <view class='td' >{{item.bill_no}}</view>
+          <view class='td' >{{item.start_departing_date}}</view>
+          <view class='td' >{{item.estimated_arrive_date}}</view>
+          <view class='td' >{{item.actual_arrive_date}}</view>
+          <view class='td' >{{item.consignment_station_name}}</view>
+          <view class='td' >{{item.receiving_station_name}}</view>
+          <view class='td' >{{item.trans_mode}}</view>
+          <view class='td' >{{item.timeliness}}</view>
+          <view class='td' >{{item.remark}}</view>
+        </block>
       </view>
     </view>
-    <view class="tr" wx:for="{{tableTr}}" wx:key="key" wx:for-index="indexTr">
-      <view class='td' wx:for="{{item.td}}" wx:key="key" wx:for-index="indexTd">
-        {{item.name}}
-      </view>
-    </view>
-  </view>
+  </scroll-view>
 </scroll-view>

@@ -1,4 +1,5 @@
 /**app.wxss**/
+@import 'icon.wxss';
 
 page {
   background: #f3f4f5;
@@ -46,6 +47,11 @@ page {
   color: #fd8436;
 }
 
+.bg-red {
+  color: #fff !important;
+  background: #e52019 !important;
+}
+
 .bg-orange {
   color: #fff !important;
   background: #fd8436 !important;
@@ -54,6 +60,10 @@ page {
 .bg-blue {
   color: #fff !important;
   background: #1296db !important;
+}
+
+.bg-gray {
+  background: #999 !important;
 }
 
 .clearfix:after {
@@ -71,7 +81,6 @@ page {
 .mb-40 {
   margin-bottom: 80rpx;
 }
-
 
 input {
   min-height: 0;
@@ -297,7 +306,7 @@ button::after {
   width: calc(100% - 226rpx);
   overflow: hidden;
   white-space: nowrap;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
 }
 
 .order-table-id text {
