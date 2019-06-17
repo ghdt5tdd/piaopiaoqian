@@ -92,7 +92,8 @@
     "pages/actAdd/actAdd",
     "pages/formCustomer/formCustomer",
     "pages/formCustomerinfo/formCustomerinfo",
-    "pages/formSheet/formSheet"
+    "pages/formSheet/formSheet",
+    "pages/handwriting/handwriting"
     
   ],
   "window": {
