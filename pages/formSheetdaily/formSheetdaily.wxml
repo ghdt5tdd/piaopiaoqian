@@ -1,0 +1,11 @@
+<!--pages/formSheetdaily/formSheetdaily.wxml-->
+
+<scroll-view  scroll-y="true" bindscrolltolower="lower">
+<view class='daily'>
+  <view class='daily-item' wx:for="{{dailyData}}" wx:key="id">
+    <view class='daily-date'>创建日期:{{item.create_date}}</view>
+    <view class='daily-name'>创建人:{{item.create_user}}</view>
+    <view class='daily-info'>内容:{{item.comment}}</view>
+  </view>
+</view>
+</scroll-view>

@@ -5,6 +5,9 @@ const storage = require('../../utils/storage.js')
 const app = getApp()
 Page({
   data: {
+    conditionStatus: false,
+    dateStatus: false,
+    month_search: '请选择月份',
     customerSendTh: ["序号", "月份", "承运商名称", "收货单位", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
     customerReturnTh: ["序号", "月份", "承运商名称", "收货单位", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
     areaSendTh: ["序号", "月份", "物流仓名称", "承运商名称", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
@@ -16,6 +19,48 @@ Page({
     pageSize: 200,
     loadCompleted: false,
     type: undefined,
+  },
+
+  //输入筛选条件
+  bindInput: function (e) {
+    this.setData({
+      conditionStatus: true,
+      carrier_name: e.detail.value,
+      page: 1,
+      loadCompleted: false,
+    }, () => {
+      this.getAnalysis(this.data.type)
+    })
+  },
+
+
+  //清除输入条件
+  conditionClear: function (e) {
+    this.setData({
+      conditionStatus: false,
+      carrier_name: ''
+    })
+  },
+
+  //选择日历
+  bindDateChange: function (e) {
+    this.setData({
+      dateStatus: true,
+      month_search: e.detail.value,
+      page: 1,
+      loadCompleted: false,
+    }, () => {
+      this.getAnalysis(this.data.type)
+    })
+
+  },
+
+  //清除日历条件
+  dateClear: function (e) {
+    this.setData({
+      dateStatus: false,
+      month_search: '请选择月份'
+    })
   },
 
   //详情页
@@ -75,7 +120,9 @@ Page({
       })
       ajax.getApi(api, {
         page: this.data.page,
-        pageSize: this.data.pageSize
+        pageSize: this.data.pageSize,
+        monthSearch: this.data.month_search,
+        carrierNameSearch: this.data.carrier_name,
       }, (err, res) => {
         wx.hideLoading()
         if (res && res.success) {
@@ -158,8 +205,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    const now = util.getFormatDate()
+    const month_search = now.substring(0, 7)
+    if (month_search && month_search.length === 7) {
+      this.setData({
+        dateStatus: true,
+        month_search
+      }, () => {
+        this.getAnalysis(options.type)
+      })
+    }
     this.setWidth()
-    this.getAnalysis(options.type)
   },
 
   /**

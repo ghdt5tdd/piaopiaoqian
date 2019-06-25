@@ -93,8 +93,10 @@
     "pages/formCustomer/formCustomer",
     "pages/formCustomerinfo/formCustomerinfo",
     "pages/formSheet/formSheet",
-    "pages/handwriting/handwriting"
-    
+    "pages/handwriting/handwriting",
+    "pages/formSheetlist/formSheetlist",
+    "pages/formSheetinfo/formSheetinfo",
+    "pages/formSheetdaily/formSheetdaily"
   ],
   "window": {
     "backgroundTextStyle": "light",

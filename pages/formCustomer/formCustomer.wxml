@@ -1,14 +1,35 @@
 <!--pages/formCustomer/formCustomer.wxml-->
-<scroll-view  style="height:calc(100%);position:fixed;bottom:0" scroll-y="true" bindscrolltolower="lower">
+<view class='query'>
+  <view class='query-condition'>
 
-<scroll-view class='goodsTable' scroll-x="true" >
+    <view class="query-condition-items  {{dateStatus?'active':''}}">
+      <view hidden="{{!dateStatus}}" class='query-conditions-name'>月份</view>
+      <picker mode="date" fields="month" value="{{month_search}}" start="2010-01" bindchange="bindDateChange">
+        <view class="picker">
+          {{month_search}}
+        </view>
+      </picker>
+      <image hidden='{{!dateStatus}}' class='search-clear' src="../../images/clear.png" bindtap='dateClear'></image>
+    </view>
+
+    <view class="query-condition-items  {{conditionStatus?'active':''}}">
+      <view hidden="{{!conditionStatus}}" class='query-conditions-name'>承运商</view>
+      <input placeholder="请输入承运商" bindconfirm='bindInput'  value='{{val}}' />
+      <image hidden='{{!conditionStatus}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear'></image>
+    </view>
+  </view>
+</view>
+
+<scroll-view  class='goodsTable'  scroll-y="true" bindscrolltolower="lower">
+
+<scroll-view scroll-x="true" >
   <view class="table" style="width:{{goodsWidth}}" wx:if="true">
     <view class="tr">
       <view class='th' wx:for="{{analysisTh}}" wx:key="item">
         {{item}}
       </view>
     </view>
-    <view class="tr" wx:for="{{analysisData}}" wx:key="branch_id" bindtap='toInfo' data-index="{{index}}">
+    <view class="tr" wx:for="{{analysisData}}" wx:key="index" bindtap='toInfo' data-index="{{index}}">
       <block wx:if="{{type === 'areaSend' || type === 'areaReturn'}}">
         <view class='td' >{{index}}</view>
         <view class='td' >{{item.month}}</view>
@@ -48,20 +69,6 @@
       </block>
     </view>
   </view>
-<!-- 
-  <view class="table" style="width:{{goodsWidth}}">
-    <view class="tr">
-      <view class='th' wx:for="{{tableTh}}" wx:key="key">
-        {{item.title}}
-      </view>
-    </view>
-    <view class="tr" wx:for="{{tableTr}}" wx:key="key" wx:for-index="indexTr">
-      <view class='td' wx:for="{{item.td}}" wx:key="key" wx:for-index="indexTd" bindtap='toInfo'>
-        {{item.name}}
-      </view>
-    </view>
-  </view> -->
-
 </scroll-view>
 
 </scroll-view>

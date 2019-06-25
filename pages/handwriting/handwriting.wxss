@@ -61,6 +61,14 @@ page {
   color: #666;
 }
 
+.retBtn {
+  position: absolute;
+  top: 380rpx;
+  left: 0rpx;
+  transform: rotate(90deg);
+  color: #666;
+}
+
 .delBtn image {
   position: absolute;
   top: 13rpx;

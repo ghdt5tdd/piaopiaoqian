@@ -1,0 +1,3 @@
+/* pages/formSheet/formSheet.wxss */
+@import '../form/form.wxss';
+

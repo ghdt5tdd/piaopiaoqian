@@ -1,22 +1,118 @@
 <!--pages/formSheet/formSheet.wxml-->
-<scroll-view class='sheet' scroll-y>
-  <view class='sheet-head'>
-    <view class='sheet-company'>{{sheetCompany}}</view>
-    <view class='sheet-text'>承运商运费结算单</view>
-    <view class='sheet-name'>承运商名称:{{sheetName}}</view>
+<view class='head-type'>
+  <view class="head-type-item {{curIndex == 0 ?'on':''}}" bindtap="selectType" data-index="0">
+    账单
   </view>
-  <scroll-view class='goodsTable' scroll-x="true">
-    <view class="table" style="width:{{goodsWidth}}">
-      <view class="tr">
-        <view class='th' wx:for="{{tableTh}}" wx:key="key">
-          {{item.title}}
+  <view class="head-type-item {{curIndex == 1 ?'on':''}}" bindtap="selectType" data-index="1">
+    明细
+  </view>
+</view>
+
+<scroll-view scroll-y style='height:calc(100vh - 100rpx)' wx:if="{{curIndex == 0}}" bindscrolltolower="lower">
+  <view class='order-table'>
+    <block wx:for="{{analysisData}}" wx:key="id">
+      <view class="order-table-items">
+        <view class='order-table-head'>
+          <view class='order-table-id'>{{item.partner_name}}</view>
+          <view class='order-table-time'>{{item.balance_month}}</view>
+        </view>
+        <view class='order-table-content'>
+          <view class='order-table-bar'>
+            <!-- <view class="order-bar-info {{item.full?'full':''}}" wx:for="{{item.info}}">
+              <view class='order-bar-label' wx:if="{{item.label != ''}}">{{item.label}}：</view>
+              <view class='order-bar-name'>{{item.name}}</view>
+            </view> -->
+            <view class="order-bar-info">
+              <view class='order-bar-label'>运单份数：</view>
+              <view class='order-bar-name'>{{item.total_order_count}}</view>
+            </view>
+            <view class="order-bar-info">
+              <view class='order-bar-label'>件数：</view>
+              <view class='order-bar-name'>{{item.total_packing_quantity}}</view>
+            </view>
+            <view class="order-bar-info">
+              <view class='order-bar-label'>重量：</view>
+              <view class='order-bar-name'>{{item.total_weight}}</view>
+            </view>
+            <view class="order-bar-info">
+              <view class='order-bar-label'>体积：</view>
+              <view class='order-bar-name'>{{item.total_volume}}</view>
+            </view>
+            <view class="order-bar-info">
+              <view class='order-bar-label'>总金额：</view>
+              <view class='order-bar-name'>{{item.total_amount}}</view>
+            </view>
+            <view class="order-bar-info full" wx:if="{{item.remark}}" >
+              <view class='order-bar-label'>备注：</view>
+              <view class='order-bar-name'>{{item.remark}}</view>
+            </view>
+          </view>
+        </view>
+        <view class='order-table-opt'>
+          <view class='order-opt-status'>{{item.state_text}}</view>
+          <view>
+            <view class="order-opt-item on"  bindtap='toSure' data-index="{{index}}">
+              对账确认
+            </view>
+            <view class="order-opt-item active"  bindtap='toList' data-id="{{item.id}}" data-code="{{item.partner_code}}" data-month="{{item.balance_month}}">
+              查看明细
+            </view>
+            <view class="order-opt-item on"  bindtap='toDaily' data-id="{{item.id}}">
+              操作日志
+            </view>
+          </view>
         </view>
       </view>
-      <view class="tr" wx:for="{{tableTr}}" wx:key="key" wx:for-index="indexTr">
-        <view class='td' wx:for="{{item.td}}" wx:key="key" wx:for-index="indexTd">
-          {{item.name}}
-        </view>
+    </block>
+
+  </view>
+</scroll-view>
+
+
+<view wx:elif="{{curIndex == 1}}">
+  <view class='query'>
+    <view class='query-condition'>
+
+      <view class="query-condition-items  {{dateStatus?'active':''}}">
+        <view hidden="{{!dateStatus}}" class='query-conditions-name'>月份</view>
+        <picker mode="date" fields="month" value="{{date}}" start="2010-01" bindchange="bindDateChange">
+          <view class="picker">
+            {{date}}
+          </view>
+        </picker>
+        <image hidden='{{!dateStatus}}' class='search-clear' src="../../images/clear.png" bindtap='dateClear'></image>
+      </view>
+
+      <view class="query-condition-items  {{conditionStatus?'active':''}}">
+        <view hidden="{{!conditionStatus}}" class='query-conditions-name'>承运商</view>
+        <input placeholder="请输入承运商" bindinput='bindInput' value='{{val}}' />
+        <image hidden='{{!conditionStatus}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear'></image>
       </view>
     </view>
+  </view>
+
+  <view class='order-status {{ul}}'>
+    <block wx:for="{{orderStatus}}">
+      <view class="order-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+        {{item.name}}
+      </view>
+    </block>
+  </view>
+
+
+  <scroll-view scroll-y style='height:calc(100vh - 286rpx)'>
   </scroll-view>
-</scroll-view>
+
+
+</view>
+
+<view class='pop-shadow' bindtap="hide" hidden="{{hideShadow}}"></view>
+
+<view class='pop-up pop-tip' hidden="{{hideTip}}">
+  <view class='pop-head-left'>提示</view>
+  <view class='pop-tip-content'>是否对月账单进行过账确认？</view>
+  <view class='pop-opt'>
+    <view bindtap="hide">取消</view>
+    <view class='bg-orange' bindtap ="checkConfirm">确认</view>
+  </view>
+</view>

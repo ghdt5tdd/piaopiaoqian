@@ -5,6 +5,7 @@
     <image catchtap="selectColorEvent" src="{{ selectColor === 'red' ? 'color_red_selected.png' : 'color_red.png' }}" class="{{ selectColor === 'red' ? 'color_select' : '' }} red-select" data-color="red"
       data-color-value="#ca262a"></image>
     <button catchtap="retDraw" class="delBtn">重写</button>
+    <button catchtap="ret"  class="retBtn" >返回</button>
     <button catchtap="subCanvas" class="subBtn">完成</button>
   </view>
   <view class="handCenter">

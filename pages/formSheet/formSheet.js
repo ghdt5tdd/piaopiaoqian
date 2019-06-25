@@ -1,164 +1,213 @@
 // pages/formSheet/formSheet.js
+const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const storage = require('../../utils/storage.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    sheetCompany:"德力西电气有限公司",
-    sheetName: "乐清市骆驼物流有限公司",
-    tableTh: [{
-      title: "月份"
-    }, {
-      title: "客户卡号"
-    }, {
-      title: "客户姓名"
-    }, {
-      title: "线路"
-    }, {
-      title: "票数"
-    }, {
-      title: "件数"
-    }, {
-      title: "重量（KG）"
-    }, {
-      title: "立方"
-    }, {
-      title: "单价"
-    }, {
-      title: "金额（元）"
-    }, {
-      title: "趟数"
-    }, {
-      title: "送货费1"
-    }, {
-      title: "趟数"
-    }, {
-      title: "送货费2"
-    }, {
-      title: "结算金额（元）"
-    }, {
-      title: "备注"
-    }, ],
+    curIndex: 0,
+    hideShadow: true,
+    hideTip: true,
 
-    tableTr: [{
-      td: [{
-        name: "2017-12"
-      }, {
-        name: "8013080"
-      }, {
-        name: "池威"
-      }, {
-        name: "柳市-晋江"
-      }, {
-        name: "20"
-      }, {
-        name: "383"
-      }, {
-        name: "7060"
-      }, {
-        name: ""
-      }, {
-        name: "0.35"
-      }, {
-        name: "2471"
-      }, {
-        name: "19"
-      }, {
-        name: "150"
-      }, {
-        name: "1"
-      }, {
-        name: "100"
-      }, {
-        name: "5421"
-      }, {
-        name: ""
-      }, ]
+    conditionStatus: false,
+    dateStatus: false,
+    date: '请选择月份',
+    orderStatus: [{
+      name: "已计费",
     }, {
-      td: [{
-        name: "2018-01"
-      }, {
-        name: "8013053"
-      }, {
-        name: "余贤丹"
-      }, {
-        name: "柳市-福州"
-      }, {
-        name: "11"
-      }, {
-        name: "111"
-      }, {
-        name: "1111"
-      }, {
-        name: ""
-      }, {
-        name: "0.5"
-      }, {
-        name: "555.5"
-      }, {
-        name: ""
-      }, {
-        name: ""
-      }, {
-        name: ""
-      }, {
-        name: ""
-      }, {
-        name: "555.5"
-      }, {
-        name: ""
-      }, ]
-    }, {
-      td: [{
-        name: "合计："
-      }, {
-        name: ""
-      }, {
-        name: ""
-      }, {
-        name: ""
-      }, {
-        name: "31"
-      }, {
-        name: "494"
-      }, {
-        name: "8171"
-      }, {
-        name: "0"
-      }, {
-        name: "0.85"
-      }, {
-        name: "3026.5"
-      }, {
-        name: "19"
-      }, {
-        name: "150"
-      }, {
-        name: "1"
-      }, {
-        name: "100"
-      }, {
-        name: "5976.5"
-      }, {
-        name: ""
-      }, ]
+      name: "待计费",
     }, ],
+    selectStatus: 0,
+    ul: "ul-2",
+
+    analysisData: [],
+    page: 1,
+    pageSize: 20,
+    loadCompleted: false,
+    selectId:undefined
+  },
+
+  //选择类型
+  selectType: function(e) {
+    this.setData({
+      curIndex: e.currentTarget.dataset.index
+    })
+  },
+
+
+  //详情页
+  toList: function(e) {
+    const id = e.currentTarget.dataset.id
+    const code = e.currentTarget.dataset.code
+    const month = e.currentTarget.dataset.month
+    wx.navigateTo({
+      url: '../formSheetlist/formSheetlist?id=' + id + '&month=' + month + '&code=' + code
+    })
+  },
+
+  //操作日志
+  toDaily: function(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../formSheetdaily/formSheetdaily?id=' + id
+    })
+  },
+
+
+  //对账确认
+  toSure: function(e) {
+    const index = e.currentTarget.dataset.index
+    this.setData({
+      selectData: this.data.analysisData[index],
+      hideShadow: false,
+      hideTip: false
+    })
+  },
+
+  checkConfirm(e) {
+    wx.showLoading({
+      title: '稍等...',
+    })
+    const selectData = this.data.selectData
+
+    ajax.postApi('app/payable/accountCheckConfirm', {
+      month_id: selectData.id,
+      partner_code: selectData.partner_code,
+      create_user: app.globalData.memberInfo.user_account,
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        wx.showToast({
+          title: '已对账',
+        })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
+        })
+      }
+    })	
+
+  },
+
+
+  //关闭弹窗
+  hide: function(e) {
+    this.setData({
+      hideShadow: true,
+      hideTip: true
+    })
+  },
+
+
+
+
+  //输入筛选条件
+  bindInput: function(e) {
+    this.setData({
+      conditionStatus: true,
+      val: e.detail.value
+    })
+  },
+
+
+  //清除输入条件
+  conditionClear: function(e) {
+    this.setData({
+      conditionStatus: false,
+      val: ''
+    })
+  },
+
+  //选择日历
+  bindDateChange: function(e) {
+    this.setData({
+      dateStatus: true,
+      date: e.detail.value
+    })
+  },
+
+  //清除日历条件
+  dateClear: function(e) {
+    this.setData({
+      dateStatus: false,
+      date: '请选择月份'
+    })
+  },
+
+  //选择我的订单状态
+  selectStatus: function(e) {
+    var index = e.target.dataset.index;
+    this.setData({
+      selectStatus: index
+    })
+  },
+
+  lower: function (e) {
+    let page = this.data.page
+    const pageSize = this.data.pageSize
+    const loadCompleted = this.data.loadCompleted
+    if (!loadCompleted) {
+      wx.showLoading({
+        title: '加载中...',
+      })
+      page++
+      this.setData({
+        page
+      }, () => {
+        this.listMonthTotalSettlement()
+      })
+    } else {
+      wx.showToast({
+        title: '数据加载完毕',
+        duration: 1000
+      })
+    }
+  },
+
+  listMonthTotalSettlement() {
+    wx.showLoading({
+      title: '加载数据中...',
+    })
+    ajax.getApi('app/payable/listMonthTotalSettlement', {
+      app_area: app.globalData.memberInfo.platform_app_area,
+      currentPage: this.data.page,
+      pageSize: this.data.pageSize,
+      type: 2, //这里默认应付统计
+      partner_code: app.globalData.memberInfo.user_account,
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        if (res.data.length > 0) {
+          const analysisData = this.data.analysisData
+          Array.prototype.push.apply(analysisData, res.data);
+          this.setData({
+            analysisData
+          })
+        } else {
+          wx.hideLoading(() => {
+            wx.showToast({
+              title: '已全部加载',
+              duration: 1000
+            })
+          })
+          this.setData({
+            loadCompleted: true
+          })
+        }
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    //计算宽度
-    var query = wx.createSelectorQuery();
-    var that = this;
-    query.select('.table').boundingClientRect(function(rect) {
-      console.log(rect.width)
-      that.setData({
-        goodsWidth: rect.width + 'px'
-      })
-    }).exec();
+    this.listMonthTotalSettlement()
   },
 
   /**

@@ -1,0 +1,33 @@
+<!--pages/formSheet/formSheet.wxml-->
+
+
+<scroll-view  class='goodsTable'  scroll-y="true" bindscrolltolower="lower">
+
+<scroll-view scroll-x="true" >
+  <view class="table" style="width:{{goodsWidth}}" >
+    <view class="tr">
+      <view class='th' wx:for="{{analysisTh}}" wx:key="item">
+        {{item}}
+      </view>
+    </view>
+    <view class="tr" wx:for="{{analysisData}}" wx:key="index" bindtap='toInfo' data-index="{{index}}">
+        <view class='td' >{{index}}</view>
+        <view class='td' >{{item.balance_month}}</view>
+        <view class='td' >{{item.consignee_client_account}}</view>
+        <view class='td' >{{item.consignee_name}}</view>
+        <view class='td' >{{item.consignment_station_name}}</view>
+        <view class='td' >{{item.receiving_station_name}}</view>
+        <view class='td' >{{item.total_order_count}}</view>
+        <view class='td' >{{item.total_charge_packing_quantity}}</view>
+        <view class='td' >{{item.total_charge_weight}}</view>
+        <view class='td' >{{item.total_charge_volume}}</view>
+        <view class='td' >{{item.transport_fee}}</view>
+        <view class='td' >{{item.total_times}}</view>
+        <view class='td' >{{item.delivery_fee}}</view>
+        <view class='td' >{{item.settlement_accounts_amount}}</view>
+        <view class='td' >{{item.state_text}}</view>
+    </view>
+  </view>
+</scroll-view>
+
+</scroll-view>

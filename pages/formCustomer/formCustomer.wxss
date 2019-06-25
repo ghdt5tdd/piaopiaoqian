@@ -1,2 +1,20 @@
 /* pages/formCustomer/formCustomer.wxss */
 @import '../form/form.wxss';
+
+.query-condition-items picker {
+  font-size: 36rpx;
+  line-height: 78rpx;
+  height: 78rpx;
+}
+
+.query-condition-items.active picker {
+  font-size: 32rpx;
+  line-height: 42rpx;
+  height: 42rpx;
+  margin-top: 6rpx;
+  min-height: 0;
+}
+
+.goodsTable {
+  height: calc(100vh - 100rpx);
+}

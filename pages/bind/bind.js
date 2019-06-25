@@ -61,10 +61,18 @@ Page({
         title: '登录中...',
         mask: true
       })
+      const systemInfo = this.data.systemInfo
+
       ajax.postApi('app/member/appLogin', {
         account: loginUsername,
         password: loginPassword,
-        app_area: area
+        app_area: area,
+        app_code: 'dlx-mini',
+        app_version_code: '1',
+        app_version_name: '1.0.0',
+        device_brand: systemInfo.brand,
+        device_model: systemInfo.model,
+        operating_system_version: systemInfo.SDKVersion,
       }, (err, res) => {
         if (res && res.success) {
           wx.hideLoading()
@@ -122,6 +130,25 @@ Page({
     });
   },
 
+  getSystemInfo() {
+    let systemInfo = wx.getStorageSync('systemInfo')
+    console.log(systemInfo)
+    if (systemInfo === '') {
+      wx.getSystemInfo({
+        success: res => {
+          console.log(res)
+          this.setData({
+            systemInfo: res
+          })
+        }
+      })
+    } else {
+      this.setData({
+        systemInfo
+      })
+    }
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -130,6 +157,7 @@ Page({
     const logo = wx.getStorageSync('lastLogo') || ''
     const title = wx.getStorageSync('lastTitle') || ''
     const area = wx.getStorageSync('lastArea') || ''
+    this.getSystemInfo()
 
     if (logo !== '' && title !== '' && area !== '') {
       this.setData({

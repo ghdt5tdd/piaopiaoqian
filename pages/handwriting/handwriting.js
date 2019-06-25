@@ -28,9 +28,14 @@ Page({
     callbackField: undefined
   },
 
+  ret(e) {
+    wx.navigateBack({
+      delta: 1
+    })
+  },
+
   subCanvas(e) {
     const callbackField = this.data.callbackField
-
     wx.canvasToTempFilePath({
       canvasId: 'handWriting',
       success: function (res) {
@@ -45,7 +50,6 @@ Page({
               prevPage.setData({
                 [callbackField]: 'data:image/png;base64,' + res.data
               })
-
             }
             wx.navigateBack({
               delta: 1
