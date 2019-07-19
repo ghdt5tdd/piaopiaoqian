@@ -18,11 +18,40 @@ Page({
       url: '../formCustomer/formCustomer?type=' + type,
     })
   },
+
+  setTitle(partnerTypeCode){
+    switch(partnerTypeCode) {
+      case 'carrier':
+        wx.setNavigationBarTitle({
+          title:"承运商"
+        })
+        break;
+      case 'ownLogistCenter':
+      case 'ownLogistArea':
+        wx.setNavigationBarTitle({
+          title: "区域仓"
+        })
+        break;
+      case 'bigCustomer':
+      case 'franchiser':
+        wx.setNavigationBarTitle({
+          title: "客户"
+        })
+        break;
+      default:
+        wx.showToast({
+          title: '不支持的角色',
+        })
+    }
+     
+  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     const partnerTypeCode = app.globalData.memberInfo.partnerTypeCode
+    this.setTitle(partnerTypeCode)
     this.setData({
       partnerTypeCode
     })

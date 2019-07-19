@@ -14,9 +14,18 @@
 
     <view class="query-condition-items  {{conditionStatus?'active':''}}">
       <view hidden="{{!conditionStatus}}" class='query-conditions-name'>承运商</view>
+      <picker value="{{carrier_name}}" range="{{carrier}}" start="" bindchange="bindCarrierChange">
+        <view class="picker">
+          {{carrier_name}}
+        </view>
+      </picker>
+      <image hidden='{{!conditionStatus}}' class='search-clear' src="../../images/clear.png" bindtap='dateClear'></image>
+    </view>
+    <!-- <view class="query-condition-items  {{conditionStatus?'active':''}}">
+      <view hidden="{{!conditionStatus}}" class='query-conditions-name'>承运商</view>
       <input placeholder="请输入承运商" bindconfirm='bindInput'  value='{{val}}' />
       <image hidden='{{!conditionStatus}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear'></image>
-    </view>
+    </view> -->
   </view>
 </view>
 
@@ -31,7 +40,7 @@
     </view>
     <view class="tr" wx:for="{{analysisData}}" wx:key="index" bindtap='toInfo' data-index="{{index}}">
       <block wx:if="{{type === 'areaSend' || type === 'areaReturn'}}">
-        <view class='td' >{{index}}</view>
+        <view class='td' >{{index + 1}}</view>
         <view class='td' >{{item.month}}</view>
         <view class='td' >{{item.branch_name}}</view>
         <view class='td' >{{item.carrier_name}}</view>

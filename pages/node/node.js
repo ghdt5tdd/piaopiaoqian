@@ -170,7 +170,12 @@ Page({
         const saleOrderDetail = res.data
         const carsInfo = saleOrderDetail.middle.carsInfo
         const bottom = saleOrderDetail.bottom
-        const shoporderDetailId = saleOrderDetail.up.batches[0].shop_order_detail_id
+        const batche = saleOrderDetail.up.batches[0]
+        let shoporderDetailId
+        if (batche) {
+          shoporderDetailId = batche.shop_order_detail_id
+        }
+
         if (carsInfo instanceof Array && carsInfo.length > 0) {
           carsInfo.forEach(c => {
             if(c.type == 0) {

@@ -16,17 +16,21 @@ Page({
     analysisTh:[],
     analysisData: [],
     page: 1,
+    carrier: ['请选择承运商'],
+    carrier_name: '',
     pageSize: 200,
     loadCompleted: false,
     type: undefined,
   },
 
   //输入筛选条件
-  bindInput: function (e) {
+  bindCarrierChange: function (e) {
+    console.log(e)
     this.setData({
       conditionStatus: true,
-      carrier_name: e.detail.value,
+      carrier_name: this.data.carrier[e.detail.value],
       page: 1,
+      analysisData:[],
       loadCompleted: false,
     }, () => {
       this.getAnalysis(this.data.type)
@@ -48,11 +52,11 @@ Page({
       dateStatus: true,
       month_search: e.detail.value,
       page: 1,
+      analysisData: [],
       loadCompleted: false,
     }, () => {
       this.getAnalysis(this.data.type)
     })
-
   },
 
   //清除日历条件
@@ -118,19 +122,29 @@ Page({
       wx.showLoading({
         title: '加载数据中...',
       })
-      ajax.getApi(api, {
+      const params = {
         page: this.data.page,
         pageSize: this.data.pageSize,
         monthSearch: this.data.month_search,
-        carrierNameSearch: this.data.carrier_name,
-      }, (err, res) => {
+      }
+      if (this.data.carrier_name !== '请选择承运商') {
+        params.carrierNameSearch = this.data.carrier_name
+      }
+      ajax.getApi(api, params, (err, res) => {
         wx.hideLoading()
         if (res && res.success) {
           if (res.data.length > 0) {
             const analysisData = this.data.analysisData
+            const carrier = this.data.carrier
+            for (const an of res.data) {
+              if (carrier.indexOf(an.carrier_name) === -1) {
+                carrier.push(an.carrier_name)
+              }
+            }
             Array.prototype.push.apply(analysisData, res.data);
             this.setData({
-              analysisData
+              analysisData,
+              carrier
             })
           } else {
             wx.hideLoading(() => {
@@ -215,6 +229,9 @@ Page({
         this.getAnalysis(options.type)
       })
     }
+    this.setData({
+      carrier_name: this.data.carrier[0]
+    })
     this.setWidth()
   },
 

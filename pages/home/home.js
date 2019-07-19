@@ -155,9 +155,12 @@ Page({
 
   //跳转到承运商服务详情统计页面
   toLevel: function (e) {
-    wx.navigateTo({
-      url: '../level/level'
-    })
+    const partnerTypeCode = this.memberInfo.partnerTypeCode
+    if (partnerTypeCode === 'carrier') {
+      wx.navigateTo({
+        url: '../level/level'
+      })
+    }
   },
 
   //跳转到外出报告页面
