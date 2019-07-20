@@ -19,11 +19,11 @@
       <image class='notice-bar-next' src='../../images/next.png'></image>
     </view>
   </navigator>
-  <navigator url="../workList/workList" hover-class='none'>
+  <!-- <navigator url="../workList/workList" hover-class='none'>
     <view class='notice-bar'>
       <image class='notice-bar-img' src='../../images/my10.png'></image>
       <view class='notice-bar-name'>提交工单</view>
       <image class='notice-bar-next' src='../../images/next.png'></image>
     </view>
-  </navigator>
+  </navigator> -->
 </view>

@@ -54,4 +54,4 @@
 </view>
 
 
-<view class='button-bottom'>提交</view>
+<view class='button-bottom' bindtap="commit">提交</view>

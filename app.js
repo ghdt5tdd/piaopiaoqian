@@ -9,9 +9,10 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    const openId = wx.getStorageSync('openId') || ''
-    const unionId = wx.getStorageSync('unionId') || ''
-    const sessionKey = wx.getStorageSync('sessionKey') || ''
+
+    const openId = wx.getStorageSync('openId' + this.globalData.appId) || ''
+    const unionId = wx.getStorageSync('unionId' + this.globalData.appId) || ''
+    const sessionKey = wx.getStorageSync('sessionKey' + this.globalData.appId) || ''
 
     if(openId === '') {
       // 登录
@@ -29,9 +30,9 @@ App({
               this.globalData.openId = result.openid
               this.globalData.unionId = result.unionid
               this.globalData.sessionKey = result.session_key
-              wx.setStorageSync('openId', result.openid)
-              wx.setStorageSync('unionId', result.unionid)
-              wx.setStorageSync('sessionKey', result.session_key)
+              wx.setStorageSync('openId' + this.globalData.appId, result.openid)
+              wx.setStorageSync('unionId' + this.globalData.appId, result.unionid)
+              wx.setStorageSync('sessionKey' + this.globalData.appId, result.session_key)
             }
           })
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -51,7 +52,7 @@ App({
             lang: 'zh_CN',
             success: res => {
               console.log(res)
-              // 可以将 res 发送给后台解码出 unionId
+              // 可以将 res 发送给后台解码出 unionId 
               this.globalData.userInfo = res.userInfo
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回.

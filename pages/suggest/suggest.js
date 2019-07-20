@@ -86,11 +86,12 @@ Page({
       if (res && res.success) {
         wx.showToast({
           title: '提交成功',
-          duration: 1000
-        })
-
-        wx.navigateBack({
-          delta: 1
+          duration: 2000,
+          success() {
+            wx.navigateBack({
+              delta: 1
+            })
+          }
         })
       }
     })	
