@@ -16,8 +16,7 @@ App({
 
     if(openId === '') {
       // 登录
-      const app_area = this.globalData.platformAppArea
-      const secret = this.globalData.appSecret
+      const app_area = appData.APP_BELONG_AREA
       wx.login({
         success: res => {
           ajax.getApi('mini/program/code2Session', {
