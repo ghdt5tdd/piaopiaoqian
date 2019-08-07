@@ -70,7 +70,7 @@ function filterNull(o) {
     }
     if (toType(o[key]) === 'string') {
       o[key] = o[key].trim()
-      if (o[key] === '') {
+      if (o[key] === '' || o[key] === 'undefined' || o[key] === 'null') {
         delete o[key]
       }
     } else if (toType(o[key]) === 'object') {

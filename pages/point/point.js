@@ -6,31 +6,22 @@ Page({
    * 页面的初始数据
    */
   data: {
+    map: "../../images/map.jpg",
+    popup: true,
+    status: "在途中",
+
+    billId: "2018362902037",
+    billTime: "2018-01-10",
+    routeStart: "浙江乐清",
+    routeEnd: "浙江杭州",
+    receive: "杭州腾策机电设备有限公司",
+    pieces: "120",
+    num: "120",
+    forwarder: "乐清市精英物流有限公司",
     orderNodes:null,
     shopOrderId:'',
-    logistics: [{
-      'status': '在途中',
-      'detail': [{
-        'loginfo': '预计到达时间：剩余5小时',
-        'logdate': '2018-08-21',
-        'logtime': '18:37',
-      }, {
-        'loginfo': '由[浙江乐清]发往[浙江杭州]',
-        'logdate': '2018-08-18',
-        'logtime': '06:05',
-      }, {
-        'loginfo': '货物已由[浙江乐清物流公司]装车',
-        'logdate': '2018-08-18',
-        'logtime': '01:32',
-      }],
-    }, {
-      'status': '已发货',
-      'detail': [{
-        'loginfo': '您的货物已出库',
-        'logdate': '2018-08-17',
-        'logtime': '20:26',
-      }, ],
-    }, ],
+    shoporderDetail:undefined,
+    logistics: [],
 
 
   },
@@ -42,12 +33,51 @@ Page({
     })
   },
 
+  spread: function (e) {
+    this.setData({
+      popup: true,
+    });
+  },
+
+  retract: function (e) {
+    this.setData({
+      popup: false,
+    });
+  },
+
+  getShopOrderDetail: function (shopOrderId) {
+    wx.showLoading({
+      title: '详情加载中...',
+    })
+
+    ajax.getApi('app/order/getShopOrderDetail', {
+      shopOrderId
+    }, (err, res) => {
+      console.log(res)
+      wx.hideLoading()
+      if (res && res.success) {
+        const shoporderDetail = res.data
+        shoporderDetail.start_departing_date_short = shoporderDetail.start_departing_date.substring(0, 10)
+        shoporderDetail.estimated_arriver_date_short = shoporderDetail.estimated_arriver_date.substring(0, 10)
+        this.setData({
+          shoporderDetail
+        })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
+        })
+      }
+    })
+
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     const shopOrderId = options.id
+    this.getShopOrderDetail(shopOrderId)
     this.setData({
       shopOrderId
     })

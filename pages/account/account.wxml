@@ -1,20 +1,49 @@
 <!--pages/account/account.wxml-->
-<view class="top-box">
+<!-- <view class="top-box">
   <view class="search-box">
     <image class='search-icon' src="../../images/search.png"></image>
     <input placeholder="请输入关键字搜索" class='search-input' bindinput='bindSarchInput' value='{{searchVal}}' />
     <image hidden='{{searchClear}}' class='search-clear' src="../../images/clear.png" bindtap='searchClear'></image>
   </view>
   <image class='book-add' bindtap='toAdd' src='../../images/add-orange.png'></image>
+</view> -->
+
+<view class='query'>
+  <view class='query-condition'>
+    <view class="query-condition-items active">
+        <view class='query-conditions-name'>昵称</view>
+        <input placeholder="请输入昵称" bindinput='bindInput' value='{{query.user_nickname}}' data-key="user_nickname" />
+        <image wx:if='{{queryStatus === "user_nickname"}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-key="user_nickname"></image>
+    </view>
+    <view class="query-condition-items active">
+        <view class='query-conditions-name'>账号</view>
+        <input placeholder="请输入账号" bindinput='bindInput' value='{{query.user_account}}' data-key="user_account" />
+        <image wx:if='{{queryStatus === "user_account"}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-key="user_account"></image>
+    </view>
+    <view class="query-condition-items active">
+        <view class='query-conditions-name'>姓名</view>
+        <input placeholder="请输入姓名" bindinput='bindInput' value='{{query.full_name}}' data-key="full_name" />
+        <image wx:if='{{queryStatus === "full_name"}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-key="full_name"></image>
+    </view>
+    <view class="query-condition-items active">
+        <view class='query-conditions-name'>联系方式</view>
+        <input placeholder="请输入联系方式" bindinput='bindInput' value='{{query.phone}}' data-key="phone" />
+        <image wx:if='{{queryStatus === "phone"}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-key="phone"></image>
+    </view>
+  </view>
+  <!-- <image class='query-search' src='../../images/search-big.png'></image> -->
+  <view class='query-add' bindtap='toAdd'>新建</view>
 </view>
+
 
 <scroll-view scroll-y="true" style="height:calc(100%);position:fixed;" bindscrolltolower="lower">
 <view class='account'>
   <block wx:for="{{filterAccount}}" wx:key="id">
     <view class="account-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove">
       <view class='account-info'>
+        <image class='account-avatar' src='{{item.head_img}}'></image>
         <!-- <view bindtap='permit' data-index="{{index}}"> -->
-        <view data-index="{{index}}" bindtap='permit' bindlongpress="longTap">
+        <view data-index="{{index}}" bindtap='toDetail' bindlongpress="longTap">
           <view class='account-name'>{{item.user_account}}</view>
           <view class='account-spec'>
             <view class='account-contacts'>{{item.full_name}}({{item.phone}})</view>
@@ -43,10 +72,10 @@
   <view class='popup-permit-head'>账户授权</view>
   <scroll-view scroll-y="true" style="height:calc(100% - 180rpx - 1px);">
     <view class='popup-permit-content'>
-      <view class='popup-permit-role' wx:for="{{permitRole}}" bindtap='choose' data-index="{{index}}">
+      <view class='popup-permit-role' wx:for="{{permitRole}}" bindtap='choose' data-index="{{index}}" wx:key="key">
         <view class='permit-role-name'>{{item.name}}</view>
         <view class='permit-role-icon'>
-          <icon size="16"  type="{{item.icon}}"></icon>
+          <image src='{{item.icon}}'></image>
         </view>
       </view>
     </view>
@@ -56,8 +85,9 @@
     <view bindtap='hide'>取消</view>
     <view class='orange' bindtap='sure'>保存</view>
   </view>
-  
+
 </view>
+
 <view class='popup-longTap' hidden='{{hideLongtap}}'>
   <view class='longTap-opt'>绑定网点</view>
   <view class='longTap-opt'>绑定车辆</view>

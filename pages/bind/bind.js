@@ -24,7 +24,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../company/company',
+      url: '../enterpriseDomain/enterpriseDomain',
     })
   },
 
@@ -72,6 +72,7 @@ Page({
         app_version_name: '1.0.0',
         device_brand: systemInfo.brand,
         device_model: systemInfo.model,
+        operating_system: systemInfo.system,
         operating_system_version: systemInfo.SDKVersion,
       }, (err, res) => {
         if (res && res.success) {
@@ -154,9 +155,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    const logo = wx.getStorageSync('lastLogo') || ''
-    const title = wx.getStorageSync('lastTitle') || ''
-    const area = wx.getStorageSync('lastArea') || ''
+    let logo = options.logo
+    let title = options.title
+    let area = options.area
+
+    if (!logo && !title && !area) {
+      logo = wx.getStorageSync('lastLogo') || ''
+      title = wx.getStorageSync('lastTitle') || ''
+      area = wx.getStorageSync('lastArea') || ''
+    }
+
     this.getSystemInfo()
 
     if (logo !== '' && title !== '' && area !== '') {

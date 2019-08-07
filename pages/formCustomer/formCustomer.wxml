@@ -2,8 +2,16 @@
 <view class='query'>
   <view class='query-condition'>
 
-    <view class="query-condition-items  {{dateStatus?'active':''}}">
-      <view hidden="{{!dateStatus}}" class='query-conditions-name'>月份</view>
+    <view class="query-condition-items active">
+      <view class='query-conditions-name orange'>
+        <picker bindchange="bindDateTypeChange" value="{{dateType}}" range="{{dateTypeArr}}" range-key="text" data-index="{{index}}">
+          <view class="picker">
+            {{dateTypeArr[dateType].text}}
+          </view>
+        </picker>
+      </view>
+
+      <view class='query-conditions-name'>月份</view>
       <picker mode="date" fields="month" value="{{month_search}}" start="2010-01" bindchange="bindDateChange">
         <view class="picker">
           {{month_search}}
@@ -12,8 +20,8 @@
       <image hidden='{{!dateStatus}}' class='search-clear' src="../../images/clear.png" bindtap='dateClear'></image>
     </view>
 
-    <view class="query-condition-items  {{conditionStatus?'active':''}}">
-      <view hidden="{{!conditionStatus}}" class='query-conditions-name'>承运商</view>
+    <view class="query-condition-items active">
+      <view class='query-conditions-name'>承运商</view>
       <picker value="{{carrier_name}}" range="{{carrier}}" start="" bindchange="bindCarrierChange">
         <view class="picker">
           {{carrier_name}}
@@ -53,7 +61,7 @@
       </block>
 
       <block wx:if="{{type === 'customerSend' || type === 'customerReturn'}}">
-        <view class='td' >{{index}}</view>
+        <view class='td' >{{index + 1}}</view>
         <view class='td' >{{item.month}}</view>
         <view class='td' >{{item.carrier_name}}</view>
         <view class='td' >{{item.consignee_name}}</view>
@@ -66,13 +74,38 @@
       </block>
 
       <block wx:if="{{type === 'forwarder'}}">
-        <view class='td' >{{index}}</view>
+        <view class='td' >{{index + 1}}</view>
         <view class='td' >{{item.month}}</view>
         <view class='td' >{{item.carrier_name}}</view>
         <view class='td' >{{item.consignment_station_name}}</view>
         <view class='td' >{{item.receiving_station_name}}</view>
         <view class='td' >{{item.timeliness_count}}</view>
         <view class='td' >{{item.un_timeliness_count}}</view>
+        <view class='td' >{{item.shop_order_count}}</view>
+        <view class='td' >{{item.sign_timeliness_rate}}</view>
+      </block>
+
+      <block wx:if="{{type === 'areaSign'}}">
+        <view class='td' >{{index + 1}}</view>
+        <view class='td' >{{item.month}}</view>
+        <view class='td' >{{item.carrier_name}}</view>
+        <view class='td' >{{item.consignee_client_account}}</view>
+        <view class='td' >{{item.consignee_name}}</view>
+        <view class='td' >{{item.sign_count}}</view>
+        <view class='td' >{{item.un_sign_count}}</view>
+        <view class='td' >{{item.shop_order_count}}</view>
+        <view class='td' >{{item.sign_timeliness_rate}}</view>
+      </block>
+
+      <block wx:if="{{type === 'customerSign'}}">
+        <view class='td' >{{index + 1}}</view>
+        <view class='td' >{{item.month}}</view>
+        <view class='td' >{{item.carrier_name}}</view>
+        <view class='td' >{{item.consignee_client_account}}</view>
+        <view class='td' >{{item.consignee_name}}</view>
+        <view class='td' >{{item.carrier_account}}</view>
+        <view class='td' >{{item.sign_count}}</view>
+        <view class='td' >{{item.un_sign_count}}</view>
         <view class='td' >{{item.shop_order_count}}</view>
         <view class='td' >{{item.sign_timeliness_rate}}</view>
       </block>

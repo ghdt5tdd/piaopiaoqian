@@ -1,27 +1,19 @@
 /* pages/goodsdetail/goodsdetail.wxss */
 
-.table {
-  display: table;
-  width: 100%;
-  margin-top: 20rpx
-}
-
-.goodsTable .tr {
-  display: table-row;
-  width: 100%;
-  font-size: 30rpx;
-  text-align: center;
-}
-
-.goodsTable .th, .goodsTable .td {
-  display: table-cell;
-  line-height: 80rpx;
-  white-space: nowrap;
-  padding: 0 10rpx;
+.goods-bar {
   background: #fff;
-  border-bottom: 1px solid #e7e7e7;  
+  margin-top: 20rpx;
+  overflow: hidden;
+  padding:  20rpx;
 }
 
-.goodsTable .tr:nth-child(odd) .td {
-  background: #f8fbfb;
+.goods-bar-item {
+  float: left;
+  font-size: 30rpx;
+  margin-right: 10rpx;
+  line-height: 60rpx
+}
+
+.goods-bar-label {
+  color: #999;
 }

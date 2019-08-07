@@ -1,0 +1,95 @@
+/* pages/enterprise/enterprise.wxss */
+
+.overflow-h {
+  overflow: hidden;
+}
+
+.enterprise-search {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  font-size: 30rpx;
+  position: relative
+}
+
+.enterprise-search icon {
+  position: absolute;
+  top: 50%;
+  left: 40rpx;
+  margin-top: -8px;
+}
+
+.search-input {
+  width: calc(100% - 170rpx);
+  background: #ebebf3;
+  padding: 10rpx 20rpx 10rpx 70rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  border-radius: 30rpx;
+  height: 40rpx;
+}
+
+
+.icon-switch {
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 20rpx
+}
+
+
+.enterprise-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  margin: 20rpx;
+}
+
+.enterprise-head {
+  position: relative;
+  padding-left: 110rpx;
+  font-size: 34rpx;
+  height: 100rpx;
+  line-height: 40rpx;
+}
+
+.enterprise-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  border: 1px solid #e7e7e7;
+}
+
+.enterprise-spec {
+  font-size: 30rpx;
+  margin-top: 10rpx;
+}
+
+.enterprise-bar {
+  display: flex;
+  font-size: 30rpx;
+  margin-top: 10rpx;
+  padding-right: 60rpx;
+  position: relative
+}
+
+.enterprise-bar-label {
+  width: 150rpx;
+}
+
+.enterprise-bar-info {
+  width: calc(100% - 150rpx);
+}
+
+.enterprise-bar-icon{
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  right: 0rpx;
+  bottom:0;
+}
+
+

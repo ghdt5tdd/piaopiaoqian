@@ -56,6 +56,34 @@
           <view class='td' >{{item.timeliness}}</view>
           <view class='td' >{{item.remark}}</view>
         </block>
+
+        <block wx:if="{{type === 'customerSignTh'}}">
+          <view class='td' >{{index}}</view>
+          <view class='td' >{{item.carrier_name}}</view>
+          <view class='td' >{{item.consignee_name}}</view>
+          <view class='td' >{{item.bill_no}}</view>
+          <view class='td' >{{item.start_departing_date}}</view>
+          <view class='td' >{{item.estimated_arrive_date}}</view>
+          <view class='td' >{{item.actual_arrive_date}}</view>
+          <view class='td' >{{item.consignment_station_name}}</view>
+          <view class='td' >{{item.trans_mode}}</view>
+          <view class='td' >{{item.remark}}</view>
+          <view class='td' >{{item.is_sign}}</view>
+        </block>
+
+        <block wx:if="{{type === 'areaSignTh'}}">
+          <view class='td' >{{index}}</view>
+          <view class='td' >{{item.carrier_name}}</view>
+          <view class='td' >{{item.consignee_name}}</view>
+          <view class='td' >{{item.bill_no}}</view>
+          <view class='td' >{{item.start_departing_date}}</view>
+          <view class='td' >{{item.estimated_arrive_date}}</view>
+          <view class='td' >{{item.actual_arrive_date}}</view>
+          <view class='td' >{{item.consignment_station_name}}</view>
+          <view class='td' >{{item.trans_mode}}</view>
+          <view class='td' >{{item.remark}}</view>
+          <view class='td' >{{item.is_sign}}</view>
+        </block>
       </view>
     </view>
   </scroll-view>

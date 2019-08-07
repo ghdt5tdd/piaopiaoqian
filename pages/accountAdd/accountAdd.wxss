@@ -1,6 +1,28 @@
 /* pages/accountAdd/accountAdd.wxss */
 @import '../index/index.wxss';
 
+.my-avatar {
+  margin-top: 20rpx;
+  text-align: center;
+  font-size: 0;
+}
+
+.my-avatar image {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+}
+
+.account-set {
+  font-size: 0;
+  line-height: 0
+}
+
+.account-set image {
+  width: 150rpx;
+  height: 60rpx;
+}
+
 .my-bar {
   padding-left: 20rpx;
   align-items: center;

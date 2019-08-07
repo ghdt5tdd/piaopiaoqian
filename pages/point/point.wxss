@@ -1,2 +1,104 @@
 /* pages/point/point.wxss */
 @import '../node/node.wxss';
+
+.location-map {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.location-map image {
+  width: 100%;
+}
+
+.location-content {
+  position: fixed;
+  left: 0rpx;
+  right: 0rpx;
+  bottom: 0rpx;
+  background: #fff;
+  padding: 0 20rpx;
+}
+
+.location-info {
+  transition: all 0.2s;
+  max-height: 70vh;
+  border-top: 1px solid #e7e7e7;
+}
+
+.location-info-detail {
+  margin-right: -20rpx;
+}
+
+.location-info-items {
+  line-height: 60rpx;
+  font-size: 32rpx;
+  overflow: hidden;
+  float: left;
+  margin-right: 20rpx;
+  display: flex;
+  max-width: calc(50% - 20rpx);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.location-info-items:nth-child(even) {
+  max-width: 70%;
+}
+
+.location-info-label {
+  color: #999;
+}
+
+.location-info-line, .order-table-head {
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.order-line-route {
+  display: flex;
+  font-size: 36rpx;
+  align-items: center;
+  justify-content: center;
+  padding: 30rpx 0;
+}
+
+.order-line-route image {
+  width: 100rpx;
+  margin: 0 10rpx;
+}
+
+.point-info-box {
+  border-top: 1px solid #e7e7e7;
+  padding: 20rpx 0;
+}
+
+.point-info-bar {
+  display: flex;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  justify-content: space-between;
+}
+
+.point-info-bar .point-bar-label {
+  width: 140rpx;
+}
+
+.point-info-bar .point-bar-name {
+  width: calc(100% - 140rpx);
+  text-align: right;
+}
+
+.node-logistics {
+  min-height: 0;
+}
+
+.location-bottom {
+  font-size: 32rpx;
+  display: flex;
+  justify-content: space-between;
+  line-height: 60rpx;
+  padding: 10rpx 0;
+}

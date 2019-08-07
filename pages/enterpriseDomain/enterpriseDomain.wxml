@@ -1,0 +1,10 @@
+<!--pages/enterpriseDomain/enterpriseDomain.wxml-->
+<image class='icon-switch'  bindtap='switch' src='../../images/switch.png'></image>
+<view class='enterprise-domain'>
+  <view class='enterprise-domain-tip'>请输入企业关键字或企业代码</view>
+  <view class='enterprise-domain-info'>
+    <input bindinput="bindinput"></input>
+    <image src='../../images/scan.png' bindtap="scan"></image>
+  </view>
+</view>
+<view class='button-bottom ' bindtap="searchCompany">确定</view>

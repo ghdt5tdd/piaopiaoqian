@@ -96,6 +96,9 @@
     "pages/handwriting/handwriting",
     "pages/formSheetlist/formSheetlist",
     "pages/formSheetinfo/formSheetinfo",
+    "pages/formSign/formSign",
+    "pages/enterprise/enterprise",
+    "pages/enterpriseDomain/enterpriseDomain",
     "pages/formSheetdaily/formSheetdaily"
   ],
   "window": {

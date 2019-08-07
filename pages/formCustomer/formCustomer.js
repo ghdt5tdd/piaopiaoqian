@@ -10,8 +10,10 @@ Page({
     month_search: '请选择月份',
     customerSendTh: ["序号", "月份", "承运商名称", "收货单位", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
     customerReturnTh: ["序号", "月份", "承运商名称", "收货单位", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
+    customerSignTh: ["序号", "月份", "承运商名称", "收货方客户卡号", "收货方客户名称", "承运商卡号", "已签收", "待签收", "总数", "签收率"],
     areaSendTh: ["序号", "月份", "物流仓名称", "承运商名称", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
     areaReturnTh: ["序号", "月份", "物流仓名称", "承运商名称", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
+    areaSignTh: ["序号", "月份", "承运商名称", "收货方客户卡号", "收货方客户名称", "已签收", "待签收", "总数", "签收率"],
     forwarderTh: ["序号", "月份", "承运商名称", "发货站", "终点站", "及时数", "不及时数", "总数", "及时率"],
     analysisTh:[],
     analysisData: [],
@@ -21,6 +23,23 @@ Page({
     pageSize: 200,
     loadCompleted: false,
     type: undefined,
+    dateTypeArr: [{
+      value: 0,
+      text: '运单创建时间'
+    }, {
+      value: 1,
+      text: '发车时间'
+    }, {
+      value: 2,
+      text: '预计到达时间'
+    }, {
+      value: 3,
+      text: '到货时间'
+    }, {
+      value: 4,
+      text: '签收操作时间'
+    }],
+    dateType: 0
   },
 
   //输入筛选条件
@@ -31,6 +50,21 @@ Page({
       carrier_name: this.data.carrier[e.detail.value],
       page: 1,
       analysisData:[],
+      loadCompleted: false,
+    }, () => {
+      this.getAnalysis(this.data.type)
+    })
+  },
+
+  //输入筛选条件
+  bindDateTypeChange: function (e) {
+    this.setData({
+      dateType: e.detail.value
+    })
+    this.setData({
+      dateType: e.detail.value,
+      page: 1,
+      analysisData: [],
       loadCompleted: false,
     }, () => {
       this.getAnalysis(this.data.type)
@@ -71,6 +105,7 @@ Page({
   toInfo: function(e) {
     const index = e.currentTarget.dataset.index
     const type = this.data.type
+    const dateType = this.data.dateType
     const data = this.data.analysisData[index]
     const month = data.month
     const consignment_station_name = data.consignment_station_name
@@ -78,7 +113,7 @@ Page({
     const carrier_name = data.carrier_name
     console.log(data)
     wx.navigateTo({
-      url: '../formCustomerinfo/formCustomerinfo?type=' + type + '&month=' + month + "&consignment_station_name=" + consignment_station_name + "&receiving_station_name=" + receiving_station_name + "&carrier_name=" + carrier_name
+      url: '../formCustomerinfo/formCustomerinfo?type=' + type + '&month=' + month + "&consignment_station_name=" + consignment_station_name + "&receiving_station_name=" + receiving_station_name + "&carrier_name=" + carrier_name + "&date_type=" + dateType
     })
   },
 
@@ -126,6 +161,7 @@ Page({
         page: this.data.page,
         pageSize: this.data.pageSize,
         monthSearch: this.data.month_search,
+        dateType: this.data.dateType,
       }
       if (this.data.carrier_name !== '请选择承运商') {
         params.carrierNameSearch = this.data.carrier_name
@@ -191,6 +227,14 @@ Page({
           title: '承运商及时率(区域仓退货)'
         })
         return 'app/order/getFinalBranchPunctualityAnalysis'
+      case 'areaSign':
+        this.setData({
+          analysisTh: this.data.areaSignTh
+        })
+        wx.setNavigationBarTitle({
+          title: '客户签收率(区域仓)'
+        })
+        return 'app/order/getBranchSignRate'
       case 'customerSend':
         this.setData({
           analysisTh: this.data.customerSendTh
@@ -207,6 +251,14 @@ Page({
           title: '承运商及时率(客户发退货)'
         })
         return 'app/order/getConsignerPunctualityAnalysis'
+      case 'customerSign':
+        this.setData({
+          analysisTh: this.data.customerSignTh
+        })
+        wx.setNavigationBarTitle({
+          title: '客户签收率(客户)'
+        })
+        return 'app/order/getConsigneeSignRate'
       default:
         wx.showToast({
           title: '不支持的角色',

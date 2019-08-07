@@ -19,6 +19,13 @@ Page({
     })
   },
 
+  // toSignList(e){
+  //   const type = e.currentTarget.dataset.type
+  //   wx.navigateTo({
+  //     url: '../formSign/formSign?type=' + type,
+  //   })
+  // },
+
   setTitle(partnerTypeCode){
     switch(partnerTypeCode) {
       case 'carrier':

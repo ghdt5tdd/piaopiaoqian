@@ -6,7 +6,15 @@ Page({
    * 页面的初始数据
    */
   data: { 
+ 
     searchVal: '',
+    query:{
+      user_nickname:'',
+      user_account:'',
+      full_name:'',
+      phone:''
+    },
+    queryStatus:'',
     searchClear: true,
     page: 1,
     pageSize: 50,
@@ -41,6 +49,19 @@ Page({
       hide: false,
       hideLongtap: false,
       longClickIndex: index,
+    })
+  },
+
+  /// 长按事件
+  toDetail: function (e) {
+    var index = e.currentTarget.dataset.index
+    const id = this.data.account[index].id
+    this.setData({
+      hide: true,
+      hideLongtap: true,
+    })
+    wx.navigateTo({
+      url: '../accountAdd/accountAdd?id=' + id + '&unmodify=1'
     })
   },
 
@@ -184,6 +205,10 @@ Page({
       id
     }, (err, res) => {
       wx.hideLoading()
+      this.setData({
+        hide: true,
+        hideLongtap: true,
+      })
       if (res && res.success) {
         wx.showModal({
           title: '重置成功!',
@@ -195,8 +220,12 @@ Page({
 
   edit:function(e){
     const id = this.data.account[this.data.longClickIndex].id
+    this.setData({
+      hide: true,
+      hideLongtap: true,
+    })
     wx.navigateTo({
-      url: '../accountEdit/accountEdit?id=' + id
+      url: '../accountAdd/accountAdd?id=' + id
     })
   },
 
@@ -216,6 +245,10 @@ Page({
       id
     }, (err, res) => {
       wx.hideLoading()
+      this.setData({
+        hide: true,
+        hideLongtap: true,
+      })
       if (res && res.success) {
         let delIndex
         const account = this.data.account
@@ -240,33 +273,50 @@ Page({
 
   },
 
-
-  //关键字搜索
-  bindSarchInput: function (e) {
-    wx.pageScrollTo({
-      scrollTop: 0,
-      duration: 0
-    })
-
-    var inputVal = e.detail.value;
-    const filterAccount = this.data.account.filter(item => {
-      return item.phone.indexOf(inputVal) !== -1
-    })
+  //输入筛选条件
+  bindInput: function (e) {
+    var key = e.currentTarget.dataset.key
+    const query = this.data.query
+    this.data.query[key] = e.detail.value
     this.setData({
-      filterAccount,
-      searchClear: false,
-      searchVal: inputVal
+      queryStatus: key,
+      query
+    }, () => {
+      const filterAccount = this.data.account.filter(item => {
+        return item.user_nickname.indexOf(query.user_nickname) !== -1 &&
+          item.user_account.indexOf(query.user_account) !== -1 &&
+          item.full_name.indexOf(query.full_name) !== -1 &&
+          item.phone.indexOf(query.phone) !== -1
+      })
+      this.setData({
+        filterAccount
+      })
     })
+
   },
 
-  //清除搜索
-  searchClear: function (e) {
+  //清除筛选条件
+  conditionClear: function (e) {
+    var key = e.currentTarget.dataset.key
+    const query = this.data.query
+    this.data.query[key] = ''
     this.setData({
-      filterAccount: this.data.account,
-      searchClear: true,
-      searchVal: ''
+      queryStatus: key,
+      query
+    }, () => {
+      const filterAccount = this.data.account.filter(item => {
+        return item.user_nickname.indexOf(query.user_nickname) !== -1 &&
+          item.user_account.indexOf(query.user_account) !== -1 &&
+          item.full_name.indexOf(query.full_name) !== -1 &&
+          item.phone.indexOf(query.phone) !== -1
+      })
+      this.setData({
+        filterAccount
+      })
     })
+
   },
+
 
   //启用账号
   set: function(e) {

@@ -1,28 +1,93 @@
 <!--pages/point/point.wxml-->
-<view class='node-logistics'>
-  <view wx:for="{{orderNodes}}" wx:key="node_state" class="logistics-list">
-    <view class="logistics-list-item">
-      <view class="logistics-list-circle">
-        <image wx:if="{{index == 0}}" src="../../images/track-on.png" mode="widthFix"></image>
-        <image wx:else src="../../images/track.png" mode="widthFix"></image>
+<!--pages/point/point.wxml-->
+
+<view class='location-map'>
+  <image src='{{map}}' mode="widthFix"></image>
+</view>
+
+<view class="location-content {{popup?'spread':''}} ">
+
+  <view class='location-bottom'>
+    <view class='location-status'>
+      {{shoporderDetail.order_state}}
+    </view>
+    <view class='location-opt orange'>
+      <view wx:if="{{popup}}" bindtap='retract'>点击收起</view>
+      <view wx:else bindtap='spread'>点击展开</view>
+    </view>
+  </view>
+
+  <scroll-view scroll-y hidden="{{!popup}}" class='location-info'>
+
+
+    <view class='location-info-line'>
+      <view class='order-table-head'>
+        <view class='order-table-id'>货物单号：{{shoporderDetail.bill_no}}</view>
+        <view class='order-table-time'>{{shoporderDetail.start_departing_date}}</view>
       </view>
-      <view class="logistics-list-txt">
-        <view class="logistics-list-status">{{item.node_content}}</view>
-        <view class='logistics-list-content'>
-          <view class='logistics-list-detail'>
-            <view class='logistics-list-point'></view>
-            <view class="logistics-list-info">{{item.node_remark}}</view>
-            <view wx:if="{{index == 0}}" class='logistics-list-location' bindtap='toLoaction'>
-               <image src="../../images/position.png"></image>
-               <view>查看实时定位</view>
-            </view>            
-            <view class="logistics-list-time">
-              <view class='logistics-list-date'>{{item.createDate}}</view>
-              <view class='logistics-list-hour'>{{item.createTime}}</view>
+
+
+      <view class='order-line-route'>
+        <view class='order-route-point'>
+          <view>{{shoporderDetail.consignment_station_name}}</view>
+        </view>
+        <image mode="widthFix" src="../../images/arrow.png"></image>
+        <view class='order-route-point'>
+          <view>{{shoporderDetail.receiving_station_name}}</view>
+        </view>
+      </view>
+
+      <view class='point-info-box'>
+        <view class='point-info-bar'>
+          <view class='point-bar-label'>收货单位</view>
+          <view class='point-bar-name'>{{shoporderDetail.consignee_unit}}</view>
+        </view>
+        <view class='point-info-bar'>
+          <view class='point-bar-label'>件数/托数</view>
+          <view class='point-bar-name'>{{shoporderDetail.total_packing_quantity}}件/托</view>
+        </view>
+        <view class='point-info-bar'>
+          <view class='point-bar-label'>承运商</view>
+          <view class='point-bar-name'>{{shoporderDetail.carrier_name}}</view>
+        </view>
+      </view>
+
+
+
+    </view>
+
+    <view class='node-logistics'>
+      <view wx:for="{{orderNodes}}" wx:key="node_state" class="logistics-list">
+        <view class="logistics-list-item">
+          <view class="logistics-list-circle">
+            <image wx:if="{{index == 0}}" src="../../images/track-on.png" mode="widthFix"></image>
+            <image wx:else src="../../images/track.png" mode="widthFix"></image>
+          </view>
+          <view class="logistics-list-txt">
+            <view class="logistics-list-status">{{item.node_content}}</view>
+            <view class='logistics-list-content'>
+              <view class='logistics-list-detail'>
+                <view class='logistics-list-point'></view>
+                <view class="logistics-list-info">{{item.node_remark}}</view>
+                <view wx:if="{{index == 0}}" class='logistics-list-location' bindtap='toLoaction'>
+                  <image src="../../images/position.png"></image>
+                  <view>查看实时定位</view>
+                </view>            
+                <view class="logistics-list-time">
+                  <view class='logistics-list-date'>{{item.createDate}}</view>
+                  <view class='logistics-list-hour'>{{item.createTime}}</view>
+                </view>
+              </view>
             </view>
           </view>
         </view>
       </view>
     </view>
-  </view>
+
+
+  </scroll-view>
+
+
 </view>
+
+

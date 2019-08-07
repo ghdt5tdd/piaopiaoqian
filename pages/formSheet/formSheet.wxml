@@ -69,38 +69,118 @@
 </scroll-view>
 
 
-<view wx:elif="{{curIndex == 1}}">
+
+<view wx:if="{{curIndex == 1}}">
   <view class='query'>
     <view class='query-condition'>
 
-      <view class="query-condition-items  {{dateStatus?'active':''}}">
-        <view hidden="{{!dateStatus}}" class='query-conditions-name'>月份</view>
-        <picker mode="date" fields="month" value="{{date}}" start="2010-01" bindchange="bindDateChange">
-          <view class="picker">
-            {{date}}
+      <!--新的写法，与APP样式一致-->
+      <view class="query-condition-items active">
+        <view class='query-conditions-name'>收货站</view>
+        <picker bindchange="bindReceiving" value="{{receiving_station}}" range="{{receiving}}">
+          <view wx:if="{{!siteStatus}}">请选择收货站</view>
+          <view wx:else class="picker">
+            {{receiving[receiving_station]}}
           </view>
         </picker>
-        <image hidden='{{!dateStatus}}' class='search-clear' src="../../images/clear.png" bindtap='dateClear'></image>
+        <image hidden='{{!siteStatus}}' class='search-clear' src="../../images/clear.png" bindtap='siteClear'></image>
       </view>
 
-      <view class="query-condition-items  {{conditionStatus?'active':''}}">
-        <view hidden="{{!conditionStatus}}" class='query-conditions-name'>承运商</view>
-        <input placeholder="请输入承运商" bindinput='bindInput' value='{{val}}' />
-        <image hidden='{{!conditionStatus}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear'></image>
+      <view class="query-condition-items active">
+        <view class='query-conditions-name'>客户</view>
+        <picker bindchange="bindCarrier" value="{{carrier_select}}" range="{{carrier}}">
+          <view wx:if="{{!carrierStatus}}">请选择客户</view>
+          <view wx:else class="picker">
+            {{carrier[carrier_select]}}
+          </view>
+        </picker>
+        <image hidden='{{!carrierStatus}}' class='search-clear' src="../../images/clear.png" bindtap='carrierClear'></image>
       </view>
+
+      <!--之前的写法query-condition-items和query-conditions-name做了判断-->
+      <!--
+      <view class="query-condition-items  {{siteStatus?'active':''}}">
+        <view hidden="{{!siteStatus}}" class='query-conditions-name'>收货站</view>
+        <picker bindchange="bindSite" value="{{index}}" range="{{site}}">
+          <view wx:if="{{!siteStatus}}">请选择收货站</view>
+          <view wx:else class="picker">
+            {{site[index]}}
+          </view>
+        </picker>
+        <image hidden='{{!siteStatus}}' class='search-clear' src="../../images/clear.png" bindtap='siteClear'></image>
+      </view>
+
+      <view class="query-condition-items  {{companyStatus?'active':''}}">
+        <view hidden="{{!companyStatus}}" class='query-conditions-name'>客户</view>
+        <input placeholder="请选择客户" bindtap='showForwarder' value='{{val}}' />
+        <image hidden='{{!companyStatus}}' class='search-clear' src="../../images/clear.png" bindtap='companyClear'></image>
+      </view>
+     -->
+
+
     </view>
+
+    <view class='query-date'>
+
+      <!--新的写法，与APP样式一致-->
+ 
+        <view class="query-date-items active">
+          <view class='query-date-name'>开始时间</view>
+          <view class='query-date-val' bindtap='showDate' data-key="startDate">{{startDate ? startDate:'请选择开始时间'}}</view>
+          <image hidden='{{!startDate}}' class='search-clear' src="../../images/clear.png" bindtap='DateClear'  data-key="startDate"></image>
+        </view>
+        <view class="query-date-items active">
+          <view class='query-date-name'>结束时间</view>
+          <view class='query-date-val' bindtap='showDate' data-key="endDate" >{{endDate ? endDate: '请选择结束时间'}}</view>
+          <image hidden='{{!endDate}}' class='search-clear' src="../../images/clear.png" bindtap='DateClear'  data-key="endDate"></image>
+        </view>
+
+    </view>
+    <image class='query-search' src='../../images/search-big.png' bindtap="search"></image>
   </view>
 
   <view class='order-status {{ul}}'>
     <block wx:for="{{orderStatus}}">
-      <view class="order-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+      <view class="order-status-items  {{selectStatus == item.value?'on':''}}" bindtap='selectStatus' data-index="{{item.value}}">
         {{item.name}}
       </view>
     </block>
   </view>
 
 
-  <scroll-view scroll-y style='height:calc(100vh - 286rpx)'>
+  <scroll-view scroll-y style='height:calc(100vh - 384rpx)' bindscrolltolower="detaillower">
+    <scroll-view class='goodsTable' scroll-x="true">
+      <view class="table" style="width:{{goodsWidth}}">
+        <view class="tr">
+          <view class='th' wx:for="{{tableTh}}" wx:key="key">
+            {{item.title}}
+          </view>
+        </view>
+        <view class="tr" wx:for="{{analysisDetailData}}" wx:key="id" >
+          <view class='td'>{{index + 1}}</view>
+          <view class='td'>{{item.from_order_date}}</view>
+          <view class='td'>{{item.from_order_no}}</view>
+          <view class='td'>{{item.bill_date}}</view>
+          <view class='td'>{{item.no}}</view>
+          <view class='td'>{{item.consignee_client_account}}</view>
+          <view class='td'>{{item.consignee_name}}</view>
+          <view class='td'>{{item.consignment_station_name}}</view>
+          <view class='td'>{{item.receiving_station_name}}</view>
+          <view class='td'>{{item.goods_name}}</view>
+          <view class='td'>{{item.total_order_count}}</view>
+          <view class='td'>{{item.total_charge_packing_quantity}}</view>
+          <view class='td'>{{item.total_charge_weight}}</view>
+          <view class='td'>{{item.total_charge_volume}}</view>
+          <view class='td'>{{item.total_times}}</view>
+          <view class='td'>{{item.total_charge_amount}}</view>
+          <view class='td'>{{item.settlement_accounts_amount}}</view>
+          <view class='td'>{{item.settlement_mode}}</view>
+          <view class='td'>{{item.settlement_accounts_mode_text}}</view>
+          <view class='td'>{{item.pay_mode_text}}</view>
+          <view class='td'>{{item.state_text}}</view>
+        </view>
+      </view>
+    </scroll-view>
   </scroll-view>
 
 
@@ -115,4 +195,51 @@
     <view bindtap="hide">取消</view>
     <view class='bg-orange' bindtap ="checkConfirm">确认</view>
   </view>
+</view>
+
+
+
+<view class='pop-up pop-forwarder' hidden='{{hideForwarder}}'>
+  <scroll-view scroll-y class='forwarder-content'>
+    <view class='forwarder-list'>
+      <view class='forwarder-item' wx:for="{{forwarderList}}">
+        <view class='forwarder-item-check' bindtap='toSend' data-index="{{index}}">
+          <image src='{{item.check}}'></image>
+        </view>
+        <view class='forwarder-item-head' bindtap='toSend' data-index="{{index}}">
+          <image class='forwarder-item-logo' src='{{item.logo}}'></image>
+          <view class='forwarder-item-name'>{{item.name}}</view>
+          <view class='forwarder-item-bar'>
+            <view>{{item.person}} {{item.tel}}</view>
+          </view>
+        </view>
+
+      </view>
+    </view>
+  </scroll-view>
+  <view class='pop-bottom' bindtap='sureForwarder' data-name="{{checkName}}">确认</view>
+</view>
+
+<view class="canlendarBgView" wx:if="{{showDate}}">
+  <view class="canlendarView">
+    <view class="canlendarTopView">
+      <view class="leftBgView" bindtap="handleCalendar" data-handle="prev">
+        <view class="leftView">《</view>
+      </view>
+      <view class="centerView">{{cur_year || "--"}} 年 {{cur_month || "--"}} 月</view>
+      <view class="rightBgView" bindtap="handleCalendar" data-handle="next">
+        <view class="rightView">》</view>
+      </view>
+    </view>
+    <view class="weekBgView">
+      <view class="weekView" wx:for="{{weeks_ch}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
+    </view>
+    <view class="dateBgView">
+      <view wx:if="{{hasEmptyGrid}}" class="dateEmptyView" wx:for="{{empytGrids}}" wx:key="{{index}}" data-idx="{{index}}"> </view>
+      <view class="dateView" wx:for="{{days}}" wx:key="{{index}}" data-idx="{{index}}" bindtap="dateSelectAction">
+        <view class="datesView {{index == todayIndex ? 'dateSelectView' : ''}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+
 </view>

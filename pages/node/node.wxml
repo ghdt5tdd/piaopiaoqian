@@ -12,6 +12,7 @@
     <view class="node-head-items">
       <view class="node-head-label">剩余数量：</view>
       <view class="node-head-name">{{saleOrderDetail.up.residue_quantity}}</view>
+      <!-- <view class='node-head-btn'>提醒发货</view> -->
     </view>
     <view class="node-head-items">
       <view class="node-head-label">发货批次：</view>
@@ -72,6 +73,10 @@
   </view>
 </view>
 
+<view class='node-bill'>
+  <text>货运单号:{{billId}}</text>
+  <text>货运数量:{{saleOrderDetail.middle.issueOrder}}</text>
+</view>
 
 <view class='node-logistics'>
   <view wx:for="{{saleOrderDetail.bottom}}" wx:for-item="bottom" class="logistics-list">

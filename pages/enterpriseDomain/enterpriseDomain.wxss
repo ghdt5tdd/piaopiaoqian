@@ -1,0 +1,43 @@
+/* pages/enterpriseDomain/enterpriseDomain.wxss */
+
+page {
+  background: #fff;
+}
+
+.icon-switch {
+  position: absolute;
+  top: 40rpx;
+  right: 60rpx;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.enterprise-domain {
+  margin: 30vh 60rpx 40vh;
+  margin-bottom: calc(70vh - 284rpx);
+  font-size: 32rpx;
+  line-height: 40rpx;
+  text-align: center;
+}
+
+.enterprise-domain-info {
+  position: relative;
+  padding-right: 120rpx;
+  margin-top: 40rpx;
+}
+
+.enterprise-domain-info input {
+  width: 100%;
+  text-align: left;
+  border: 2rpx solid #e7e7e7;
+  height: 40rpx;
+  padding: 20rpx;
+}
+
+.enterprise-domain-info image {
+  position: absolute;
+  right: 0;
+  top: 11rpx;
+  width: 60rpx;
+  height: 60rpx;
+}

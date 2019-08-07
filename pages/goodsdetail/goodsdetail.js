@@ -28,8 +28,21 @@ Page({
     }, (err, res) => {
       wx.hideLoading()
       if (res && res.success) {
+        const orderDetails = res.data
+        if (orderDetails) {
+          const details = orderDetails.details
+          if (details && details.length === 0) {
+            wx.showToast({
+              title: '无商品明细',
+            })
+          }
+        } else {
+          wx.showToast({
+            title: '不存在的运单',
+          })
+        }
         this.setData({
-          orderDetails: res.data
+          orderDetails
         })
       }
     })

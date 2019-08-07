@@ -11,8 +11,10 @@ Page({
   data: {
     customerSendTh: ["序号", "承运商名称", "发货单位", "收货单位", "货运单号", "发车时间", "预计到达时间", "到货时间", "发货站", "终点站", "运输方式", "运输及时性", "备注"],
     customerReturnTh: ["序号", "承运商名称", "发货单位", "收货单位", "货运单号", "发车时间", "预计到达时间", "到货时间", "发货站", "终点站", "运输方式", "运输及时性", "备注"],
+    customerSignTh: ["序号", "承运商名称", "收货单位", "货运单号", "发车时间", "预计到达时间", "实际到达时间", "发货站", "运输方式", "备注", "是否签收"],
     areaSendTh: ["序号", "承运商名称", "物流仓名称", "发货单位", "收货单位", "货运单号", "发车时间", "预计到达时间", "到货时间", "发货站", "终点站", "运输方式", "运输及时性", "备注"],
     areaReturnTh: ["序号", "承运商名称", "物流仓名称", "发货单位", "收货单位", "货运单号", "发车时间", "预计到达时间", "到货时间", "发货站", "终点站", "运输方式", "运输及时性", "备注"],
+    areaSignTh: ["序号", "承运商名称", "收货单位", "货运单号", "发车时间", "预计到达时间", "实际到达时间", "发货站", "运输方式", "备注", "是否签收"],
     forwarderTh: ["序号", "承运商名称", "发货单位", "收货单位" , "货运单号", "发车时间", "预计到达时间", "到货时间", "发货站", "终点站", "运输方式", "运输及时性", "备注"],
     analysisTh: [],
     analysisData: [],
@@ -23,6 +25,7 @@ Page({
     month: undefined,
     consignment_station_name: undefined,
     receiving_station_name: undefined,
+    date_type: undefined,
     carrier_name: undefined
   },
 
@@ -73,6 +76,7 @@ Page({
         month: this.data.month,
         consignmentStationName: this.data.consignment_station_name,
         receivingStationName: this.data.receiving_station_name,
+        dateType: this.data.date_type,
         carrierName: this.data.carrier_name
       }, (err, res) => {
         wx.hideLoading()
@@ -119,6 +123,11 @@ Page({
           analysisTh: this.data.areaReturnTh
         })
         return 'app/order/getFinalBranchPunctualityAnalysisDetail'
+      case 'areaSign':
+        this.setData({
+          analysisTh: this.data.areaSignTh
+        })
+        return 'app/order/getBranchSignRateDetail'
       case 'customerSend':
         this.setData({
           analysisTh: this.data.customerSendTh
@@ -129,6 +138,11 @@ Page({
           analysisTh: this.data.customerReturnTh
         })
         return 'app/order/getConsignerPunctualityAnalysisDetail'
+      case 'customerSign':
+        this.setData({
+          analysisTh: this.data.customerSignTh
+        })
+        return 'app/order/getConsigneeSignRateDetail'
       default:
         wx.showToast({
           title: '不支持的角色',
@@ -142,13 +156,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(options)
     this.setWidth()
     this.setData({
       type: options.type,
       month: options.month,
       consignment_station_name: options.consignment_station_name,
       receiving_station_name: options.receiving_station_name,
-      carrier_name: options.carrier_name
+      carrier_name: options.carrier_name,
+      date_type: options.date_type
     }, () => {
       this.getAnalysisDetail()
     })

@@ -59,7 +59,7 @@ function handleImgUrl (obj, imgKey) {
     })
   }else if (obj instanceof Object) {
     if (obj[imgKey] !== undefined) {
-      obj[imgKey] = 'https://sping-cloud-fall.oss-cn-shanghai.aliyuncs.com/wlhn/' + v[imgKey]
+      obj[imgKey] = 'https://sping-cloud-fall.oss-cn-shanghai.aliyuncs.com/wlhn/' + obj[imgKey]
     }
   }else {
     

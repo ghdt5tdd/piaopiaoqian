@@ -1,57 +1,110 @@
 <!--pages/accountAdd/accountAdd.wxml-->
-<form bindsubmit="formSubmit" report-submit="true">
+  <view class='my-avatar' bindtap="changePic">
+    <image src='{{avatar}}' mode="aspectFill"></image>
+  </view>
   <view class='my-list'>
     <view class='my-bar'>
-      <view class='my-bar-label'>账号</view>
+      <view class='my-bar-label'>账号<text class='red'>*</text></view>
       <view class='my-bar-input'>
-        <input type="text" name="name" placeholder='请输入账号' bindinput='account'></input>
+        <input type="text" name="name" placeholder='请输入账号' value="{{user_account}}" bindinput='bindinput' data-key='user_account'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
     <view class='my-bar'>
-      <view class='my-bar-label'>昵称</view>
+      <view class='my-bar-label'>昵称<text class='red'>*</text></view>
       <view class='my-bar-input'>
-        <input type="text" name="nickname" placeholder='请输入昵称' bindinput='nickname'></input>
+        <input type="text" name="nickname" placeholder='请输入昵称' value="{{user_nickname}}" bindinput='bindinput' data-key='user_nickname'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
     <view class='my-bar'>
-      <view class='my-bar-label'>姓名</view>
+      <view class='my-bar-label'>姓名<text class='red'>*</text></view>
       <view class='my-bar-input'>
-        <input type="text" name="contacts" placeholder='请输入姓名' bindinput='fullname'></input>
+        <input type="text" name="contacts" placeholder='请输入姓名' value="{{full_name}}" bindinput='bindinput' data-key='full_name'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
     <view class='my-bar'>
-      <view class='my-bar-label'>联系方式</view>
+      <view class='my-bar-label'>联系方式<text class='red'>*</text></view>
       <view class='my-bar-input'>
-        <input type="number" name="tel" placeholder='请输入联系方式' bindinput='phone'></input>
+        <input type="number" name="tel" placeholder='请输入联系方式' value="{{phone}}" bindinput='bindinput' data-key='phone'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
-    <view class='my-bar'>
+    <view class='my-bar' wx:if="{{!id}}">
       <view class='my-bar-label'>密码</view>
       <view class='my-bar-input'>
-        <input type="password" name="password" placeholder='请输入密码' bindinput='password'></input>
+        <input type="password" name="password"  placeholder='请输入密码' bindinput='bindinput'  data-key='user_password'></input>
+      </view>
+      <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
+    </view>
+    <view class='my-bar' wx:if="{{!id}}">
+      <view class='my-bar-label'>确认密码</view>
+      <view class='my-bar-input'>
+        <input type="password" name="password2" placeholder='请再次输入密码' bindinput='bindinput' data-key='repassword'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
     <view class='my-bar'>
-      <view class='my-bar-label'>确认密码</view>
+      <view class='my-bar-label'>账号状态</view>
       <view class='my-bar-input'>
-        <input type="password" name="password2" placeholder='请再次输入密码' bindinput='repassword'></input>
+        <view class='account-set' bindtap='set'>
+          <image wx:if="{{open}}" src='../../images/start.png'></image>
+          <image wx:else src='../../images/stop.png'></image>
+        </view>
       </view>
-      <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
+    </view>
+    <view class='my-bar'>
+      <view class='my-bar-label'>岗位类型</view>
+      <view class='my-bar-input'>
+        <picker bindchange="bindRole" value="{{talent_type_index}}" range="{{accountRoles}}" range-key="role_name">
+          <view class="picker">
+            {{accountRoles[talent_type_index].role_name}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='my-bar'>
+      <view class='my-bar-label'>性别</view>
+      <view class='my-bar-input'>
+        <picker bindchange="bindSex" value="{{sex_index}}" range="{{sex}}">
+          <view class="picker">
+            {{sex[sex_index]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='my-bar'>
+      <view class='my-bar-label'>年龄</view>
+      <view class='my-bar-input'>
+        <input type="text" name="old" placeholder='请输入年龄' value="{{age}}" bindinput='bindinput'  data-key='age'></input>
+      </view>
+    </view>
+    <view class='my-bar'>
+      <view class='my-bar-label'>邮箱</view>
+      <view class='my-bar-input'>
+        <input type="text" name="email" placeholder='请输入邮箱' value="{{email}}" bindinput='bindinput'  data-key='email'></input>
+      </view>
+    </view>
+    <view class='my-bar'>
+      <view class='my-bar-label'>地址</view>
+      <view class='my-bar-input'>
+        <input type="text" name="address" placeholder='请输入地址' value="{{address}}" bindinput='bindinput'  data-key='address'></input>
+      </view>
+    </view>
+    <view class='my-bar'>
+      <view class='my-bar-label'>员工卡号</view>
+      <view class='my-bar-input'>
+        <input type="text" name="card" placeholder='请输入员工卡号' value="{{employee_card_id}}" bindinput='bindinput'  data-key='employee_card_id'></input>
+      </view>
     </view>
     <view class='my-bar'>
       <view class='my-bar-label'>备注</view>
       <view class='my-bar-input'>
-        <input type="text" name="remark" placeholder='可不填' bindinput='remark'></input>
+        <input type="text" name="remark" placeholder='可不填' value="{{remark}}"  bindinput='bindinput' data-key='remark'></input>
       </view>
       <!-- <image src='../../images/next.png' class='my-bar-next'></image> -->
     </view>
   </view>
 
-  <button class='button-bottom' formType="submit">确认</button>
-  
-</form>
+  <button class='button-bottom' bindtap="formSubmit" wx:if="{{!unmodify}}">确认</button>

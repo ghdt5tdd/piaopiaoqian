@@ -1,53 +1,89 @@
 // pages/accountAdd/accountAdd.js
 const ajax = require('../../utils/ajax.js')
+const util = require('../../utils/util.js')
+const storage = require('../../utils/storage.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    full_name:"",
+    avatar: "../../images/avatar.png",
+    open:true,
+    sex: ['未知', '男', '女',],
+    accountRoles: [{
+      id: "unknow",
+      role_code: "unknow",
+      role_name: "未知"
+    }],
+    talent_type_id: '',
+    talent_type_index: 0,
+    sex_index: 0,
+    age: "",
+    email: "",
+    address: "",
+    employee_card_id: "",
+    full_name: "",
     user_account: "",
     user_password: "",
     user_nickname: "",
     repassword: "", 
-    phone:"",   
-    remark:""   
+    head_img: "",
+    phone: "",   
+    remark: "",
+    id:""
   },
 
-  account: function(e) {
-    this.setData({
-      user_account: e.detail.value
+  //上传头像
+  changePic: function (e) {
+    var that = this // 不能直接用this，留坑
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: res => {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        var tempFilePaths = res.tempFilePaths;
+        util.ImgPathToBase64(tempFilePaths[0], base64 => {
+          const head_img = 'data:image/png;base64,' + base64
+          this.setData({
+            avatar: head_img,
+            head_img,
+          })
+        })
+      }
     })
   },
-  nickname: function(e) {
+
+  //启用关闭账号
+  set: function (e) {
+    var open = this.data.open;
     this.setData({
-      user_nickname: e.detail.value
+      open: !open
     })
   },
-  fullname: function(e) {
+
+  //选择性别
+  bindSex: function (e) {
     this.setData({
-      full_name: e.detail.value
+      sex_index: e.detail.value
     })
   },
-  phone: function(e) {
+
+  //选择性别
+  bindRole: function (e) {
     this.setData({
-      phone: e.detail.value
+      talent_type_id: this.data.accountRoles[e.detail.value].id,
+      talent_type_index: e.detail.value,
     })
   },
-  password: function(e) {
+
+
+  bindinput: function (e) {
+    const key = e.currentTarget.dataset.key
     this.setData({
-      user_password: e.detail.value
-    })
-  },
-  repassword: function(e) {
-    this.setData({
-      repassword: e.detail.value
-    })
-  },
-  remark: function(e) {
-    this.setData({
-      remark: e.detail.value
+      [key]: e.detail.value
     })
   },
 
@@ -65,6 +101,7 @@ Page({
     const repassword = this.data.repassword
     const phone = this.data.phone
     const remark = this.data.remark
+    const id = this.data.id
 
     if (user_account === "") {
       warn = "请输入账号！";
@@ -74,10 +111,6 @@ Page({
       warn = "请输入联系方式！";
     } else if (!myreg.test(phone)) {
       warn = "请输入正确的联系方式！";
-    } else if (user_password == "") {
-      warn = "请输入密码！";
-    } else if (repassword == "") {
-      warn = "请再次输入新密码！";
     } else if (repassword != user_password) {
       warn = "两次密码不一致！";
     } else { 
@@ -86,8 +119,29 @@ Page({
         title: '提交中...',
         mask: true
       })
-      ajax.postApi('app/member/createSubAccount', {
-        ...this.data
+      const param = {
+        age: this.data.age,
+        email: this.data.email,
+        address: this.data.address,
+        employee_card_id: this.data.employee_card_id,
+        full_name: this.data.full_name,
+        user_account: this.data.user_account,
+        user_password: this.data.user_password,
+        user_nickname: this.data.user_nickname,
+        repassword: this.data.repassword,
+        head_img: this.data.head_img,
+        phone: this.data.phone,
+        remark: this.data.remark
+      }
+      param.state = this.data.open? 1 : 0
+      param.gender = this.data.sex_index  
+      let api = 'app/member/createSubAccount'
+      if (id) {
+        param.id = id
+        api = 'app/member/modifySubAccount'
+      }
+      ajax.postApi(api, {
+        ...param
       }, (err, res) => {
         wx.hideLoading()
         if (res && res.success) {
@@ -106,15 +160,100 @@ Page({
         content: warn
       })
     }
+  },
+  loadAccountRoles(cb){
+    ajax.getApi('app/member/listPlatformAccountRoles', {
+      type: 0
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        const data = res.data
+        console.log(data)
+        const accountRoles = this.data.accountRoles
+        Array.prototype.push.apply(accountRoles, data);
+        this.setData({
+          accountRoles
+        }, () => {
+          cb()
+        })
+      } else {
+        wx.showToast({
+          title: '无法获取子账户详情',
+          duration: 1000
+        })
+      }
+    })
+  },
 
-
+  loadAccount(id) {
+    wx.showLoading({
+      title: '获取中...',
+      mask: true
+    })
+    ajax.getApi('app/member/getSubAccount', {
+      id
+    }, (err, res) => {
+      wx.hideLoading()
+      if (res && res.success) {
+        const data = res.data
+        const accountRoles = this.data.accountRoles
+        let talent_type_index = 0
+        accountRoles.forEach((v,i) => {
+          if (v.id === data.talent_type) {
+            talent_type_index = i
+          }
+        })
+        this.setData({
+          id: data.id,
+          user_nickname: data.user_nickname,
+          user_account: data.user_account,
+          full_name: data.full_name,
+          phone: data.phone,
+          avatar: data.head_img,
+          remark: data.remark,
+          address: data.address,
+          age: data.age,
+          email: data.email,
+          sex_index: data.gender,
+          talent_type_id: data.talent_type,
+          talent_type_index,
+          employee_card_id: data.employee_card_id,
+          open: data.state == 1,
+        })
+      } else {
+        wx.showToast({
+          title: '无法获取子账户详情',
+          duration: 1000
+        })
+      }
+    })
+    
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    const unmodify = options.unmodify
+    if (unmodify) {
+      this.setData({
+        unmodify
+      })
+    }
+    this.loadAccountRoles(() => {
+      const id = options.id
+      if(id) {
+        wx.setNavigationBarTitle({
+          title: '修改子账户'
+        })
+        if (unmodify) {
+          wx.setNavigationBarTitle({
+            title: '查看子账户详情'
+          })
+        }
+        this.loadAccount(id)
+      }
+    })
   },
 
   /**

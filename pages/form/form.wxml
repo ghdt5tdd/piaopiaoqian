@@ -15,6 +15,12 @@
     <view class='notice-bar-name'>承运商及时率(区域仓退货)</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>
   </view>
+  <view class='notice-bar'  wx:if="{{partnerTypeCode === 'ownLogistCenter' || partnerTypeCode ==='ownLogistArea'}}" bindtap="toDataList"  data-type="areaSign">
+    <!-- <image class='notice-bar-img' src='{{item.img}}'></image> -->
+    <view class='notice-bar-name'>客户签收率(区域仓)</view>
+    <image class='notice-bar-next' src='../../images/next.png'></image>
+  </view>
+  
 
   <view class='notice-bar' wx:if="{{partnerTypeCode === 'bigCustomer' || partnerTypeCode ==='franchiser'}}" bindtap="toDataList" data-type="customerSend">
     <!-- <image class='notice-bar-img' src='{{item.img}}'></image> -->
@@ -24,6 +30,11 @@
   <view class='notice-bar'  wx:if="{{partnerTypeCode === 'bigCustomer' || partnerTypeCode ==='franchiser'}}" bindtap="toDataList" data-type="customerReturn">
     <!-- <image class='notice-bar-img' src='{{item.img}}'></image> -->
     <view class='notice-bar-name'>承运商及时率(客户退货)</view>
+    <image class='notice-bar-next' src='../../images/next.png'></image>
+  </view>
+  <view class='notice-bar'  wx:if="{{partnerTypeCode === 'bigCustomer' || partnerTypeCode ==='franchiser'}}" bindtap="toDataList"  data-type="customerSign">
+    <!-- <image class='notice-bar-img' src='{{item.img}}'></image> -->
+    <view class='notice-bar-name'>客户签收率(客户)</view>
     <image class='notice-bar-next' src='../../images/next.png'></image>
   </view>
 </view>

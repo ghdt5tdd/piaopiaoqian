@@ -81,11 +81,11 @@
       </view>
       <view class='order-bar'>
         <view class='order-bar-label'>支付方式</view>
-        <view class='order-bar-text'></view>
+        <view class='order-bar-text'>{{shoporderDetail.settlement_mode_text}}</view>
       </view>
       <view class='order-bar'>
         <view class='order-bar-label'>运费</view>
-        <view class='order-bar-text'>{{shoporderDetail.freight_amount}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.transport_fee}}</view>
       </view>
       <view class='order-bar'>
         <view class='order-bar-label'>备注</view>
@@ -245,7 +245,7 @@
       </view>
       <view class='order-bar' >
         <view class='order-bar-label'>支付方式：</view>
-        <view class='order-bar-text'>{{shoporderDetail.settlement_mode}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.settlement_mode_text}}</view>
       </view>
       <view class='order-bar' >
         <view class='order-bar-label'>发件人：</view>

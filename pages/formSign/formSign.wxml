@@ -1,0 +1,102 @@
+<!--pages/formSign/formSign.wxml-->
+<view class='query'>
+  <view class='query-condition'>
+    <!--新的写法，与APP样式一致-->
+    <view class="query-condition-items active">
+      <view class='query-conditions-name'>月份</view>
+      <picker mode="date" fields="month" value="{{date}}" start="2010-01" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
+      <image hidden='{{!dateStatus}}' class='search-clear' src="../../images/clear.png" bindtap='dateClear'></image>
+    </view>
+
+    <view class="query-condition-items  active">
+      <view class='query-conditions-name'>承运商</view>
+      <input placeholder="请选择承运商" bindtap='showForwarder' value='{{val}}' />
+      <image hidden='{{!forwarderStatus}}' class='search-clear' src="../../images/clear.png" bindtap='forwarderClear'></image>
+    </view>
+
+    <!--之前的写法query-condition-items和query-conditions-name做了判断-->
+    <!--
+    <view class="query-condition-items  {{dateStatus?'active':''}}">
+      <view hidden="{{!dateStatus}}" class='query-conditions-name'>月份</view>
+      <picker mode="date" fields="month" value="{{date}}" start="2010-01" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
+      <image hidden='{{!dateStatus}}' class='search-clear' src="../../images/clear.png" bindtap='dateClear'></image>
+    </view>
+
+    <view class="query-condition-items  {{forwarderStatus?'active':''}}">
+      <view hidden="{{!forwarderStatus}}" class='query-conditions-name'>承运商</view>
+      <input placeholder="请选择承运商" bindtap='showForwarder' value='{{val}}' />
+      <image hidden='{{!forwarderStatus}}' class='search-clear' src="../../images/clear.png" bindtap='forwarderClear'></image>
+    </view>
+    -->
+
+
+  </view>
+</view>
+
+
+
+<scroll-view class='goodsTable' scroll-x="true" scroll-y>
+  <view class="table" style="width:{{goodsWidth}}">
+    <view class="tr">
+      <view class='th' wx:for="{{tableTh}}" wx:key="key">
+        {{item.title}}
+      </view>
+    </view>
+
+
+    <view class="tr" wx:for="{{tableTr}}" wx:key="key" wx:for-index="indexTr">
+      <view class='td' wx:for="{{item.td}}" wx:key="key" wx:for-index="indexTd" bindtap='toInfo'>
+        {{item.name}}
+      </view>
+    </view>
+
+
+  </view>
+</scroll-view>
+
+<view class='pop-shadow' hidden="{{hide}}" bindtap='hide'></view>
+<view class='pop-up pop-forwarder' hidden='{{hideForwarder}}'>
+  <scroll-view scroll-y class='forwarder-content'>
+    <view class='forwarder-list'>
+      <view class='forwarder-item' wx:for="{{forwarderList}}">
+        <view class='forwarder-item-check' bindtap='toSend' data-index="{{index}}">
+          <image src='{{item.check}}'></image>
+        </view>
+        <view class='forwarder-item-head' bindtap='toSend' data-index="{{index}}">
+          <image class='forwarder-item-logo' src='{{item.logo}}'></image>
+          <view class='forwarder-item-name'>{{item.name}}</view>
+          <view class='forwarder-item-level level-{{item.level}}' data-level="{{item.level}}" data-pic="{{item.levelpic}}">
+            <image src='{{item.levelpic}}'></image>
+            <image src='{{item.levelpic}}'></image>
+            <image src='{{item.levelpic}}'></image>
+            <image src='{{item.levelpic}}'></image>
+            <image src='{{item.levelpic}}'></image>
+          </view>
+        </view>
+        <view class='forwarder-item-info'>
+          <view class='forwarder-item-bar'>
+            <image src='../../images/send-tel.png'></image>
+            <view>{{item.person}} {{item.tel}}</view>
+          </view>
+          <view class='forwarder-item-bar'>
+            <image src='../../images/send-by.png'></image>
+            <view>{{item.by}}</view>
+          </view>
+          <view class='forwarder-item-bar'>
+            <image src='../../images/send-location.png'></image>
+            <view>{{item.location}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class='pop-bottom' bindtap='sureForwarder' data-name="{{checkName}}">确认</view>
+</view>

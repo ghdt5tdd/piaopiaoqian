@@ -6,7 +6,7 @@ const util = require('../../utils/util.js')
 var QQMapWX = require('../qqmap/qqmap-wx-jssdk.js')
 var demo = new QQMapWX({
   key: app.globalData.qqMapKey // 必填 换成自己申请到的
-});
+})
 
 Page({
 

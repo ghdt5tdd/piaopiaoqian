@@ -72,9 +72,17 @@ Page({
 
   toBind: function(e) {
     if (this.data.hasUserInfo == true) {
-      wx.redirectTo({
-        url: '../bind/bind',
-      })
+      const area = wx.getStorageSync('lastArea') || ''
+      //第一次使用
+      if (area === '' && !appData.APP_IS_PRIVATE) {
+        wx.redirectTo({
+          url: '../enterpriseDomain/enterpriseDomain',
+        })
+      } else {
+        wx.redirectTo({
+          url: '../bind/bind',
+        })
+      }
       ajax.getApi('mini/program/createMember', {
         ...app.globalData.userInfo,
         openId: app.globalData.openId,

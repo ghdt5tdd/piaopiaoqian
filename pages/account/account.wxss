@@ -1,12 +1,8 @@
 /* pages/account/account.wxss */
-@import '../phonebook/phonebook.wxss';
-
-.search-box {
-  width: calc(100% - 120rpx);
-}
 
 .account {
-  margin-top: 110rpx;
+  margin-top: 10rpx;
+  height: calc(100vh - 206rpx);
 }
 
 .account-item {
@@ -26,8 +22,17 @@
   width: 100%;
   font-size: 36rpx;
   line-height: 60rpx;
-  padding: 20rpx 180rpx 20rpx 20rpx;
+  padding: 20rpx 180rpx 20rpx 130rpx;
   position: relative;
+}
+
+.account-avatar {
+  position: absolute;
+  top: 25rpx;
+  left: 20rpx;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
 }
 
 .account-spec {
@@ -87,11 +92,11 @@
   position: fixed;
   z-index: 999;
   background: #fff;
-  width: 540rpx;
+  width: 90%;
   height: 600rpx;
-  left: 50%;
+  left: 5%;
   top: 50%;
-  margin: -300rpx 0 0 -270rpx;
+  margin-top: -300rpx;
   border-radius: 10rpx;
   overflow: hidden;
 }
@@ -132,15 +137,13 @@
 }
 
 .permit-role-icon {
-  border: 1px solid #e7e7e7;
   width: 40rpx;
   height: 40rpx;
-  text-align: center;
 }
 
-.permit-role-icon icon {
-  display: inline-block;
-  line-height: 40rpx;
+.permit-role-icon image {
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .popup-permit-role:last-child {
@@ -166,4 +169,19 @@
 .longTap-opt:last-child {
   background: #eee;
   border: none;
+}
+
+/*修改部分*/
+
+.query-add {
+  position: absolute;
+  font-size: 0.8rem;
+  line-height: 42rpx;
+  z-index: 11;
+  top: 30rpx;
+  right: 20rpx;
+}
+
+.query-condition-items.active:nth-child(even) .search-clear {
+  right: 60rpx;
 }

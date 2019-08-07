@@ -1,35 +1,22 @@
 <!--pages/goodsdetail/goodsdetail.wxml-->
 <scroll-view scroll-x="true" style="width:100%" >
-<view class='goodsTable'>
-  <view class="table">
-    <view class="tr">
-      <view class='th' >
-        行号
-      </view>
-      <view class='th' >
-        商品编码
-      </view>
-      <view class='th' >
-        商品名称
-      </view>
-      <view class='th' >
-        数量
-      </view>
-    </view>
-    <view class="tr" wx:for="{{orderDetails.details}}" wx:key="id">
-      <view class='td' >
-        {{item.line_number}}
-      </view>
-      <view class='td' >
-        {{item.goods_code}}
-      </view>
-      <view class='td' >
-        {{item.goods_name}}
-      </view>
-      <view class='td' >
-        {{item.quantity}}
-      </view>
-    </view>
+<view class='goods-bar' wx:for="{{orderDetails.details}}" wx:key="id">
+
+  <view class='goods-bar-item'>
+    <text class='goods-bar-label'>行号：</text>
+    <text class='goods-bar-name'>{{item.line_number}}</text>
+  </view>
+  <view class='goods-bar-item'>
+    <text class='goods-bar-label'>数量：</text>
+    <text class='goods-bar-name'>{{item.quantity}}</text>
+  </view>
+  <view class='goods-bar-item'>
+    <text class='goods-bar-label'>商品编码：</text>
+    <text class='goods-bar-name'>{{item.goods_code}}</text>
+  </view>
+  <view class='goods-bar-item'>
+    <text class='goods-bar-label'>商品名称：</text>
+    <text class='goods-bar-name'>{{item.goods_name}}</text>
   </view>
 </view>
 </scroll-view>
