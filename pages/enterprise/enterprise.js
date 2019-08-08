@@ -15,34 +15,8 @@ Page({
   data: {
     page: 0,
     pageSize: 10,
-    begin: "城市",
     companyItems: [],
-    companyItemsFilter: [],
-    enterprise: [{
-      logo: "../../images/company.png",
-      name: "温州春城货运有限公司",
-      tel: "0577-88452218",
-      by: "温州-昆明专线",
-      location: "温州市瓯海区潘桥街横焦路99号中瓯物流园9幢1-2号",
-    }, {
-      logo: "../../images/company3.jpg",
-      name: "温州华安物流有限公司",
-      tel: "0577-88418198",
-      by: "温州-山东全线",
-      location: "浙江省温州市瓯海区潘桥街道高新技术区创业园",
-    }, {
-      logo: "../../images/company2.jpg",
-      name: "万隆化工有限公司",
-      tel: "0577-65092470",
-      by: "中国企业500强",
-      location: "浙江省温州市瑞安市锦湖街道万隆化工",
-    }, {
-      logo: "../../images/company1.jpg",
-      name: "德力西电气有限公司",
-      tel: "0577-61778888",
-      by: "中国企业500强",
-      location: "浙江省乐清市柳市镇德力西高科技工业园",
-    }, ]
+    companyItemsFilter: []
   },
 
 

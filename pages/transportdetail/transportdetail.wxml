@@ -80,7 +80,7 @@
         <view class='order-bar-text'>{{shoporderDetail.total_volume}}</view>
       </view>
       <view class='order-bar'>
-        <view class='order-bar-label'>支付方式</view>
+        <view class='order-bar-label'>付款方式</view>
         <view class='order-bar-text'>{{shoporderDetail.settlement_mode_text}}</view>
       </view>
       <view class='order-bar'>
@@ -244,7 +244,7 @@
         <view class='order-bar-text'>{{shoporderDetail.consignee_man}}</view>
       </view>
       <view class='order-bar' >
-        <view class='order-bar-label'>支付方式：</view>
+        <view class='order-bar-label'>付款方式：</view>
         <view class='order-bar-text'>{{shoporderDetail.settlement_mode_text}}</view>
       </view>
       <view class='order-bar' >

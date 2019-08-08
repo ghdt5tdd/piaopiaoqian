@@ -82,12 +82,14 @@ Page({
 
   selectRadio:function(e) {
     if (e.currentTarget.dataset.index === 0) {
-      const actualDate = this.data.selectOrder.estimated_arrive_date.substring(0, 10)
-      const actualTime = this.data.selectOrder.estimated_arrive_date.substring(11)
-      this.setData({
-        actualDate,
-        actualTime,
-      })
+      if (this.data.selectOrder.estimated_arrive_date){
+        const actualDate = this.data.selectOrder.estimated_arrive_date.substring(0, 10)
+        const actualTime = this.data.selectOrder.estimated_arrive_date.substring(11)
+        this.setData({
+          actualDate,
+          actualTime,
+        })
+      }
     }
     this.setData({
       timely: e.currentTarget.dataset.index === 0 ? true : false,

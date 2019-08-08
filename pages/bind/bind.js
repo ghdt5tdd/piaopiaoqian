@@ -40,7 +40,6 @@ Page({
     })
   },
 
-
   formSubmit: function(e) {
     var warn = "";
     var flag = false;
@@ -133,11 +132,9 @@ Page({
 
   getSystemInfo() {
     let systemInfo = wx.getStorageSync('systemInfo')
-    console.log(systemInfo)
     if (systemInfo === '') {
       wx.getSystemInfo({
         success: res => {
-          console.log(res)
           this.setData({
             systemInfo: res
           })

@@ -169,7 +169,7 @@ Page({
         label: "揽件人",
         text: "安振龙",
       }, {
-        label: "支付方式",
+        label: "付款方式",
         text: "",
       }, {
         label: "发件人",
@@ -263,11 +263,14 @@ Page({
       wx.hideLoading()
       if (res && res.success) {
         const shoporderDetail = res.data
-        shoporderDetail.start_departing_date_short = shoporderDetail.start_departing_date.substring(0, 10)
-        shoporderDetail.estimated_arriver_date_short = shoporderDetail.estimated_arriver_date.substring(0, 10)
+        if (shoporderDetail.start_departing_date) {
+          shoporderDetail.start_departing_date_short = shoporderDetail.start_departing_date.substring(0, 10)
+        }
+        if (shoporderDetail.estimated_arriver_date) {
+          shoporderDetail.estimated_arriver_date_short = shoporderDetail.estimated_arriver_date.substring(0, 10)
+        }
         if (shoporderDetail.bill_no) {
           this.createBarCode('canvas', shoporderDetail.bill_no)
-          // 
         }
         this.setData({
           shoporderDetail

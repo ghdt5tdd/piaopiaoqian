@@ -57,8 +57,12 @@ Page({
       wx.hideLoading()
       if (res && res.success) {
         const shoporderDetail = res.data
-        shoporderDetail.start_departing_date_short = shoporderDetail.start_departing_date.substring(0, 10)
-        shoporderDetail.estimated_arriver_date_short = shoporderDetail.estimated_arriver_date.substring(0, 10)
+        if (shoporderDetail.start_departing_date) {
+          shoporderDetail.start_departing_date_short = shoporderDetail.start_departing_date.substring(0, 10)
+        }
+        if (shoporderDetail.estimated_arriver_date) {
+          shoporderDetail.estimated_arriver_date_short = shoporderDetail.estimated_arriver_date.substring(0, 10)
+        }
         this.setData({
           shoporderDetail
         })
