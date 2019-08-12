@@ -79,11 +79,11 @@
         <view class='order-bar-label'>货物体积</view>
         <view class='order-bar-text'>{{shoporderDetail.total_volume}}</view>
       </view>
-      <view class='order-bar'>
+      <view class='order-bar' wx:if="{{shoporderDetail.settlement_mode_text}}">
         <view class='order-bar-label'>付款方式</view>
         <view class='order-bar-text'>{{shoporderDetail.settlement_mode_text}}</view>
       </view>
-      <view class='order-bar'>
+      <view class='order-bar' wx:if="{{shoporderDetail.transport_fee}}">
         <view class='order-bar-label'>运费</view>
         <view class='order-bar-text'>{{shoporderDetail.transport_fee}}</view>
       </view>
