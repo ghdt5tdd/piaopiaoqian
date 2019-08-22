@@ -1,0 +1,137 @@
+<!--pages/enter/enter.wxml-->
+
+<view class='search-scan'>
+  <image class='search-icon' src='../../images/search.png'></image>
+  <input placeholder='请输入或扫描运单号'  bindinput='bindInput' bindconfirm="bindComfirm"  data-key="orderNo"></input>
+  <image class='scan-icon' src='../../images/scan.png' bindtap='scanCode'></image>
+</view>
+
+<view class="order-status ul-2">
+  <block wx:for="{{orderStatus}}" wx:key="value">
+    <view class="order-status-items  {{selectStatus == item.value?'on':''}}" bindtap='selectStatus' data-state="{{item.value}}">
+      {{item.name}}
+    </view>
+  </block>
+</view>
+
+
+<scroll-view scroll-y style='height:calc(100vh - 206rpx)' bindscrolltolower="lower">
+  <view class='enter-list'>
+    <view class='enter-list-item' wx:for="{{orders}}" wx:key="id">
+      <view class='enter-list-head'>
+        <view class='enter-list-id'>货运单号：{{item.bill_no}}</view>
+        <view class='enter-list-time'>{{item.bill_date}}</view>
+      </view>
+      <view class='enter-list-content'>
+        <view class='enter-list-route'>
+          <view class='enter-route-point'>{{item.consignment_station_name}}</view>
+          <image mode="widthFix" src="../../images/arrow.png"></image>
+          <view class='enter-route-point'>{{item.receiving_station_name}}</view>
+        </view>
+        <view class='enter-list-bar'>
+          <view class='enter-bar-item'>
+            <view class='enter-bar-label'>发货单位：</view>
+            <view class='enter-bar-info'>{{item.consigner_unit}}</view>
+          </view>
+          <view class='enter-bar-item'>
+            <view class='enter-bar-label'>联系人：</view>
+            <view class='enter-bar-info'>{{item.consigner_man}}</view>
+          </view>
+          <view class='enter-bar-item'>
+            <view class='enter-bar-label'>收货单位：</view>
+            <view class='enter-bar-info'>{{item.consignee_unit}}</view>
+          </view>
+          <view class='enter-bar-item'>
+            <view class='enter-bar-label'>联系人：</view>
+            <view class='enter-bar-info'>{{item.consignee_man}}</view>
+          </view>
+          <view class='enter-bar-item'>
+            <view class='enter-bar-label'>货物件数：</view>
+            <view class='enter-bar-info'>{{item.total_packing_quantity}}件</view>
+          </view>
+          <view class='enter-bar-item'>
+            <view class='enter-bar-label'>起运时间：</view>
+            <view class='enter-bar-info'>{{item.start_departing_date}}</view>
+          </view>
+          <view class='enter-bar-item'>
+            <view class='enter-bar-label'>预计到达时间：</view>
+            <view class='enter-bar-info'>{{item.estimated_arrive_date || '无'}}</view>
+          </view>
+          <!-- <view class='enter-bar-item'>
+            <view class='enter-bar-label'>实际到达时间：</view>
+            <view class='enter-bar-info'>{{item.actual_arrive_date}}</view>
+          </view> -->
+        </view>
+      </view>
+
+      <view class='enter-list-other'>
+        <view class='enter-list-status'>{{item.order_state}}</view>
+        <view class='enter-list-opt'>
+          <view class="enter-opt-item line" bindtap='toInfo' data-id="{{item.id}}">查看详情</view>
+          <view class="enter-opt-item" wx:if="{{selectStatus === 0}}" bindtap='toReport' data-index="{{index}}">进仓上报</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<view class='pop-shadow' hidden="{{hide}}" bindtap='hide'></view>
+<view class='pop-up pop-report' hidden="{{hideReport}}">
+  <view class='pop-cancel' bindtap="hide">×</view>
+  <view class='pop-report-head'>进仓上报</view>
+  <scroll-view scroll-y class='pop-report-content'>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>货运单号：</view>
+      <view class='pop-report-info'>{{selectOrder.bill_no}}</view>
+    </view>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>进仓编号：</view>
+      <view class='pop-report-info'>{{selectOrder.warehouse_entry_coding}}</view>
+    </view>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>唛头：</view>
+      <view class='pop-report-info'>{{selectOrder.shipping_mark_content}}</view>
+    </view>
+    <view class='pop-report-bar' wx:if="{{selectOrder.settlement_mode === 'receiver_pay'}}">
+      <view class='pop-report-label'>到付金额：</view>
+      <view class='pop-report-info'>{{selectOrder.consignee_arrive_pay_amount || 0}}</view>
+    </view>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>垫付进仓费：</view>
+      <view class='pop-report-info'>
+        <input placeholder='请填写进仓费' bindinput='bindInput'  data-key="agentWarehouseEntryFee"></input>
+      </view>
+    </view>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>垫付其他费：</view>
+      <view class='pop-report-info'>
+        <input placeholder='请填写其他费' bindinput='bindInput'  data-key="agentElseFee"></input>
+      </view>
+    </view>
+    <view class='pop-report-bar code-bar' wx:if="{{selectOrder.settlement_mode === 'receiver_pay'}}">
+      <view class='pop-report-label'>验证码：</view>
+      <view class='pop-report-info'>
+        <input placeholder='请填写验证码' bindinput='bindInput'  data-key="code"></input>
+      </view>
+      <button class="codeBtn {{codetype? 'on':''}}" bindtap='getVerificationCode' disabled='{{disabled}}'>{{codename}}</button>
+    </view>
+
+    <view class='pop-report-pic'>
+      <view class='pop-report-label'>上传回单：</view>
+      <view class='pop-report-gallery'>
+        <view class='report-gallery-info'>
+          <view class="img" wx:for="{{shopImgs}}" wx:key="*this">
+            <image src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
+            <icon class="delete-btn" type="clear" data-index="{{index}}" catchtap="deleteImg"></icon>
+          </view>
+        </view>
+        <view class='report-gallery-upload' bindtap="changePic">
+          <image src='../../images/picture2.png'></image>
+        </view>
+      </view>
+    </view>
+
+
+  </scroll-view>
+  <view class='pop-bottom' bindtap="commitReport">提交</view>
+</view>

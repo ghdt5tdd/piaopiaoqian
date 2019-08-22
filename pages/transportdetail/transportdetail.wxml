@@ -177,7 +177,7 @@
 
     <view class='stub-head'>
       <view class='stub-code'>
-        <canvas style="width: 400px; height: 40px;position：static" canvas-id="canvas" ></canvas>
+        <canvas style="width: 400px; height: 40px;position：static;margin: 0 auto;" canvas-id="canvas" ></canvas>
         <view>{{shoporderDetail.bill_no}}</view> 
       </view>
       <view class='stub-spec'>

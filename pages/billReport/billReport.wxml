@@ -1,0 +1,108 @@
+<!--pages/enter/enter.wxml-->
+
+<view class='search-scan'>
+  <image class='search-icon' src='../../images/search.png'></image>
+  <input placeholder='请输入或扫描代理单号'></input>
+  <image class='scan-icon' src='../../images/scan.png' bindtap='scanCode'></image>
+</view>
+
+<view class="order-status ul-2">
+  <block wx:for="{{orderStatus}}" wx:key="key">
+    <view class="order-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+      {{item.name}}
+    </view>
+  </block>
+</view>
+
+
+<scroll-view scroll-y style='height:calc(100vh - 206rpx)'>
+  <view class='enter-list'>
+    <view class='enter-list-item' wx:for="{{order}}" wx:key="key">
+      <view class='enter-list-head'>
+        <view class='enter-list-id'>货运单号：{{item.id}}</view>
+        <view class='enter-list-time'>{{item.time}}</view>
+      </view>
+      <view class='enter-list-content'>
+        <view class='enter-list-route'>
+          <view class='enter-route-point'>{{item.start}}</view>
+          <image mode="widthFix" src="../../images/arrow.png"></image>
+          <view class='enter-route-point'>{{item.end}}</view>
+        </view>
+        <view class='enter-list-bar'>
+          <view class='enter-bar-item' wx:for="{{item.bar}}" wx:key="key">
+            <view class='enter-bar-label'>{{item.label}}：</view>
+            <view class='enter-bar-info'>{{item.info}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class='enter-list-other'>
+        <view class='enter-list-status'>{{item.status}}</view>
+        <view class='enter-list-opt'>
+          <view class="enter-opt-item {{item.line? 'line':''}}" wx:for="{{item.opt}}" wx:key="key" bindtap='{{item.open}}'>{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+
+
+
+  </view>
+</scroll-view>
+
+<view class='pop-shadow' hidden="{{hide}}" bindtap='hide'></view>
+<view class='pop-up pop-report' hidden="{{hideReport}}">
+  <view class='pop-cancel' bindtap="hide">×</view>
+  <view class='pop-report-head'>进仓上报</view>
+  <scroll-view scroll-y class='pop-report-content'>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>到付金额：</view>
+      <view class='pop-report-info'>{{enterPay}}</view>
+    </view>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>另收提货费：</view>
+      <view class='pop-report-info'>
+        <input placeholder='请填写提货费'></input>
+      </view>
+    </view>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>另收送货费：</view>
+      <view class='pop-report-info'>
+        <input placeholder='请填写送货费'></input>
+      </view>
+    </view>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>另收其他费：</view>
+      <view class='pop-report-info'>
+        <input placeholder='请填写其他费'></input>
+      </view>
+    </view>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>垫付进仓费：</view>
+      <view class='pop-report-info'>
+        <input placeholder='请填写进仓费'></input>
+      </view>
+    </view>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>垫付清关费：</view>
+      <view class='pop-report-info'>
+        <input placeholder='请填写清关费'></input>
+      </view>
+    </view>
+    <view class='pop-report-bar'>
+      <view class='pop-report-label'>垫付其他费：</view>
+      <view class='pop-report-info'>
+        <input placeholder='请填写其他费'></input>
+      </view>
+    </view>
+
+    <view class='pop-report-pic'>
+      <view class='pop-report-label'>上传回单：</view>
+      <view class='pop-report-gallery'>
+        <image bindtap="changeReceipt" src='{{receiptPic}}'></image>
+      </view>
+    </view>
+
+
+  </scroll-view>
+  <view class='pop-bottom'>提交</view>
+</view>

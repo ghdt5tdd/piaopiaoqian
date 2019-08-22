@@ -25,11 +25,12 @@ moduleItemImgs.set('13', { img: '../../images/model13.png', to: 'toRegister' })/
 moduleItemImgs.set('14', { img: '../../images/model5.png', to: 'toForm' })//统计报表
 moduleItemImgs.set('15', { img: '../../images/notice6.png', to: 'toSheet' })//运费结算
 // moduleItemImgs.set('', { img: '../../images/model14.png', to: 'toContract' })//合同管理
-// moduleItemImgs.set('', { img: '../../images/model16.png', to: 'toRenew' })//合同续费
 // moduleItemImgs.set('', { img: '../../images/model15.png', to: 'toAct' })//行动汇报
-// moduleItemImgs.set('', { img: '../../images/notice5.png', to: 'toHouse' })//物流仓及时率
-// moduleItemImgs.set('', { img: '../../images/list1.png',   to: 'toCustomer' })//客户及时率
-// moduleItemImgs.set('', { img: '../../images/notice2.png', to: 'toForwarder' })//承运商及时率
+// moduleItemImgs.set('', { img: '../../images/model16.png', to: 'toRenew' })//合同续费
+moduleItemImgs.set('16', { img: '../../images/model17.png', to: 'toEnter' })//进仓上报
+moduleItemImgs.set('17', { img: '../../images/model18.png', to: 'toBillReceive' })//代理单接收
+moduleItemImgs.set('18', { img: '../../images/model19.png', to: 'toBillReport' })//代理进仓上报
+moduleItemImgs.set('19', { img: '../../images/model3.png', to: 'toEnterover' })//代理单交接 
 
 Page({
   data: {
@@ -103,46 +104,8 @@ Page({
     interval: 4000,
     duration: 1000,
 
-
-    moduleItemImg:{
-
-    },
-    moduleItems: [{
-      image: "../../images/model1.png",
-      name: "订单查询",
-      to: 'toOrder'
-    }, {
-      image: "../../images/model8.png",
-      name: "预约下单",
-      to: 'toAppoint'
-    }, {
-      image: "../../images/model3.png",
-      name: "货运单交接",
-      to: 'toHandover'
-    }, {
-      image: "../../images/model3.png",
-      name: "货运单签收",
-      to: 'toSign'
-    }, {
-      image: "../../images/model4.png",
-      name: "异常上报",
-      to: 'toAbnormal'
-    }, {
-      image: "../../images/model2.png",
-      name: "物流跟踪",
-      to: 'toTransport'
-    }, {
-      image: "../../images/model5.png",
-      name: "统计报表",
-      to: 'toForm'
-    }, {
-      image: "../../images/model9.png",
-      name: "预警提示",
-      to: 'toWarn'
-    }, ],
-
-
-
+    moduleItemImg:{},
+    moduleItems: [],
   },
 
   //打开收起下拉菜单
@@ -209,6 +172,13 @@ Page({
   toOrder: function(e) {
     wx.navigateTo({
       url: '../order/order'
+    })
+  },
+
+  //进仓上报
+  toEnter: function (e) {
+    wx.navigateTo({
+      url: '../enter/enter'
     })
   },
 

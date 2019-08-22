@@ -1,0 +1,48 @@
+<!--pages/enter/enter.wxml-->
+
+<view class='search-scan'>
+  <image class='search-icon' src='../../images/search.png'></image>
+  <input placeholder='请输入或扫描代理单号'></input>
+  <image class='scan-icon' src='../../images/scan.png'></image>
+</view>
+
+<view class="order-status ul-2">
+  <block wx:for="{{orderStatus}}" wx:key="key">
+    <view class="order-status-items  {{selectStatus == index?'on':''}}" bindtap='selectStatus' data-index="{{index}}">
+      {{item.name}}
+    </view>
+  </block>
+</view>
+
+
+<scroll-view scroll-y style='height:calc(100vh - 206rpx)'>
+  <view class='enter-list'>
+    <view class='enter-list-item' wx:for="{{order}}" wx:key="key">
+      <view class='enter-list-head'>
+        <view class='enter-list-id'>代理单号：{{item.id}}</view>
+        <view class='enter-list-time'>{{item.time}}</view>
+      </view>
+      <view class='enter-list-content'>
+        <view class='enter-list-route'>
+          <view class='enter-route-point'>{{item.start}}</view>
+          <image mode="widthFix" src="../../images/arrow.png"></image>
+          <view class='enter-route-point'>{{item.end}}</view>
+        </view>
+        <view class='enter-list-bar'>
+          <view class='enter-bar-item' wx:for="{{item.bar}}" wx:key="key">
+            <view class='enter-bar-label'>{{item.label}}：</view>
+            <view class='enter-bar-info'>{{item.info}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class='enter-list-other'>
+        <view class='enter-list-status'>{{item.status}}</view>
+        <view class='enter-list-opt'>
+          <view class="enter-opt-item {{item.line? 'line':''}}" wx:for="{{item.opt}}" wx:key="key" bindtap='{{item.open}}'>{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</scroll-view>

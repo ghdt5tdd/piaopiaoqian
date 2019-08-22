@@ -1,0 +1,104 @@
+<!--pages/enterInfo/enterInfo.wxml-->
+<view class='enter-list-block'>
+  <view class='enter-list-headline'>
+    <view>运单号：{{selectOrder.bill_no}}</view>
+    <view class='enter-list-time'>{{selectOrder.bill_date}}</view>
+  </view>
+  <view class='enter-list-content'>
+    <view class='enter-list-route'>
+      <view class='enter-route-point'>{{selectOrder.consignment_station_name}}</view>
+      <image mode="widthFix" src="../../images/arrow.png"></image>
+      <view class='enter-route-point'>{{selectOrder.receiving_station_name}}</view>
+    </view>
+    <view class='enter-list-bar'>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>发货单位：</view>
+        <view class='enter-bar-info'>{{selectOrder.consigner_unit}}</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>联系人：</view>
+        <view class='enter-bar-info'>{{selectOrder.consigner_man}}</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>收货单位：</view>
+        <view class='enter-bar-info'>{{selectOrder.consignee_unit}}</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>联系人：</view>
+        <view class='enter-bar-info'>{{selectOrder.consignee_man}}</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>货物名称：</view>
+        <view class='enter-bar-info'>{{selectOrder.goods_name}}</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>货物件数：</view>
+        <view class='enter-bar-info'>{{selectOrder.total_packing_quantity}}件</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>货物重量：</view>
+        <view class='enter-bar-info'>{{selectOrder.total_weight}}kg</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>货物体积：</view>
+        <view class='enter-bar-info'>{{selectOrder.total_volume}}m³</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>起运时间：</view>
+        <view class='enter-bar-info'>{{selectOrder.start_departing_date}}</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>预计到达时间：</view>
+        <view class='enter-bar-info'>{{selectOrder.estimated_arrive_date || '无'}}</view>
+      </view>
+      <!-- <view class='enter-bar-item'>
+        <view class='enter-bar-label'>实际到达时间：</view>
+        <view class='enter-bar-info'>{{selectOrder.actual_arrive_date}}</view>
+      </view> -->
+    </view>
+  </view>
+</view>
+
+<view class='enter-list-block'>
+  <view class='enter-list-headline'>
+    到付信息
+  </view>
+  <view class='enter-list-content'>
+    <view class='enter-list-bar enter-list-pay'>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>进仓编号：</view>
+        <view class='enter-bar-info'>{{selectOrder.warehouse_entry_coding}}</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>唛头：</view>
+        <view class='enter-bar-info'>{{selectOrder.shipping_mark_content}}</view>
+      </view>
+      <view class='enter-bar-item'  wx:if="{{selectOrder.settlement_mode === 'receiver_pay'}}">
+        <view class='enter-bar-label'>到付金额：</view>
+        <view class='enter-bar-info'>{{selectOrder.consignee_arrive_pay_amount || 0}}</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>垫付进仓费：</view>
+        <view class='enter-bar-info'>{{selectOrder.agent_warehouse_entry_fee}}</view>
+      </view>
+      <view class='enter-bar-item'>
+        <view class='enter-bar-label'>垫付其他费：</view>
+        <view class='enter-bar-info'>{{selectOrder.agent_else_fee}}</view>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+<view class='enter-list-block' wx:if="{{shopImgs.length > 0}}">
+  <view class='enter-list-headline'>
+    回单信息
+  </view>
+  <view class='enter-list-content'>
+    <view class='enter-list-gallery'>
+      <view class='enter-gallery-img' mode='aspectfill' wx:for="{{shopImgs}}" wx:key="key">
+        <image src='{{item.pic}}'></image>
+      </view>
+    </view>
+  </view>
+</view>
