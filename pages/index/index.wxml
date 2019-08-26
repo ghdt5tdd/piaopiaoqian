@@ -11,7 +11,7 @@
   <view class='logoff' bindtap='off' >退出登录</view>
 </view>
 
-<view class='my-tabs'>
+<view class='my-tabs' wx:if="{{orderStatus.length > 0}}">
   <view class='my-tabs-status {{ul}}'>
     <block wx:for="{{orderStatus}}" wx:key="code">
       <view class="tabs-status-items  {{item.code === curCode?'on':''}}" bindtap='selectStatus' data-code="{{item.code}}">

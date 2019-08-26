@@ -2,7 +2,7 @@
 
 <view class='search-scan'>
   <image class='search-icon' src='../../images/search.png'></image>
-  <input placeholder='请输入或扫描运单号'  bindinput='bindInput' bindconfirm="bindComfirm"  data-key="orderNo"></input>
+  <input placeholder='请输入或扫描运单号' value="{{orderNo}}"  bindinput='bindInput' bindconfirm="bindComfirm"  data-key="orderNo"></input>
   <image class='scan-icon' src='../../images/scan.png' bindtap='scanCode'></image>
 </view>
 

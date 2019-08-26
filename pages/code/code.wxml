@@ -13,7 +13,7 @@
      <view class='my-bar-input'>{{systemInfo.system}}</view>
   </view>
     <view class='my-bar'>
-     <view class='my-bar-label'>客户端平台</view>
+     <view class='my-bar-label'>客户端</view>
      <view class='my-bar-input'>{{systemInfo.platform}}</view>
   </view>
 </view>

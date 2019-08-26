@@ -151,6 +151,11 @@ Page({
           wx.navigateBack({
             delta: 1
           })
+        } else {
+          wx.showToast({
+            title: res.text,
+            duration: 1000
+          })
         }
       })	
     }

@@ -242,7 +242,7 @@ Page({
           loadCompleted: false,
           orders: [],
         }, () => {
-          this.getOrder()
+          _this.getOrder()
         })
         // this.setData({
         //   hideReport: false,

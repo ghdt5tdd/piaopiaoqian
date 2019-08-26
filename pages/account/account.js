@@ -440,6 +440,11 @@ Page({
           account: res.data,
           filterAccount: res.data
         })
+      } else {
+        wx.showToast({
+          title: res.text,
+          duration: 1000
+        })
       }
     })	
   },
