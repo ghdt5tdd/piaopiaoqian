@@ -63,40 +63,6 @@ Page({
     duration: 300,
 
     newsList: [],
-    newsUrls: [{
-        index: 0,
-        info: [{
-          style: "通知",
-          name: "APP将于10月25日9：00至11：00进行更新",
-          to: "toNews"
-        }, {
-          style: "新闻",
-          name: "德力西电气全新官网，服务品质再度升级",
-          to: "toNews"
-        }]
-      }, {
-        index: 1,
-        info: [{
-          style: "新闻",
-          name: "人事自助服务终端‘德家小AI惊艳面世’",
-          to: "toNews"
-        }, {
-          style: "公告",
-          name: "vivo手机GPS持续上传设置方法",
-          to: "toNews"
-        }]
-      }, {
-        index: 2,
-        info: [{
-          style: "新闻",
-          name: "德力西电气再添新功能，下单寄送一体化",
-        }, {
-          style: "公告",
-          name: "小米手机GPS持续上传设置方法",
-        }]
-      }
-
-    ],
     indicatorDots: false,
     vertical: true, //纵向滑动
     circular: true, //衔接动画
@@ -118,7 +84,7 @@ Page({
 
   //跳转到承运商服务详情统计页面
   toLevel: function (e) {
-    const partnerTypeCode = this.memberInfo.partnerTypeCode
+    const partnerTypeCode = this.data.memberInfo.partnerTypeCode
     if (partnerTypeCode === 'carrier') {
       wx.navigateTo({
         url: '../level/level'
@@ -425,8 +391,10 @@ Page({
     moduleItems.forEach(v => {
       const itemKey = v.itemKey
       const moduleInfo = moduleItemImgs.get(itemKey)
-      v.img = moduleInfo.img
-      v.to = moduleInfo.to
+      if (moduleInfo) {
+        v.img = moduleInfo.img
+        v.to = moduleInfo.to
+      }
     })
 
     this.setData({

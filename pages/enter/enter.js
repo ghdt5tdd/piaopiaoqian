@@ -72,13 +72,15 @@ Page({
 
  //获取验证码  
   getVerificationCode(e) {
+    const formId = e.detail.formId
+    console.log(e)
     var _this = this;
 
     var num = 60
     var timer = setInterval(function() {
       num--;
       if (num <= 0) {
-        clearInterval(timer);
+        clearInterval(timer)
         _this.setData({
           codename: '重新发送',
           disabled: false,
@@ -94,7 +96,8 @@ Page({
 
     ajax.postApi('app/order/sendDriverReportToWarehouseShopOrderMessage', {
       location: this.data.x + ',' + this.data.y,
-      idList: this.data.selectOrder.id
+      idList: this.data.selectOrder.id,
+      formId,
     }, (err, res) => {
       wx.hideLoading()
       if (res && res.success) {
@@ -262,6 +265,7 @@ Page({
       idList: this.data.selectOrder.id,
       agent_warehouse_entry_fee: this.data.agentWarehouseEntryFee,
       agent_else_fee: this.data.agentElseFee,
+      // imgs: shopImgs
     }, (err, res) => {
       this.setData({
         hideReport: true,

@@ -24,34 +24,34 @@
       </view>
       <view class='enter-list-content'>
         <view class='enter-list-route'>
-          <view class='enter-route-point'>{{item.consignment_station_name}}</view>
+          <view class='enter-route-point'>{{item.consignment_station_name || '无'}}</view>
           <image mode="widthFix" src="../../images/arrow.png"></image>
-          <view class='enter-route-point'>{{item.receiving_station_name}}</view>
+          <view class='enter-route-point'>{{item.receiving_station_name || '无'}}</view>
         </view>
         <view class='enter-list-bar'>
           <view class='enter-bar-item'>
             <view class='enter-bar-label'>发货单位：</view>
-            <view class='enter-bar-info'>{{item.consigner_unit}}</view>
+            <view class='enter-bar-info'>{{item.consigner_unit || '无'}}</view>
           </view>
           <view class='enter-bar-item'>
             <view class='enter-bar-label'>联系人：</view>
-            <view class='enter-bar-info'>{{item.consigner_man}}</view>
+            <view class='enter-bar-info'>{{item.consigner_man || '无'}}</view>
           </view>
           <view class='enter-bar-item'>
             <view class='enter-bar-label'>收货单位：</view>
-            <view class='enter-bar-info'>{{item.consignee_unit}}</view>
+            <view class='enter-bar-info'>{{item.consignee_unit || '无'}}</view>
           </view>
           <view class='enter-bar-item'>
             <view class='enter-bar-label'>联系人：</view>
-            <view class='enter-bar-info'>{{item.consignee_man}}</view>
+            <view class='enter-bar-info'>{{item.consignee_man || '无'}}</view>
           </view>
           <view class='enter-bar-item'>
             <view class='enter-bar-label'>货物件数：</view>
-            <view class='enter-bar-info'>{{item.total_packing_quantity}}件</view>
+            <view class='enter-bar-info'>{{item.total_packing_quantity  || 0}}件</view>
           </view>
           <view class='enter-bar-item'>
             <view class='enter-bar-label'>起运时间：</view>
-            <view class='enter-bar-info'>{{item.start_departing_date}}</view>
+            <view class='enter-bar-info'>{{item.start_departing_date || '无'}}</view>
           </view>
           <view class='enter-bar-item'>
             <view class='enter-bar-label'>预计到达时间：</view>
@@ -82,15 +82,15 @@
   <scroll-view scroll-y class='pop-report-content'>
     <view class='pop-report-bar'>
       <view class='pop-report-label'>货运单号：</view>
-      <view class='pop-report-info'>{{selectOrder.bill_no}}</view>
+      <view class='pop-report-info'>{{selectOrder.bill_no || '无'}}</view>
     </view>
     <view class='pop-report-bar'>
       <view class='pop-report-label'>进仓编号：</view>
-      <view class='pop-report-info'>{{selectOrder.warehouse_entry_coding}}</view>
+      <view class='pop-report-info'>{{selectOrder.warehouse_entry_coding || '无'}}</view>
     </view>
     <view class='pop-report-bar'>
       <view class='pop-report-label'>唛头：</view>
-      <view class='pop-report-info'>{{selectOrder.shipping_mark_content}}</view>
+      <view class='pop-report-info'>{{selectOrder.shipping_mark_content || '无'}}</view>
     </view>
     <view class='pop-report-bar' wx:if="{{selectOrder.settlement_mode === 'receiver_pay'}}">
       <view class='pop-report-label'>到付金额：</view>
@@ -113,7 +113,10 @@
       <view class='pop-report-info'>
         <input placeholder='请填写验证码' bindinput='bindInput'  data-key="code"></input>
       </view>
-      <button class="codeBtn {{codetype? 'on':''}}" bindtap='getVerificationCode' disabled='{{disabled}}'>{{codename}}</button>
+
+      <form name='pushMsgFm' report-submit='true' bindsubmit='getVerificationCode'>
+        <button class="codeBtn {{codetype? 'on':''}}" form-type="submit" disabled='{{disabled}}'>{{codename}}</button>
+      </form>
     </view>
 
     <view class='pop-report-pic'>
