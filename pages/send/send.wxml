@@ -1,4 +1,5 @@
 <!--pages/send/send.wxml-->
+<scroll-view scroll-y style='height:calc(100vh - 96rpx)'> 
 <view class='send-address'>
   <view class='send-address-item' bindtap='toSend'>
     <image class='send-address-pic' src='../../images/line-start.png'></image>
@@ -68,14 +69,12 @@
   </view>
 </view>
 
-
-
-
-
 <view class='send-remark'>
   <view class='send-remark-label'>备注信息</view>
   <textarea hidden="{{markFcous}}" value="{{remark}}" bindinput='bindInput' data-key="remark"></textarea>
 </view>
+
+</scroll-view>
 
 <view class='send-bottom'>
   <view class='send-bottom-rule'>

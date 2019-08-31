@@ -12,6 +12,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     curCode: null,
     orderStatus: [],
+    img:'',
 
     selectStatus: 0,
     ul: "ul-2",
@@ -103,6 +104,13 @@ Page({
     var curCode = e.target.dataset.code;
     this.setData({
       curCode
+    })
+  },
+
+  //手写板
+  toHandwrite: function(e) {
+    wx.navigateTo({
+      url: '../handwriting/handwriting?callbackField=img'
     })
   },
 

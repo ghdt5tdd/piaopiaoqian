@@ -120,7 +120,7 @@ Page({
         }
       } else {
         wx.showToast({
-          title: '运单获取失败',
+          title: res.text,
         })
       }
 

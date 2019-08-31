@@ -90,14 +90,14 @@
   </view>
 </view>
 
-<view class='enter-list-block' wx:if="{{shopImgs.length > 0}}">
+<view class='enter-list-block' wx:if="{{selectOrder.return_receipt_img.length > 0}}">
   <view class='enter-list-headline'>
     回单信息
   </view>
   <view class='enter-list-content'>
     <view class='enter-list-gallery'>
-      <view class='enter-gallery-img' mode='aspectfill' wx:for="{{shopImgs}}" wx:key="key">
-        <image src='{{item.pic}}'></image>
+      <view class='enter-gallery-img' mode='aspectfill' wx:for="{{selectOrder.return_receipt_img}}">
+        <image src='{{item}}' bindtap="preview" data-index="{{index}}"></image>
       </view>
     </view>
   </view>

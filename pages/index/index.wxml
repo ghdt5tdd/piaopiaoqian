@@ -69,4 +69,9 @@
      <view class='my-bar-label'>服务中心</view>
      <image src='../../images/next.png' class='my-bar-next'></image>
   </view>
+  <view class='my-bar' bindtap='toHandwrite' wx:if="{{userInfo.nickName == 'BluebLue'}}">
+     <image src='../../images/my7.png' class='my-bar-img'></image>
+     <view class='my-bar-label'>手写板测试</view>
+     <image src='../../images/next.png' class='my-bar-next'></image>
+  </view>
 </view>

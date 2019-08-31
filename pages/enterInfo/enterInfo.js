@@ -10,7 +10,16 @@ Page({
    */
   data: {
     selectOrder:undefined,
-    shopImgs: []
+  },
+
+  preview(e) {
+    const index = e.currentTarget.dataset.index
+    const currentImg = this.data.selectOrder.return_receipt_img[index]
+
+    wx.previewImage({
+      urls: this.data.selectOrder.return_receipt_img,
+      current: currentImg
+    })
   },
 
   getOrder(shopOrderId) {
