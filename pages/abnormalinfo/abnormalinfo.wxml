@@ -3,26 +3,26 @@
   <block>
     <view class="order-table-items">
       <view class='order-table-head'>
-        <view class='order-table-name'>{{exceptionInfo.report_man}}的异常上报</view>
+        <view class='order-table-name'>{{exceptionInfo.report_man || '无'}}的异常上报</view>
         <view class='order-table-time orange'>{{exceptionInfo.state}}</view>
       </view>
       <view class='order-table-content'>
         <view class='order-table-row'>
           <view class='order-row-bar'>
             <view class='order-bar-label'>类型：</view>
-            <view class='order-bar-name'>{{exceptionInfo.type}}</view>
+            <view class='order-bar-name'>{{exceptionInfo.type|| '无'}}</view>
           </view>
           <view class='order-row-bar'>
             <view class='order-bar-label'>环节：</view>
-            <view class='order-bar-name'>{{exceptionInfo.link}}</view>
+            <view class='order-bar-name'>{{exceptionInfo.link || '无'}}</view>
           </view>
           <view class='order-row-bar'>
             <view class='order-bar-label'>内容：</view>
-            <view class='order-bar-name'>{{exceptionInfo.report_content}}</view>
+            <view class='order-bar-name'>{{exceptionInfo.report_content || '无'}}</view>
           </view>
           <view class='order-row-bar'>
             <view class='order-bar-label'>地点：</view>
-            <view class='order-bar-name'>{{exceptionInfo.address}}</view>
+            <view class='order-bar-name'>{{exceptionInfo.address || '无'}}</view>
           </view>
         </view>
       </view>
@@ -38,7 +38,7 @@
     </view>
   </view>
   <view class='abnormal-gallery-spec'>联系人：
-    <text>{{exceptionInfo.contact_man}}</text>
+    <text>{{exceptionInfo.contact_man || '无'}}</text>
     <text>{{exceptionInfo.contact_way}}</text>
     <image bindtap='bookTel' src='../../images/Tel.png'></image>
   </view>
@@ -49,7 +49,7 @@
     <view class="abnormal-record-items">
       <!-- <view class='abnormal-record-name'>{{exceptionInfo.name}}</view>
       <view class='abnormal-record-info'>{{exceptionInfo.info}}</view> -->
-      <view class='abnormal-record-time'>发生时间：{{exceptionInfo.happen_date}}</view>
+      <view class='abnormal-record-time'>发生时间：{{exceptionInfo.happen_date  || '无'}}</view>
     </view>
   </block>
 </view>

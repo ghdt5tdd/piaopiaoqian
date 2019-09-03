@@ -7,15 +7,15 @@
     </view>
     <view class='newslist-time'>{{item.create_date}}</view>
     <view class='newslist-content'>
-      <view class='newslist-name' bindtap='toDetail' data-news-id='{{item.id}}'>{{item.title}}</view>
+      <view class='newslist-name' bindtap='toDetail' data-news-id='{{item.id}}'>{{item.title || '无'}}</view>
       <view class='newslist-opt'>
         <view class='newslist-opt-item'>
           <image src='../../images/collect.png'></image>
-          <text>{{item.likenum}}</text>
+          <text>{{item.likenum || '0'}}</text>
         </view>
         <view class='newslist-opt-item'>
           <image src='../../images/comment.png'></image>
-          <text>{{item.commentNum}}</text>
+          <text>{{item.commentNum || '0'}}</text>
         </view>
       </view>
       <image class='newslist-pic' src='{{item.banner_img}}'></image>

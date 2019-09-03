@@ -58,23 +58,23 @@
             </view>
             <view class='order-bar-info'>
               <view class='order-bar-label'>商品编码：</view>
-              <view class='order-bar-name'>{{detail.goods_code}}</view>
+              <view class='order-bar-name'>{{detail.goods_code || '无'}}</view>
             </view>
             <view class='order-bar-info'>
               <view class='order-bar-label'>商品名称：</view>
-              <view class='order-bar-name'>{{detail.goods_name}}</view>
+              <view class='order-bar-name'>{{detail.goods_name || '无'}}</view>
             </view>
             <view class='order-bar-info'>
               <view class='order-bar-label'>订单数量：</view>
-              <view class='order-bar-name'>{{detail.quantity}}</view>
+              <view class='order-bar-name'>{{detail.quantity || '0'}}</view>
             </view>
             <view class='order-bar-info'>
               <view class='order-bar-label'>属性状态：</view>
-              <view class='order-bar-name'>{{detail.good_item_stock_state}}</view>
+              <view class='order-bar-name'>{{detail.good_item_stock_state || '无'}}</view>
             </view>
             <view class='order-bar-info'>
               <view class='order-bar-label'>备注：</view>
-              <view class='order-bar-name'>{{detail.detail_remark}}</view>
+              <view class='order-bar-name'>{{detail.detail_remark || '无'}}</view>
             </view>
           </view>
           <view class='order-bar-opt' bindtap='toNode' data-id="{{detail.id}}">节点状态>></view>

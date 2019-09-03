@@ -16,22 +16,22 @@
     <block wx:for="{{abnormalItems}}" wx:key="id" >
       <view class="order-table-items" bindtap='toInfo' data-id="{{item.id}}">
         <view class='order-table-head'>
-          <view class='order-table-name'>{{item.report_man}}的异常上报</view>
+          <view class='order-table-name'>{{item.report_man|| '无'}}的异常上报</view>
           <view class='order-table-time'>{{item.create_date}}</view>
         </view>
         <view class='order-table-content'>
           <view class='order-table-row'>
             <view class='order-row-bar'>
                <view class='order-bar-label'>异常类型：</view>
-               <view class='order-bar-name'>{{item.type}}</view>
+               <view class='order-bar-name'>{{item.type || '无'}}</view>
             </view>  
             <view class='order-row-bar'>
                <view class='order-bar-label'>发生环节：</view>
-               <view class='order-bar-name'>{{item.link}}</view>
+               <view class='order-bar-name'>{{item.link || '无'}}</view>
             </view>
             <view class='order-row-bar'>
                <view class='order-bar-label'>联系人：</view>
-               <view class='order-bar-name'>{{item.contact_man}}</view>
+               <view class='order-bar-name'>{{item.contact_man|| '无'}}</view>
             </view>
           </view>
 

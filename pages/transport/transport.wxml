@@ -52,18 +52,18 @@
         <view class='order-table-content'  bindtap='toInfo' data-shoporder-id="{{item.id}}">  
           <view class='order-table-line'>
             <view class='order-line-route'>
-              <view class='order-route-point'>{{item.consignment_station_name}}</view>
+              <view class='order-route-point'>{{item.consignment_station_name || '无'}}</view>
               <image mode="widthFix" src="../../images/arrow.png"></image>
-              <view class='order-route-point'>{{item.receiving_station_name}}</view>
+              <view class='order-route-point'>{{item.receiving_station_name || '无'}}</view>
             </view>
             <view class='order-line-cargo'>
               <view class='order-cargo-receive'>
                 <image src="../../images/person.png"></image>
-                <view>{{item.consignee_man}}收</view>
+                <view>{{item.consignee_man || '无'}}收</view>
               </view>
               <view class='order-cargo-num'>
                 <image src="../../images/cargo.png"></image>
-                <view>{{item.total_packing_quantity}}件</view>
+                <view>{{item.total_packing_quantity || '0'}}件</view>
               </view>
             </view>
           </view>

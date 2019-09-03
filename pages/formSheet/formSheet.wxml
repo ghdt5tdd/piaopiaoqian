@@ -24,27 +24,27 @@
             </view> -->
             <view class="order-bar-info">
               <view class='order-bar-label'>运单份数：</view>
-              <view class='order-bar-name'>{{item.total_order_count}}</view>
+              <view class='order-bar-name'>{{item.total_order_count || '0'}}</view>
             </view>
             <view class="order-bar-info">
               <view class='order-bar-label'>件数：</view>
-              <view class='order-bar-name'>{{item.total_packing_quantity}}</view>
+              <view class='order-bar-name'>{{item.total_packing_quantity || '0'}}</view>
             </view>
             <view class="order-bar-info">
               <view class='order-bar-label'>重量：</view>
-              <view class='order-bar-name'>{{item.total_weight}}</view>
+              <view class='order-bar-name'>{{item.total_weight || '0'}}</view>
             </view>
             <view class="order-bar-info">
               <view class='order-bar-label'>体积：</view>
-              <view class='order-bar-name'>{{item.total_volume}}</view>
+              <view class='order-bar-name'>{{item.total_volume || '0'}}</view>
             </view>
             <view class="order-bar-info">
               <view class='order-bar-label'>总金额：</view>
-              <view class='order-bar-name'>{{item.total_amount}}</view>
+              <view class='order-bar-name'>{{item.total_amount || '0'}}</view>
             </view>
             <view class="order-bar-info full" wx:if="{{item.remark}}" >
               <view class='order-bar-label'>备注：</view>
-              <view class='order-bar-name'>{{item.remark}}</view>
+              <view class='order-bar-name'>{{item.remark || '无'}}</view>
             </view>
           </view>
         </view>

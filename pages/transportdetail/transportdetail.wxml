@@ -17,12 +17,12 @@
     <view class='order-table-line'>
       <view class='order-line-route'>
         <view class='order-route-point'>
-          <view>{{shoporderDetail.consignment_station_name}}</view>
+          <view>{{shoporderDetail.consignment_station_name || '无'}}</view>
           <view class='order-route-time'>{{shoporderDetail.start_departing_date_short}}</view>
         </view>
         <image mode="widthFix" src="../../images/arrow.png"></image>
         <view class='order-route-point'>
-          <view>{{shoporderDetail.receiving_station_name}}</view>
+          <view>{{shoporderDetail.receiving_station_name || '无'}}</view>
           <view class='order-route-time'>{{shoporderDetail.estimated_arriver_date_short}}</view>
         </view>
       </view>
@@ -57,27 +57,27 @@
     <view class='order-block'>
       <view class='order-bar'>
         <view class='order-bar-label'>开始起运时间</view>
-        <view class='order-bar-text'>{{shoporderDetail.start_departing_date}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.start_departing_date || '无'}}</view>
       </view>
       <view class='order-bar'>
         <view class='order-bar-label'>预计送达时间</view>
-        <view class='order-bar-text'>{{shoporderDetail.estimated_arriver_date}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.estimated_arriver_date || '无'}}</view>
       </view>
       <view class='order-bar'>
         <view class='order-bar-label'>货物名称</view>
-        <view class='order-bar-text'>{{shoporderDetail.goods_name}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.goods_name || '无'}}</view>
       </view>
       <view class='order-bar'>
         <view class='order-bar-label'>货物件数</view>
-        <view class='order-bar-text'>{{shoporderDetail.total_packing_quantity}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.total_packing_quantity || '0'}}</view>
       </view>
       <view class='order-bar'>
         <view class='order-bar-label'>货物重量</view>
-        <view class='order-bar-text'>{{shoporderDetail.total_weight}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.total_weight || '0'}}</view>
       </view>
       <view class='order-bar'>
         <view class='order-bar-label'>货物体积</view>
-        <view class='order-bar-text'>{{shoporderDetail.total_volume}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.total_volume || '0'}}</view>
       </view>
       <view class='order-bar' wx:if="{{shoporderDetail.settlement_mode_text}}">
         <view class='order-bar-label'>付款方式</view>
@@ -89,22 +89,22 @@
       </view>
       <view class='order-bar'>
         <view class='order-bar-label'>备注</view>
-        <view class='order-bar-text'>{{shoporderDetail.remark}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.remark || '无'}}</view>
       </view>
     </view>
 
     <view class='order-block'>
       <view class='order-bar'>
         <view class='order-bar-label'>承运商</view>
-        <view class='order-bar-text'>{{shoporderDetail.carrier_name}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.carrier_name || '无'}}</view>
       </view>
       <view class='order-bar'>
         <view class='order-bar-label'>联系人</view>
-        <view class='order-bar-text'>{{shoporderDetail.carrier_contact_man}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.carrier_contact_man || '无'}}</view>
       </view>
       <view class='order-bar'>
         <view class='order-bar-label'>联系方式</view>
-        <view class='order-bar-text'>{{shoporderDetail.carrier_contact_way}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.carrier_contact_way || '无'}}</view>
       </view>
     </view>
 
@@ -214,21 +214,21 @@
           <view class='order-address-cargo'>
             <view>
               <text>货物名称：</text>
-              <text>{{shoporderDetail.goods_name}}</text>
+              <text>{{shoporderDetail.goods_name || '无'}}</text>
             </view>
             <view>
               <text>货物件数：</text>
-              <text>{{shoporderDetail.total_packing_quantity}}</text>
+              <text>{{shoporderDetail.total_packing_quantity || '0'}}</text>
             </view>
           </view>
           <view class='order-address-cargo'>
             <view>
               <text>货物重量：</text>
-              <text>{{shoporderDetail.total_weight}}</text>
+              <text>{{shoporderDetail.total_weight || '0'}}</text>
             </view>
             <view>
               <text>货物体积：</text>
-              <text>{{shoporderDetail.total_volume}}</text>
+              <text>{{shoporderDetail.total_volume || '0'}}</text>
             </view>
           </view>
         </view>
@@ -241,38 +241,38 @@
     <view class="stub-block half clearfix" >
       <view class='order-bar' >
         <view class='order-bar-label'>揽件人：</view>
-        <view class='order-bar-text'>{{shoporderDetail.consignee_man}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.consignee_man || '无'}}</view>
       </view>
       <view class='order-bar' >
         <view class='order-bar-label'>付款方式：</view>
-        <view class='order-bar-text'>{{shoporderDetail.settlement_mode_text}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.settlement_mode_text || '无'}}</view>
       </view>
       <view class='order-bar' >
         <view class='order-bar-label'>发件人：</view>
-        <view class='order-bar-text'>{{shoporderDetail.consigner_man}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.consigner_man || '无'}}</view>
       </view>
       <view class='order-bar' >
         <view class='order-bar-label'>签收人：</view>
-        <view class='order-bar-text'>{{returnReceipt.receipt_name}}</view>
+        <view class='order-bar-text'>{{returnReceipt.receipt_name || '无'}}</view>
       </view>
     </view>
 
     <view class="stub-block clearfix" >
      <view class='order-bar' >
         <view class='order-bar-label'>承运商：</view>
-        <view class='order-bar-text'>{{shoporderDetail.carrier_name}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.carrier_name || '无'}}</view>
       </view>
      <view class='order-bar' >
         <view class='order-bar-label'>创建时间：</view>
-        <view class='order-bar-text'>{{shoporderDetail.bill_date}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.bill_date || '无'}}</view>
       </view>
      <view class='order-bar' >
         <view class='order-bar-label'>起运时间：</view>
-        <view class='order-bar-text'>{{shoporderDetail.start_departing_date_short}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.start_departing_date_short || '无'}}</view>
       </view>
      <view class='order-bar' >
         <view class='order-bar-label'>备注：</view>
-        <view class='order-bar-text'>{{shoporderDetail.remark}}</view>
+        <view class='order-bar-text'>{{shoporderDetail.remark || '无'}}</view>
       </view>
     </view>
 

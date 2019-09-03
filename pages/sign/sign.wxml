@@ -52,18 +52,18 @@
 
           <view class='order-table-line'>
             <view class='order-line-route'>
-              <view class='order-route-point'>{{item.consignment_station_name}}</view>
+              <view class='order-route-point'>{{item.consignment_station_name || '无'}}</view>
               <image mode="widthFix" src="../../images/arrow.png"></image>
-              <view class='order-route-point'>{{item.receiving_station_name}}</view>
+              <view class='order-route-point'>{{item.receiving_station_name || '无'}}</view>
             </view>
             <view class='order-line-cargo'>
               <view class='order-cargo-receive'>
                 <image src="../../images/person.png"></image>
-                <view>{{item.consignee_name}}(收)</view>
+                <view>{{item.consignee_name || '无'}}(收)</view>
               </view>
               <view class='order-cargo-num'>
                 <image src="../../images/cargo.png"></image>
-                <view>{{item.total_packing_quantity}}件</view>
+                <view>{{item.total_packing_quantity || '0'}}件</view>
               </view>
             </view>
           </view>
@@ -140,9 +140,9 @@
 
             <view class='order-table-line'>
               <view class='order-line-route'>
-                <view class='order-route-point'>{{selectOrder.consignment_station_name}}</view>
+                <view class='order-route-point'>{{selectOrder.consignment_station_name || '无'}}</view>
                 <image mode="widthFix" src="../../images/arrow.png"></image>
-                <view class='order-route-point'>{{selectOrder.receiving_station_name}}</view>
+                <view class='order-route-point'>{{selectOrder.receiving_station_name || '无'}}</view>
               </view>
               <view class='order-bar-cargo'>
                 <view class='order-bar-dispatch'>
@@ -161,7 +161,7 @@
                 </view>
                 <view class='order-bar-num'>
                   <image src="../../images/cargo.png"></image>
-                  <view>{{selectOrder.total_packing_quantity}}件</view>
+                  <view>{{selectOrder.total_packing_quantity || '0'}}件</view>
                 </view>
               </view>
             </view>

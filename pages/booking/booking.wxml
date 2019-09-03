@@ -17,18 +17,18 @@
         <view class='order-table-content' bindtap='toInfo'>
           <view class='order-table-line'>
             <view class='order-line-route'>
-              <view class='order-route-point'>{{item.start}}</view>
+              <view class='order-route-point'>{{item.start || '无'}}</view>
               <image mode="widthFix" src="../../images/arrow.png"></image>
-              <view class='order-route-point'>{{item.end}}</view>
+              <view class='order-route-point'>{{item.end || '无'}}</view>
             </view>
             <view class='order-line-cargo'>
               <view class='order-cargo-receive'>
                 <image src="../../images/person.png"></image>
-                <view>{{item.receive}}收</view>
+                <view>{{item.receive || '无'}}收</view>
               </view>
               <view class='order-cargo-num'>
                 <image src="../../images/cargo.png"></image>
-                <view>{{item.num}}件</view>
+                <view>{{item.num || '无'}}件</view>
               </view>
             </view>
           </view>

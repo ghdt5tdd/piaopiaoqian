@@ -8,15 +8,15 @@
   </view>
   <view class='goods-bar-item'>
     <text class='goods-bar-label'>数量：</text>
-    <text class='goods-bar-name'>{{item.quantity}}</text>
+    <text class='goods-bar-name'>{{item.quantity || '0'}}</text>
   </view>
   <view class='goods-bar-item'>
     <text class='goods-bar-label'>商品编码：</text>
-    <text class='goods-bar-name'>{{item.goods_code}}</text>
+    <text class='goods-bar-name'>{{item.goods_code || '无'}}</text>
   </view>
   <view class='goods-bar-item'>
     <text class='goods-bar-label'>商品名称：</text>
-    <text class='goods-bar-name'>{{item.goods_name}}</text>
+    <text class='goods-bar-name'>{{item.goods_name || '无'}}</text>
   </view>
 </view>
 </scroll-view>

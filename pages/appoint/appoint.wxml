@@ -29,7 +29,7 @@
             <view class='order-line-cargo'>
               <view class='order-cargo-receive'>
                 <image src="../../images/receive-name.png"></image>
-                <view>{{item.consignee_man}}收</view>
+                <view>{{item.consignee_man || '无'}}收</view>
               </view>
               <view class='order-cargo-num'>
                 <image src="../../images/cargo.png"></image>
@@ -45,13 +45,13 @@
             <view class='order-line-cargo' wx:if="{{item.carrier_name && roleType !== 5}}">
               <view class='order-cargo-receive'>
                 <image src="../../images/send-by.png"></image>
-                <view>{{item.carrier_name}}承运</view>
+                <view>{{item.carrier_name || '无'}}承运</view>
               </view>
             </view>
             <view class='order-line-cargo' wx:if="{{item.truck_driver && roleType === 5}}">
               <view class='order-cargo-receive'>
                 <image src="../../images/send-by.png"></image>
-                <view>{{item.driver_full_name}}运输</view>
+                <view>{{item.driver_full_name || '无司机'}}运输</view>
               </view>
             </view>
             <view class='order-line-cargo' wx:if="{{roleType === 5 || talent_type_code === 'driver' || talent_type_code === 'bigdriver'}}">

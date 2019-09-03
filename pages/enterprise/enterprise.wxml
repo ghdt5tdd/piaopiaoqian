@@ -12,18 +12,18 @@
         <image class='enterprise-logo' src='{{item.logo_img}}'></image>
         <view>{{item.company}}</view>
         <view class='enterprise-spec' >电话:
-          <text class='orange' catchtap='bookTel' data-tel="{{item.service_hotline}}">{{item.service_hotline}}</text>
+          <text class='orange' catchtap='bookTel' data-tel="{{item.service_hotline}}">{{item.service_hotline || '无'}}</text>
         </view>
       </view>
       
       <view class='enterprise-info'>
         <view class='enterprise-bar'>
           <view class='enterprise-bar-label'>主营业务:</view>
-          <view class='enterprise-bar-info'>{{item.service_items}}</view>
+          <view class='enterprise-bar-info'>{{item.service_items || '无'}}</view>
         </view>
         <view class='enterprise-bar'>
           <view class='enterprise-bar-label'>企业地址:</view>
-          <view class='enterprise-bar-info'>{{item.address}}</view>
+          <view class='enterprise-bar-info'>{{item.address || '无'}}</view>
           <image class='enterprise-bar-icon' src="../../images/icon-address.png" bindtap='navigation' data-location="{{item.address}}"></image>
         </view>
       </view>

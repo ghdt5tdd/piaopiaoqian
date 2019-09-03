@@ -3,15 +3,15 @@
   <block>
     <view class="node-head-items">
       <view class="node-head-label">商品编码：</view>
-      <view class="node-head-name">{{saleOrderDetail.up.goods_code}}</view>
+      <view class="node-head-name">{{saleOrderDetail.up.goods_code || '无'}}</view>
     </view>
     <view class="node-head-items">
       <view class="node-head-label">商品名称：</view>
-      <view class="node-head-name">{{saleOrderDetail.up.goods_name}}</view>
+      <view class="node-head-name">{{saleOrderDetail.up.goods_name || '无'}}</view>
     </view>
     <view class="node-head-items">
       <view class="node-head-label">剩余数量：</view>
-      <view class="node-head-name">{{saleOrderDetail.up.residue_quantity}}</view>
+      <view class="node-head-name">{{saleOrderDetail.up.residue_quantity || '0'}}</view>
       <!-- <view class='node-head-btn'>提醒发货</view> -->
     </view>
     <view class="node-head-items">

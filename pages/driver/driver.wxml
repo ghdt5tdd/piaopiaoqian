@@ -30,7 +30,7 @@
         </view> -->
         <view class='driver-item-bar'>
           <view class='driver-item-label'>备注:</view>
-          <view>{{item.remark}}</view>
+          <view>{{item.remark || '无'}}</view>
         </view>
       </view>
     </view>
