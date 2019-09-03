@@ -79,7 +79,7 @@
 </view>
 
 <view class='node-logistics'>
-  <view wx:for="{{saleOrderDetail.bottom}}" wx:for-item="bottom" class="logistics-list">
+  <view wx:for="{{saleOrderDetail.bottom}}" wx:for-item="bottom" wx:key="node_content" class="logistics-list">
     <view class="logistics-list-item">
       <view class="logistics-list-circle">
         <image wx:if="{{index == 0}}" src="../../images/track-on.png" mode="widthFix"></image>

@@ -9,7 +9,7 @@
 
 <scroll-view scroll-y="true" style="height:calc(100%- 186rpx);position:fixed;top:106rpx;bottom:80rpx">
   <view class='order-table'>
-    <block wx:for="{{abnormalItems}}">
+    <block wx:for="{{abnormalItems}}" wx:key="id">
       <view class="order-table-items">
         <view class='order-table-head'>
           <view class='order-table-name'>工单号：{{item.id}}</view>

@@ -8,7 +8,7 @@
 </view>
 <scroll-view scroll-y="true" style="height:calc(100%- 186rpx);position:fixed;top:106rpx;bottom:80rpx">
   <view class='order-table'>
-    <view class='order-table-items' wx:for="{{visitorRecord}}">
+    <view class='order-table-items' wx:for="{{visitorRecord}}" wx:key="name">
       <view class='order-table-head'>
         <view class='order-table-name'>访客：{{item.name}}</view>
         <view class='order-table-time'>{{item.time}}</view>

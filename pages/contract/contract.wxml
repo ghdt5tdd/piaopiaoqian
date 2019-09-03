@@ -10,7 +10,7 @@
     </block>
   </view>
   <view class='query-date'>
-    <block wx:for="{{queryDate}}">
+    <block wx:for="{{queryDate}}" wx:key="name">
       <view class="query-date-items  {{item.status?'active':''}}">
         <view hidden="{{!item.status}}" class='query-date-name'>{{item.name}}</view>
         <view class='query-date-val' bindtap='showDate' data-index="{{index}}">{{item.val}}</view>
@@ -41,7 +41,7 @@
 
 <scroll-view scroll-y="true" style="height:calc(100vh - 302rpx);position:fixed;top:302rpx;bottom:0">
   <view class='order-table'>
-    <block wx:for="{{orderTable}}">
+    <block wx:for="{{orderTable}}" wx:key="id">
       <view class="order-table-items">
         <view class="order-table-head">
           <view class='order-table-id'>单据编号：{{item.id}}</view>
@@ -49,7 +49,7 @@
         </view>
         <view class='order-table-content' bindtap="toInfo">
           <view class='order-table-bar'>
-            <view class="order-bar-info {{item.one ?'oneline':'' }}" wx:for="{{item.info}}">
+            <view class="order-bar-info {{item.one ?'oneline':'' }}" wx:for="{{item.info}}" wx:key="name">
               <view class='order-bar-label' wx:if="{{item.label != ''}}">{{item.label}}：</view>
               <view class='order-bar-name'>{{item.name}}</view>
             </view>

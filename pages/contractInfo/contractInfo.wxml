@@ -7,7 +7,7 @@
         </view>
         <view class='order-table-content'>
           <view class='order-table-bar'>
-            <view class="order-bar-info {{item.one ?'oneline':'' }}" wx:for="{{info}}">
+            <view class="order-bar-info {{item.one ?'oneline':'' }}" wx:for="{{info}}" wx:key="name">
               <view class='order-bar-label' wx:if="{{item.label != ''}}">{{item.label}}：</view>
               <view class='order-bar-name'>{{item.name}}</view>
             </view>

@@ -13,7 +13,7 @@
     </block>
   </view>
   <view class='query-date'>
-    <block wx:for="{{queryDate}}">
+    <block wx:for="{{queryDate}}" wx:key="name">
       <view class="query-date-items  {{item.status?'active':''}}">
         <view hidden="{{!item.status}}" class='query-date-name'>{{item.name}}</view>
         <view class='query-date-val' bindtap='showDate' data-index="{{index}}">{{item.val}}</view>
@@ -30,7 +30,7 @@
 
 <scroll-view scroll-y="true" style="height:calc(100vh - 216rpx);position:fixed;top:216rpx;bottom:0">
   <view class='order-table'>
-    <block wx:for="{{abnormalItems}}">
+    <block wx:for="{{abnormalItems}}" wx:key="name">
       <view class="order-table-items">
         <view class='order-table-head'>
           <view class='order-table-name'>{{item.name}}的汇报</view>

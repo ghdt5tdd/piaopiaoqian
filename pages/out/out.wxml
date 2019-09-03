@@ -10,7 +10,7 @@
     </block>
   </view>
   <view class='query-date'>
-    <block wx:for="{{queryDate}}">
+    <block wx:for="{{queryDate}}" wx:key="name">
       <view class="query-date-items  {{item.status?'active':''}}">
         <view hidden="{{!item.status}}" class='query-date-name'>{{item.name}}</view>
         <view class='query-date-val' bindtap='showDate' data-index="{{index}}">{{item.val}}</view>

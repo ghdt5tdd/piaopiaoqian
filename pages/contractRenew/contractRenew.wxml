@@ -10,7 +10,7 @@
     </block>
   </view>
   <view class='query-date'>
-    <block wx:for="{{queryDate}}">
+    <block wx:for="{{queryDate}}" wx:key="name">
       <view class="query-date-items  {{item.status?'active':''}}">
         <view hidden="{{!item.status}}" class='query-date-name'>{{item.name}}</view>
         <view class='query-date-val' bindtap='showDate' data-index="{{index}}">{{item.val}}</view>
@@ -40,14 +40,14 @@
 
 
 <scroll-view class="renew-content {{renew?'on':''}}" scroll-y="true">
-  <view class="order-table-items" wx:for="{{orderTable}}">
+  <view class="order-table-items" wx:for="{{orderTable}}" wx:key="id">
     <view class="order-table-head">
       <view class='order-table-id'>单据编号：{{item.id}}</view>
       <view class='order-table-time'>{{item.time}}</view>
     </view>
 
     <view class='order-table-bar'>
-      <view class="order-bar-info {{item.one ?'oneline':'' }}" wx:for="{{item.info}}">
+      <view class="order-bar-info {{item.one ?'oneline':'' }}" wx:for="{{item.info}}" wx:key="name">
         <view class='order-bar-label' wx:if="{{item.label != ''}}">{{item.label}}：</view>
         <view class='order-bar-name'>{{item.name}}</view>
       </view>
