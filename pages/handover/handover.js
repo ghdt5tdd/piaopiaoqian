@@ -14,6 +14,7 @@ Page({
   data: {
     x:undefined,
     y:undefined,
+    fixedTop: false,
     query: {
       orderNo: '',
       state: 0,
@@ -65,13 +66,11 @@ Page({
 
   //清除筛选条件
   conditionClear: function(e) {
-    var index = e.currentTarget.dataset.index
-    var queryItems = this.data.queryItems
-    queryItems[index].status = false
-    queryItems[index].val = ''
+    const key = e.currentTarget.dataset.key
+    this.data.query[key] = ''
 
     this.setData({
-      queryItems: queryItems,
+      query: this.data.query,
     })
   },
 
@@ -455,10 +454,33 @@ Page({
   },
 
 
+  //页面整体滚动
+  scroll: function (e) {
+    let scrollTop = this.data.scrollTop
+    let fixedTop = e.detail.scrollTop - wx.getStorageSync('fixedTop')
+    //+ (112 / 750 * wx.getSystemInfoSync().windowWidth)
+
+    // 是否固定住
+    if (fixedTop > 0) {
+      this.setData({
+        fixedTop: true
+      })
+    } else {
+      this.setData({
+        fixedTop: false
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
+    let query = wx.createSelectorQuery()
+    query.select('.order-status').boundingClientRect(function (rect) {
+      var fixedTop = rect.top
+      wx.setStorageSync('fixedTop', fixedTop)
+    }).exec()
 
   },
 

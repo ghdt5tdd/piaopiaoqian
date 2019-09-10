@@ -1,6 +1,6 @@
 // pages/handover/handover.js
 const ajax = require('../../utils/ajax.js')
-const util = require('../../utils/util.js') 
+const util = require('../../utils/util.js')
 const QRCode = require('../../utils/weapp-qrcode.js')
 let qr
 Page({
@@ -9,8 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    x:undefined,
-    y:undefined,
+    x: undefined,
+    y: undefined,
+    fixedTop: false,
     query: {
       orderNo: '',
       state: 1,
@@ -21,7 +22,7 @@ Page({
       pageSize: 10,
       loadCompleted: false
     },
-    orders:[],
+    orders: [],
     hideFilter: true,
     hide: true,
     filter: [],
@@ -39,7 +40,7 @@ Page({
     hideCode: true,
   },
 
-  search: function () {
+  search: function() {
     this.data.query.page = 1
     this.data.query.loadCompleted = false
     this.setData({
@@ -51,7 +52,7 @@ Page({
   },
 
   //输入筛选条件
-  bindInput: function (e) {
+  bindInput: function(e) {
     const key = e.currentTarget.dataset.key
     this.data.query[key] = e.detail.value
 
@@ -62,18 +63,16 @@ Page({
 
   //清除筛选条件
   conditionClear: function(e) {
-    var index = e.currentTarget.dataset.index
-    var queryItems = this.data.queryItems
-    queryItems[index].status = false
-    queryItems[index].val = ''
+    const key = e.currentTarget.dataset.key
+    this.data.query[key] = ''
 
     this.setData({
-      queryItems: queryItems,
+      query: this.data.query,
     })
   },
 
   //打开日历
-  showDate: function (e) {
+  showDate: function(e) {
     wx.setStorageSync('timeindex', e.currentTarget.dataset.key)
     this.setData({
       showDate: true,
@@ -105,7 +104,7 @@ Page({
   },
 
   //选择我的订单状态
-  selectStatus: function (e) {
+  selectStatus: function(e) {
     var state = e.target.dataset.state;
     this.data.query.state = state
     this.data.query.page = 1
@@ -124,9 +123,9 @@ Page({
       url: '../transportdetail/transportdetail?id=' + e.currentTarget.dataset.shoporderId
     })
   },
-  
+
   //打开二维码弹窗
-  showCode: function (e) {
+  showCode: function(e) {
     wx.showLoading({
       title: '二维码生成中...',
     })
@@ -156,7 +155,7 @@ Page({
     }
   },
 
-  resetQuery: function () {
+  resetQuery: function() {
     let cur_day = this.data.cur_day
     let cur_month = this.data.cur_month
     if (cur_day < 10) {
@@ -174,26 +173,27 @@ Page({
   /** 
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setNowDate();
     this.resetQuery()
     this.getOrder()
     this.getLocation()
   },
 
-  getLocation:function(){
+  getLocation: function() {
     wx.getLocation({
       success: res => {
         const x = res.longitude
         const y = res.latitude
         this.setData({
-          x,y
+          x,
+          y
         })
       }
     })
   },
 
-  showScan: function () {
+  showScan: function() {
     wx.scanCode({
       success: (res) => {
         const api = res.result
@@ -203,11 +203,11 @@ Page({
           const id = util.getQueryString(api, 'id')
           const ac = util.getQueryString(api, 'ac')
 
-          let 
-           successText,
-           loadingText
+          let
+            successText,
+            loadingText
 
-          if(ac) {
+          if (ac) {
             switch (ac) {
               case 'qs':
                 successText = '签收成功'
@@ -264,7 +264,7 @@ Page({
         }
 
       },
-      fail: function (res) {
+      fail: function(res) {
         wx.showToast({
           title: '扫码失败',
         })
@@ -272,7 +272,7 @@ Page({
     })
   },
 
-  lower: function (e) {
+  lower: function(e) {
     let page = this.data.query.page
     const pageSize = this.data.query.pageSize
     const loadCompleted = this.data.query.loadCompleted
@@ -282,13 +282,13 @@ Page({
         title: '更多运单加载中...',
       })
       this.data.query.page++
-      this.setData({
-        query: this.data.query
-      }, () => {
-        this.getOrder(() => {
-          wx.hideLoading()
+        this.setData({
+          query: this.data.query
+        }, () => {
+          this.getOrder(() => {
+            wx.hideLoading()
+          })
         })
-      })
     } else {
       wx.showToast({
         title: '运单已全部加载完毕',
@@ -297,7 +297,7 @@ Page({
     }
   },
 
-  getOrder: function (callback) {
+  getOrder: function(callback) {
     wx.showLoading({
       title: '查询中..',
     })
@@ -338,7 +338,7 @@ Page({
   },
 
   //选择日期
-  dateSelectAction: function (e) {
+  dateSelectAction: function(e) {
     const key = wx.getStorageSync('timeindex')
     var cur_day = e.currentTarget.dataset.idx;
     var cur_date = cur_day + 1;
@@ -366,7 +366,7 @@ Page({
   },
 
   //构造日历插件
-  setNowDate: function () {
+  setNowDate: function() {
     const date = new Date();
     const cur_year = date.getFullYear();
     const cur_month = date.getMonth() + 1;
@@ -452,13 +452,35 @@ Page({
   },
 
 
+  //页面整体滚动
+  scroll: function (e) {
+    let scrollTop = this.data.scrollTop
+    let fixedTop = e.detail.scrollTop - wx.getStorageSync('fixedTop')
+    //+ (112 / 750 * wx.getSystemInfoSync().windowWidth)
+
+    // 是否固定住
+    if (fixedTop > 0) {
+      this.setData({
+        fixedTop: true
+      })
+    } else {
+      this.setData({
+        fixedTop: false
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
+    let query = wx.createSelectorQuery()
+    query.select('.order-status').boundingClientRect(function (rect) {
+      var fixedTop = rect.top
+      wx.setStorageSync('fixedTop', fixedTop)
+    }).exec()
 
   },
-
   /**
    * 生命周期函数--监听页面显示
    */

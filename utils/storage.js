@@ -26,19 +26,11 @@ function get(k, def) {
   var deadtime = parseInt(wx.getStorageSync(k + dtime))
   if (deadtime) {
     if (parseInt(deadtime) < Date.parse(new Date()) / 1000) {
-      if (def) { 
-        return def; 
-      } else {
-        return;
-      }
+      return def ? def : undefined
     }
   }
   var res = wx.getStorageSync(k);
-  if (res) {
-    return res;
-  } else {
-    return def;
-  }
+  return res ? res : def
 }
 
 function remove(k) {

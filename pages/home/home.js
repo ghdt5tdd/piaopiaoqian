@@ -16,12 +16,6 @@ moduleItemImgs.set('7', { img: '../../images/model3.png', to: 'toAppoint' })//�
 moduleItemImgs.set('8', { img: '../../images/model3.png', to: 'toReceive' })//货运单接受
 moduleItemImgs.set('9', { img: '../../images/model3.png', to: 'toSign' })//货运单签收
 
-//新加的，还没确定
-moduleItemImgs.set('10', { img: '../../images/model10.png', to: 'toOut' })//外出报告
-moduleItemImgs.set('11', { img: '../../images/model11.png', to: 'toDaily' })//工作报告
-moduleItemImgs.set('12', { img: '../../images/model12.png', to: 'toVisitor' })//访客邀约
-moduleItemImgs.set('13', { img: '../../images/model13.png', to: 'toRegister' })//访客登记
-
 moduleItemImgs.set('14', { img: '../../images/model5.png', to: 'toForm' })//统计报表
 moduleItemImgs.set('15', { img: '../../images/notice6.png', to: 'toSheet' })//运费结算
 // moduleItemImgs.set('', { img: '../../images/model14.png', to: 'toContract' })//合同管理
@@ -31,6 +25,12 @@ moduleItemImgs.set('16', { img: '../../images/model17.png', to: 'toEnter' })//�
 moduleItemImgs.set('17', { img: '../../images/model18.png', to: 'toBillReceive' })//代理单接收
 moduleItemImgs.set('18', { img: '../../images/model19.png', to: 'toBillReport' })//代理进仓上报
 moduleItemImgs.set('19', { img: '../../images/model3.png', to: 'toEnterover' })//代理单交接 
+//还没做
+moduleItemImgs.set('10', { img: '../../images/model10.png', to: 'toOut' })//外出报告
+moduleItemImgs.set('11', { img: '../../images/model11.png', to: 'toDaily' })//工作报告
+moduleItemImgs.set('12', { img: '../../images/model12.png', to: 'toVisitor' })//访客邀约
+moduleItemImgs.set('13', { img: '../../images/model13.png', to: 'toRegister' })//访客登记
+
 
 Page({
   data: {

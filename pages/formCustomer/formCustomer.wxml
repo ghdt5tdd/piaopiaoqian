@@ -57,7 +57,11 @@
         <view class='td' >{{item.timeliness_count}}</view>
         <view class='td' >{{item.un_timeliness_count}}</view>
         <view class='td' >{{item.shop_order_count}}</view>
+        <view class='td' >{{item.sign_count}}</view>
+        <view class='td' >{{item.un_sign_count}}</view>
         <view class='td' >{{item.sign_timeliness_rate}}</view>
+        <view class='td' >{{item.timeliness_rate}}</view>
+        <view class='td' >{{item.sign_rate}}</view>
       </block>
 
       <block wx:if="{{type === 'customerSend' || type === 'customerReturn'}}">
@@ -70,7 +74,11 @@
         <view class='td' >{{item.timeliness_count}}</view>
         <view class='td' >{{item.un_timeliness_count}}</view>
         <view class='td' >{{item.shop_order_count}}</view>
+        <view class='td' >{{item.sign_count}}</view>
+        <view class='td' >{{item.un_sign_count}}</view>
         <view class='td' >{{item.sign_timeliness_rate}}</view>
+        <view class='td' >{{item.timeliness_rate}}</view>
+        <view class='td' >{{item.sign_rate}}</view>
       </block>
 
       <block wx:if="{{type === 'forwarder'}}">
@@ -82,7 +90,11 @@
         <view class='td' >{{item.timeliness_count}}</view>
         <view class='td' >{{item.un_timeliness_count}}</view>
         <view class='td' >{{item.shop_order_count}}</view>
+        <view class='td' >{{item.sign_count}}</view>
+        <view class='td' >{{item.un_sign_count}}</view>
         <view class='td' >{{item.sign_timeliness_rate}}</view>
+        <view class='td' >{{item.timeliness_rate}}</view>
+        <view class='td' >{{item.sign_rate}}</view>
       </block>
 
       <block wx:if="{{type === 'areaSign'}}">

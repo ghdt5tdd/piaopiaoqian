@@ -29,7 +29,7 @@ Page({
     hide: true,
     filter: [],
     Index: "",
-
+    fixedTop: false,
 
     orderStatus: [{
       name: "全部",
@@ -416,11 +416,33 @@ Page({
 
 
 
+  //页面整体滚动
+  scroll: function (e) {
+    let scrollTop = this.data.scrollTop
+    let fixedTop = e.detail.scrollTop - wx.getStorageSync('fixedTop')
+    //+ (112 / 750 * wx.getSystemInfoSync().windowWidth)
+
+    // 是否固定住
+    if (fixedTop > 0) {
+      this.setData({
+        fixedTop: true
+      })
+    } else {
+      this.setData({
+        fixedTop: false
+      })
+    }
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
+    let query = wx.createSelectorQuery()
+    query.select('.order-status').boundingClientRect(function (rect) {
+      var fixedTop = rect.top
+      wx.setStorageSync('fixedTop', fixedTop)
+    }).exec()
 
   },
 

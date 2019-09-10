@@ -94,7 +94,7 @@ Page({
       }
     }, 1000)
 
-    ajax.postApi('app/order/sendDriverReportToWarehouseShopOrderMessage', {
+    ajax.postApi('app/order/sendReportToWarehouseShopOrderMessage', {
       location: this.data.x + ',' + this.data.y,
       idList: this.data.selectOrder.id,
       formId,
@@ -200,7 +200,7 @@ Page({
       title: '查询中..',
     })
 
-    ajax.getApi('app/order/getDriverSendingShopOrderList', {
+    ajax.getApi('app/order/getReportToWarehouseShopOrderList', {
       state: this.data.selectStatus,
       page: this.data.page,
       pageSize: this.data.pageSize,
@@ -259,13 +259,13 @@ Page({
     wx.showLoading({
       title: '提交中...',
     })
-    ajax.postApi('app/order/driverReportToWarehouseShopOrder', {
+    ajax.postApi('app/order/reportToWarehouseShopOrder', {
       code: this.data.code,
       location: this.data.x + ',' + this.data.y,
       idList: this.data.selectOrder.id,
       agent_warehouse_entry_fee: this.data.agentWarehouseEntryFee,
       agent_else_fee: this.data.agentElseFee,
-      // imgs: shopImgs
+      imgs: JSON.stringify(this.data.shopImgs)
     }, (err, res) => {
       this.setData({
         hideReport: true,
@@ -341,18 +341,18 @@ Page({
   },
 
   getLocation: function () {
-    let latitude = this.data.latitude
-    let longitude = this.data.longitude
-    if (!latitude) {
+    let x = this.data.x
+    let y = this.data.y
+    if (!x) {
       wx.getLocation({
         type: 'wgs84',//默认为 wgs84 返回 gps 坐标，gcj02 返回可用于wx.openLocation的坐标
         success: res => {
           console.log(res)
-          latitude = res.latitude
-          longitude = res.longitude
+          x = res.latitude
+          y = res.longitude
           this.setData({
-            latitude,
-            longitude
+            x,
+            y
           })
         },
         fail: res => {

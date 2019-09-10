@@ -166,7 +166,7 @@ button::after {
   padding-right: 20rpx;
   color: #999;
   margin: 10rpx 0;
-  position: relative
+  position: relative;
 }
 
 .query-condition-items:nth-child(even) {
@@ -240,8 +240,8 @@ button::after {
 .order-status {
   border-bottom: 2rpx solid #e7e7e7;
   background: #fff;
-  margin-top: 20rpx;
   height: 84rpx;
+  border-top: 2rpx solid #e7e7e7;
   width: 100%;
 }
 
@@ -511,3 +511,80 @@ button::after {
   height: 32rpx;
   margin: 0 1rpx;
 }
+
+
+
+/**页面滚动效果-搜索条件**/
+
+.query {
+  position: relative;
+  background: #fff;
+  padding: 0 20rpx 10rpx 0;
+  overflow: hidden;
+}
+
+.query-condition, .query-date {
+  overflow: hidden;
+  padding-right: 80rpx;
+}
+
+.query-condition-items, .query-date-items {
+  float: left;
+  width: calc(50% - 20rpx);
+  border: none;
+  padding: 0;
+  color: #999;
+  margin: 10rpx 0 10rpx 20rpx;
+  position: relative;
+}
+
+.query-condition-items:nth-child(even), .query-date-items:nth-child(even) {
+  border: none;
+  padding: 0;
+}
+
+.query-conditions-name, .query-date-name {
+  font-size: 34rpx;
+  line-height: 40rpx;
+  margin-bottom: 10rpx;
+  color: #000
+}
+
+.query-condition-items input, .query-date-items .query-date-val {
+  font-size: 32rpx;
+  line-height: 50rpx;
+  height: 50rpx;
+  border-bottom: 2rpx solid #e7e7e7;
+  padding-bottom: 10rpx;
+}
+
+.search-clear {
+  position: absolute;
+  width: 36rpx;
+  height: 36rpx;
+  right: 20rpx !important;
+  bottom: 20rpx;
+  z-index: 9;
+}
+
+.query-filter, .query-search {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  bottom: 40rpx;
+  right: 20rpx;
+}
+
+.query-filter {
+  top: 60rpx;
+  bottom: auto;
+}
+
+.order-status.fixed {
+  position: fixed;
+  z-index: 99;
+  top:0;
+  left:0;
+  right: 0
+}
+

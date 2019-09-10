@@ -1,27 +1,27 @@
 <!--pages/transport/transport.wxml-->
+<scroll-view scroll-y="true" style="height:100vh;" bindscroll="scroll" bindscrolltolower="lower">
 <view class='query'>
   <view class='query-condition'>
     <block >
-      <view class="query-condition-items active">
+      <view class="query-condition-items">
         <view class='query-conditions-name'>运单号</view>
-        <input placeholder="请输入运单号" bindinput='bindInput'  data-key="orderNo" />
-        <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-index="{{index}}"></image> -->
+        <input placeholder="请输入运单号" bindinput='bindInput' value="{{query.orderNo}}"  data-key="orderNo" />
+        <image class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-key="orderNo"></image>
       </view>
-      <view class="query-condition-items active">
+      <view class="query-condition-items">
         <view class='query-conditions-name'>客户卡号</view>
-        <input placeholder="请输入客户卡号" bindinput='bindInput'  data-key="consigneeCode" />
-        <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-index="{{index}}"></image> -->
+        <input placeholder="请输入客户卡号" bindinput='bindInput'  value="{{query.consigneeCode}}" data-key="consigneeCode" />
+        <image  class='search-clear' src="../../images/clear.png" bindtap='conditionClear' data-key="consigneeCode"></image>
       </view>
     </block>
   </view>
   <view class='query-date'>
-      <view class="query-date-items active">
+      <view class="query-date-items">
         <view class='query-date-name'>起始日期</view>
         <view class='query-date-val' bindtap='showDate'data-key="startDate"  >{{query.startDate}}</view>
         <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='DateClear' data-index="{{index}}"></image> -->
       </view>
-      <view class="query-date-items active" >至</view>
-      <view class="query-date-items active">
+      <view class="query-date-items">
         <view class='query-date-name'>结束日期</view>
         <view class='query-date-val' bindtap='showDate' data-key="endDate" >{{query.endDate}}</view>
         <!-- <image hidden='{{!item.status}}' class='search-clear' src="../../images/clear.png" bindtap='DateClear' data-index="{{index}}"></image> -->
@@ -32,15 +32,16 @@
 
 </view>
 
-<view class='order-status {{ul}}'>
-    <block wx:for="{{orderStatus}}" wx:key="value">
-      <view class="order-status-items  {{query.state == item.value?'on':''}}" bindtap='selectStatus' data-state="{{item.value}}">
-        {{item.name}}
-      </view>
-    </block>
-</view>
+  <scroll-view class="order-status {{fixedTop?'fixed':''}} ul-5" scroll-x="true">
+    <view style='width:{{orderWidth}}'>
+        <block wx:for="{{orderStatus}}" wx:key="value">
+          <view class="order-status-items  {{query.state == item.value?'on':''}}" bindtap='selectStatus' data-state="{{item.value}}">
+            {{item.name}}
+          </view>
+        </block>
+    </view>
+  </scroll-view>
 
-<scroll-view scroll-y="true" style="height:calc(100%- 302rpx);position:fixed;top:302rpx;bottom:0" bindscrolltolower="lower">
   <view class='order-table'>
 
     <block wx:for="{{orders}}" wx:key="id">
@@ -82,8 +83,6 @@
 
       </view>
     </block>
-
-
   </view>
 </scroll-view>
 
